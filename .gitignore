@@ -60,3 +60,7 @@ ExportedObj/
 .vs/
 .gradle/
 .consulo/
+
+# Exceptions
+!*.dll
+!*.obj
