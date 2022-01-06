@@ -17,8 +17,6 @@ namespace Engine.Logic.Locations
         {
             if (Game.Instance.Runtime.Scene != Scenes.SceneName.Location)
                 Destroy(this);
-
-            EnterToBattle();
         }
 
         [SerializeField] private GameObject damageHintPrefab;

@@ -19,7 +19,9 @@ namespace Engine.DB
         #region Ctor
 
         /// <summary>
-        /// Список доступных языков
+        /// Список доступных языков, которыми будет набиваться БД при инициализации
+        /// ---
+        /// List of available languages, which will be filled in the database during initialization
         /// </summary>
         private static readonly ISet<string> i18nList = new HashSet<string>()
         {
@@ -109,6 +111,12 @@ namespace Engine.DB
 
         #endregion
 
+        #region Hidden Fields
+
+        private object connectionLocker = new object();
+
+        #endregion
+
         #region Properties
 
         public bool IsDbExists
@@ -177,11 +185,10 @@ namespace Engine.DB
             }
         }
 
-        private object connectionLocker = new object();
 
         protected virtual SQLiteConnection MakeConnection()
         {
-#if UNITY_EDITOR
+#if UNITY_EDITOR && DEBUG
             if (!IsDbExists)
             {
                 Debug.LogError("db file name '" + DbFileName + "' - not exists!");
@@ -246,6 +253,7 @@ namespace Engine.DB
                 Debug.LogException(ex);
             }
         }
+
 
     }
 

@@ -1,4 +1,7 @@
 ﻿using Engine.Data;
+using Engine.EGUI;
+using Engine.Logic.Locations.Battle.Actions;
+using System;
 using System.Text;
 using UnityEngine;
 using UnityEngine.UI;
@@ -7,14 +10,14 @@ namespace Engine.Logic.Locations
 {
 
     /// <summary>
+    /// 
     /// Управление всеми действиями которые может совершить игрок во время боя
+    /// ---
+    /// Control all the actions that the player can perform during combat
+    /// 
     /// </summary>
-    public class BattleActionsController : MonoBehaviour
+    public class BattleActionsController : Panel
     {
-        /// <summary>
-        /// Контейнер
-        /// </summary>
-        [SerializeField] private GameObject body;
 
         /// <summary>
         /// Описание действия совершаемого игроком
@@ -26,37 +29,9 @@ namespace Engine.Logic.Locations
         /// </summary>
         [SerializeField] private Button btnActionRun;
 
-        /// <summary>
-        /// Кнопка отмены действия
-        /// </summary>
-        [SerializeField] private Button btnActionCancel;
-
-        /// <summary>
-        /// Выбранная рука и выбранное действие
-        /// </summary>
-        [SerializeField] private HandsController handsController;
-
-        public BattleActionMoveContext MoveContext = new BattleActionMoveContext();
-        public BattleActionUseContext UseContext = new BattleActionUseContext();
-        public BattleActionAttackContext AttackContext = new BattleActionAttackContext();
-
-        public void Show()
-        {
-            Visible = true;
-            body.SetActive(true);
-        }
-
-        public void Hide()
-        {
-            Visible = false;
-            body.SetActive(false);
-        }
-
-        public bool Visible
-        {
-            get;
-            set;
-        } = false;
+        public BattleActionMoveContext MoveContext { get; } = new BattleActionMoveContext();
+        public BattleActionUseContext UseContext { get; } = new BattleActionUseContext();
+        public BattleActionAttackContext AttackContext { get; } = new BattleActionAttackContext();
 
         public int NeedAP
         {
@@ -145,218 +120,56 @@ namespace Engine.Logic.Locations
             return builder.ToString();
         }
 
+        /// <summary>
+        ///     Выполняет поиск контекста по типу действия
+        ///     ---
+        ///     Performs a context search by type of action
+        /// </summary>
+        /// <param name="action">
+        ///     Действие, по которому выполняется поиск контекста
+        ///     ---
+        ///     Action on which the context search is performed
+        /// </param>
+        /// <returns>
+        ///     Контекст, соответствующий указанному действию action
+        ///     ---
+        ///     Context corresponding to the specified action
+        /// </returns>
+        private IBattleActionContext GetContextByAction(BattleAction action)
+        {
+            switch(action)
+            {
+                case BattleAction.Move   : return MoveContext;
+                case BattleAction.Use    : return UseContext;
+                case BattleAction.Attack : return AttackContext;
+                default:
+                    throw new NotSupportedException("value '" + action.ToString() + "' isn't supported!");
+            }
+        }
+
+        /// <summary>
+        /// Клик по кнопке "Выполнить"
+        /// ---
+        /// Click the "Run" button
+        /// </summary>
         public void DoActionClick()
         {
             if (Game.Instance.Runtime.BattleContext.CurrentCharacterAP < NeedAP)
                 return;
 
-            switch(Action)
-            {
-                case BattleAction.Move:
-                    DoMove();
-                    break;
-                case BattleAction.Use:
-                    DoUseLocationObject();
-                    break;
-                case BattleAction.Attack:
-                    DoAttack();
-                    break;
-            }
+            var context = GetContextByAction(Action);
+            BattleActionFactory.Instance.InvokeProcess(Action, context);
         }
 
+        /// <summary>
+        /// Клик по кнопке "Отменить"
+        /// ---
+        /// Click the "Cancel" button
+        /// </summary>
         public void DoCancelClick()
         {
-            switch (Action)
-            {
-                case BattleAction.Move:
-                    DoCancelMove();
-                    break;
-                case BattleAction.Use:
-                    DoCancelUseLocationObject();
-                    break;
-                case BattleAction.Attack:
-                    DoCancelAttack();
-                    break;
-            }
-        }
-
-        public void DoCancelAttack()
-        {
-            NeedAP = 0;
-
-            AttackContext.Weapon = null;
-            if (AttackContext.AttackMarker != null)
-                GameObject.Destroy(AttackContext.AttackMarker);
-            AttackContext.AttackMarker = null;
-
-            var handsActionsController = ObjectFinder.Find<HandsActionsController>();
-            handsActionsController.DoUnselectActions();
-            handsActionsController.HideActions();
-
-            Hide();
-        }
-
-        public void DoCancelMove()
-        {
-            NeedAP = 0;
-
-            ObjectFinder.Find<CharacterMoveVisializerController>().HidePath();
-            MoveContext.Points = null;
-
-            Hide();
-        }
-
-        public void DoCancelUseLocationObject()
-        {
-            UseContext.UseItem = null;
-
-            Hide();
-        }
-
-        public void DoUseLocationObject()
-        {
-            Game.Instance.Runtime.BattleContext.CurrentCharacterAP -= NeedAP; // Тратим ОД
-
-            var useObject = UseContext.UseItem.GetComponent<IUseObjectController>();
-            if(useObject != null)
-            {
-                useObject.DoUse();
-                Hide();
-                return;
-            }
-        }
-
-        public void DoAttack()
-        {
-            var handsController = ObjectFinder.Find<HandsController>();
-            var handsActionsController = ObjectFinder.Find<HandsActionsController>();
-            var character = ObjectFinder.Find<LocationCharacter>();
-            if(AttackContext.Weapon != null)
-            {
-                character.Weapon = AttackContext.Weapon;
-
-                switch (AttackContext.Weapon.Type)
-                {
-                    case GroupType.WeaponEdged:
-
-                        if (AttackContext.Action == HandActionType.AttackEdged && AttackContext.Target != null) // Атакуем ножом вблизи
-                        {
-
-                            BattleCalculationService.DoEdgedAttack(character, AttackContext.Target);
-
-                            AttackContext.Weapon = null;
-                            if (AttackContext.AttackMarker != null)
-                                GameObject.Destroy(AttackContext.AttackMarker);
-
-                            Game.Instance.Runtime.BattleContext.CurrentCharacterAP -= NeedAP; // Тратим ОД
-                            Hide();
-                        }
-
-                        if (AttackContext.Action == HandActionType.ThrowEdged) // Кидаем нож
-                        {
-                            var edged = (IEdgedWeapon)AttackContext.Weapon;
-                            character.TargetAttackPos = AttackContext.AttackMarker.transform.position;
-                            BattleCalculationService.DoEdgedThrowAttack(character);
-
-                            Game.Instance.Character.Inventory.RemoveByAddress(edged); // Удаляем то что выкинули
-                            Game.Instance.Character.Equipment.TryRemoveItem(edged); // Убираем из экипировки
-                            handsController.TryRemoveItem(edged); // Убираем из рук
-                            handsController.Selected?.UpdateCellInfo();
-
-                            AttackContext.Weapon = null;
-                            if (AttackContext.AttackMarker != null)
-                                GameObject.Destroy(AttackContext.AttackMarker);
-
-                            Game.Instance.Runtime.BattleContext.CurrentCharacterAP -= NeedAP; // Тратим ОД
-                            Hide();
-                        }
-
-                        break;
-                    case GroupType.WeaponFirearms:
-                        var firearms = (IFirearmsWeapon)AttackContext.Weapon;
-
-                        if (AttackContext.Action == HandActionType.AttackFirearms)
-                        {
-                            if (firearms.AmmoCount > 0)
-                            {
-                                character.TargetAttackPos = AttackContext.AttackMarker.transform.position;
-
-                                BattleCalculationService.DoFirearmsAttack(character);
-                                firearms.AmmoCount--;
-                                handsController.Selected?.UpdateCellInfo();
-
-                                AttackContext.Weapon = null;
-                                if (AttackContext.AttackMarker != null)
-                                    GameObject.Destroy(AttackContext.AttackMarker);
-
-                                Game.Instance.Runtime.BattleContext.CurrentCharacterAP -= NeedAP; // Тратим ОД
-                                Hide();
-                            }
-                        }
-
-                        if(AttackContext.Action == HandActionType.ReloadFirearms)
-                        {
-                            long needAmmo = firearms.AmmoStackSize - firearms.AmmoCount;
-                            long haveAmmo = Game.Instance.Character.Inventory.HasCount(firearms.AmmoID);
-
-                            int valueAmmo = Mathf.Min((int)needAmmo, (int)haveAmmo);
-                            if (valueAmmo > 0)
-                            {
-                                AudioController.Instance.PlaySound(firearms.ReloadSoundType);
-                                Game.Instance.Runtime.BattleContext.CurrentCharacterAP -= NeedAP; // Тратим ОД
-                                Game.Instance.Character.Inventory.Remove(firearms.AmmoID, valueAmmo);
-                                firearms.AmmoCount += valueAmmo;
-                                handsController.Selected?.UpdateCellInfo();
-                                Hide();
-                            }
-                        }
-
-                        break;
-                    case GroupType.WeaponGrenade:
-                        var grenade = (IGrenadeWeapon)AttackContext.Weapon;
-
-                        if (AttackContext.Action == HandActionType.ThrowGrenade)
-                        {
-                            character.TargetAttackPos = AttackContext.AttackMarker.transform.position;
-
-                            BattleCalculationService.DoGrenadeAttack(character);
-
-                            Game.Instance.Character.Inventory.RemoveByAddress(grenade); // Удаляем то что выкинули
-                            Game.Instance.Character.Equipment.TryRemoveItem(grenade); // Убираем из экипировки
-                            handsController.TryRemoveItem(grenade); // Убираем из рук
-
-                            handsController.Selected?.UpdateCellInfo();
-
-                            AttackContext.Weapon = null;
-                            if (AttackContext.AttackMarker != null)
-                                GameObject.Destroy(AttackContext.AttackMarker);
-
-                            Game.Instance.Runtime.BattleContext.CurrentCharacterAP -= NeedAP; // Тратим ОД
-                            Hide();
-                        }
-                        break;
-                }
-            }
-
-            handsActionsController.DoUnselectActions();
-
-            AttackContext.Weapon = null;
-            if (AttackContext.AttackMarker != null)
-                GameObject.Destroy(AttackContext.AttackMarker);
-            AttackContext.AttackMarker = null;
-        }
-
-        public void DoMove()
-        {
-            Game.Instance.Runtime.BattleContext.CurrentCharacterAP -= NeedAP; // Тратим ОД
-
-            var character = ObjectFinder.Find<LocationCharacter>();
-            character.SetPath(MoveContext.Points); // Перемещаемся
-
-            ObjectFinder.Find<CharacterMoveVisializerController>().HidePath(); // Сбрасываем путь
-            MoveContext.Points = null;
-
-            Hide();
+            var context = GetContextByAction(Action);
+            BattleActionFactory.Instance.InvokeRollback(Action, context);
         }
 
     }

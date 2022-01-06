@@ -29,14 +29,19 @@ namespace Engine.Logic.Locations
 
         private void SwitchBattle()
         {
-            Game.Instance.Character.Inventory.Add(1000L, 1);
-            Game.Instance.Character.Inventory.Add(2000L, 20);
-            Game.Instance.Character.Inventory.Add(2000L, 20);
-            Game.Instance.Character.Inventory.Add(2000L, 20);
+            var character = Game.Instance.Character;
 
-            Game.Instance.Character.Inventory.Add(3000L, 1);
-            Game.Instance.Character.Inventory.Add(4000L, 1);
-            Game.Instance.Character.Inventory.Add(4001L, 1);
+            character.Inventory.Add(1000L, 1);
+            character.Inventory.Add(2000L, 20);
+            
+            character.Inventory.Add(3000L, 1);
+            character.Inventory.Add(4000L, 1);
+            character.Inventory.Add(4001L, 1);
+
+            var pm = (IFirearmsWeapon)character.Inventory.Items[0];
+            pm.AmmoCount = 4;
+            character.Equipment.Use1 = pm;
+            ObjectFinder.Find<HandsController>().GetCell(0).Weapon = pm;
 
             ObjectFinder.Find<BattleManager>().EnterToBattle();
         }

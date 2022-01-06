@@ -1,7 +1,6 @@
 # 7d1n
-Текущая версия: 1.0.0.0
-Репозиторий проекта 7d1n
 
-## Лицензия | License
-MIT
-**Free Software, Hell Yeah!**
+Select lang:
+
+[Русский ru-ru](RU_RU.md)
+[English en-us](EN_US.md)

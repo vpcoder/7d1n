@@ -52,6 +52,11 @@ namespace Engine.Data
         public string ReloadSoundType { get; set; }
 
         /// <summary>
+        /// Звук клина оружия
+        /// </summary>
+        public string JammingSoundType { get; set; }
+
+        /// <summary>
         /// Коэффициент пробития (от 0 до 100)
         /// </summary>
         public byte Penetration { get; set; }
@@ -91,6 +96,7 @@ namespace Engine.Data
 
                 ShootSoundType = ShootSoundType,
                 ReloadSoundType = ReloadSoundType,
+                JammingSoundType = JammingSoundType,
             };
         }
 

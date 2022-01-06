@@ -5,6 +5,9 @@ using UnityEngine;
 namespace Engine.DB.I18n
 {
 
+    /// <summary>
+    /// 
+    /// </summary>
     public class LocalizationReader
     {
 
