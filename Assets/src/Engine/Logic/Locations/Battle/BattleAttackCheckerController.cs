@@ -1,4 +1,5 @@
 ﻿using Engine.Data;
+using Engine.Logic.Locations.Battle.Actions;
 using UnityEngine;
 
 namespace Engine.Logic.Locations
@@ -124,6 +125,7 @@ namespace Engine.Logic.Locations
 
             if (controller.AttackContext.AttackMarker == null)
                 controller.AttackContext.AttackMarker = GameObject.Instantiate<GameObject>(attackMarkerPrefab);
+
             controller.AttackContext.AttackMarker.transform.position = worldPos;
             controller.UpdateState();
         }

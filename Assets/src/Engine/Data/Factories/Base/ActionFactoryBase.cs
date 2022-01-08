@@ -10,26 +10,9 @@ namespace Engine.Data.Factories
 
         private readonly IDictionary<string, T> actions = new Dictionary<string, T>();
 
-        public IList<T> Load()
+        public ICollection<T> Load()
         {
-            var list = new List<T>();
-            try
-            {
-                foreach (var assembly in AppDomain.CurrentDomain.GetAssemblies())
-                {
-                    foreach (var type in assembly.GetTypes())
-                    {
-                        if (!typeof(T).IsAssignableFrom(type) || type.IsAbstract || type.IsNotPublic)
-                            continue;
-                        list.Add((T)Activator.CreateInstance(type));
-                    }
-                }
-            }
-            catch (Exception ex)
-            {
-                Debug.LogError(ex);
-            }
-            return list;
+            return AssembliesHandler.CreateImplementations<T>();
         }
 
         public ActionFactoryBase()

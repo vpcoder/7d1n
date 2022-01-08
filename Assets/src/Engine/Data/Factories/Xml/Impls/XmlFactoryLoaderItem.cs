@@ -189,8 +189,9 @@ namespace Engine.Data.Factories.Xml
             weapon.AmmoEffectType  = Str("AmmoEffectType");
             weapon.ShootEffectType = Str("ShootEffectType");
 
-            weapon.ShootSoundType  = Str("ShootSoundType");
-            weapon.ReloadSoundType = Str("ReloadSoundType");
+            weapon.ShootSoundType   = Str("ShootSoundType");
+            weapon.ReloadSoundType  = Str("ReloadSoundType");
+            weapon.JammingSoundType = Str("JammingSoundType");
         }
 
         private void ReadGrenadeWeapon(IGrenadeWeapon weapon)

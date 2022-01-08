@@ -3,21 +3,24 @@
 namespace Engine.DB
 {
 
-    public interface IDto
+    /// <summary>
+    /// 
+    /// Объект БД имеющий идентификатор
+    /// ---
+    /// A database object that has an identifier
+    /// 
+    /// </summary>
+    [Serializable]
+    public abstract class Dto : IDto
     {
 
         ///<summary>
         /// Идентификатор объекта
         /// Обязан быть уникален в рамках своего типа
+        /// ----
+        /// Object identifier
+        /// Must be unique within its type
         ///</summary>
-        long ID { get; set; }
-
-    }
-
-    [Serializable]
-    public abstract class Dto : IDto
-    {
-
         [PrimaryKey]
         [AutoIncrement]
         [Unique]
