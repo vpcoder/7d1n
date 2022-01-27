@@ -16,6 +16,11 @@ namespace Engine.Data
         public int Damage { get; set; }
 
         /// <summary>
+        /// Радиус прицеливания
+        /// </summary>
+        public float AimRadius { get; set; }
+
+        /// <summary>
         /// Максимальная дистанция атаки оружием
         /// </summary>
         public long MaxDistance { get; set; }

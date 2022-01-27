@@ -9,7 +9,7 @@ namespace Engine.Data
         /// <summary>
         /// ОД у нашего игрока
         /// </summary>
-        public int CurrentCharacterAP = 0;
+        public int CurrentCharacterAP { get; set; } = 0;
 
         /// <summary>
         /// Индекс группы текущего хода

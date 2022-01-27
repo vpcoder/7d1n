@@ -19,6 +19,9 @@ namespace Engine.Data
         {
             var data = new ItemInfo();
 
+            if (item == null)
+                return data;
+
             data.ID    = item.ID;
             data.Count = item.Count;
             data.Type  = item.Type;
@@ -48,6 +51,9 @@ namespace Engine.Data
         /// <returns>Предмет</returns>
         public static IItem Convert(ItemInfo info)
         {
+            if (info == null)
+                return null;
+
             var item = ItemFactory.Instance.Create(info.ID, info.Count);
             var craftable = item as ICraftableItem;
             var firearms = item as IFirearmsWeapon;

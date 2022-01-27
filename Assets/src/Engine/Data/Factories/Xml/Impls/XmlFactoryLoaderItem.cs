@@ -175,6 +175,7 @@ namespace Engine.Data.Factories.Xml
         {
             weapon.Damage      = Int("Damage");
             weapon.MaxDistance = Lng("MaxDistance");
+            weapon.AimRadius   = Flt("AimRadius");
             weapon.UseAP       = Int("UseAP");
         }
 

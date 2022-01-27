@@ -1,0 +1,52 @@
+﻿<Data>
+
+	<!-- Сырая мелкая живность -->
+		<!-- Таракан -->
+		<Item
+			ID="9000"
+			Type="Used"
+			Name="food_raw_roach_name"
+			Description="food_raw_roach_desc"
+			Action="use/food/raw_roach"
+			StackSize="40"
+			
+			Weight="1500mlg"
+			StaticWeight="true"
+
+			UseSoundType="food/raw_roach"
+		/>
+
+		<!-- Мальки -->
+		<Item
+			ID="9001"
+			Type="Used"
+			Name="food_raw_fry_fish_name"
+			Description="food_raw_fry_fish_desc"
+			Action="use/food/raw_fry_fish"
+			StackSize="40"
+			
+			Weight="3000mlg"
+			StaticWeight="true"
+
+			UseSoundType="food/raw_fry_fish"
+		/>
+
+		<!-- Личинки -->
+		<Item
+			ID="9002"
+			Type="Used"
+			Name="food_raw_larvae_name"
+			Description="food_raw_larvae_desc"
+			Action="use/food/raw_larvae"
+			StackSize="40"
+			
+			Weight="1000mlg"
+			StaticWeight="true"
+
+			UseSoundType="food/raw_larvae"
+		/>
+
+		
+	<!--/ Сырая мелкая живность -->
+
+</Data>

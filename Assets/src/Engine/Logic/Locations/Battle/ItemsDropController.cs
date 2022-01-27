@@ -1,4 +1,5 @@
 ﻿using Engine.Data;
+using Engine.Logic.Locations.Objects;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
@@ -12,7 +13,7 @@ namespace Engine.Logic.Locations
     public class ItemsDropController : MonoBehaviour
     {
 
-        [SerializeField] private LocationDroppedItem droppedPrefab;
+        [SerializeField] private LocationDroppedItemBehaviour droppedPrefab;
 
         public void Drop(Vector3 worldPosition, IItem item)
         {
@@ -45,7 +46,7 @@ namespace Engine.Logic.Locations
                 return;
 
             // Выкидываем предмет на карту
-            var dropped = GameObject.Instantiate<LocationDroppedItem>(droppedPrefab);
+            var dropped = GameObject.Instantiate<LocationDroppedItemBehaviour>(droppedPrefab);
             dropped.Init(itemInfo, worldPosition);
         }
 

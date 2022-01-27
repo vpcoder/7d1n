@@ -18,8 +18,14 @@ namespace Engine.Logic.Locations
 
     public class NpcAIPredictor
     {
+
+        #region Singleton
+
         private static readonly Lazy<NpcAIPredictor> instance = new Lazy<NpcAIPredictor>(() => new NpcAIPredictor());
         public static NpcAIPredictor Instance { get { return instance.Value; } }
+        private NpcAIPredictor() { }
+
+        #endregion
 
         private BattleManager battle;
 
@@ -42,7 +48,7 @@ namespace Engine.Logic.Locations
                 CreateStrategyForEnemy(currentGroup, enemy, allAiItems);
         }
 
-        public void CreateStrategyForEnemy(EnemyGroup group, EnemyItem enemy, IDictionary<EnemyGroup, List<EnemyItem>> allAiItems)
+        public void CreateStrategyForEnemy(EnemyGroup group, EnemyNpcBehaviour enemy, IDictionary<EnemyGroup, List<EnemyNpcBehaviour>> allAiItems)
         {
             Debug.Log("create strategy for '" + enemy.transform.name + "'...");
 
@@ -87,7 +93,7 @@ namespace Engine.Logic.Locations
             enemy.IsEndStep = false; // Ходим
         }
 
-        private IDamagedObject FindTarget(EnemyGroup group, EnemyItem enemy, IDictionary<EnemyGroup, List<EnemyItem>> allAiItems)
+        private IDamagedObject FindTarget(EnemyGroup group, EnemyNpcBehaviour enemy, IDictionary<EnemyGroup, List<EnemyNpcBehaviour>> allAiItems)
         {
         	var potentialTargetList = new List<IDamagedObject>();
 
@@ -159,7 +165,7 @@ namespace Engine.Logic.Locations
 			return (IFirearmsWeapon)TryFindWeaponByPredicate(ap, weapons, items, (w) =>  w.Type == GroupType.WeaponFirearms);			
 		}
 
-        private PredictorMoveResult DoMoveIfNeeded(EnemyItem enemy, IDamagedObject target, ref int ap)
+        private PredictorMoveResult DoMoveIfNeeded(EnemyNpcBehaviour enemy, IDamagedObject target, ref int ap)
         {
             var result = new PredictorMoveResult();
 
@@ -208,7 +214,7 @@ namespace Engine.Logic.Locations
             return result;
         }
 
-        private bool DoAttackIfNeeded(EnemyItem enemy, IDamagedObject target, ref int ap)
+        private bool DoAttackIfNeeded(EnemyNpcBehaviour enemy, IDamagedObject target, ref int ap)
         {
         	if(ap <= 0)
         		return false;
@@ -233,7 +239,7 @@ namespace Engine.Logic.Locations
             return true;
         }
 
-        private bool DoAttackOnlyRanged(EnemyItem enemy, IDamagedObject target, IFirearmsWeapon weapon, ref int ap)
+        private bool DoAttackOnlyRanged(EnemyNpcBehaviour enemy, IDamagedObject target, IFirearmsWeapon weapon, ref int ap)
         {
             if (weapon == null)
                 return false;
@@ -275,7 +281,7 @@ namespace Engine.Logic.Locations
             };
         }
 
-        private NpcAction CreateMove(EnemyItem enemy, List<Vector3> path, float speed)
+        private NpcAction CreateMove(EnemyNpcBehaviour enemy, List<Vector3> path, float speed)
         {
             return new NpcAction()
             {
@@ -285,7 +291,7 @@ namespace Engine.Logic.Locations
             };
         }
 
-        private NpcAction CreateAttack(EnemyItem enemy, IFirearmsWeapon weapon)
+        private NpcAction CreateAttack(EnemyNpcBehaviour enemy, IFirearmsWeapon weapon)
         {
             return new NpcAction()
             {
@@ -295,7 +301,7 @@ namespace Engine.Logic.Locations
             };
         }
 
-        private NpcAction CreateAttack(EnemyItem enemy, IEdgedWeapon weapon)
+        private NpcAction CreateAttack(EnemyNpcBehaviour enemy, IEdgedWeapon weapon)
         {
             return new NpcAction()
             {
@@ -305,7 +311,7 @@ namespace Engine.Logic.Locations
             };
         }
 
-        private NpcAction CreateReload(EnemyItem enemy, IFirearmsWeapon weapon, IItem ammo)
+        private NpcAction CreateReload(EnemyNpcBehaviour enemy, IFirearmsWeapon weapon, IItem ammo)
         {
             return new NpcAction()
             {

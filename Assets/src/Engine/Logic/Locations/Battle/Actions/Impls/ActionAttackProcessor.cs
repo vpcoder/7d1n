@@ -1,4 +1,5 @@
 ﻿using Engine.Data;
+using Engine.Logic.Locations.Animation;
 using UnityEngine;
 
 namespace Engine.Logic.Locations.Battle.Actions
@@ -112,6 +113,8 @@ namespace Engine.Logic.Locations.Battle.Actions
                 firearms.AmmoCount += valueAmmo;
                 handsController.Selected?.UpdateCellInfo();
                 controller.Hide();
+
+                ObjectFinder.Find<LocationCharacter>().Animator.SetInteger(AnimationKey.AttackTypeKey, (int)AttackType.Reload);
             }
         }
 
@@ -132,6 +135,8 @@ namespace Engine.Logic.Locations.Battle.Actions
             context.Weapon = null;
             if (context.AttackMarker != null)
                 GameObject.Destroy(context.AttackMarker);
+
+            ObjectFinder.Find<LocationCharacter>().Animator.SetInteger(AnimationKey.AttackTypeKey, (int)AttackType.SingleShot);
 
             Game.Instance.Runtime.BattleContext.CurrentCharacterAP -= controller.NeedAP; // Тратим ОД
             controller.Hide();

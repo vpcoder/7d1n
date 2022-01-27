@@ -2,6 +2,7 @@
 using Engine.Data.Factories;
 using Engine.Logic;
 using Engine.Logic.Locations;
+using Engine.Logic.Locations.Objects;
 using UnityEngine;
 
 namespace Engine
@@ -25,7 +26,14 @@ namespace Engine
             var bulletPrefab = BulletEffectFactory.Instance.Get(firearms.AmmoEffectType);
             var bullet = GameObject.Instantiate<GameObject>(bulletPrefab);
             var bulletItem = bullet.GetComponent<BulletItem>();
-            bulletItem.Init(source, source.ToObject.transform.position, source.TargetAttackPos, firearms);
+
+            var firearmsBehaviour = source.WeaponGameObject?.GetComponent<IFirearmsBehaviour>();
+            var shotPos = firearmsBehaviour == null ? source.ToObject.transform.position : firearmsBehaviour.ShotPosition;
+
+            var targetPos = source.TargetAttackPos;
+            targetPos.y = shotPos.y;
+
+            bulletItem.Init(source, shotPos, targetPos, firearms);
         }
 
         /// <summary>
@@ -155,12 +163,24 @@ namespace Engine
 
         public static float GetProtectionPercent(int protection)
         {
+            if(protection < 0) // Отрицательная защита означает что объект не влияет на сраняды, он ничтожен, как лист бумаги на пути пули
+                return -100f; // -100% вероятность защиты
             return protection / 1000f;
         }
 
         public static string GetProtectionPercentText(int protection)
         {
             return GetProtectionPercent(protection).ToString("0.00%");
+        }
+
+        public static float GetPenetrationPerent(float penetrationPercent, float targetProtectionPercent)
+        {
+            return Mathf.Max(penetrationPercent - targetProtectionPercent, 0f);
+        }
+
+        public static bool IsPenetration(float penetrationPercent)
+        {
+            return Random.Range(0f, 100f) <= penetrationPercent;
         }
 
     }

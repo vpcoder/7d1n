@@ -1,7 +1,6 @@
 ﻿using Engine.Data;
 using System.Collections.Generic;
 using UnityEngine;
-using System.Linq;
 using Engine.EGUI;
 
 namespace Engine.Logic.Locations
@@ -20,7 +19,7 @@ namespace Engine.Logic.Locations
         }
 
         [SerializeField] private GameObject damageHintPrefab;
-        [SerializeField] private List<EnemyItem> enemies;
+        [SerializeField] private List<EnemyNpcBehaviour> enemies;
 
         [SerializeField] private BattleActionsController battleActionsController;
 
@@ -28,7 +27,7 @@ namespace Engine.Logic.Locations
         public int EnemyGroupCounter = 0;
         private object locker = new object();
 
-        public void EnemyStepCompleted(EnemyItem enemy)
+        public void EnemyStepCompleted(EnemyNpcBehaviour enemy)
         {
             if (Game.Instance.Runtime.BattleContext.OrderIndex != enemy.Enemy.EnemyGroup)
                 return;
@@ -57,7 +56,7 @@ namespace Engine.Logic.Locations
         /// Вводит врага в битву
         /// </summary>
         /// <param name="enemies">Враги</param>
-        public void AddEnemiesToBattle(params EnemyItem[] enemies)
+        public void AddEnemiesToBattle(params EnemyNpcBehaviour[] enemies)
         {
             Debug.Log("add enemies from battle...");
             this.enemies.AddRange(enemies);
@@ -67,7 +66,7 @@ namespace Engine.Logic.Locations
         /// Выводит врага из битвы
         /// </summary>
         /// <param name="enemies">Враги</param>
-        public void RemoveEnemiesFromBattle(params EnemyItem[] enemies)
+        public void RemoveEnemiesFromBattle(params EnemyNpcBehaviour[] enemies)
         {
             Debug.Log("remove enemies from battle...");
 
@@ -77,7 +76,7 @@ namespace Engine.Logic.Locations
                 foreach(var another in this.enemies)
                 {
                 	if(another.Target == enemy.GetComponent<IDamagedObject>())
-                		another.Target = null; // TODO: Подумать о том как пересчитать стратегию для тех кто еще не потратил ОД, у них своц хоз,а цель уже вышла из боя
+                		another.Target = null; // TODO: Подумать о том как пересчитать стратегию для тех кто еще не потратил ОД, у них свой ход, а цель уже вышла из боя
                 }
             }
 

@@ -20,6 +20,13 @@ namespace Engine.Data
         long MaxDistance { get; set; }
 
         /// <summary>
+        /// Радиус прицеливания при использование этого оружия (в игровых метрах)
+        /// ---
+        /// Aiming radius when using this weapon (in game meters)
+        /// </summary>
+        float AimRadius { get; set; }
+
+        /// <summary>
         /// Урон от оружия
         /// ---
         /// Weapon damage

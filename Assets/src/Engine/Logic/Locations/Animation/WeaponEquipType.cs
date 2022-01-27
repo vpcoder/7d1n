@@ -1,6 +1,23 @@
 ﻿
+using Engine.Data;
+
 namespace Engine.Logic.Locations.Animation
 {
+
+    public static class WeaponEquipTypeAdditions
+    {
+        public static WeaponEquipType GetAnimationWeaponEquipType(this GroupType type)
+        {
+            switch(type)
+            {
+                case GroupType.WeaponEdged:    return WeaponEquipType.EdgedOneHand;
+                case GroupType.WeaponFirearms: return WeaponEquipType.Pistol;
+                case GroupType.WeaponGrenade:  return WeaponEquipType.Grenade;
+                default:
+                    return WeaponEquipType.Empty;
+            }
+        }
+    }
 
     /// <summary>
     /// Виды оружия в руках человека

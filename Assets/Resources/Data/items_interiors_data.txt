@@ -1,0 +1,54 @@
+﻿<Data>
+
+    <!-- ЖК телевизор -->
+	<Item
+		ID="100"
+		Type="LocationObject"
+		Name="tv_1_name"
+		Description="tv_1_desc"
+		StackSize="1"
+	>
+		<Part ResID="7" ResCount="13"   Difficulty="2"/> <!-- Электроника  -->
+		<Part ResID="2" ResCount="5"    Difficulty="2"/> <!-- Железо       -->
+		<Part ResID="4" ResCount="5"    Difficulty="2"/> <!-- Медь         -->
+		<Part ResID="5" ResCount="100"  Difficulty="1"/> <!-- Пластик      -->
+	</Item>
+	
+    <!-- Полка под телевизор -->
+	<Item
+		ID="500"
+		Type="LocationObject"
+		Name="shelf_1_name"
+		Description="shelf_1_desc"
+		StackSize="1"
+	>
+		<Part ResID="0" ResCount="1500" Difficulty="1"/> <!-- Дерево  -->
+		<Part ResID="2" ResCount="10"   Difficulty="2"/> <!-- Железо  -->
+		<Part ResID="5" ResCount="20"   Difficulty="1"/> <!-- Пластик -->
+	</Item>
+	
+    <!-- Деревянная дверная коробка в стене -->
+	<Item
+		ID="510"
+		Type="LocationObject"
+		Name="door_box_1_name"
+		Description="door_box_1_desc"
+		StackSize="1"
+	>
+		<Part ResID="0" ResCount="80" Difficulty="1"/>  <!-- Дерево  -->
+		<Part ResID="2" ResCount="2"  Difficulty="2"/>  <!-- Железо  -->
+	</Item>
+	
+    <!-- Деревянная дверь -->
+	<Item
+		ID="511"
+		Type="LocationObject"
+		Name="door_1_name"
+		Description="door_1_desc"
+		StackSize="1"
+	>
+		<Part ResID="0" ResCount="2500" Difficulty="1"/>  <!-- Дерево -->
+		<Part ResID="2" ResCount="20"   Difficulty="2"/>  <!-- Железо -->
+	</Item>
+
+</Data>

@@ -1052,6 +1052,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 629499736703259724}
+  - {fileID: 7072919508740757107}
   m_Father: {fileID: 622501557137340774}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -1442,7 +1443,7 @@ GameObject:
   - component: {fileID: 629772239016930122}
   - component: {fileID: 672281822948900564}
   m_Layer: 0
-  m_Name: SM_Chr_Soldier_Male_01
+  m_Name: MeshData
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1863,6 +1864,19 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   controller: {fileID: 9100000, guid: 01b65cbf686b2e74b838057848291ba0, type: 2}
   avatar: {fileID: 9000000, guid: ffdfcb810f2918b4f8fe9f917f07bc78, type: 3}
+  weaponPoint: {fileID: 7072919508740757107}
+  enemy:
+    ID: 0
+    SpritePath: 
+    AP: 8
+    Exp: 50
+    EnemyGroup: 0
+    Protection: 1
+    Health: 100
+    ItemsForGeneration: 
+    ItemsMaxCountForGeneration: 0
+    WeaponsForGeneration: 
+    WeaponsMaxCountForGeneration: 0
 --- !u!1 &628073152257177100
 GameObject:
   m_ObjectHideFlags: 0
@@ -2138,4 +2152,34 @@ Transform:
   m_Children: []
   m_Father: {fileID: 629689847300928806}
   m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &2847178008287925857
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 7072919508740757107}
+  m_Layer: 0
+  m_Name: WeaponPoint
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &7072919508740757107
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2847178008287925857}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -0.0299, y: 0, z: -0.0022}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 622427684738883940}
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}

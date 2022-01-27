@@ -60,7 +60,7 @@ namespace Engine.Logic
             return data;
         }
 
-        public EnemyDataSet Read(EnemyItem enemy)
+        public EnemyDataSet Read(EnemyNpcBehaviour enemy)
         {
             return new EnemyDataSet()
             {

@@ -98,7 +98,6 @@ namespace Engine.Logic.Locations
             var controller = ObjectFinder.Find<BattleActionsController>();
             var touchPos = DeviceInput.TouchPosition;
             var worldPos = Camera.main.ScreenToWorldPoint(touchPos);
-            worldPos.z = -0.1f;
             var selected = GetFirstSelectedDamagedObject(worldPos);
             if (type == HandActionType.AttackEdged)
             {
@@ -176,6 +175,7 @@ namespace Engine.Logic.Locations
 
             controller.UpdateState();
             controller.Show();
+
         }
 
     }

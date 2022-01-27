@@ -1,0 +1,27 @@
+<Data>
+
+	<Item ID= "0" Type="Resource" Name="res_wood_name"        Description="res_wood_desc"         StackSize="1000"  Weight="1g"    />
+	<Item ID= "1" Type="Resource" Name="res_scrap_name"       Description="res_scrap_desc"        StackSize="1000"  Weight="1g"    />
+	<Item ID= "2" Type="Resource" Name="res_iron_name"        Description="res_iron_desc"         StackSize="1000"  Weight="1g"    />
+	<Item ID= "3" Type="Resource" Name="res_lead_name"        Description="res_lead_desc"         StackSize="1000"  Weight="1g"    />
+	<Item ID= "4" Type="Resource" Name="res_cooper_name"      Description="res_cooper_desc"       StackSize="1000"  Weight="1g"    />
+	<Item ID= "5" Type="Resource" Name="res_plastic_name"     Description="res_plastic_desc"      StackSize="1000"  Weight="1g"    />
+	<Item ID= "6" Type="Resource" Name="res_paper_name"       Description="res_paper_desc"        StackSize="1000"  Weight="1g"    />
+	<Item ID= "7" Type="Resource" Name="res_electric_name"    Description="res_electric_desc"     StackSize="1000"  Weight="10mlg" />
+	<Item ID= "8" Type="Resource" Name="res_stone_name"       Description="res_stone_desc"        StackSize="1000"  Weight="1g"    />
+	<Item ID= "9" Type="Resource" Name="res_salt_name"        Description="res_salt_desc"         StackSize="1000"  Weight="1g"    />
+	<Item ID="10" Type="Resource" Name="res_coal_name"        Description="res_coal_desc"         StackSize="1000"  Weight="1g"    />
+	<Item ID="11" Type="Resource" Name="res_water_name"       Description="res_water_desc"        StackSize="1000"  Weight="1g"    />
+	<Item ID="12" Type="Resource" Name="res_acid_name"        Description="res_acid_desc"         StackSize="1000"  Weight="1g"    />
+	<Item ID="13" Type="Resource" Name="res_lye_name"         Description="res_lye_desc"          StackSize="1000"  Weight="1g"    />
+	<Item ID="14" Type="Resource" Name="res_fuel_name"        Description="res_fuel_desc"         StackSize="1000"  Weight="1g"    />
+	<Item ID="15" Type="Resource" Name="res_fiber_name"       Description="res_fiber_desc"        StackSize="1000"  Weight="1g"    />
+	<Item ID="16" Type="Resource" Name="res_rubber_name"      Description="res_rubber_desc"       StackSize="1000"  Weight="1g"    />
+	<Item ID="17" Type="Resource" Name="res_powder_name"      Description="res_powder_desc"       StackSize="1000"  Weight="1g"    />
+	<Item ID="18" Type="Resource" Name="res_explosive_name"   Description="res_explosive_desc"    StackSize="1000"  Weight="1g"    />
+	<Item ID="19" Type="Resource" Name="res_dirty_water_name" Description="res_dirty_water_desc"  StackSize="1000"  Weight="1g"    />
+	<Item ID= "20" Type="Resource" Name="res_raw_iron_name"   Description="res_raw_iron_desc"     StackSize="1000"  Weight="1g"    />
+	<Item ID= "21" Type="Resource" Name="res_raw_lead_name"   Description="res_raw_lead_desc"     StackSize="1000"  Weight="1g"    />
+	<Item ID= "22" Type="Resource" Name="res_raw_cooper_name" Description="res_raw_cooper_desc"   StackSize="1000"  Weight="1g"    />
+
+</Data>

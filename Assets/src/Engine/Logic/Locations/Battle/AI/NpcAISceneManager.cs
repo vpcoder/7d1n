@@ -8,15 +8,21 @@ namespace Engine.Logic.Locations
 
     public class NpcAISceneManager
     {
+
+        #region Singleton
+
         private static readonly Lazy<NpcAISceneManager> instance = new Lazy<NpcAISceneManager>(() => new NpcAISceneManager());
         public static NpcAISceneManager Instance { get { return instance.Value; } }
+        private NpcAISceneManager() { }
 
-        public IDictionary<EnemyGroup, List<EnemyItem>> GroupToNpcList
+        #endregion
+
+        public IDictionary<EnemyGroup, List<EnemyNpcBehaviour>> GroupToNpcList
         {
             get
             {
-                var data = new Dictionary<EnemyGroup, List<EnemyItem>>();
-                foreach (var enemy in GameObject.FindObjectsOfType<EnemyItem>())
+                var data = new Dictionary<EnemyGroup, List<EnemyNpcBehaviour>>();
+                foreach (var enemy in GameObject.FindObjectsOfType<EnemyNpcBehaviour>())
                 {
                     var group = enemy.Enemy.EnemyGroup;
                     data.AddInToList(group, enemy);
@@ -35,7 +41,7 @@ namespace Engine.Logic.Locations
 
             var order = new List<EnemyGroup>();
             var enemyInitiative = new Dictionary<EnemyGroup, int>();
-            foreach(var enemy in GameObject.FindObjectsOfType<EnemyItem>())
+            foreach(var enemy in GameObject.FindObjectsOfType<EnemyNpcBehaviour>())
             {
                 var info = enemy.Enemy;
                 int initiative;

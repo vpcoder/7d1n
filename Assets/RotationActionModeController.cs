@@ -12,7 +12,11 @@ namespace Engine.Logic.Location
         [SerializeField] private Color selectedColor;
         [SerializeField] private Image imgButton;
 
-        private ActionMode prevActionMode;
+        public ActionMode PrevActionMode
+        {
+            get;
+            set;
+        }
 
         private bool IsRotation
         {
@@ -26,11 +30,11 @@ namespace Engine.Logic.Location
         {
             if (IsRotation)
             {
-                Game.Instance.Runtime.ActionMode = prevActionMode;
+                Game.Instance.Runtime.ActionMode = PrevActionMode;
             }
             else
             {
-                prevActionMode = Game.Instance.Runtime.ActionMode;
+                PrevActionMode = Game.Instance.Runtime.ActionMode;
                 Game.Instance.Runtime.ActionMode = ActionMode.Rotation;
             }
             UpdateInfo();

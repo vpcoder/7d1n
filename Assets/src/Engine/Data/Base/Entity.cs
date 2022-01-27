@@ -44,6 +44,13 @@ namespace Engine.Data
         public virtual Sprite Sprite { get { return SpriteFactory.Instance.Get(ID); } }
 
         /// <summary>
+        /// Объект предмета на локации
+        /// ---
+        /// The object of the item on the location
+        /// </summary>
+        public virtual GameObject Prefab { get { return ObjectFactory.Instance.Get(ID); } }
+
+        /// <summary>
         /// Копирует текущую сущность в новый экземпляр
         /// </summary>
         /// <returns>Копия сущности</returns>

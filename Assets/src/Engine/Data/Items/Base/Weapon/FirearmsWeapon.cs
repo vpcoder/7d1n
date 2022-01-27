@@ -84,6 +84,7 @@ namespace Engine.Data
                 Damage = Damage,
                 UseAP = UseAP,
                 MaxDistance = MaxDistance,
+                AimRadius = AimRadius,
 
                 AmmoID = AmmoID,
                 AmmoStackSize = AmmoStackSize,

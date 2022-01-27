@@ -72,6 +72,7 @@ namespace Engine.Data
                 Author = Author,
 
                 MaxDistance = MaxDistance,
+                AimRadius = AimRadius,
                 Damage = Damage,
                 UseAP = UseAP,
 

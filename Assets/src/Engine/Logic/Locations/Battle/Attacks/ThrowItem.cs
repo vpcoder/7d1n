@@ -1,4 +1,5 @@
 ﻿using Engine.Data;
+using Engine.Logic.Locations.Objects;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
@@ -15,7 +16,7 @@ namespace Engine.Logic.Locations
         /// <summary>
         /// Префаб предмета, который появится на земле после того как упадёт, если null - ничего не появится
         /// </summary>
-        [SerializeField] private LocationDroppedItem droppedPrefab;
+        [SerializeField] private LocationDroppedItemBehaviour droppedPrefab;
 
         [SerializeField] private float speed = 5f;
         [SerializeField] private float reactDistance = 0.1f;
@@ -100,7 +101,7 @@ namespace Engine.Logic.Locations
             if (droppedPrefab != null)
             {
                 // Выкидываем предмет на карту
-                var dropped = GameObject.Instantiate<LocationDroppedItem>(droppedPrefab);
+                var dropped = GameObject.Instantiate<LocationDroppedItemBehaviour>(droppedPrefab);
                 dropped.Init(ItemSerializator.Convert(weapon), targetPos);
             }
 

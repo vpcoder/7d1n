@@ -16,7 +16,11 @@ namespace Engine.Logic
 
         AudioSource AttackAudioSource { get; }
 
+        EnemyBody EnemyBody { get; }
+
         GameObject ToObject { get; }
+
+        GameObject WeaponGameObject { get; }
 
         void AddBattleExp(long value);
 

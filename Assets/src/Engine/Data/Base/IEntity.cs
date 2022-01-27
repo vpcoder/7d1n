@@ -49,6 +49,13 @@ namespace Engine.Data
         Sprite Sprite { get; }
 
         /// <summary>
+        /// Объект предмета на локации
+        /// ---
+        /// The object of the item on the location
+        /// </summary>
+        GameObject Prefab { get; }
+
+        /// <summary>
         /// Вес
         /// ---
         /// Weight

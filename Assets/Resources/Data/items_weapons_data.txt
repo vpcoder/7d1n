@@ -1,0 +1,157 @@
+﻿<Data>
+
+	<!-- Голые руки игрока СИСТЕМНОЕ -->
+	<Item
+		ID="990"
+		Type="WeaponEdged"
+		Name="weapon_system_hands_name"
+		Description="weapon_system_hands_desc"
+		Damage="8"
+		MaxDistance="1"
+		AimRadius="1"
+		UseAP="2"
+	/>
+
+	<!-- Голые руки зомби СИСТЕМНОЕ -->
+	<Item
+		ID="991"
+		Type="WeaponEdged"
+		Name="weapon_system_zombie_hands_name"
+		Damage="10"
+		MaxDistance="1"
+		AimRadius="1"
+		UseAP="1"
+	/>
+
+	<!-- Зубы зомби СИСТЕМНОЕ -->
+	<Item
+		ID="992"
+		Type="WeaponEdged"
+		Name="weapon_system_tooths_name"
+		Damage="15"
+		MaxDistance="1"
+		AimRadius="1"
+		UseAP="2"
+	/>
+
+	<!--Огнестрел-->
+		<!-- ПМ 9x18мм -->
+		<Item
+			ID="1000"
+			Type="WeaponFirearms"
+			Name="weapon_pistol_pm_name"
+			Description="weapon_pistol_pm_desc"
+			StackSize="1"
+			
+			Damage="40"
+			MaxDistance="100"
+			AimRadius="6"
+			UseAP="3"
+			AmmoID="2000"
+			AmmoStackSize="8"
+			ReloadAP="4"
+			Penetration="0"
+
+			AmmoEffectType="pm_bullet"
+			ShootEffectType="pm_shoot"
+			ShootSoundType="firearms/pm_shoot"
+			ReloadSoundType="firearms/pm_reload"
+			JammingSoundType="firearms/pm_jamming"
+		>
+			<Part ResID="2" ResCount="300" Difficulty="1"/> <!-- Железо  -->
+			<Part ResID="5" ResCount="20"  Difficulty="1"/> <!-- Пластик -->
+		</Item>
+	<!--/Огнестрел-->
+
+	<!--Патроны-->
+		<!-- 9x18мм -->
+		<Item
+			ID="2000"
+			Type="Ammo"
+			Name="ammo_9x18_name"
+			Description="ammo_9x18_desc"
+			StackSize="40"
+		>
+			<Part ResID="4"  ResCount="4" Difficulty="1"/> <!-- Медь    -->
+			<Part ResID="3"  ResCount="9" Difficulty="1"/> <!-- Свинец  -->
+			<Part ResID="17" ResCount="5" Difficulty="1"/> <!-- Порох   -->
+		</Item>
+	<!--/Патроны-->
+
+	<!--Ножи-->
+		<!-- Кухонный нож -->
+		<Item
+			ID="3000"
+			Type="WeaponEdged"
+			Name="weapon_knife_kitchen_name"
+			Description="weapon_knife_kitchen_desc"
+			StackSize="1"
+			
+			Damage="15"
+			MaxDistance="1"
+			AimRadius="1"
+			UseAP="5"
+
+			CanThrow="true"
+			ThrowAP="5"
+			ThrowDamage="15"
+
+			ThrowDistance="20"
+			ThrowEffectType="knife"
+		>
+			<Part ResID="2" ResCount="60" Difficulty="1"/> <!-- Железо  -->
+			<Part ResID="5" ResCount="20" Difficulty="1"/> <!-- Пластик -->
+		</Item>
+	<!--/Ножи-->
+
+	<!--Гранаты-->
+		<!-- Ф1 -->
+		<Item
+			ID="4000"
+			Type="WeaponGrenade"
+			Name="weapon_grenade_f1_name"
+			Description="weapon_grenade_f1_desc"
+			StackSize="1"
+
+			Damage="90"
+			Radius="1,5"
+			MaxDistance="5"
+			AimRadius="5"
+			UseAP="4"
+
+			GrenadeEffectType="f1"
+			ExplodeEffectType="f1_explode"
+			ThrowSoundType="grenades/throw"
+			ExplodeSoundType="grenades/f1_explode"
+		>
+			<Part ResID="2"  ResCount="60" Difficulty="1"/> <!-- Железо  -->
+			<Part ResID="5"  ResCount="20" Difficulty="1"/> <!-- Пластик -->
+			<Part ResID="17" ResCount="20" Difficulty="1"/> <!-- Порох   -->
+		</Item>
+
+		<!-- РГД5 -->
+		<Item
+			ID="4001"
+			Type="WeaponGrenade"
+			Name="weapon_grenade_rgd5_name"
+			Description="weapon_grenade_rgd5_desc"
+			StackSize="1"
+
+			Damage="70"
+			Radius="1"
+			MaxDistance="5"
+			AimRadius="5"
+			UseAP="4"
+
+			GrenadeEffectType="rgd5"
+			ExplodeEffectType="rgd5_explode"
+			ThrowSoundType="grenades/throw"
+			ExplodeSoundType="grenades/rgd5_explode"
+		>
+			<Part ResID="2" ResCount="60" Difficulty="1"/> <!-- Железо  -->
+			<Part ResID="5" ResCount="20" Difficulty="1"/> <!-- Пластик -->
+			<Part ResID="17" ResCount="20" Difficulty="1"/> <!-- Порох   -->
+		</Item>
+	<!--/Гранаты-->
+
+</Data>

@@ -6,13 +6,13 @@ namespace Engine.Logic.Locations
     /// <summary>
     /// Объект который может получать урон
     /// </summary>
-    [RequireComponent(typeof(EnemyItem))]
+    [RequireComponent(typeof(EnemyNpcBehaviour))]
     public class NpcDamagedItem : MonoBehaviour, IDamagedObject
     {
 
         [SerializeField] protected AudioSource damageAudioSource;
 
-        private EnemyItem enemyItem;
+        private EnemyNpcBehaviour enemyItem;
 
         public AudioSource DamageAudioSource { get { return damageAudioSource; } }
 
@@ -30,13 +30,13 @@ namespace Engine.Logic.Locations
             }
         }
 
-        public EnemyItem EnemyItem
+        public EnemyNpcBehaviour EnemyItem
         {
             get
             {
                 if(enemyItem == null)
                 {
-                    enemyItem = GetComponent<EnemyItem>();
+                    enemyItem = GetComponent<EnemyNpcBehaviour>();
                 }
                 return enemyItem;
             }

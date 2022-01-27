@@ -1,5 +1,6 @@
 ﻿using Engine.Data;
 using Engine.Logic.Locations;
+using Engine.Logic.Locations.Objects;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -9,7 +10,7 @@ namespace Engine.Logic
     public class GroundBag : Bag
     {
 
-        private readonly IDictionary<IItem, LocationDroppedItem> groundspace = new Dictionary<IItem, LocationDroppedItem>();
+        private readonly IDictionary<IItem, LocationDroppedItemBehaviour> groundspace = new Dictionary<IItem, LocationDroppedItemBehaviour>();
 
         /// <summary>
         /// Сканирует область вокруг персонажа игрока и находит предметы, лежащие "на земле"
@@ -25,11 +26,11 @@ namespace Engine.Logic
             this.Items.Clear();
             foreach(var hit in Physics.SphereCastAll(character.transform.position, character.PickUpDistance, Vector3.right))
             {
-                var dropped = hit.collider.gameObject.GetComponent<LocationDroppedItem>();
+                var dropped = hit.collider.gameObject.GetComponent<LocationDroppedItemBehaviour>();
                 if (dropped == null)
                     continue;
 
-                var item = ItemSerializator.Convert(dropped.Item);
+                var item = dropped.Item;
                 groundspace.Add(item, dropped);
                 Items.Add(item);
             }
