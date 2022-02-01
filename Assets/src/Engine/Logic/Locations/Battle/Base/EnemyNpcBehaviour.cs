@@ -56,12 +56,24 @@ namespace Engine.Logic.Locations
         [SerializeField] protected AudioSource attackAudioSource;
         [SerializeField] protected long id;
 
+        [SerializeField] public NpcAction CurrentAction;
+        [SerializeField] public NpcContext NpcContext;
+
+        public float Timestamp = 0f;
+        public float WaitDelay = 0f;
+        public Vector3 LocalPosition;
+
         public Animator Animator { get { return animator; } }
         public NavMeshAgent Agent { get { return this.agent; } }
         public Vector2Int Pos { get; set; }
 		public IDamagedObject Target { get; set; }
         public EnemyBody EnemyBody { get; private set; }
         public GameObject WeaponGameObject { get; private set; }
+        public bool IsEndStep { get; set; } = true;
+        public virtual IWeapon Weapon { get; set; }
+        public virtual Vector3 TargetAttackPos { get; set; }
+        public virtual GameObject ToObject { get { return this.gameObject; } }
+        public AudioSource AttackAudioSource { get { return this.attackAudioSource; } }
 
         /// <summary>
         /// Параметры врага
@@ -70,10 +82,18 @@ namespace Engine.Logic.Locations
         {
             get
             {
+                if(EnemyBody == null)
+                {
+                    UpdateBody();
+                }
                 return EnemyBody.Enemy;
             }
             protected set
             {
+                if (EnemyBody == null)
+                {
+                    UpdateBody();
+                }
                 EnemyBody.Enemy = value;
             }
         }
@@ -114,53 +134,19 @@ namespace Engine.Logic.Locations
         protected virtual void UpdateBody()
         {
             this.body.transform.DestroyAllChilds();
-            var body = GameObject.Instantiate<GameObject>(EnemyFactory.Instance.GetBody(id), this.body.transform);
+            var body = GameObject.Instantiate<GameObject>(NpcFactory.Instance.GetBody(id), this.body.transform);
             this.EnemyBody = body.GetComponent<EnemyBody>();
             this.animator.avatar = EnemyBody.Avatar;
             this.animator.runtimeAnimatorController = EnemyBody.Controller;
-        }
 
-        public AudioSource AttackAudioSource
-        {
-            get
-            {
-                return this.attackAudioSource;
-            }
+            var collider = this.gameObject.AddComponent<MeshCollider>();
+            collider.sharedMesh = EnemyBody.MeshRenderer.sharedMesh;
         }
 
         private void Awake()
         {
             OnStart();
         }
-
-        public bool IsEndStep { get; set; } = true;
-
-        public virtual IWeapon Weapon
-        {
-            get;
-            set;
-        }
-
-        public virtual Vector3 TargetAttackPos
-        {
-            get;
-            set;
-        }
-
-        public virtual GameObject ToObject
-        {
-            get
-            {
-                return this.gameObject;
-            }
-        }
-
-        public float Timestamp = 0f;
-        public float WaitDelay = 0f;
-        public Vector3 LocalPosition;
-
-        [SerializeField] public NpcAction CurrentAction;
-        [SerializeField] public NpcContext NpcContext;
 
         public virtual void OnStart()
         {
@@ -169,13 +155,10 @@ namespace Engine.Logic.Locations
 
         public virtual void OnUpdate()
         {
-            var enemy = Enemy;
-
-            if (enemy.Health <= 0)
-                Died();
-
-            if (enemy == null || IsEndStep || CurrentAction == null) // Уже походили
+            if (IsEndStep || CurrentAction == null) // Уже походили
                 return;
+
+            var enemy = Enemy;
 
             // Ход NPC
             if (Game.Instance.Runtime.BattleContext.OrderIndex != EnemyGroup.PlayerGroup && Game.Instance.Runtime.BattleContext.OrderIndex != EnemyGroup.AnotherPlayerGroup)
@@ -285,7 +268,8 @@ namespace Engine.Logic.Locations
             dropController.Drop(transform.position, Enemy.Weapons?.Where(weapon => !DataDictionary.Items.SYSTEM_ITEMS.Contains(weapon.ID)).ToArray());
 
             DoEndStep();
-            GameObject.Destroy(this.gameObject);
+
+            Animator.SetInteger(AnimationKey.DeadKey, 1);
         }
 
         public virtual void AddBattleExp(long value)

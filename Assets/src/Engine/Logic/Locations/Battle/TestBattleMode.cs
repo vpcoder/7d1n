@@ -1,5 +1,5 @@
 ﻿using Engine.Data;
-using System;
+using Engine.Data.Factories;
 using UnityEngine;
 
 namespace Engine.Logic.Locations
@@ -42,8 +42,20 @@ namespace Engine.Logic.Locations
             pm.AmmoCount = 4;
             character.Equipment.Use1 = pm;
             ObjectFinder.Find<HandsController>().GetCell(0).Weapon = pm;
-
             ObjectFinder.Find<BattleManager>().EnterToBattle();
+
+
+            for (int i = 1; i < 5; i++)
+            {
+                var behaviour = NpcFactory.Instance.GetBehaviour(100L);
+                var pos = Random.insideUnitSphere * 5;
+                pos.y = 0;
+                var rot = Random.rotation.eulerAngles;
+                rot.x = 0;
+                rot.z = 0;
+
+                var npc = GameObject.Instantiate<GameObject>(behaviour, pos, Quaternion.Euler(rot));
+            }
         }
 
     }

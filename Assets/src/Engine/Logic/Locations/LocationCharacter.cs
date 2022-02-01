@@ -115,7 +115,6 @@ namespace Engine.Logic.Locations
         {
             navMeshPath = new NavMeshPath();
             Enemy = new PlayerCharacter();
-            UpdateBody();
         }
 
         public override void OnUpdate()

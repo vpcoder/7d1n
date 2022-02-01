@@ -107,6 +107,7 @@ namespace Engine
         {
             var damage = ReactiveDamageWithTargetDefence(target.Protection, weaponDamage);
             target.Health -= damage;
+            target.TakeDamage();
 
             AudioController.Instance.CreateTimedFragment(target.ToObject.transform.position, MixerType.Sounds, "damage");
 

@@ -13,7 +13,6 @@ namespace Engine.Data
     public class Enemy
     {
         [SerializeField] public long ID = 0;
-        [SerializeField] public string SpritePath = "";
         [SerializeField] public int AP = 8;
         [SerializeField] public long Exp = 5;
         [SerializeField] public EnemyGroup EnemyGroup = EnemyGroup.ZombieGroup;
@@ -32,10 +31,12 @@ namespace Engine.Data
         [SerializeField] private Avatar avatar;
         [SerializeField] private Transform weaponPoint;
         [SerializeField] private Enemy enemy;
+        [SerializeField] private SkinnedMeshRenderer meshRenderer;
 
         public AnimatorController Controller { get { return controller; } }
         public Avatar Avatar { get { return avatar; } }
         public Transform WeaponPoint { get { return weaponPoint; } }
+        public SkinnedMeshRenderer MeshRenderer { get { return meshRenderer; } }
 
         private IEnemy cachedEnemy;
 
@@ -58,7 +59,6 @@ namespace Engine.Data
             var enemy = new NPC();
 
             enemy.ID = this.enemy.ID;
-            enemy.SpritePath = this.enemy.SpritePath;
             enemy.AP = this.enemy.AP;
             enemy.Exp = this.enemy.Exp;
             enemy.EnemyGroup = this.enemy.EnemyGroup;
@@ -68,14 +68,25 @@ namespace Engine.Data
             var parts = new List<Part>();
             foreach (var itemData in this.enemy.ItemsForGeneration.Split(';'))
             {
+                if(string.IsNullOrWhiteSpace(itemData))
+                {
+                    continue;
+                }
                 var item = itemData.Split(',');
+                if(string.IsNullOrWhiteSpace(item[0]))
+                {
+                    continue;
+                }
                 var id = long.Parse(item[0]);
                 var count = long.Parse(item[1]);
                 parts.Add(new Part() { ResourceID = long.Parse(item[0]), ResourceCount = long.Parse(item[1]), Difficulty = 0 });
             }
             enemy.ItemsForGeneration = parts;
 
-            var weapons = this.enemy.WeaponsForGeneration.Split(';').Select(id => long.Parse(id)).ToList();
+            var weapons = this.enemy.WeaponsForGeneration.Split(';')
+                .Where(item => !string.IsNullOrWhiteSpace(item))
+                .Select(id => long.Parse(id))
+                .ToList();
             enemy.WeaponsForGeneration = weapons;
 
             enemy.ItemsMaxCountForGeneration = this.enemy.ItemsMaxCountForGeneration;

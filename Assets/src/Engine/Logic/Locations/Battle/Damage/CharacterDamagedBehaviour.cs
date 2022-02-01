@@ -8,20 +8,10 @@ namespace Engine.Logic.Locations
     /// <summary>
     /// Объект который может получать урон
     /// </summary>
-    public class CharacterDamagedItem : MonoBehaviour, IDamagedObject
+    public class CharacterDamagedBehaviour : DamagedBase
     {
 
-        [SerializeField] protected AudioSource damageAudioSource;
-
-        public AudioSource DamageAudioSource { get { return damageAudioSource; } }
-
-        public bool ExpGeted
-        {
-            get;
-            set;
-        } = false;
-
-        public long Exp
+        public override long Exp
         {
             get
             {
@@ -29,7 +19,7 @@ namespace Engine.Logic.Locations
             }
         }
 
-        public int Health
+        public override int Health
         {
             get
             {
@@ -42,7 +32,7 @@ namespace Engine.Logic.Locations
             }
         }
 
-        public int Protection
+        public override int Protection
         {
             get
             {
@@ -52,14 +42,6 @@ namespace Engine.Logic.Locations
             {
                 Game.Instance.Character.State.Protection = value;
                 ObjectFinder.Find<CharacterStateProtection>().Value = value;
-            }
-        }
-
-        public GameObject ToObject
-        {
-            get
-            {
-                return this.gameObject;
             }
         }
 

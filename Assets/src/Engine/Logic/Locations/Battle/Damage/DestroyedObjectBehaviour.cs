@@ -3,7 +3,7 @@
 namespace Engine.Logic.Locations.Objects
 {
 
-    public class DestroyedObjectBehaviour : MonoBehaviour, IDamagedObject
+    public class DestroyedObjectBehaviour : DamagedBase
     {
 
         [SerializeField] private MeshExploder exploder;
@@ -11,9 +11,7 @@ namespace Engine.Logic.Locations.Objects
         [SerializeField] private int protection = 0;
         [SerializeField] private long exp = 0;
 
-        private bool isDestroy = false;
-
-        public int Health
+        public override int Health
         {
             get
             {
@@ -30,21 +28,13 @@ namespace Engine.Logic.Locations.Objects
             if (this.health > 0)
                 return;
 
-            isDestroy = true;
-
             exploder.Explode();
             GameObject.Destroy(gameObject);
         }
 
-        public int Protection { get { return protection; } set { this.protection = value; } }
+        public override int Protection { get { return protection; } set { this.protection = value; } }
 
-        public bool ExpGeted { get; set; }
-
-        public long Exp => exp;
-
-        public AudioSource DamageAudioSource => null;
-
-        public GameObject ToObject => isDestroy ? null : gameObject;
+        public override long Exp => exp;
 
     }
 

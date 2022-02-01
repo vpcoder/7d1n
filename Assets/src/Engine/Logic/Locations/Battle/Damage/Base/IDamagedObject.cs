@@ -30,6 +30,11 @@ namespace Engine.Logic.Locations
         /// </summary>
         long Exp { get; }
 
+        /// <summary>
+        /// Вызывается когда цель получает урон
+        /// </summary>
+        void TakeDamage();
+
         AudioSource DamageAudioSource { get; }
 
         GameObject ToObject { get; }

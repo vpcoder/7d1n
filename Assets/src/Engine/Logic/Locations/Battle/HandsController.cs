@@ -61,8 +61,11 @@ namespace Engine.Logic.Locations
         {
             if (selected != null)
                 selected.DoUnselect();
+
             actionController.HideActions();
+            Game.Instance.Runtime.ActionMode = ActionMode.Move;
             Selected = null;
+
             ObjectFinder.Find<BattleActionsController>().Hide();
             ObjectFinder.Find<CharacterAimController>().Hide();
         }

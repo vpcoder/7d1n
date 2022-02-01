@@ -15,11 +15,6 @@ namespace Engine.Data
         public long ID { get; set; }
 
         /// <summary>
-        /// Путь к спрайту
-        /// </summary>
-        public string SpritePath { get; set; }
-
-        /// <summary>
         /// Текущие очки действия
         /// </summary>
         public int AP { get; set; }
