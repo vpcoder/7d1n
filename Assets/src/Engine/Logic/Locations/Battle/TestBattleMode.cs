@@ -42,20 +42,22 @@ namespace Engine.Logic.Locations
             pm.AmmoCount = 4;
             character.Equipment.Use1 = pm;
             ObjectFinder.Find<HandsController>().GetCell(0).Weapon = pm;
-            ObjectFinder.Find<BattleManager>().EnterToBattle();
-
-
-            for (int i = 1; i < 5; i++)
+            
+            for (int i = 0; i < 10; i++)
             {
                 var behaviour = NpcFactory.Instance.GetBehaviour(100L);
-                var pos = Random.insideUnitSphere * 5;
+                var pos = Random.insideUnitSphere * 10;
                 pos.y = 0;
+                pos.x = -pos.x;
+
                 var rot = Random.rotation.eulerAngles;
                 rot.x = 0;
                 rot.z = 0;
 
                 var npc = GameObject.Instantiate<GameObject>(behaviour, pos, Quaternion.Euler(rot));
             }
+
+            ObjectFinder.Find<BattleManager>().EnterToBattle();
         }
 
     }

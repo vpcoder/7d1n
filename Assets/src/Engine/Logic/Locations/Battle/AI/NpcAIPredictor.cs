@@ -105,7 +105,7 @@ namespace Engine.Logic.Locations
 				foreach(var item in entry.Value)
 				{
 					var startPos = enemy.transform.position;
-                    var path = enemy.GetPath(item.transform.position);
+                    var path = enemy.CalculatePath(item.transform.position);
 					if(path != null || TryFindRangedWeapon(item.Enemy.AP, item.Enemy.Weapons, item.Enemy.Items) != null)
 					{
 						potentialTargetList.Add(item.transform.GetComponent<IDamagedObject>());
@@ -181,14 +181,11 @@ namespace Engine.Logic.Locations
                 return result;
             }
 
-			var startPos = enemy.transform.position;
 			var endPos = target.ToObject.transform.position;
-			var path = enemy.GetPath(endPos);
+			var path = enemy.CalculatePath(endPos);
 
             if (path == null || path.Count == 0)
                 return result;
-
-			path.Reverse();
 
             if (path.Count == 0)
                 return result;
@@ -200,17 +197,14 @@ namespace Engine.Logic.Locations
 					break;
 
 				ap--;
-				//pathFragment.Add(matrix.GetCellToWorldPointCenter(path[i].Position));
+				pathFragment.Add(path[i]);
 			}
 
             if (pathFragment.Count == 0)
                 return result;
 
-			//var newPoint = matrix.GetCell(pathFragment[pathFragment.Count-1]);
 			enemy.NpcContext.Actions.Add(CreateMove(enemy, pathFragment, 1f));
-
             result.Moved = true;
-
             return result;
         }
 
@@ -226,9 +220,13 @@ namespace Engine.Logic.Locations
             switch(weapon.Type)
             {
                 case GroupType.WeaponFirearms:
+                    enemy.NpcContext.Actions.Add(CreatePickWeapon(enemy, (IFirearmsWeapon)weapon));
+                    enemy.NpcContext.Actions.Add(CreateWait(Random.Range(0.5f, 0.8f)));
                     enemy.NpcContext.Actions.Add(CreateAttack(enemy, (IFirearmsWeapon)weapon));
                     break;
                 case GroupType.WeaponEdged:
+                    enemy.NpcContext.Actions.Add(CreatePickWeapon(enemy, (IEdgedWeapon)weapon));
+                    enemy.NpcContext.Actions.Add(CreateWait(Random.Range(0.5f, 0.8f)));
                     enemy.NpcContext.Actions.Add(CreateAttack(enemy, (IEdgedWeapon)weapon));
                     break;
                 default:
@@ -249,6 +247,8 @@ namespace Engine.Logic.Locations
                 case GroupType.WeaponFirearms:
                     if (weapon.AmmoCount > 0)
                     {
+                        enemy.NpcContext.Actions.Add(CreatePickWeapon(enemy, weapon));
+                        enemy.NpcContext.Actions.Add(CreateWait(Random.Range(0.5f, 0.8f)));
                         enemy.NpcContext.Actions.Add(CreateAttack(enemy, weapon));
                         weapon.AmmoCount--;
                     }
@@ -260,6 +260,8 @@ namespace Engine.Logic.Locations
                         if (ammo != null)
                         {
                             ap -= weapon.ReloadAP;
+                            enemy.NpcContext.Actions.Add(CreatePickWeapon(enemy, weapon));
+                            enemy.NpcContext.Actions.Add(CreateWait(Random.Range(0.5f, 0.8f)));
                             enemy.NpcContext.Actions.Add(CreateReload(enemy, weapon, ammo));
                             return true;
                         }
@@ -272,18 +274,18 @@ namespace Engine.Logic.Locations
         }
 
 
-        private NpcAction CreateWait(float delay)
+        private NpcBaseActionContext CreateWait(float delay)
         {
-            return new NpcAction()
+            return new NpcWaitActionContext()
             {
                 Action = NpcActionType.Wait,
                 WaitDelay = delay,
             };
         }
 
-        private NpcAction CreateMove(EnemyNpcBehaviour enemy, List<Vector3> path, float speed)
+        private NpcBaseActionContext CreateMove(EnemyNpcBehaviour enemy, List<Vector3> path, float speed)
         {
-            return new NpcAction()
+            return new NpcMoveActionContext()
             {
                 Action = NpcActionType.Move,
                 Path = path,
@@ -291,29 +293,27 @@ namespace Engine.Logic.Locations
             };
         }
 
-        private NpcAction CreateAttack(EnemyNpcBehaviour enemy, IFirearmsWeapon weapon)
+        private NpcBaseActionContext CreatePickWeapon(EnemyNpcBehaviour enemy, IWeapon weapon)
         {
-            return new NpcAction()
+            return new NpcPickWeaponActionContext()
             {
-                Action = NpcActionType.Attack,
-                FirearmsWeapon = weapon,
-                EdgedWeapon = null,
+                Action = NpcActionType.PickWeapon,
+                Weapon = weapon,
             };
         }
 
-        private NpcAction CreateAttack(EnemyNpcBehaviour enemy, IEdgedWeapon weapon)
+        private NpcBaseActionContext CreateAttack(EnemyNpcBehaviour enemy, IWeapon weapon)
         {
-            return new NpcAction()
+            return new NpcAttackActionContext()
             {
                 Action = NpcActionType.Attack,
-                FirearmsWeapon = null,
-                EdgedWeapon = weapon,
+                Weapon = weapon,
             };
         }
 
-        private NpcAction CreateReload(EnemyNpcBehaviour enemy, IFirearmsWeapon weapon, IItem ammo)
+        private NpcBaseActionContext CreateReload(EnemyNpcBehaviour enemy, IFirearmsWeapon weapon, IItem ammo)
         {
-            return new NpcAction()
+            return new NpcReloadActionContext()
             {
                 Action = NpcActionType.Reload,
                 FirearmsWeapon = weapon,

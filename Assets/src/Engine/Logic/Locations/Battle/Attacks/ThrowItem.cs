@@ -72,7 +72,7 @@ namespace Engine.Logic.Locations
             var hits = Physics.RaycastAll(startPos, (targetPos - startPos).normalized, maxDistance);
             if (hits == null || hits.Length == 0)
                 return new List<GameObject>();
-            return hits.Where(item => item.collider.gameObject != source.ToObject
+            return hits.Where(item => item.collider.gameObject != source.AttackCharacterObject
                             && item.collider.gameObject.GetComponent<IDamagedObject>() != null)
                        .Select(item => item.collider.gameObject)
                        .ToList();

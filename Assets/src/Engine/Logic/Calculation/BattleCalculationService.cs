@@ -27,8 +27,8 @@ namespace Engine
             var bullet = GameObject.Instantiate<GameObject>(bulletPrefab);
             var bulletItem = bullet.GetComponent<BulletItem>();
 
-            var firearmsBehaviour = source.WeaponGameObject?.GetComponent<IFirearmsBehaviour>();
-            var shotPos = firearmsBehaviour == null ? source.ToObject.transform.position : firearmsBehaviour.ShotPosition;
+            var firearmsBehaviour = source.WeaponObject?.GetComponent<IFirearmsBehaviour>();
+            var shotPos = firearmsBehaviour == null ? source.AttackCharacterObject.transform.position : firearmsBehaviour.ShotPosition;
 
             var targetPos = source.TargetAttackPos;
             targetPos.y = shotPos.y;
@@ -46,7 +46,7 @@ namespace Engine
             var throwPrefab = EdgedEffectFactory.Instance.Get(edged.ThrowEffectType);
             var bullet = GameObject.Instantiate<GameObject>(throwPrefab);
             var edgedItem = bullet.GetComponent<ThrowItem>();
-            edgedItem.Init(source, source.ToObject.transform.position, source.TargetAttackPos, edged);
+            edgedItem.Init(source, source.AttackCharacterObject.transform.position, source.TargetAttackPos, edged);
         }
 
         /// <summary>
@@ -59,7 +59,7 @@ namespace Engine
             var grenadePrefab = GrenadeEffectFactory.Instance.Get(grenade.GrenadeEffectType);
             var bullet = GameObject.Instantiate<GameObject>(grenadePrefab);
             var grenadeItem = bullet.GetComponent<GrenadeItem>();
-            grenadeItem.Init(source, source.ToObject.transform.position, source.TargetAttackPos, grenade);
+            grenadeItem.Init(source, source.AttackCharacterObject.transform.position, source.TargetAttackPos, grenade);
         }
 
         /// <summary>

@@ -5,6 +5,13 @@ using UnityEngine.AI;
 namespace Engine.Logic
 {
 
+    /// <summary>
+    /// 
+    /// Интерфейс существа или объекта, выполняющего атаку
+    /// ---
+    /// 
+    /// 
+    /// </summary>
     public interface IAttackCharacter
     {
 
@@ -18,9 +25,9 @@ namespace Engine.Logic
 
         EnemyBody EnemyBody { get; }
 
-        GameObject ToObject { get; }
+        GameObject AttackCharacterObject { get; }
 
-        GameObject WeaponGameObject { get; }
+        GameObject WeaponObject { get; }
 
         void AddBattleExp(long value);
 

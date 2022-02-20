@@ -247,7 +247,7 @@ namespace Engine.Logic.Locations
             this.next = damagedObjects != null && damagedObjects.Count > 0 ? damagedObjects[0] : null;
             this.nextDistance = NextDistance;
 
-            AudioController.Instance.CreateTimedFragment(source.ToObject.transform.position, MixerType.Sounds, weapon.ShootSoundType);
+            AudioController.Instance.CreateTimedFragment(source.AttackCharacterObject.transform.position, MixerType.Sounds, weapon.ShootSoundType);
         }
 
         /// <summary>
@@ -273,7 +273,7 @@ namespace Engine.Logic.Locations
             foreach(var item in hits)
             {
                 var gameObject = item.collider.gameObject;
-                if (gameObject == source.ToObject || checkedkHits.Contains(gameObject))
+                if (gameObject == source.AttackCharacterObject || checkedkHits.Contains(gameObject))
                     continue;
 
                 var damaged = gameObject.GetComponent<IDamagedObject>();

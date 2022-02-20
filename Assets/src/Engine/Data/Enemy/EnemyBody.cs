@@ -2,7 +2,6 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using UnityEditor.Animations;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
@@ -27,13 +26,13 @@ namespace Engine.Data
     public class EnemyBody : MonoBehaviour
     {
 
-        [SerializeField] private AnimatorController controller;
+        [SerializeField] private RuntimeAnimatorController controller;
         [SerializeField] private Avatar avatar;
         [SerializeField] private Transform weaponPoint;
         [SerializeField] private Enemy enemy;
         [SerializeField] private SkinnedMeshRenderer meshRenderer;
 
-        public AnimatorController Controller { get { return controller; } }
+        public RuntimeAnimatorController Controller { get { return controller; } }
         public Avatar Avatar { get { return avatar; } }
         public Transform WeaponPoint { get { return weaponPoint; } }
         public SkinnedMeshRenderer MeshRenderer { get { return meshRenderer; } }
