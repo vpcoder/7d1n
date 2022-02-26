@@ -32,7 +32,7 @@ namespace Engine.Logic
             builder.Clear();
             builder.Append(Localization.Instance.Get("msg_name")).Append(": ").Append(Game.Instance.Character.Account.Name).Append("\n");
             builder.Append(Localization.Instance.Get("msg_health")).Append(": ").Append(Game.Instance.Character.State.Health).Append("/").Append(Game.Instance.Character.State.MaxHealth).Append("\n");
-            builder.Append(Localization.Instance.Get("msg_protection")).Append(": ").Append(BattleCalculationService.GetProtectionPercentText(Game.Instance.Character.State.Protection + Game.Instance.Character.Equipment.Protection)).Append("\n");
+            builder.Append(Localization.Instance.Get("msg_protection")).Append(": ").Append(BattleCalculationService.GetProtectionPercentText(CurrentCharacterCalculationService.CurrentProtection())).Append("\n");
             return builder.ToString();
         }
 

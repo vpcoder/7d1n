@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4048881880139538}
   - component: {fileID: 3594335193153617847}
+  - component: {fileID: 1188487152974452137}
   m_Layer: 0
   m_Name: 19
   m_TagString: Untagged
@@ -54,6 +55,23 @@ MonoBehaviour:
       Level: 0
       Author: 
   body: {fileID: 3063941091992927428}
+  dropTimeout: 5
+  maxStabilityDelta: 0.001
+  lastPositionsList: []
+  currentDelta: 0
+--- !u!65 &1188487152974452137
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1906401972103044}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 0.1538299, y: 0.41691315, z: 0.15024075}
+  m_Center: {x: 0.004680272, y: 0.20845658, z: 0.0004339181}
 --- !u!1 &3063941091992927428
 GameObject:
   m_ObjectHideFlags: 0

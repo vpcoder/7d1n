@@ -48,7 +48,8 @@ namespace Engine.Logic.Locations
                 var behaviour = NpcFactory.Instance.GetBehaviour(100L);
                 var pos = Random.insideUnitSphere * 10;
                 pos.y = 0;
-                pos.x = -pos.x;
+                pos.x = pos.x > 0 ? -pos.x : pos.x;
+                pos.z = pos.z < 0 ? -pos.z : pos.z;
 
                 var rot = Random.rotation.eulerAngles;
                 rot.x = 0;

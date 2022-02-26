@@ -131,10 +131,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 1558853832750554}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2505d90fe7c647b4a8dc4a5497101208, type: 3}
+  m_Script: {fileID: 11500000, guid: d8e2ad6aa244e874999ea0fdca07a568, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  exploder: {fileID: 695209719}
   health: 10
   protection: -1
   exp: 0
+  exploder: {fileID: 0}

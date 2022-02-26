@@ -15,7 +15,7 @@ namespace Engine.Logic.Locations
     /// Then the context is given to the iterator, which performs the necessary low-level operations on the NPC to perform the specified action - moves the NPC's body, performs switching animations, checks that the NPC doesn't collide with anyone, etc.
     /// 
     /// </summary>
-    public interface IAIIterationAction
+    public interface IAiIterationAction
     {
 
         /// <summary>

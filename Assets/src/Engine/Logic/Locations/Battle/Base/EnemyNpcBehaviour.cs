@@ -18,21 +18,26 @@ namespace Engine.Logic.Locations
     /// 
     /// 
     /// </summary>
-    public class EnemyNpcBehaviour : MonoBehaviour, IAttackCharacter, IMonoBehaviourOverrideStartEvent, IMonoBehaviourOverrideUpdateEvent
+    public class EnemyNpcBehaviour : MonoBehaviour,
+                                     IAttackObject,
+                                     IMonoBehaviourOverrideStartEvent,
+                                     IMonoBehaviourOverrideUpdateEvent
     {
 
         [SerializeField] protected Animator animator;
         [SerializeField] protected NavMeshAgent agent;
         [SerializeField] protected GameObject body;
         [SerializeField] protected AudioSource attackAudioSource;
+        [SerializeField] protected Transform lookDirectionTransform;
         [SerializeField] protected long id;
 
         private float timestamp;
 
         #region Shared Properties
 
+        public Transform LookDirectionTransform { get { return lookDirectionTransform; } }
         public NpcContext NpcContext { get; set; } = new NpcContext();
-        public IAIIterationAction CurrentIterationAction { get; set; }
+        public IAiIterationAction CurrentIterationAction { get; set; }
         public NpcBaseActionContext CurrentAction { get; set; }
         public Animator Animator { get { return animator; } }
         public NavMeshAgent Agent { get { return this.agent; } }
@@ -188,7 +193,7 @@ namespace Engine.Logic.Locations
             }
 
             CurrentAction = NpcContext.Actions[0];
-            CurrentIterationAction = AIIteratorFactory.Instance.GetIterationAction(CurrentAction.Action);
+            CurrentIterationAction = AiIteratorFactory.Instance.GetIterationAction(CurrentAction.Action);
 
             if(CurrentIterationAction != null)
                 CurrentIterationAction.Start(this, CurrentAction);

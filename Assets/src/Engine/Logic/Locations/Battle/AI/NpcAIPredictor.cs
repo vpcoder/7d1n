@@ -52,6 +52,7 @@ namespace Engine.Logic.Locations
         {
             Debug.Log("create strategy for '" + enemy.transform.name + "'...");
 
+            var isNeedLook = enemy.Target == null;
             var target = enemy.Target ?? FindTarget(group, enemy, allAiItems); // Пытаемся найти цель
             if(target == null)
             {
@@ -63,6 +64,9 @@ namespace Engine.Logic.Locations
             enemy.CurrentAction = null;
             enemy.NpcContext.Actions.Clear();
             enemy.NpcContext.Actions.Add(CreateWait(Random.Range(0.1f, 1f))); // Начинаем ход со случайной задержкой от 0.1 до 1 секунды, чтобы казалось что нпс более живые
+
+            if (isNeedLook)
+                enemy.NpcContext.Actions.Add(CreateLook(target, 1f));
 
             var ap = enemy.Enemy.AP;
             var moveResult = DoMoveIfNeeded(enemy, target, ref ap); // Движемся к цели, если нужно
@@ -318,6 +322,16 @@ namespace Engine.Logic.Locations
                 Action = NpcActionType.Reload,
                 FirearmsWeapon = weapon,
                 Ammo = ammo,
+            };
+        }
+
+        private NpcBaseActionContext CreateLook(IDamagedObject target, float speed)
+        {
+            return new NpcLookActionContext()
+            {
+                Action = NpcActionType.Look,
+                Speed = speed,
+                LookPoint = target.ToObject.transform.position,
             };
         }
 

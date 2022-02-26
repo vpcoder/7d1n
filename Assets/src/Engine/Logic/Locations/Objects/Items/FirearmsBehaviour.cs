@@ -16,9 +16,9 @@ namespace Engine.Logic.Locations.Objects
         [SerializeField] private Transform shotPoint;
 
         /// <summary>
-        /// Точка откуда происходит появление снаряда
-        /// ---
-        /// The point where the projectile comes from
+        ///     Точка откуда происходит появление снаряда
+        ///     ---
+        ///     The point where the projectile comes from
         /// </summary>
         public Vector3 ShotPosition { get { return shotPoint.position; } }
 

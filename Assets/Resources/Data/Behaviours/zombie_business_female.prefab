@@ -133,15 +133,7 @@ MonoBehaviour:
   body: {fileID: 8328240342814540716}
   attackAudioSource: {fileID: 8328240344640419893}
   id: 100
-  CurrentAction:
-    Action: 0
-    WaitDelay: 0
-    Speed: 1
-  NpcContext:
-    Actions: []
-  Timestamp: 0
-  WaitDelay: 0
-  LocalPosition: {x: 0, y: 0, z: 0}
+  lookDirectionTransform: {fileID: 8328240342965617584}
 --- !u!114 &-5910929422793397809
 MonoBehaviour:
   m_ObjectHideFlags: 0

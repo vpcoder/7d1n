@@ -44,7 +44,7 @@ namespace Engine.Logic.Locations
         /// ---
         /// The character who fires this projectile
         /// </summary>
-        private IAttackCharacter source;
+        private IAttackObject source;
 
         /// <summary>
         /// Точка от которой снаряд начинает свой полёт
@@ -145,9 +145,9 @@ namespace Engine.Logic.Locations
                 {
 
                     DoDamage(next); // Наносим урон тому до кого долетели
-                    var destroyObject = next as DestroyedObjectBehaviour;
-                    if (destroyObject != null)
-                        destroyObject.CheckDead();
+                    var destroyObject = next as IDestroyedObject;
+                    if (destroyObject != null) // Если этот объект неживой, дополнительно проверяем его состояние
+                        destroyObject.CheckDestroy();
 
                     this.next = UpdateNext(); // Переключаемся на следующую цель
                     if(this.next != null)
@@ -228,7 +228,7 @@ namespace Engine.Logic.Locations
         ///     ---
         ///     The weapon from which the shot was fired
         /// </param>
-        public void Init(IAttackCharacter source, Vector3 startPos, Vector3 targetPos, IFirearmsWeapon weapon)
+        public void Init(IAttackObject source, Vector3 startPos, Vector3 targetPos, IFirearmsWeapon weapon)
         {
             this.transform.position = startPos;
             this.transform.LookAt(targetPos);

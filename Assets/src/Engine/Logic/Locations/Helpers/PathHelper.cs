@@ -4,70 +4,56 @@ using UnityEngine;
 namespace Engine.Logic.Locations
 {
 
-    public struct SmartPath
-    {
-        public List<Vector3> ActivePath;
-        public List<Vector3> ErrorPath;
-        public ActivePoint EdgePoint;
-
-        /// <summary>
-        /// Сколько потребуется потратить ОД чтобы совершить активную часть пути
-        /// </summary>
-        public int ActivePathAP
-        {
-            get
-            {
-                if (EdgePoint.IsFullPath)
-                    return (int)PathHelper.CalcLength(ActivePath) + 1;
-                return (int)EdgePoint.ActivePathInMeters;
-            }
-        }
-
-        /// <summary>
-        /// Сколько бы потребовалось ОД чтобы совершить весь путь
-        /// </summary>
-        public int FullPathAP
-        {
-            get
-            {
-                if (EdgePoint.IsFullPath)
-                    return ActivePathAP;
-                return (int)(EdgePoint.ActivePathInMeters + EdgePoint.ErrorPathInMeters + 1);
-            }
-        }
-    }
-
-    public struct ActivePoint
-    {
-        public static ActivePoint EMPTY = new ActivePoint { IsEmpty = true };
-        public bool IsEmpty;
-        public bool IsFullPath;
-        public int Index;
-        public float ToNLen;
-        public float IntervalLen;
-        public float ActivePathInMeters;
-        public float ErrorPathInMeters;
-    }
-
+    /// <summary>
+    /// 
+    /// Хелпер для рассчётов траектории перемещения персонажа на локации
+    /// ---
+    /// Helper for calculating the trajectory of the character on the location
+    /// 
+    /// </summary>
     public class PathHelper
     {
 
         /// <summary>
-        /// Рассчитывает и возвращает длину отрезка [p0, p1]
+        ///     Рассчитывает и возвращает длину отрезка [p0, p1]
+        ///     ---
+        ///     Calculates and returns the length of the segment [p0, p1]
         /// </summary>
-        /// <param name="p0">Первая точка отрезка</param>
-        /// <param name="p1">Вторая точка отрезка</param>
-        /// <returns>Длину отрезка в метрах</returns>
-        public static float CalcLength(Vector3 p0, Vector3 p1)
+        /// <param name="p0">
+        ///     Первая точка отрезка
+        ///     ---
+        ///     The first point of the segment
+        /// </param>
+        /// <param name="p1">
+        ///     Вторая точка отрезка
+        ///     ---
+        ///     The second point of the segment
+        /// </param>
+        /// <returns>
+        ///     Длину отрезка в метрах
+        ///     ---
+        ///     The length of the segment in meters
+        /// </returns>
+        private static float CalcLength(Vector3 p0, Vector3 p1)
         {
             return (p0 - p1).magnitude;
         }
 
         /// <summary>
-        /// Рассчитывает длину пути представленному в виде последовательности точек
+        ///     Рассчитывает длину пути представленному в виде последовательности точек
+        ///     ---
+        ///     Calculates the length of the path represented as a sequence of points
         /// </summary>
-        /// <param name="path">Путь в виде последовательности точек</param>
-        /// <returns>Длина пути в метрах</returns>
+        /// <param name="path">
+        ///     Путь в виде последовательности точек
+        ///     ---
+        ///     The path as a sequence of points
+        /// </param>
+        /// <returns>
+        ///     Длина пути в метрах
+        ///     ---
+        ///     Path length in meters
+        /// </returns>
         public static float CalcLength(List<Vector3> path)
         {
             if (path == null || path.Count < 2)
@@ -84,13 +70,28 @@ namespace Engine.Logic.Locations
         }
 
         /// <summary>
-        /// Функция Простетника-Ларина (Prostetnic-OpenGL)
-        /// Возвращает индекс точки, до которой хватает указанной активной длины
+        ///     Функция "Простетника-Ларина" (Prostetnic-OpenGL ники ребят с forum.sources.ru)
+        ///     Возвращает индекс точки, до которой хватает указанной активной длины
+        ///     ---
+        ///     Prostetnic-Larin function (Prostetnic-OpenGL nick-names from forum.sources.ru)
+        ///     Returns the index of the point up to which the specified active length is missing
         /// </summary>
-        /// <param name="path">Путь в виде точек</param>
-        /// <param name="activeLength">Указанная активная длина</param>
-        /// <returns>Последний индекс точки в пути до которой гарантированно хватает активной длины</returns>
-        public static ActivePoint GetLastActivePoint(List<Vector3> path, float activeLength)
+        /// <param name="path">
+        ///     Путь в виде точек
+        ///     ---
+        ///     A path in the form of dots
+        /// </param>
+        /// <param name="activeLength">
+        ///     Указанная активная длина
+        ///     ---
+        ///     Specified active length
+        /// </param>
+        /// <returns>
+        ///     Последний индекс точки в пути до которой гарантированно хватает активной длины
+        ///     ---
+        ///     The last index of the point in the path to which the active length is guaranteed
+        /// </returns>
+        private static ActivePoint GetLastActivePoint(List<Vector3> path, float activeLength)
         {
             if (path == null || path.Count < 2)
                 return ActivePoint.EMPTY;
@@ -130,24 +131,24 @@ namespace Engine.Logic.Locations
         }
 
         /// <summary>
-        /// Получает координату границы для активной части пути
+        ///     Получает координату границы для активной части пути
+        ///     ---
+        ///     Gets the border coordinate for the active part of the path
         /// </summary>
-        /// <param name="path">Весь путь</param>
-        /// <param name="activeLength">Длина активной части пути в метрах</param>
-        public static SmartPath GetSmartPath(Vector3[] path, float activeLength)
-        {
-            return GetSmartPath(new List<Vector3>(path), activeLength);
-        }
-
-        /// <summary>
-        /// Получает координату границы для активной части пути
-        /// </summary>
-        /// <param name="path">Весь путь</param>
-        /// <param name="activeLength">Длина активной части пути в метрах</param>
+        /// <param name="path">
+        ///     Весь путь
+        ///     ---
+        ///     All the way
+        /// </param>
+        /// <param name="activeLength">
+        ///     Длина активной части пути в метрах
+        ///     ---
+        ///     Length of the active part of the track in meters
+        /// </param>
         public static SmartPath GetSmartPath(List<Vector3> path, float activeLength)
         {
             var lastActiveIndex = GetLastActivePoint(path, activeLength);
-            if (lastActiveIndex.IsEmpty || lastActiveIndex.IsFullPath)
+            if (lastActiveIndex.IsFullPath)
                 return new SmartPath { EdgePoint = lastActiveIndex, ActivePath = path };
 
             // Вычисляем прогресс-расстояние между следующими точкам

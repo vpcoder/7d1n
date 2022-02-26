@@ -1,7 +1,6 @@
 ﻿using Engine.Data;
 using Engine.Logic.Locations.Animation;
 using System;
-using UnityEngine;
 
 namespace Engine.Logic.Locations
 {
@@ -15,7 +14,7 @@ namespace Engine.Logic.Locations
     /// Executes a weapon attack on the specified target
     /// 
     /// </summary>
-    public class AttackAIIteration : AIIterationActionBase<NpcAttackActionContext>
+    public class AttackAiIteration : AiIterationActionBase<NpcAttackActionContext>
     {
 
         public override NpcActionType ActionType => NpcActionType.Attack;

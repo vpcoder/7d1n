@@ -11,16 +11,16 @@ namespace Engine.Logic.Locations
     /// Iterator Factory for AI creatures
     /// 
     /// </summary>
-    public class AIIteratorFactory
+    public class AiIteratorFactory
     {
 
         #region Singleton
 
-        private static readonly Lazy<AIIteratorFactory> instance = new Lazy<AIIteratorFactory>(() => new AIIteratorFactory());
-        public static AIIteratorFactory Instance { get { return instance.Value; } }
-        private AIIteratorFactory()
+        private static readonly Lazy<AiIteratorFactory> instance = new Lazy<AiIteratorFactory>(() => new AiIteratorFactory());
+        public static AiIteratorFactory Instance { get { return instance.Value; } }
+        private AiIteratorFactory()
         {
-            foreach(var action in AssembliesHandler.CreateImplementations<IAIIterationAction>())
+            foreach(var action in AssembliesHandler.CreateImplementations<IAiIterationAction>())
             {
                 actions.Add(action.ActionType, action);
             }
@@ -29,26 +29,28 @@ namespace Engine.Logic.Locations
         #endregion
 
         /// <summary>
-        /// Итераторы действий ИИ существ сгруппированные по типу действия
-        /// ---
-        /// 
+        ///     Итераторы действий ИИ существ сгруппированные по типу действия
+        ///     ---
+        ///     Iterators of AI creature actions grouped by type of action
         /// </summary>
-        private IDictionary<NpcActionType, IAIIterationAction> actions = new Dictionary<NpcActionType, IAIIterationAction>();
+        private IDictionary<NpcActionType, IAiIterationAction> actions = new Dictionary<NpcActionType, IAiIterationAction>();
 
         /// <summary>
-        /// Выполняет поиск итератора действий ИИ существа по типу действия
-        /// ---
-        /// 
+        ///     Выполняет поиск итератора действий ИИ существа по типу действия
+        ///     ---
+        ///     Searches for a creature AI action iterator by action type
         /// </summary>
         /// <param name="type">
-        /// Тип действия, которое необходимо совершить существу
-        /// ---
-        /// 
+        ///     Тип действия, которое необходимо совершить существу
+        ///     ---
+        ///     The type of action to be performed by the creature
         /// </param>
         /// <returns>
-        /// Возвращает итератор действия.
+        ///     Возвращает итератор действия.
+        ///     ---
+        ///     Returns the action iterator.
         /// </returns>
-        public IAIIterationAction GetIterationAction(NpcActionType type)
+        public IAiIterationAction GetIterationAction(NpcActionType type)
         {
             return actions[type];
         }

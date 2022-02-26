@@ -13,7 +13,7 @@ namespace Engine.Logic.Locations
     /// The iterator waits for the specified amount of time, keeping the NPC in the "Stand Idle" state
     /// 
     /// </summary>
-    public class WaitAIIteration : AIIterationActionBase<NpcWaitActionContext>
+    public class WaitAiIteration : AiIterationActionBase<NpcWaitActionContext>
     {
 
         public override NpcActionType ActionType => NpcActionType.Wait;

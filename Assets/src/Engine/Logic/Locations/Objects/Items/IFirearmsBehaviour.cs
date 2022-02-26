@@ -14,9 +14,9 @@ namespace Engine.Logic.Locations.Objects
     {
 
         /// <summary>
-        /// Точка откуда происходит появление снаряда
-        /// ---
-        /// The point where the projectile comes from
+        ///     Точка откуда происходит появление снаряда
+        ///     ---
+        ///     The point where the projectile comes from
         /// </summary>
         Vector3 ShotPosition { get; }
 

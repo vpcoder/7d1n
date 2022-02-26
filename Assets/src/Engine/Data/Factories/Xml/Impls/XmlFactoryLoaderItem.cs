@@ -7,6 +7,8 @@ namespace Engine.Data.Factories.Xml
 
     /// <summary>
     /// Загрузчик фабрики предметов
+    /// ---
+    /// 
     /// </summary>
     public class XmlFactoryLoaderItem : XmlFactoryLoaderBase<IItem>
     {

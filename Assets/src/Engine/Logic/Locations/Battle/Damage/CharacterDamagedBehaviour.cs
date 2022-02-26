@@ -6,11 +6,20 @@ namespace Engine.Logic.Locations
 {
 
     /// <summary>
-    /// Объект который может получать урон
+    /// 
+    /// Персонаж, получающий урон
+    /// ---
+    /// A character taking damage
+    /// 
     /// </summary>
-    public class CharacterDamagedBehaviour : DamagedBase
+    public class CharacterDamagedBehaviour : NpcDamagedBase
     {
 
+        /// <summary>
+        ///     Опыт получаемый другими людьми за убийство персонажа игрока
+        ///     ---
+        ///     Experience gained by other people for killing a your character
+        /// </summary>
         public override long Exp
         {
             get
@@ -19,6 +28,11 @@ namespace Engine.Logic.Locations
             }
         }
 
+        /// <summary>
+        ///     Здоровье персонажа
+        ///     ---
+        ///     Health your character 
+        /// </summary>
         public override int Health
         {
             get
@@ -32,16 +46,16 @@ namespace Engine.Logic.Locations
             }
         }
 
+        /// <summary>
+        ///     Защита персонажа
+        ///     ---
+        ///     Protecting your character
+        /// </summary>
         public override int Protection
         {
             get
             {
-                return Game.Instance.Character.State.Protection;
-            }
-            set
-            {
-                Game.Instance.Character.State.Protection = value;
-                ObjectFinder.Find<CharacterStateProtection>().Value = value;
+                return CurrentCharacterCalculationService.CurrentProtection();
             }
         }
 

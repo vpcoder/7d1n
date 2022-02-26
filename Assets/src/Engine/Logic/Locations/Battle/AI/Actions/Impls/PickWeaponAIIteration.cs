@@ -1,5 +1,4 @@
 ﻿using Engine.Logic.Locations.Animation;
-using UnityEngine;
 
 namespace Engine.Logic.Locations
 {
@@ -13,7 +12,7 @@ namespace Engine.Logic.Locations
     /// The iterator performs a weapon change for the NPC animation
     /// 
     /// </summary>
-    public class PickWeaponAIIteration : AIIterationActionBase<NpcPickWeaponActionContext>
+    public class PickWeaponAiIteration : AiIterationActionBase<NpcPickWeaponActionContext>
     {
 
         public override NpcActionType ActionType => NpcActionType.PickWeapon;

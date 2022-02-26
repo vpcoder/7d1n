@@ -34,6 +34,13 @@ namespace Engine.Logic.Locations
         Move,
 
         /// <summary>
+        /// Действие поворота в пространстве (осмотреться)
+        /// ---
+        /// The action of turning in space (look around)
+        /// </summary>
+        Look,
+
+        /// <summary>
         /// Действие атаки оружием на которое переключались ранее
         /// ---
         /// The attack action of the weapon you switched to earlier

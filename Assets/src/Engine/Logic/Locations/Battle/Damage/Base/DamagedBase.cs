@@ -1,5 +1,4 @@
-﻿using Engine.Logic.Locations.Animation;
-using UnityEngine;
+﻿using UnityEngine;
 
 namespace Engine.Logic.Locations
 {
@@ -7,48 +6,72 @@ namespace Engine.Logic.Locations
     public abstract class DamagedBase : MonoBehaviour, IDamagedObject
     {
 
+        #region Hidden Fields
+
         [SerializeField] protected AudioSource damageAudioSource;
 
-        private EnemyNpcBehaviour currentNpc;
+        #endregion
 
-        public AudioSource DamageAudioSource { get { return damageAudioSource; } }
+        #region Properties
 
+        /// <summary>
+        ///     Источник воспроизведения звуков, связанный с этой целью
+        ///     ---
+        ///     The source of sound reproduction associated with this target
+        /// </summary>
+        public virtual AudioSource DamageAudioSource { get { return damageAudioSource; } }
+
+        /// <summary>
+        ///     Кем то уже получен опыт за него?
+        ///     ---
+        ///     Is someone already experienced for him?
+        /// </summary>
         public bool ExpGeted
         {
             get;
             set;
         } = false;
 
-        public EnemyNpcBehaviour CurrentNPC
-        {
-            get
-            {
-                if (currentNpc == null)
-                {
-                    currentNpc = GetComponent<EnemyNpcBehaviour>();
-                }
-                return currentNpc;
-            }
-        }
-
+        /// <summary>
+        ///     Здоровье/Состояние цели
+        ///     ---
+        ///     Health/target state
+        /// </summary>
         public abstract int Health { get; set; }
-        public abstract int Protection { get; set; }
+
+        /// <summary>
+        ///     Защита цели
+        ///     ---
+        ///     Protecting the target
+        /// </summary>
+        public abstract int Protection { get; }
+
+        /// <summary>
+        ///     Опыт, который выдаётся за уничтожение этого существа или объекта
+        ///     ---
+        ///     The experience given for destroying that creature or object
+        /// </summary>
         public abstract long Exp { get; }
 
-        public virtual void TakeDamage()
-        {
-            CurrentNPC.Animator.SetInteger(AnimationKey.DamageKey, 1);
-            if (Health <= 0)
-                CurrentNPC.Died();
-        }
+        /// <summary>
+        ///     Ссылка на этот объект
+        ///     ---
+        ///     Link to this object
+        /// </summary>
+        public GameObject ToObject { get { return this.gameObject; } }
 
-        public GameObject ToObject
-        {
-            get
-            {
-                return this.gameObject;
-            }
-        }
+        #endregion
+
+        #region Methods
+
+        /// <summary>
+        ///     Вызывается когда цель получает урон
+        ///     ---
+        ///     Called when the target takes damage
+        /// </summary>
+        public abstract void TakeDamage();
+
+        #endregion
 
     }
 

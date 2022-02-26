@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 23625069148386822}
   - component: {fileID: 882317124}
   - component: {fileID: 882317123}
-  - component: {fileID: 882317126}
+  - component: {fileID: -4075531289465354896}
   m_Layer: 0
   m_Name: SM_Item_Alcohol_08
   m_TagString: Untagged
@@ -122,7 +122,7 @@ MonoBehaviour:
   useMeshBoundsCenter: 0
   allowShadows: 0
   shadersAlreadyHandleTransparency: 0
---- !u!114 &882317126
+--- !u!114 &-4075531289465354896
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -131,10 +131,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 1516635419090072}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2505d90fe7c647b4a8dc4a5497101208, type: 3}
+  m_Script: {fileID: 11500000, guid: d8e2ad6aa244e874999ea0fdca07a568, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  exploder: {fileID: 882317123}
   health: 10
   protection: -1
   exp: 0
+  exploder: {fileID: 0}

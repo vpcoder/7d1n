@@ -20,7 +20,7 @@ namespace Engine
         /// Атака дальнего боя
         /// </summary>
         /// <param name="source">Кто атакует</param>
-        public static void DoFirearmsAttack(IAttackCharacter source)
+        public static void DoFirearmsAttack(IAttackObject source)
         {
             var firearms = (IFirearmsWeapon)source.Weapon;
             var bulletPrefab = BulletEffectFactory.Instance.Get(firearms.AmmoEffectType);
@@ -40,7 +40,7 @@ namespace Engine
         /// Метаем нож
         /// </summary>
         /// <param name="source">Кто атакует</param>
-        public static void DoEdgedThrowAttack(IAttackCharacter source)
+        public static void DoEdgedThrowAttack(IAttackObject source)
         {
             var edged = (IEdgedWeapon)source.Weapon;
             var throwPrefab = EdgedEffectFactory.Instance.Get(edged.ThrowEffectType);
@@ -53,7 +53,7 @@ namespace Engine
         /// Метаем гранату
         /// </summary>
         /// <param name="source">Кто атакует</param>
-        public static void DoGrenadeAttack(IAttackCharacter source)
+        public static void DoGrenadeAttack(IAttackObject source)
         {
             var grenade = (IGrenadeWeapon)source.Weapon;
             var grenadePrefab = GrenadeEffectFactory.Instance.Get(grenade.GrenadeEffectType);
@@ -67,7 +67,7 @@ namespace Engine
         /// </summary>
         /// <param name="source">Кто атакует</param>
         /// <param name="target">Кого атакует</param>
-        public static void DoEdgedAttack(IAttackCharacter source, IDamagedObject target)
+        public static void DoEdgedAttack(IAttackObject source, IDamagedObject target)
         {
             DoEdgedDamage(source, target, (IEdgedWeapon)source.Weapon);
         }
@@ -79,31 +79,31 @@ namespace Engine
         /// <param name="target">Кого атакует</param>
         /// <param name="weapon">Оружие дальнего действия</param>
         /// <param name="bulletItem">Пуля, которая наносит урон</param>
-        public static void DoBulletDamage(IAttackCharacter source, IDamagedObject target, IFirearmsWeapon weapon, BulletItem bulletItem)
+        public static void DoBulletDamage(IAttackObject source, IDamagedObject target, IFirearmsWeapon weapon, BulletItem bulletItem)
         {
             var damage = ReactiveDamageWithTargetDefence(target.Protection, weapon.Damage);
             DoDamage(source, target, damage);
         }
 
-        public static void DoEdgedThrowDamage(IAttackCharacter source, IDamagedObject target, IEdgedWeapon weapon, ThrowItem throwItem)
+        public static void DoEdgedThrowDamage(IAttackObject source, IDamagedObject target, IEdgedWeapon weapon, ThrowItem throwItem)
         {
             var damage = ReactiveDamageWithTargetDefence(target.Protection, weapon.ThrowDamage);
             DoDamage(source, target, damage);
         }
 
-        public static void DoGrenadeDamage(IAttackCharacter source, IDamagedObject target, IGrenadeWeapon weapon, GrenadeItem grenadeItem)
+        public static void DoGrenadeDamage(IAttackObject source, IDamagedObject target, IGrenadeWeapon weapon, GrenadeItem grenadeItem)
         {
             var damage = ReactiveDamageWithTargetDefence(target.Protection, weapon.Damage);
             DoDamage(source, target, damage);
         }
 
-        private static void DoEdgedDamage(IAttackCharacter source, IDamagedObject target, IEdgedWeapon weapon)
+        private static void DoEdgedDamage(IAttackObject source, IDamagedObject target, IEdgedWeapon weapon)
         {
             var damage = ReactiveDamageWithTargetDefence(target.Protection, weapon.Damage);
             DoDamage(source, target, damage);
         }
 
-        private static void DoDamage(IAttackCharacter source, IDamagedObject target, int weaponDamage)
+        private static void DoDamage(IAttackObject source, IDamagedObject target, int weaponDamage)
         {
             var damage = ReactiveDamageWithTargetDefence(target.Protection, weaponDamage);
             target.Health -= damage;

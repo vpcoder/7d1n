@@ -16,109 +16,109 @@ namespace Engine.Logic.Locations
     /// Then the context is given to an iterator, which performs the necessary low-level operations on the NPC to perform the action - move the NPC's body, switch animations, make sure the NPC doesn't collide with anyone, etc.
     /// 
     /// </summary>
-    public abstract class AIIterationActionBase<T> : IAIIterationAction where T : NpcBaseActionContext
+    public abstract class AiIterationActionBase<T> : IAiIterationAction where T : NpcBaseActionContext
     {
 
         /// <summary>
-        /// Тип действия для которого рассчитан жтот модуль
-        /// ---
-        /// The type of action for which this module is designed
+        ///     Тип действия для которого рассчитан жтот модуль
+        ///     ---
+        ///     The type of action for which this module is designed
         /// </summary>
         public abstract NpcActionType ActionType { get; }
 
         /// <summary>
-        /// Метод вызывается в момент начала совершения действия ИИ существа
-        /// ---
-        /// The method is called at the moment the creature AI action starts
+        ///     Метод вызывается в момент начала совершения действия ИИ существа
+        ///     ---
+        ///     The method is called at the moment the creature AI action starts
         /// </summary>
         /// <param name="npc">
-        /// Сам NPC, который выполняет действие
-        /// ---
-        /// The NPC who performs the action
+        ///     Сам NPC, который выполняет действие
+        ///     ---
+        ///     The NPC who performs the action
         /// </param>
         /// <param name="actionContext">
-        /// Контекст операции, которая выполняется ИИ существа
-        /// ---
-        /// Context of the operation performed by the creature AI
+        ///     Контекст операции, которая выполняется ИИ существа
+        ///     ---
+        ///     Context of the operation performed by the creature AI
         /// </param>
         public abstract void Start(EnemyNpcBehaviour npc, T actionContext);
 
         /// <summary>
-        /// Метод вызывается когда совершаемое действие закончено
-        /// ---
-        /// The method is called when the action being performed is finished
+        ///     Метод вызывается когда совершаемое действие закончено
+        ///     ---
+        ///     The method is called when the action being performed is finished
         /// </summary>
         /// <param name="npc">
-        /// Сам NPC, который выполняет действие
-        /// ---
-        /// The NPC who performs the action
+        ///     Сам NPC, который выполняет действие
+        ///     ---
+        ///     The NPC who performs the action
         /// </param>
         /// <param name="actionContext">
-        /// Контекст операции, которая выполняется ИИ существа
-        /// ---
-        /// Context of the operation performed by the creature AI
+        ///     Контекст операции, которая выполняется ИИ существа
+        ///     ---
+        ///     Context of the operation performed by the creature AI
         /// </param>
         public abstract void End(EnemyNpcBehaviour npc, T actionContext, float timestamp);
 
         /// <summary>
-        /// Выполняет итерацию действия ИИ существа с учётом контекста операции
-        /// ---
-        /// Iterates the action of the creature AI, taking into account the context of the operation
+        ///     Выполняет итерацию действия ИИ существа с учётом контекста операции
+        ///     ---
+        ///     Iterates the action of the creature AI, taking into account the context of the operation
         /// </summary>
         /// <param name="npc">
-        /// Сам NPC, который выполняет действие
-        /// ---
-        /// The NPC who performs the action
+        ///     Сам NPC, который выполняет действие
+        ///     ---
+        ///     The NPC who performs the action
         /// </param>
         /// <param name="actionContext">
-        /// Контекст операции, которая выполняется ИИ существа
-        /// ---
-        /// Context of the operation performed by the creature AI
+        ///     Контекст операции, которая выполняется ИИ существа
+        ///     ---
+        ///     Context of the operation performed by the creature AI
         /// </param>
         /// <param name="timestamp">
-        /// Время начала выполнения действия ИИ существа
-        /// ---
-        /// Time of the start of the AI creature action
+        ///     Время начала выполнения действия ИИ существа
+        ///     ---
+        ///     Time of the start of the AI creature action
         /// </param>
         /// <returns>
-        /// Возвращает:
-        /// True - если в этой итерации удалось закончить действие,
-        /// False - если действие ещё продолжается, и необходимо выполнить ещё итерации
-        /// ---
-        /// Returns:
-        /// True - if in this iteration the action was completed,
-        /// False - if the action is still in progress and more iterations are needed
+        ///     Возвращает:
+        ///     True - если в этой итерации удалось закончить действие,
+        ///     False - если действие ещё продолжается, и необходимо выполнить ещё итерации
+        ///     ---
+        ///     Returns:
+        ///     True - if in this iteration the action was completed,
+        ///     False - if the action is still in progress and more iterations are needed
         /// </returns>
         public abstract bool Iteration(EnemyNpcBehaviour npc, T actionContext, float timestamp);
 
         /// <summary>
-        /// Выполняет итерацию действия ИИ существа с учётом контекста операции
-        /// ---
-        /// Iterates the action of the creature AI, taking into account the context of the operation
+        ///     Выполняет итерацию действия ИИ существа с учётом контекста операции
+        ///     ---
+        ///     Iterates the action of the creature AI, taking into account the context of the operation
         /// </summary>
         /// <param name="npc">
-        /// Сам NPC, который выполняет действие
-        /// ---
-        /// The NPC who performs the action
+        ///     Сам NPC, который выполняет действие
+        ///     ---
+        ///     The NPC who performs the action
         /// </param>
         /// <param name="actionContext">
-        /// Контекст операции, которая выполняется ИИ существа
-        /// ---
-        /// Context of the operation performed by the creature AI
+        ///     Контекст операции, которая выполняется ИИ существа
+        ///     ---
+        ///     Context of the operation performed by the creature AI
         /// </param>
         /// <param name="timestamp">
-        /// Время начала выполнения действия ИИ существа
-        /// ---
-        /// Time of the start of the AI creature action
+        ///     Время начала выполнения действия ИИ существа
+        ///     ---
+        ///     Time of the start of the AI creature action
         /// </param>
         /// <returns>
-        /// Возвращает:
-        /// True - если в этой итерации удалось закончить действие,
-        /// False - если действие ещё продолжается, и необходимо выполнить ещё итерации
-        /// ---
-        /// Returns:
-        /// True - if in this iteration the action was completed,
-        /// False - if the action is still in progress and more iterations are needed
+        ///     Возвращает:
+        ///     True - если в этой итерации удалось закончить действие,
+        ///     False - если действие ещё продолжается, и необходимо выполнить ещё итерации
+        ///     ---
+        ///     Returns:
+        ///     True - if in this iteration the action was completed,
+        ///     False - if the action is still in progress and more iterations are needed
         /// </returns>
         public bool Iteration(EnemyNpcBehaviour npc, NpcBaseActionContext actionContext, float timestamp)
         {
@@ -126,19 +126,19 @@ namespace Engine.Logic.Locations
         }
 
         /// <summary>
-        /// Метод вызывается в момент начала совершения действия ИИ существа
-        /// ---
-        /// The method is called at the moment the creature AI action starts
+        ///     Метод вызывается в момент начала совершения действия ИИ существа
+        ///     ---
+        ///     The method is called at the moment the creature AI action starts
         /// </summary>
         /// <param name="npc">
-        /// Сам NPC, который выполняет действие
-        /// ---
-        /// The NPC who performs the action
+        ///     Сам NPC, который выполняет действие
+        ///     ---
+        ///     The NPC who performs the action
         /// </param>
         /// <param name="actionContext">
-        /// Контекст операции, которая выполняется ИИ существа
-        /// ---
-        /// Context of the operation performed by the creature AI
+        ///     Контекст операции, которая выполняется ИИ существа
+        ///     ---
+        ///     Context of the operation performed by the creature AI
         /// </param>
         public void Start(EnemyNpcBehaviour npc, NpcBaseActionContext actionContext)
         {
@@ -146,19 +146,19 @@ namespace Engine.Logic.Locations
         }
 
         /// <summary>
-        /// Метод вызывается когда совершаемое действие закончено
-        /// ---
-        /// The method is called when the action being performed is finished
+        ///     Метод вызывается когда совершаемое действие закончено
+        ///     ---
+        ///     The method is called when the action being performed is finished
         /// </summary>
         /// <param name="npc">
-        /// Сам NPC, который выполняет действие
-        /// ---
-        /// The NPC who performs the action
+        ///     Сам NPC, который выполняет действие
+        ///     ---
+        ///     The NPC who performs the action
         /// </param>
         /// <param name="actionContext">
-        /// Контекст операции, которая выполняется ИИ существа
-        /// ---
-        /// Context of the operation performed by the creature AI
+        ///     Контекст операции, которая выполняется ИИ существа
+        ///     ---
+        ///     Context of the operation performed by the creature AI
         /// </param>
         public void End(EnemyNpcBehaviour npc, NpcBaseActionContext actionContext, float timestamp)
         {

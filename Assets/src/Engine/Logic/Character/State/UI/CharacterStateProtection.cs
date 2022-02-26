@@ -11,7 +11,7 @@ namespace Engine.Character
 		
 		public override void OnStart()
 		{
-            Value = Game.Instance.Character.State.Protection + Game.Instance.Character.Equipment.Protection;
+            Value = CurrentCharacterCalculationService.CurrentProtection();
         }
 		
 	}

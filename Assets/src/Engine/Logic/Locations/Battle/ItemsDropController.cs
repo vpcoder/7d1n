@@ -1,4 +1,5 @@
 ﻿using Engine.Data;
+using Engine.Data.Factories;
 using Engine.Logic.Locations.Objects;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,8 +13,6 @@ namespace Engine.Logic.Locations
     /// </summary>
     public class ItemsDropController : MonoBehaviour
     {
-
-        [SerializeField] private LocationDroppedItemBehaviour droppedPrefab;
 
         public void Drop(Vector3 worldPosition, IItem item)
         {
@@ -45,9 +44,13 @@ namespace Engine.Logic.Locations
             if (itemInfo == null)
                 return;
 
+            // Получаем предмет, чтобы вытащить его префаб
+            IItem item = ItemFactory.Instance.Get(itemInfo.ID);
             // Выкидываем предмет на карту
-            var dropped = GameObject.Instantiate<LocationDroppedItemBehaviour>(droppedPrefab);
-            dropped.Init(itemInfo, worldPosition);
+            var dropped = GameObject.Instantiate<GameObject>(item.Prefab);
+            // Достаём информацию о выкинутом предмете, и инициализируем предмет
+            var droppedBehaviour = dropped.GetComponent<LocationDroppedItemBehaviour>();
+            droppedBehaviour.Init(itemInfo, worldPosition);
         }
 
         public void Drop(Vector3 worldPosition, IEnumerable<ItemInfo> itemsInfo)

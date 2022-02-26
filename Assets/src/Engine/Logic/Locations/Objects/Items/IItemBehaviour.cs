@@ -14,16 +14,16 @@ namespace Engine.Logic.Locations.Objects
     {
 
         /// <summary>
-        /// Экземпляр предмета
-        /// ---
-        /// A copy of the item
+        ///     Экземпляр предмета
+        ///     ---
+        ///     A copy of the item
         /// </summary>
         IItem Item { get; set; }
 
         /// <summary>
-        /// Набор данных по которым будет создаваться экземпляр предмета Item
-        /// ---
-        /// The set of data by which an Item instance will be created
+        ///     Набор данных по которым будет создаваться экземпляр предмета Item
+        ///     ---
+        ///     The set of data by which an Item instance will be created
         /// </summary>
         ItemInfo ItemInfo { get; set; }
 

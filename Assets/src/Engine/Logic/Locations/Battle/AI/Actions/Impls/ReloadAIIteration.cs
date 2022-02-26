@@ -1,6 +1,5 @@
 ﻿using Engine.Logic.Locations.Animation;
 using System;
-using UnityEngine;
 
 namespace Engine.Logic.Locations
 {
@@ -12,7 +11,7 @@ namespace Engine.Logic.Locations
     /// The iterator of the reload weapon action.
     /// 
     /// </summary>
-    public class ReloadAIIteration : AIIterationActionBase<NpcReloadActionContext>
+    public class ReloadAiIteration : AiIterationActionBase<NpcReloadActionContext>
     {
 
         public override NpcActionType ActionType => NpcActionType.Reload;

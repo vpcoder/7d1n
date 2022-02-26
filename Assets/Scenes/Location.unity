@@ -1460,16 +1460,8 @@ MonoBehaviour:
   agent: {fileID: 435129378}
   body: {fileID: 354833329}
   attackAudioSource: {fileID: 435129382}
+  lookDirectionTransform: {fileID: 0}
   id: 0
-  CurrentAction:
-    Action: 0
-    WaitDelay: 0
-    Speed: 1
-  NpcContext:
-    Actions: []
-  Timestamp: 0
-  WaitDelay: 0
-  LocalPosition: {x: 0, y: 0, z: 0}
   directionObject: {fileID: 1054281029}
   pickUpDistance: 1
   speed: 3
@@ -7980,7 +7972,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b199beadf1de630439257c2f60432bd3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  droppedPrefab: {fileID: 0}
 --- !u!114 &2093985698
 MonoBehaviour:
   m_ObjectHideFlags: 0

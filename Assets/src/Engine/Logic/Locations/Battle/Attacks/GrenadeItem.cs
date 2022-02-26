@@ -15,7 +15,7 @@ namespace Engine.Logic.Locations
         [SerializeField] private float speed = 25f;
         [SerializeField] private float reactDistance = 0.1f;
         [SerializeField] private float maxDistance = 20f;
-        private IAttackCharacter source;
+        private IAttackObject source;
 
         private Vector3 targetPos;
         private Vector3 startPos;
@@ -25,7 +25,7 @@ namespace Engine.Logic.Locations
 
         private float timestamp;
 
-        public void Init(IAttackCharacter source, Vector3 startPos, Vector3 targetPos, IGrenadeWeapon weapon)
+        public void Init(IAttackObject source, Vector3 startPos, Vector3 targetPos, IGrenadeWeapon weapon)
         {
             this.transform.position = startPos;
             this.transform.LookAt(targetPos);
