@@ -101,9 +101,10 @@ namespace Engine.Logic.Locations.Battle
             var controller = ObjectFinder.Find<BattleActionsController>();
             controller.AttackContext.Action = action;
             controller.AttackContext.Weapon = weapon;
-            controller.Action = BattleAction.Attack;
+            controller.Action = CharacterBattleAction.Attack;
 
             int ap = 0;
+            float aimRadius = weapon.AimRadius;
 
             switch (action)
             {
@@ -124,6 +125,7 @@ namespace Engine.Logic.Locations.Battle
                 case HandActionType.ThrowEdged:
                     var edged = (IEdgedWeapon)weapon;
                     ap = edged.ThrowAP;
+                    aimRadius = edged.ThrowAimRadius;
                     break;
             }
 
@@ -140,7 +142,7 @@ namespace Engine.Logic.Locations.Battle
                 Game.Instance.Runtime.ActionMode = ActionMode.Aim;
             }
 
-            Show(weapon.AimRadius);
+            Show(aimRadius);
         }
 
         public void OnAimClick(Vector3 floorHitPoint)

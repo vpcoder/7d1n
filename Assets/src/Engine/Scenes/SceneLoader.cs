@@ -1,6 +1,5 @@
 ﻿using Engine.Data;
 using Engine.Data.Stories;
-using Engine.IO;
 using Engine.Map;
 using UnityEngine;
 using UnityEngine.UI;
@@ -13,6 +12,7 @@ namespace Engine.Logic
 
         [SerializeField] private GameObject topPanelPrefab;
         [SerializeField] private GameObject scanUIPrefab;
+        [SerializeField] private GameObject locationGUIPrefab;
 
         private bool exitFlag = false;
 
@@ -49,14 +49,14 @@ namespace Engine.Logic
                 CharacterStory.Instance.SaveAll(Game.Instance.Character);
             }
 
-            if (runtime.Scene == Scenes.SceneName.Map || runtime.Scene == Scenes.SceneName.Location)
+            switch(runtime.Scene)
             {
-                LoadPanels();
-            }
-
-            if (runtime.Scene == Scenes.SceneName.Map)
-            {
-                LoadMapScene();
+                case Scenes.SceneName.Map:
+                    LoadMapScene();
+                    break;
+                case Scenes.SceneName.Location:
+                    LoadLocationScene();
+                    break;
             }
 
             if (runtime.Mode == Mode.Switch)
@@ -79,17 +79,26 @@ namespace Engine.Logic
             canvasScaler.referencePixelsPerUnit = 100;
         }
 
-        private void LoadPanels()
+        private void LoadLocationScene()
         {
             var canvas = ObjectFinder.Get<Canvas>("Canvas");
+
             var panel = GameObject.Instantiate<GameObject>(topPanelPrefab, canvas.transform);
             panel.transform.name = "TopPanel";
             panel.transform.SetAsFirstSibling();
+
+            var gui = GameObject.Instantiate<GameObject>(locationGUIPrefab, canvas.transform);
+            gui.transform.name = "GUI";
+            gui.transform.SetAsFirstSibling();
         }
 
         private void LoadMapScene()
         {
             var canvas = ObjectFinder.Get<Canvas>("Canvas").transform;
+
+            var panel = GameObject.Instantiate<GameObject>(topPanelPrefab, canvas.transform);
+            panel.transform.name = "TopPanel";
+            panel.transform.SetAsFirstSibling();
 
             var game = Game.Instance;
             var runtime = game.Runtime;

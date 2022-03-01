@@ -1,4 +1,5 @@
 ﻿using Engine.EGUI;
+using Mapbox.Unity.Location;
 using Mapbox.Unity.Map;
 using UnityEngine;
 using UnityEngine.UI;
@@ -23,6 +24,11 @@ namespace Engine.Logic
         /// Экземпляр карты mapbox
         /// </summary>
         [SerializeField] private AbstractMap map;
+
+        /// <summary>
+        /// 
+        /// </summary>
+        [SerializeField] private AbstractLocationProvider locationProvider;
 
         private void Awake()
         {

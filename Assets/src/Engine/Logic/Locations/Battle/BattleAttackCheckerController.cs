@@ -139,7 +139,7 @@ namespace Engine.Logic.Locations
             var controller = ObjectFinder.Find<BattleActionsController>();
             controller.AttackContext.Action = action;
             controller.AttackContext.Weapon = weapon;
-            controller.Action = BattleAction.Attack;
+            controller.Action = CharacterBattleAction.Attack;
 
             checkFlag = false;
             type = action;

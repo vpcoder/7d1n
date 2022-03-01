@@ -15,11 +15,11 @@ namespace Engine.DB
     {
 
         ///<summary>
-        /// Идентификатор объекта
-        /// Обязан быть уникален в рамках своего типа
-        /// ----
-        /// Object identifier
-        /// Must be unique within its type
+        ///     Идентификатор объекта
+        ///     Обязан быть уникален в рамках своего типа
+        ///     ----
+        ///     Object identifier
+        ///     Must be unique within its type
         ///</summary>
         [PrimaryKey]
         [AutoIncrement]

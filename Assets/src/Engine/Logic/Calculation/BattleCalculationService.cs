@@ -9,17 +9,27 @@ namespace Engine
 {
 
     /// <summary>
+    /// 
     /// Сервис расчётов битвы
+    /// ---
+    /// Battle Calculation Service
+    /// 
     /// </summary>
     public class BattleCalculationService
     {
 
-        #pragma warning disable IDE0060
+#pragma warning disable IDE0060
 
         /// <summary>
-        /// Атака дальнего боя
+        ///     Атака дальнего боя
+        ///     ---
+        ///     Ranged Attack
         /// </summary>
-        /// <param name="source">Кто атакует</param>
+        /// <param name="source">
+        ///     Кто атакует
+        ///     ---
+        ///     Who is attacking
+        /// </param>
         public static void DoFirearmsAttack(IAttackObject source)
         {
             var firearms = (IFirearmsWeapon)source.Weapon;
@@ -37,25 +47,37 @@ namespace Engine
         }
 
         /// <summary>
-        /// Метаем нож
+        ///     Метаем нож
         /// </summary>
-        /// <param name="source">Кто атакует</param>
-        public static void DoEdgedThrowAttack(IAttackObject source)
+        /// <param name="source">
+        ///     Кто атакует
+        ///     ---
+        ///     Who is attacking
+        /// </param>
+        public static void DoEdgedThrowAttack(IAttackObject source, IEdgedWeapon edged, Vector3 weaponPos)
         {
-            var edged = (IEdgedWeapon)source.Weapon;
             var throwPrefab = EdgedEffectFactory.Instance.Get(edged.ThrowEffectType);
             var bullet = GameObject.Instantiate<GameObject>(throwPrefab);
             var edgedItem = bullet.GetComponent<ThrowItem>();
-            edgedItem.Init(source, source.AttackCharacterObject.transform.position, source.TargetAttackPos, edged);
+
+            var targetPos = source.TargetAttackPos;
+            targetPos.y = weaponPos.y;
+
+            edgedItem.Init(source, weaponPos, targetPos, edged);
         }
 
         /// <summary>
-        /// Метаем гранату
+        ///     Метаем гранату
+        ///     ---
+        ///     
         /// </summary>
-        /// <param name="source">Кто атакует</param>
-        public static void DoGrenadeAttack(IAttackObject source)
+        /// <param name="source">
+        ///     Кто атакует
+        ///     ---
+        ///     Who is attacking
+        /// </param>
+        public static void DoGrenadeAttack(IAttackObject source, IGrenadeWeapon grenade, Vector3 weaponPos)
         {
-            var grenade = (IGrenadeWeapon)source.Weapon;
             var grenadePrefab = GrenadeEffectFactory.Instance.Get(grenade.GrenadeEffectType);
             var bullet = GameObject.Instantiate<GameObject>(grenadePrefab);
             var grenadeItem = bullet.GetComponent<GrenadeItem>();
@@ -63,22 +85,46 @@ namespace Engine
         }
 
         /// <summary>
-        /// Атака ближнего боя
+        ///     Атака ближнего боя
         /// </summary>
-        /// <param name="source">Кто атакует</param>
-        /// <param name="target">Кого атакует</param>
+        /// <param name="source">
+        ///     Кто атакует
+        ///     ---
+        ///     Who is attacking
+        /// </param>
+        /// <param name="target">
+        ///     Кого атакует
+        /// </param>
         public static void DoEdgedAttack(IAttackObject source, IDamagedObject target)
         {
             DoEdgedDamage(source, target, (IEdgedWeapon)source.Weapon);
         }
 
         /// <summary>
-        /// Передача урона от снаряда
+        ///     Передача урона от снаряда
+        ///     ---
+        ///     
         /// </summary>
-        /// <param name="source">Кто атакует</param>
-        /// <param name="target">Кого атакует</param>
-        /// <param name="weapon">Оружие дальнего действия</param>
-        /// <param name="bulletItem">Пуля, которая наносит урон</param>
+        /// <param name="source">
+        ///     Кто атакует
+        ///     ---
+        ///     Who is attacking
+        /// </param>
+        /// <param name="target">
+        ///     Кого атакует
+        ///     ---
+        ///     
+        /// </param>
+        /// <param name="weapon">
+        ///     Оружие дальнего действия
+        ///     ---
+        ///     
+        /// </param>
+        /// <param name="bulletItem">
+        ///     Пуля, которая наносит урон
+        ///     ---
+        ///     
+        /// </param>
         public static void DoBulletDamage(IAttackObject source, IDamagedObject target, IFirearmsWeapon weapon, BulletItem bulletItem)
         {
             var damage = ReactiveDamageWithTargetDefence(target.Protection, weapon.Damage);

@@ -175,8 +175,9 @@ namespace Engine.Data.Factories.Xml
 
         private void ReadBaseWeapon(IWeapon weapon)
         {
+            weapon.WeaponType  = Enm<WeaponType>("WeaponType");
             weapon.Damage      = Int("Damage");
-            weapon.MaxDistance = Lng("MaxDistance");
+            weapon.MaxDistance = Flt("MaxDistance");
             weapon.AimRadius   = Flt("AimRadius");
             weapon.UseAP       = Int("UseAP");
         }
@@ -213,7 +214,8 @@ namespace Engine.Data.Factories.Xml
             weapon.CanThrow          = Bol("CanThrow");
             weapon.ThrowAP           = Int("ThrowAP");
             weapon.ThrowDamage       = Lng("ThrowDamage");
-            weapon.ThrowDistance     = Lng("ThrowDistance");
+            weapon.ThrowDistance     = Flt("ThrowDistance");
+            weapon.ThrowAimRadius    = Flt("ThrowAimRadius");
 
             weapon.ThrowEffectType   = Str("ThrowEffectType");
             weapon.ThrowSoundType    = Str("ThrowSoundType");

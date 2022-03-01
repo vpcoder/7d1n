@@ -71,6 +71,7 @@ namespace Engine.Data
             {
                 ID = ID,
                 ToolType = ToolType,
+                WeaponType = WeaponType,
                 Type = Type,
                 Name = Name,
                 Description = Description,

@@ -42,7 +42,6 @@ namespace Engine.Logic.Locations
             set
             {
                 Game.Instance.Character.State.Health = value;
-                ObjectFinder.Find<CharacterStateHealth>().Value = value;
             }
         }
 

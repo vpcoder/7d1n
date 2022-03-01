@@ -110,9 +110,7 @@ namespace Engine.Map
             if (DeviceInput.GetTouchPhase == TouchPhase.Ended)
             {
                 if (Vector3.Distance(DeviceInput.TouchPosition, mouseDownPos) >= 10f)
-
                     return;
-
 
                 var ray = Camera.main.ScreenPointToRay(DeviceInput.TouchPosition);
                 var hitsData = Physics.RaycastAll(ray, 1000f);

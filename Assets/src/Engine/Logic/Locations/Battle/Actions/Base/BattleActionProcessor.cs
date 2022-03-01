@@ -19,16 +19,16 @@ namespace Engine.Logic.Locations.Battle.Actions
         #region Properties
 
         /// <summary>
-        /// Действие которому соответствует процессор
-        /// ---
-        /// Action to which the processor corresponds
+        ///     Действие которому соответствует процессор
+        ///     ---
+        ///     Action to which the processor corresponds
         /// </summary>
-        public abstract BattleAction Action { get; }
+        public abstract CharacterBattleAction Action { get; }
 
         /// <summary>
-        /// Выполняет поиск контроллера действий в битве
-        /// ---
-        /// Searches for the action controller in the battle
+        ///     Выполняет поиск контроллера действий в битве
+        ///     ---
+        ///     Searches for the action controller in the battle
         /// </summary>
         public BattleActionsController Controller
         {
@@ -43,9 +43,9 @@ namespace Engine.Logic.Locations.Battle.Actions
         #region Methods
 
         /// <summary>
-        /// Метод выполняет действие процессора в битве
-        /// ---
-        /// The method performs the action of the processor in the battle
+        ///     Метод выполняет действие процессора в битве
+        ///     ---
+        ///     The method performs the action of the processor in the battle
         /// </summary>
         public void Process(IBattleActionContext context)
         {
@@ -60,9 +60,9 @@ namespace Engine.Logic.Locations.Battle.Actions
         }
 
         /// <summary>
-        /// Метод прекращает выполнять действие процессора
-        /// ---
-        /// The method stops executing the processor action
+        ///     Метод прекращает выполнять действие процессора
+        ///     ---
+        ///     The method stops executing the processor action
         /// </summary>
         public void Rollback(IBattleActionContext context)
         {
@@ -77,9 +77,9 @@ namespace Engine.Logic.Locations.Battle.Actions
         }
 
         /// <summary>
-        /// Метод выполняет действие процессора в битве
-        /// ---
-        /// The method performs the action of the processor in the battle
+        ///     Метод выполняет действие процессора в битве
+        ///     ---
+        ///     The method performs the action of the processor in the battle
         /// </summary>
         /// <param name="context">
         ///     Контекст действия для текущего процессора

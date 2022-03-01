@@ -148,11 +148,26 @@ namespace Engine.Logic.Locations.Objects
         ///     ---
         ///     The position of the discarded object in the world
         /// </param>
-        public void Init(ItemInfo itemInfo, Vector3 worldPosition)
+        /// <param name="dropWithRandomPos">
+        ///     Корректировать позицию выбрасывания случайно
+        ///     ---
+        ///     Adjust the ejection position randomly
+        /// </param>
+        public void Init(ItemInfo itemInfo, Vector3 worldPosition, bool dropWithRandomPos)
         {
             this.ItemInfo = itemInfo;
-            // К положению в мире добавляем рандомное смещение в радиусе 0.5ед., чтобы сымитировать небрежное выкидывание предмета
-            this.transform.position = worldPosition + Random.insideUnitCircle.ToVector3() * 0.5f + Vector3.up * 1.5f;
+
+            if (dropWithRandomPos)
+            {
+                // К положению в мире добавляем рандомное смещение в радиусе 0.5ед., чтобы сымитировать небрежное выкидывание предмета
+                this.transform.position = worldPosition + Random.insideUnitCircle.ToVector3() * 0.5f + Vector3.up * 1.5f;
+            }
+            else
+            {
+                // Оставляем позицию
+                this.transform.position = worldPosition;
+            }
+
             // Случайно вращаем предмет, типо он так упал
             this.transform.rotation = Quaternion.Euler(new Vector3(0f, 0f, Random.Range(0f, 360f)));
             

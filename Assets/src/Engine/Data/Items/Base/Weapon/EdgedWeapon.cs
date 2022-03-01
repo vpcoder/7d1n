@@ -5,7 +5,11 @@ namespace Engine.Data
 {
 
     /// <summary>
+    /// 
     /// Холодное оружие
+    /// ---
+    /// Cold Weapons
+    /// 
     /// </summary>
     [Serializable]
     public class EdgedWeapon : Weapon, IEdgedWeapon
@@ -29,7 +33,14 @@ namespace Engine.Data
         /// <summary>
         /// Дистанция метания
         /// </summary>
-        public long ThrowDistance { get; set; }
+        public float ThrowDistance { get; set; }
+
+        /// <summary>
+        ///     Дистанция прицеливания при метании ножа
+        ///     ---
+        ///     Aiming distance when throwing a edged
+        /// </summary>
+        public float ThrowAimRadius { get; set; }
 
         /// <summary>
         /// Как выглядит снаряд при метании
@@ -52,15 +63,22 @@ namespace Engine.Data
         public string ThrowOutSoundType { get; set; }
 
         /// <summary>
-        /// Копирует текущую сущность в новый экземпляр
+        ///     Копирует текущую сущность в новый экземпляр
+        ///     ---
+        ///     
         /// </summary>
-        /// <returns>Копия сущности</returns>
+        /// <returns>
+        ///     Копия сущности
+        ///     ---
+        ///     
+        /// </returns>
         public override IIdentity Copy()
         {
             return new EdgedWeapon()
             {
                 ID = ID,
                 ToolType = ToolType,
+                WeaponType = WeaponType,
                 Type = Type,
                 Name = Name,
                 Description = Description,
@@ -80,6 +98,7 @@ namespace Engine.Data
                 ThrowAP = ThrowAP,
                 ThrowDamage = ThrowDamage,
                 ThrowDistance = ThrowDistance,
+                ThrowAimRadius = ThrowAimRadius,
                 ThrowEffectType = ThrowEffectType,
 
                 ThrowSoundType = ThrowSoundType,

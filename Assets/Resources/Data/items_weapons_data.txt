@@ -4,6 +4,7 @@
 	<Item
 		ID="990"
 		Type="WeaponEdged"
+		WeaponType="Hands"
 		Name="weapon_system_hands_name"
 		Description="weapon_system_hands_desc"
 		Damage="8"
@@ -16,6 +17,7 @@
 	<Item
 		ID="991"
 		Type="WeaponEdged"
+		WeaponType="Hands"
 		Name="weapon_system_zombie_hands_name"
 		Damage="10"
 		MaxDistance="1"
@@ -27,6 +29,7 @@
 	<Item
 		ID="992"
 		Type="WeaponEdged"
+		WeaponType="Custom"
 		Name="weapon_system_tooths_name"
 		Damage="15"
 		MaxDistance="1"
@@ -39,6 +42,7 @@
 		<Item
 			ID="1000"
 			Type="WeaponFirearms"
+			WeaponType="Pistol"
 			Name="weapon_pistol_pm_name"
 			Description="weapon_pistol_pm_desc"
 			StackSize="1"
@@ -83,6 +87,8 @@
 		<Item
 			ID="3000"
 			Type="WeaponEdged"
+			WeaponType="Knife"
+
 			Name="weapon_knife_kitchen_name"
 			Description="weapon_knife_kitchen_desc"
 			StackSize="1"
@@ -96,7 +102,8 @@
 			ThrowAP="5"
 			ThrowDamage="15"
 
-			ThrowDistance="20"
+			ThrowDistance="14"
+			ThrowAimRadius="7"
 			ThrowEffectType="knife"
 		>
 			<Part ResID="2" ResCount="60" Difficulty="1"/> <!-- Железо  -->
@@ -109,6 +116,7 @@
 		<Item
 			ID="4000"
 			Type="WeaponGrenade"
+			WeaponType="Grenade"
 			Name="weapon_grenade_f1_name"
 			Description="weapon_grenade_f1_desc"
 			StackSize="1"
@@ -133,6 +141,7 @@
 		<Item
 			ID="4001"
 			Type="WeaponGrenade"
+			WeaponType="Grenade"
 			Name="weapon_grenade_rgd5_name"
 			Description="weapon_grenade_rgd5_desc"
 			StackSize="1"

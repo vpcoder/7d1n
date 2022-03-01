@@ -9,7 +9,7 @@ namespace Engine.Character
 	public class CharacterStateProtection : CharacterStateUI
 	{
 		
-		public override void OnStart()
+		public override void OnUpdate()
 		{
             Value = CurrentCharacterCalculationService.CurrentProtection();
         }

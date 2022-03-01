@@ -14,32 +14,32 @@ namespace Engine.Logic.Locations
     public class ItemsDropController : MonoBehaviour
     {
 
-        public void Drop(Vector3 worldPosition, IItem item)
+        public void Drop(Vector3 worldPosition, bool dropWithRandomPos, IItem item)
         {
             if (item == null)
                 return;
 
-            Drop(worldPosition, ItemSerializator.Convert(item));
+            Drop(worldPosition, dropWithRandomPos, ItemSerializator.Convert(item));
         }
 
-        public void Drop(Vector3 worldPosition, IEnumerable<IItem> items)
+        public void Drop(Vector3 worldPosition, bool dropWithRandomPos, IEnumerable < IItem> items)
         {
             if (items == null)
                 return;
 
-            Drop(worldPosition, items.ToArray());
+            Drop(worldPosition, dropWithRandomPos, items.ToArray());
         }
 
-        public void Drop(Vector3 worldPosition, params IItem[] items)
+        public void Drop(Vector3 worldPosition, bool dropWithRandomPos, params IItem[] items)
         {
             if (items == null || items.Length == 0)
                 return;
 
             foreach(var item in items)
-                Drop(worldPosition, item);
+                Drop(worldPosition, dropWithRandomPos, item);
         }
 
-        public void Drop(Vector3 worldPosition, ItemInfo itemInfo)
+        public void Drop(Vector3 worldPosition, bool dropWithRandomPos, ItemInfo itemInfo)
         {
             if (itemInfo == null)
                 return;
@@ -50,24 +50,24 @@ namespace Engine.Logic.Locations
             var dropped = GameObject.Instantiate<GameObject>(item.Prefab);
             // Достаём информацию о выкинутом предмете, и инициализируем предмет
             var droppedBehaviour = dropped.GetComponent<LocationDroppedItemBehaviour>();
-            droppedBehaviour.Init(itemInfo, worldPosition);
+            droppedBehaviour.Init(itemInfo, worldPosition, dropWithRandomPos);
         }
 
-        public void Drop(Vector3 worldPosition, IEnumerable<ItemInfo> itemsInfo)
+        public void Drop(Vector3 worldPosition, bool dropWithRandomPos, IEnumerable<ItemInfo> itemsInfo)
         {
             if (itemsInfo == null)
                 return;
 
-            Drop(worldPosition, itemsInfo.ToArray());
+            Drop(worldPosition, dropWithRandomPos, itemsInfo.ToArray());
         }
 
-        public void Drop(Vector3 worldPosition, params ItemInfo[] itemsInfo)
+        public void Drop(Vector3 worldPosition, bool dropWithRandomPos, params ItemInfo[] itemsInfo)
         {
             if (itemsInfo == null || itemsInfo.Length == 0)
                 return;
 
             foreach (var itemInfo in itemsInfo)
-                Drop(worldPosition, itemInfo);
+                Drop(worldPosition, dropWithRandomPos, itemInfo);
         }
 
     }

@@ -19,9 +19,9 @@ namespace Engine.DB
         #region Ctor
 
         /// <summary>
-        /// Список доступных языков, которыми будет набиваться БД при инициализации
-        /// ---
-        /// List of available languages, which will be filled in the database during initialization
+        ///     Список доступных языков, которыми будет набиваться БД при инициализации
+        ///     ---
+        ///     List of available languages, which will be filled in the database during initialization
         /// </summary>
         private static readonly ISet<string> i18nList = new HashSet<string>()
         {

@@ -12,9 +12,9 @@ namespace Engine.Data
     public interface ICloth : ICraftableItem
     {
         /// <summary>
-        /// Защита  от 0 до 100 * 1000
-        /// ---
-        /// Protection from 0 to 100 * 1000
+        ///     Защита  от 0 до 100 * 1000
+        ///     ---
+        ///     Protection from 0 to 100 * 1000
         /// </summary>
         int Protection { get; set; }
     }

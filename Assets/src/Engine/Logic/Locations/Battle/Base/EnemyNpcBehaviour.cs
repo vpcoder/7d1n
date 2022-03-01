@@ -81,11 +81,12 @@ namespace Engine.Logic.Locations
             var weaponPoint = EnemyBody?.WeaponPoint;
             weaponPoint.DestroyAllChilds();
 
+            Weapon = weapon;
             Animator.SetInteger(AnimationKey.AttackTypeKey, (int)AttackType.Empty);
 
             if (weapon == null || weapon.ID == DataDictionary.Weapons.WEAPON_SYSTEM_HANDS)
             {
-                Animator.SetInteger(AnimationKey.WeaponEquipKey, (int)WeaponEquipType.Empty);
+                Animator.SetInteger(AnimationKey.WeaponEquipKey, (int)WeaponType.Hands);
                 return;
             }
 
@@ -95,10 +96,11 @@ namespace Engine.Logic.Locations
                 var weaponBehaviour = weaponBody.GetComponent<IWeaponBehaviour>();
                 weaponBody.transform.localPosition = weaponBehaviour.PositionOffset;
                 weaponBody.transform.localRotation = Quaternion.Euler(weaponBehaviour.RotationOffset);
+                Destroy(weaponBody.GetComponent<LocationDroppedItemBehaviour>());
                 this.WeaponObject = weaponBody;
             }
 
-            Animator.SetInteger(AnimationKey.WeaponEquipKey, (int)weapon.Type.GetAnimationWeaponEquipType());
+            Animator.SetInteger(AnimationKey.WeaponEquipKey, (int)weapon.WeaponType);
         }
 
         public List<Vector3> CalculatePath(Vector3 targetPoint)
@@ -220,8 +222,8 @@ namespace Engine.Logic.Locations
             manager.RemoveEnemiesFromBattle(this);
 
             var dropController = ObjectFinder.Find<ItemsDropController>();
-            dropController.Drop(transform.position, Enemy.Items); // Выкидываем предметы
-            dropController.Drop(transform.position, Enemy.Weapons?.Where(weapon => !DataDictionary.Items.SYSTEM_ITEMS.Contains(weapon.ID)).ToArray());
+            dropController.Drop(transform.position, true, Enemy.Items); // Выкидываем предметы
+            dropController.Drop(transform.position, true, Enemy.Weapons?.Where(weapon => !DataDictionary.Items.SYSTEM_ITEMS.Contains(weapon.ID)).ToArray());
 
             DoEndStep();
 

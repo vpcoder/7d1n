@@ -24,19 +24,20 @@ namespace Engine.Logic.Locations
             if (npc.Target == null) // Потеряли цель
                 return true; // Конец этого действия
 
-            npc.Animator.SetInteger(AnimationKey.AttackTypeKey, (int)AttackType.SingleShot);
             npc.TargetAttackPos = npc.Target.ToObject.transform.position;
 
             switch (actionContext.Weapon.Type)
             {
                 case GroupType.WeaponEdged:
+                    npc.Animator.SetInteger(AnimationKey.AttackTypeKey, (int)AttackType.EdgedAttack);
                     BattleCalculationService.DoEdgedAttack(npc, npc.Target);
                     break;
                 case GroupType.WeaponFirearms:
+                    npc.Animator.SetInteger(AnimationKey.AttackTypeKey, (int)AttackType.SingleShot);
                     BattleCalculationService.DoFirearmsAttack(npc);
                     break;
                 case GroupType.WeaponGrenade:
-                    BattleCalculationService.DoGrenadeAttack(npc);
+                    //BattleCalculationService.DoGrenadeAttack(npc, (IGrenadeWeapon)actionContext.Weapon);
                     break;
                 default:
                     throw new NotSupportedException();

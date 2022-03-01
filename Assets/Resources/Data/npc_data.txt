@@ -1,0 +1,13 @@
+﻿<Data>
+
+	<Item ID="0"
+		  Body="surviver"
+		  Behaviour="surviver"
+		  Sprite="surviver" />
+	
+	<Item ID="100"
+		  Body="zombie_business_female"
+		  Behaviour="zombie_business_female"
+		  Sprite="zombie_business_female" />
+
+</Data>

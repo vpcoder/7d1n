@@ -1616,6 +1616,7 @@ MonoBehaviour:
     m_PostInfinity: 2
     m_RotationOrder: 4
   map: {fileID: 967308906}
+  locationProvider: {fileID: 1751033890}
 --- !u!1 &967308905
 GameObject:
   m_ObjectHideFlags: 0
@@ -1652,7 +1653,7 @@ MonoBehaviour:
       latitudeLongitude: 37,784179;-122,401583
       zoom: 17.5
     extentOptions:
-      extentType: 1
+      extentType: 2
       defaultExtents:
         cameraBoundsOptions:
           camera: {fileID: 1681481105}
@@ -1675,7 +1676,7 @@ MonoBehaviour:
       unityTileSize: 100
     loadingTexture: {fileID: 2800000, guid: e2896a92727704803a9c422b043eae89, type: 3}
     tileMaterial: {fileID: 2100000, guid: 3a2c7312481db0b49a85fe228375e79b, type: 2}
-  _initializeOnStart: 1
+  _initializeOnStart: 0
   _imagery:
     _layerProperty:
       sourceType: 6
@@ -2489,6 +2490,7 @@ MonoBehaviour:
     type: 3}
   scanUIPrefab: {fileID: 1647467563321428586, guid: 1b439712bd8369647a605ef729c39e4e,
     type: 3}
+  locationGUIPrefab: {fileID: 0}
 --- !u!114 &967308909
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2968,7 +2970,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &1677311968
 RectTransform:
   m_ObjectHideFlags: 0

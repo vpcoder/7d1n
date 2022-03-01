@@ -30,7 +30,7 @@ namespace Engine.Logic
                 hands.TryRemoveItem(item);
 
             if(dropController != null) // Выкидываем предмет на карту
-                dropController.Drop(character.transform.position, item);
+                dropController.Drop(character.transform.position, true, item);
             
             // Очищаем панель с выкинутым предметом
             panel.Item = null;

@@ -48,7 +48,10 @@ namespace Engine.Logic
 
         private void Loaded()
         {
-            
+            var pos = locationProvider.CurrentLocation.LatitudeLongitude;
+            Debug.Log("loaded pos: " + pos);
+            map.Initialize(pos, 17.5f);
+            map.UpdateMap();
         }
 
         private void PutMessage(string title, bool enabled)

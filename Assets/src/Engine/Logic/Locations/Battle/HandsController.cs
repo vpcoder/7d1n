@@ -86,8 +86,8 @@ namespace Engine.Logic.Locations
 
             actionController.HideActions();
 
-            if (Game.Instance.Runtime.Mode != Mode.Battle)
-                return;
+            // if (Game.Instance.Runtime.Mode != Mode.Battle)
+            //    return;
 
             if (selected.Weapon != null)
             {

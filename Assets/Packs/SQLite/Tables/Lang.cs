@@ -18,17 +18,17 @@ namespace Engine.DB.I18n
     {
 
         /// <summary>
-        /// Код языка (ru_ru, en_us, и т.д.)
-        /// ---
-        /// Language code (ru_ru, en_us, etc.)
+        ///     Код языка (ru_ru, en_us, и т.д.)
+        ///     ---
+        ///     Language code (ru_ru, en_us, etc.)
         /// </summary>
         [Column("code")]
         public string Code { get; set; }
 
         /// <summary>
-        /// Название языка в локализованном виде, например "Русский", "English" и т.д.
-        /// ---
-        /// Language name in localized form, e.g. "Русский", "English", etc.
+        ///     Название языка в локализованном виде, например "Русский", "English" и т.д.
+        ///     ---
+        ///     Language name in localized form, e.g. "Русский", "English", etc.
         /// </summary>
         [Column("name")]
         public string Name { get; set; }

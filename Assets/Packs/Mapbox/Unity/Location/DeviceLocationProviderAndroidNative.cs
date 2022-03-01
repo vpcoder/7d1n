@@ -2,11 +2,11 @@
 {
 	using UnityEngine;
 	using System.Collections;
-	using System.Globalization;
 	using System;
 	using Mapbox.Utils;
+    using System.Globalization;
 
-	public class DeviceLocationProviderAndroidNative : AbstractLocationProvider, IDisposable
+    public class DeviceLocationProviderAndroidNative : AbstractLocationProvider, IDisposable
 	{
 
 		/// <summary>

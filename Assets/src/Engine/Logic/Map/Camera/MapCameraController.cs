@@ -3,7 +3,6 @@ namespace Engine.Logic.Map
 	using UnityEngine;
 	using UnityEngine.EventSystems;
 	using Mapbox.Unity.Map;
-    using Mapbox.Unity.MeshGeneration.Data;
     using Mapbox.Unity.Location;
     using UnityEngine.UI;
     using Engine.Map;
@@ -90,7 +89,7 @@ namespace Engine.Logic.Map
 
             txtDebugLog.text = position.ToString() + "\n" + location.UserHeading + "\n" + location.IsLocationServiceEnabled + "\n" + location.IsLocationServiceInitializing;
 
-            _map.UpdateMap(position);
+            //_map.UpdateMap(position);
         }
 
         private void ZoomMapUsingTouchOrMouse(float zoomFactor)

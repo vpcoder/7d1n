@@ -11,14 +11,14 @@ namespace Engine.Logic.Locations.Battle.Actions
     /// Factory for searching processors by action
     /// 
     /// </summary>
-    public class BattleActionFactory
+    public class CharacterBattleActionFactory
     {
 
         #region Singleton
 
-        private static Lazy<BattleActionFactory> instance = new Lazy<BattleActionFactory>(() => new BattleActionFactory());
+        private static Lazy<CharacterBattleActionFactory> instance = new Lazy<CharacterBattleActionFactory>(() => new CharacterBattleActionFactory());
 
-        public static BattleActionFactory Instance
+        public static CharacterBattleActionFactory Instance
         {
             get
             {
@@ -26,7 +26,7 @@ namespace Engine.Logic.Locations.Battle.Actions
             }
         }
 
-        private BattleActionFactory()
+        private CharacterBattleActionFactory()
         {
             LoadFactory();
         }
@@ -34,14 +34,16 @@ namespace Engine.Logic.Locations.Battle.Actions
         #endregion
 
         /// <summary>
-        /// Кэш в виде словаря Действие -> Процессор
-        /// ---
-        /// Cache as a dictionary Action -> Processor
+        ///     Кэш в виде словаря Действие -> Процессор
+        ///     ---
+        ///     Cache as a dictionary Action -> Processor
         /// </summary>
-        private readonly IDictionary<BattleAction, IBattleActionProcessor> data = new Dictionary<BattleAction, IBattleActionProcessor>();
+        private readonly IDictionary<CharacterBattleAction, IBattleActionProcessor> data = new Dictionary<CharacterBattleAction, IBattleActionProcessor>();
 
         /// <summary>
-        /// Выполняет поиск всех реализаций для IBattleActionProcessor, и запись их в data
+        ///     Выполняет поиск всех реализаций для IBattleActionProcessor, и запись их в data
+        ///     ---
+        ///     Searches for all IBattleActionProcessor implementations, and writes them into the data
         /// </summary>
         private void LoadFactory()
         {
@@ -71,7 +73,7 @@ namespace Engine.Logic.Locations.Battle.Actions
         ///     ---
         ///     Failed to find a processor for the specified action
         /// </exception>
-        public IBattleActionProcessor TryGetProcessor(BattleAction action)
+        public IBattleActionProcessor TryGetProcessor(CharacterBattleAction action)
         {
             if(data.TryGetValue(action, out var processor))
                 return processor;
@@ -103,7 +105,7 @@ namespace Engine.Logic.Locations.Battle.Actions
         ///     ---
         ///     Failed to find a processor for the specified action
         /// </exception>
-        public void InvokeProcess(BattleAction action, IBattleActionContext context)
+        public void InvokeProcess(CharacterBattleAction action, IBattleActionContext context)
         {
             var processor = TryGetProcessor(action);
             processor.Process(context);
@@ -129,7 +131,7 @@ namespace Engine.Logic.Locations.Battle.Actions
         ///     ---
         ///     Failed to find a processor for the specified action
         /// </exception>
-        public void InvokeRollback(BattleAction action, IBattleActionContext context)
+        public void InvokeRollback(CharacterBattleAction action, IBattleActionContext context)
         {
             var processor = TryGetProcessor(action);
             processor.Rollback(context);

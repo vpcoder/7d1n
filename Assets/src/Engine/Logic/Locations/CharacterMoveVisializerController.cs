@@ -141,7 +141,7 @@ namespace Engine.Logic.Locations
             battleActions.NeedAP = needAp;
 
             battleActions.Show(); // Отображаем панель действия, чтобы пользователь сказал - совершать его или нет
-            battleActions.Action = BattleAction.Move;
+            battleActions.Action = CharacterBattleAction.Move;
             battleActions.MoveContext.Points = pathInfo.ActivePath;
 
             battleActions.UpdateState();
