@@ -6,8 +6,8 @@ using Engine.Data;
 namespace Engine.Logic.Map
 {
 
-    public class LocationCameraController : MonoBehaviour
-	{
+    public class LocationCameraController : MonoBehaviour, IDragHandler
+    {
 
         [SerializeField] private float _panSpeed = 0.05f;
         [SerializeField] private Transform target;
@@ -114,11 +114,6 @@ namespace Engine.Logic.Map
 
         private void HandleMouseAndKeyBoard()
 		{
-            if (EventSystem.current.IsPointerOverGameObject())
-            {
-                return;
-            }
-
             if (DeviceInput.TouchCount == 1)
 			{
                 float deltaX = Input.GetAxis("Mouse X") * _panSpeed;
@@ -129,21 +124,21 @@ namespace Engine.Logic.Map
             DoZoom(Input.GetAxis("Mouse ScrollWheel"));
         }
 
-        private void LateUpdate()
-		{
+        public void OnDrag(PointerEventData eventData)
+        {
             if (Game.Instance.Runtime.ActionMode != ActionMode.Rotation)
                 return;
 
-			if (Input.touchSupported && Input.touchCount > 0)
-			{
-				HandleTouch();
-			}
-			else
-			{
-				HandleMouseAndKeyBoard();
-			}
-		}
+            if (Input.touchSupported && Input.touchCount > 0)
+            {
+                HandleTouch();
+            }
+            else
+            {
+                HandleMouseAndKeyBoard();
+            }
+        }
 
-	}
+    }
 
 }

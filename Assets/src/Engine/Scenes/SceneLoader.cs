@@ -14,8 +14,6 @@ namespace Engine.Logic
         [SerializeField] private GameObject scanUIPrefab;
         [SerializeField] private GameObject locationGUIPrefab;
 
-        private bool exitFlag = false;
-
         private void Start()
         {
             ObjectFinder.Clear();
@@ -23,33 +21,22 @@ namespace Engine.Logic
 
         private void Awake()
         {
-            exitFlag = true;
-        }
-
-        public void Load()
-        {
-            Debug.Log("Loaded!");
-        }
-
-        private void Update()
-        {
-            if (!exitFlag)
-                return;
+            Debug.Log("switch loaded scene...");
 
             var game = Game.Instance;
             var runtime = game.Runtime;
 
             SetupCanvasSettings();
 
-            if(runtime.Scene == Scenes.SceneName.Location)
+            if (runtime.Scene == Scenes.SceneName.Location)
                 ObjectFinder.Find<LocationLoader>().LoadLocation(runtime.Location);
 
-            if(runtime.Scene != Scenes.SceneName.Menu) // Это не меню, выполняем полное сохранение
+            if (runtime.Scene != Scenes.SceneName.Menu) // Это не меню, выполняем полное сохранение
             {
                 CharacterStory.Instance.SaveAll(Game.Instance.Character);
             }
 
-            switch(runtime.Scene)
+            switch (runtime.Scene)
             {
                 case Scenes.SceneName.Map:
                     LoadMapScene();
@@ -65,11 +52,17 @@ namespace Engine.Logic
             Load();
 
             GameObject.Destroy(this);
-            exitFlag = false;
+        }
+
+        public void Load()
+        {
+            Debug.Log("Loaded!");
         }
 
         private void SetupCanvasSettings()
         {
+            Debug.Log("setup canvas...");
+
             var canvas = ObjectFinder.Get<Canvas>("Canvas");
             var canvasScaler = canvas.GetComponent<CanvasScaler>();
 
@@ -81,6 +74,8 @@ namespace Engine.Logic
 
         private void LoadLocationScene()
         {
+            Debug.Log("load location ui...");
+
             var canvas = ObjectFinder.Get<Canvas>("Canvas");
 
             var panel = GameObject.Instantiate<GameObject>(topPanelPrefab, canvas.transform);
@@ -90,10 +85,14 @@ namespace Engine.Logic
             var gui = GameObject.Instantiate<GameObject>(locationGUIPrefab, canvas.transform);
             gui.transform.name = "GUI";
             gui.transform.SetAsFirstSibling();
+
+            ObjectFinder.Get("SceneView").SetAsFirstSibling();
         }
 
         private void LoadMapScene()
         {
+            Debug.Log("load map ui...");
+
             var canvas = ObjectFinder.Get<Canvas>("Canvas").transform;
 
             var panel = GameObject.Instantiate<GameObject>(topPanelPrefab, canvas.transform);
@@ -113,6 +112,8 @@ namespace Engine.Logic
 
             var scanPanel = GameObject.Instantiate<GameObject>(scanUIPrefab, canvas);
             scanPanel.transform.SetAsFirstSibling();
+
+            ObjectFinder.Get("SceneView").SetAsFirstSibling();
         }
 
     }

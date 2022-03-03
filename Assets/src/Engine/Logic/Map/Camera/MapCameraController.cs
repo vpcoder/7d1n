@@ -2,16 +2,14 @@ namespace Engine.Logic.Map
 {
 	using UnityEngine;
 	using UnityEngine.EventSystems;
-	using Mapbox.Unity.Map;
     using Mapbox.Unity.Location;
     using UnityEngine.UI;
-    using Engine.Map;
 
-    public class MapCameraController : MonoBehaviour
-	{
+    public class MapCameraController : MonoBehaviour,
+                                       IDragHandler
+    {
 
         [SerializeField] private Text txtDebugLog;
-		[SerializeField] private AbstractMap _map;
         [SerializeField] private AbstractLocationProvider _gps;
         [SerializeField] private float _panSpeed = 20f;
         [SerializeField] private Transform target;
@@ -79,7 +77,7 @@ namespace Engine.Logic.Map
                 deltaZoom = 0;
 
             _currentZoom += deltaZoom;
-            Camera.main.fieldOfView = _currentZoom;
+            _referenceCamera.fieldOfView = _currentZoom;
         }
 
         private void Update()
@@ -102,11 +100,6 @@ namespace Engine.Logic.Map
 
         private void HandleMouseAndKeyBoard()
 		{
-            if (EventSystem.current.IsPointerOverGameObject())
-            {
-                return;
-            }
-
             if (DeviceInput.TouchCount == 1)
 			{
                 float radius = Vector3.Distance(_referenceCamera.transform.position, target.transform.position);
@@ -134,18 +127,18 @@ namespace Engine.Logic.Map
             DoZoom(Input.GetAxis("Mouse ScrollWheel"));
         }
 
-        private void LateUpdate()
-		{
-			if (Input.touchSupported && Input.touchCount > 0)
-			{
-				HandleTouch();
-			}
-			else
-			{
-				HandleMouseAndKeyBoard();
-			}
-		}
+        public void OnDrag(PointerEventData eventData)
+        {
+            if (Input.touchSupported && Input.touchCount > 0)
+            {
+                HandleTouch();
+            }
+            else
+            {
+                HandleMouseAndKeyBoard();
+            }
+        }
 
-	}
+    }
 
 }

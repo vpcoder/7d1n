@@ -17,7 +17,9 @@ namespace Engine.Logic.Locations
     /// Visualization of player character movements
     /// 
     /// </summary>
-    public class CharacterMoveVisializerController : MonoBehaviour
+    public class CharacterMoveVisializerController : MonoBehaviour,
+                                                     IDragHandler,
+                                                     IPointerDownHandler
     {
 
         #region Hidden Fields
@@ -155,11 +157,8 @@ namespace Engine.Logic.Locations
 
         #region Unity Events
 
-        private void FixedUpdate()
+        private void CheckEvents()
         {
-            if (EventSystem.current.IsPointerOverGameObject())
-                return;
-
             if (Game.Instance.Runtime.BattleContext.OrderIndex != EnemyGroup.PlayerGroup) // Не ход игрока?
                 return;
 
@@ -194,6 +193,16 @@ namespace Engine.Logic.Locations
                     HidePath();
                 }
             }
+        }
+
+        public void OnDrag(PointerEventData eventData)
+        {
+            CheckEvents();
+        }
+
+        public void OnPointerDown(PointerEventData eventData)
+        {
+            CheckEvents();
         }
 
         #endregion

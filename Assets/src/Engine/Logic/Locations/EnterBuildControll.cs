@@ -4,6 +4,7 @@ using Engine.IO;
 using Engine.Map;
 using Engine.Scenes;
 using UnityEngine;
+using UnityEngine.EventSystems;
 
 namespace Engine.Logic
 {
@@ -37,7 +38,7 @@ namespace Engine.Logic
         /// </summary>
         public void DoClick()
         {
-            if(Game.Instance.Character.State.Health <= 10 // Проверяем, хватает ли у персонажа здоровье
+            if (Game.Instance.Character.State.Health <= 10 // Проверяем, хватает ли у персонажа здоровье
                 || Game.Instance.Character.State.Infection >= 90) // Персонаж не должен быть сильно инфецирован
             {
                 var character = ObjectFinder.Find<MapCharacter>();
@@ -45,15 +46,22 @@ namespace Engine.Logic
                 return;
             }
 
-            var runtime = Game.Instance.Runtime;
-
-            runtime.PlayerPosition = ObjectFinder.Find<MapHuman>().transform.localPosition;
-            runtime.CharacterPosition = ObjectFinder.Find<MapCharacter>().transform.localPosition;
-            runtime.PlayerContext = ObjectFinder.Find<MapHuman>().MoveContext;
-            runtime.CharacterContext = ObjectFinder.Find<MapCharacter>().MoveContext;
-            runtime.Location = buildInfo;
-
+            SaveContextToMemory();
             SceneManager.Instance.Switch(SceneName.Location);
+        }
+
+        private void SaveContextToMemory()
+        {
+            Debug.Log("save ");
+
+            var character = ObjectFinder.Find<MapCharacter>();
+            var human     = ObjectFinder.Find<MapHuman>();
+            var runtime   = Game.Instance.Runtime;
+            runtime.PlayerPosition    = human.transform.localPosition;
+            runtime.CharacterPosition = character.transform.localPosition;
+            runtime.PlayerContext     = human.MoveContext;
+            runtime.CharacterContext  = character.MoveContext;
+            runtime.Location = buildInfo;
         }
 
     }

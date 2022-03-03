@@ -7,6 +7,7 @@ TagManager:
   - WorldCanvas
   - Canvas
   - LocationPath
+  - SceneView
   layers:
   - Default
   - TransparentFX

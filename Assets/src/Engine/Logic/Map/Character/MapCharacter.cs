@@ -1,29 +1,57 @@
 ﻿using Engine.Data;
-using Engine.Data.Factories;
-using Engine.Generator;
 using Engine.Logic;
 using Engine.Logic.Map;
 using Mapbox.Unity.MeshGeneration.Data;
 using System.Linq;
 using UnityEngine;
-using UnityEngine.EventSystems;
 
 namespace Engine.Map
 {
 
+    /// <summary>
+    /// 
+    /// Управление персонажем на глобальной карте
+    /// Осуществляет управление самим персонажем (перемещение в границе окружности)
+    /// ---
+    /// 
+    /// 
+    /// </summary>
     public class MapCharacter : MonoBehaviour
     {
+
+        #region Hidden Fields
 
         /// <summary>
         /// Безопасная зона за окружностью, чтобы игрок "не залип" на границе окружности
         /// </summary>
         [SerializeField] private float safeDistanceZone = 0.1f;
+
+        /// <summary>
+        /// 
+        /// </summary>
         [SerializeField] private MapHuman human;
+
+        /// <summary>
+        /// 
+        /// </summary>
         [SerializeField] private CharacterMoveEffectController characterEffect;
+
+        /// <summary>
+        /// 
+        /// </summary>
         [SerializeField] private LineRenderer pathLine;
+
+        /// <summary>
+        /// 
+        /// </summary>
         [SerializeField] private Transform body;
 
+        #endregion
+
+        #region Properties
+
         public UnityTile CurrentTile { get; private set; }
+
         public MoveContext MoveContext { get; set; } = new MoveContext();
 
         private Vector3 Position
@@ -46,43 +74,20 @@ namespace Engine.Map
             }
             set
             {
-                MoveContext.NextPosition = value;
+                var pos = value;
+                pos.y = 0f;
+                MoveContext.NextPosition = pos;
                 MoveContext.StartPosition = Position;
                 MoveContext.ChangePositionTimestamp = Time.time;
                 MoveContext.Distance = Vector3.Distance(StartPosition, NextPosition);
             }
         }
 
-        private void OnDrawGizmos()
-        {
-            var center = human.Position;
-            var left = center + new Vector3(human.MoveRadius, 0f, 0f);
-            Gizmos.color = Color.green;
-            Gizmos.DrawLine(center, left);
-        }
+        public bool NeedMove { get; set; }
 
         public GameObject Target { get; set; }
 
         public Vector3 StartPosition { get { return MoveContext.StartPosition; } }
-
-        private Vector3 mouseDownPos;
-
-        private bool needMove = false;
-
-        private void Start()
-        {
-            needMove = true;
-            NextPosition = Position;
-            pathLine.positionCount = 2;
-            ResetPath();
-        }
-
-        public void GoToCenter()
-        {
-            Position = NextPosition = human.Position;
-            StopMove();
-            ResetPath();
-        }
 
         /// <summary>
         /// Прогресс перемещения между двумя точками
@@ -95,63 +100,16 @@ namespace Engine.Map
             }
         }
 
-        private void CheckMoveAction()
+        #endregion
+
+        #region Unity Events
+
+        private void Start()
         {
-            if (EventSystem.current.IsPointerOverGameObject())
-                return;
-
-
-            if (DeviceInput.TouchCount == 1 && DeviceInput.GetTouchPhase == TouchPhase.Began)
-            {
-                Target = null;
-                mouseDownPos = DeviceInput.TouchPosition;
-            }
-
-            if (DeviceInput.GetTouchPhase == TouchPhase.Ended)
-            {
-                if (Vector3.Distance(DeviceInput.TouchPosition, mouseDownPos) >= 10f)
-                    return;
-
-                var ray = Camera.main.ScreenPointToRay(DeviceInput.TouchPosition);
-                var hitsData = Physics.RaycastAll(ray, 1000f);
-
-                if (hitsData.Length == 0)
-                    return;
-
-                var tileHitInfo = hitsData.Where(hit => hit.transform?.gameObject?.GetComponent<UnityTile>() != null)
-                    .FirstOrDefault();
-
-                NextPosition = tileHitInfo.point;
-                needMove = true;
-                characterEffect.StartMove(NextPosition);
-            }
-        }
-
-        private void CheckTile()
-        {
-            var needUpdateTile = CurrentTile == null;
-            if(!needUpdateTile)
-            {
-                // Расстояние между тайлами
-                var offset = CurrentTile.transform.position - transform.position;
-                var tileSize = TerrainGenerator.Instance.TileHalfSize;
-                needUpdateTile = Mathf.Abs(offset.x) > tileSize.x || Mathf.Abs(offset.z) > tileSize.y;
-            }
-
-            if (!needUpdateTile)
-                return;
-
-            var hitsData = Physics.RaycastAll(transform.position + Vector3.up * 2, Vector3.down, 8f);
-            if (hitsData.Length == 0)
-            {
-                CurrentTile = null;
-                return;
-            }
-
-            CurrentTile = hitsData.Where(hit => hit.transform?.gameObject?.GetComponent<UnityTile>() != null)
-                .FirstOrDefault().transform?.GetComponent<UnityTile>();
-
-            characterEffect.SwitchBiom(CurrentTile.Biom);
+            NeedMove = true;
+            NextPosition = Position;
+            pathLine.positionCount = 2;
+            ResetPath();
         }
 
         /// <summary>
@@ -164,18 +122,12 @@ namespace Engine.Map
 
             CheckTile();
 
-            // Проверяем, выполняет ли игрок перемещения
-            CheckMoveAction();
-
-            // Персонаж всегда смотрит в камеру
-            //transform.LookAt(Camera.main.transform);
-
             Vector3 circleCenter = human.Position;
             Vector3 point = Position - circleCenter;
 
             float currentDistance = Vector3.Distance(Position, circleCenter); // Текущее расстояние от центра позиции игрока, до текущей позиции персонажа
 
-            if (!needMove) // Персонаж не двигается
+            if (!NeedMove) // Персонаж не двигается
             {
                 if (currentDistance > human.MoveRadius) // При этом, персонаж дальше радиуса
                 {
@@ -189,7 +141,7 @@ namespace Engine.Map
             // Прогресс движения по траектории
             float progress = MoveProgress;
 
-            Vector3 nextPosition = !needMove ? Vector3.zero : Vector3.Lerp(StartPosition, NextPosition, progress);
+            Vector3 nextPosition = !NeedMove ? Vector3.zero : Vector3.Lerp(StartPosition, NextPosition, progress);
             float nextDistance = Vector3.Distance(nextPosition, circleCenter);
             bool safeDistanceFail = currentDistance - human.MoveRadius > safeDistanceZone;
 
@@ -215,6 +167,44 @@ namespace Engine.Map
             }
         }
 
+        #endregion
+
+        #region Methods
+
+        public void GoToCenter()
+        {
+            Position = NextPosition = human.Position;
+            StopMove();
+            ResetPath();
+        }
+
+        private void CheckTile()
+        {
+            var needUpdateTile = CurrentTile == null;
+            if (!needUpdateTile)
+            {
+                // Расстояние между тайлами
+                var offset = CurrentTile.transform.position - transform.position;
+                var tileSize = TerrainGenerator.Instance.TileHalfSize;
+                needUpdateTile = Mathf.Abs(offset.x) > tileSize.x || Mathf.Abs(offset.z) > tileSize.y;
+            }
+
+            if (!needUpdateTile)
+                return;
+
+            var hitsData = Physics.RaycastAll(transform.position + Vector3.up * 2, Vector3.down, 8f);
+            if (hitsData.Length == 0)
+            {
+                CurrentTile = null;
+                return;
+            }
+
+            CurrentTile = hitsData.Where(hit => hit.transform?.gameObject?.GetComponent<UnityTile>() != null)
+                .FirstOrDefault().transform?.GetComponent<UnityTile>();
+
+            characterEffect.SwitchBiom(CurrentTile.Biom);
+        }
+
         private Vector3 CirclePos(Vector3 point, Vector3 circleCenter)
         {
             float d = Mathf.Sqrt(point.x * point.x + point.z * point.z) / human.MoveRadius;
@@ -232,7 +222,7 @@ namespace Engine.Map
 
         private void StopMove()
         {
-            needMove = false;
+            NeedMove = false;
             characterEffect.StopMove();
         }
 
@@ -260,6 +250,24 @@ namespace Engine.Map
                 pathLine.SetPositions(new[] { pos0, pos1 });
             }
         }
+
+        #endregion
+
+        #region Editor
+
+#if UNITY_EDITOR && DEBUG
+
+        private void OnDrawGizmos()
+        {
+            var center = human.Position;
+            var left = center + new Vector3(human.MoveRadius, 0f, 0f);
+            Gizmos.color = Color.green;
+            Gizmos.DrawLine(center, left);
+        }
+
+#endif
+
+        #endregion
 
     }
 

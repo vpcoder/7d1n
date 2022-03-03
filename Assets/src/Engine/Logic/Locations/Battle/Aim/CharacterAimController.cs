@@ -9,7 +9,9 @@ using UnityEngine.EventSystems;
 namespace Engine.Logic.Locations.Battle
 {
 
-    public class CharacterAimController : Panel
+    public class CharacterAimController : Panel,
+                                          IDragHandler,
+                                          IPointerDownHandler
     {
 
         /// <summary>
@@ -48,14 +50,8 @@ namespace Engine.Logic.Locations.Battle
             controller.AttackContext.AttackMarker = null;
         }
 
-        private void FixedUpdate()
+        private void UpdateEvent()
         {
-            if (EventSystem.current.IsPointerOverGameObject())
-                return;
-
-            if (!Visible || (DeviceInput.GetTouchPhase != TouchPhase.Moved && DeviceInput.GetTouchPhase != TouchPhase.Began))
-                return;
-
             if (Game.Instance.Runtime.BattleContext.OrderIndex != EnemyGroup.PlayerGroup) // Не ход игрока?
                 return;
 
@@ -163,6 +159,16 @@ namespace Engine.Logic.Locations.Battle
             controller.AttackContext.AttackMarker.transform.position = floorHitPoint;
             controller.AttackContext.AttackMarker.transform.rotation = character.transform.rotation;
             controller.UpdateState();
+        }
+
+        public void OnPointerDown(PointerEventData eventData)
+        {
+            UpdateEvent();
+        }
+
+        public void OnDrag(PointerEventData eventData)
+        {
+            UpdateEvent();
         }
 
     }

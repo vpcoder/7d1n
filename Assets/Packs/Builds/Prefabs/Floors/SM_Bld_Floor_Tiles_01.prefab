@@ -12,7 +12,6 @@ GameObject:
   - component: {fileID: 33144606706541382}
   - component: {fileID: 23499043172368258}
   - component: {fileID: 65449746733805150}
-  - component: {fileID: 8547919852116155263}
   m_Layer: 6
   m_Name: SM_Bld_Floor_Tiles_01
   m_TagString: Untagged
@@ -96,19 +95,3 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 2.5, y: 0, z: 2.5000012}
   m_Center: {x: -1.25, y: 0, z: 1.2500006}
---- !u!114 &8547919852116155263
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1263473793766684}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1e3fdca004f2d45fe8abbed571a8abd5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_OverrideArea: 1
-  m_Area: 0
-  m_IgnoreFromBuild: 0
-  m_AffectedAgents: ffffffff
