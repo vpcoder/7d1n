@@ -20,8 +20,8 @@
 	<Item ID="17" Type="Resource" Name="res_powder_name"      Description="res_powder_desc"       StackSize="1000"  Weight="1g"    />
 	<Item ID="18" Type="Resource" Name="res_explosive_name"   Description="res_explosive_desc"    StackSize="1000"  Weight="1g"    />
 	<Item ID="19" Type="Resource" Name="res_dirty_water_name" Description="res_dirty_water_desc"  StackSize="1000"  Weight="1g"    />
-	<Item ID= "20" Type="Resource" Name="res_raw_iron_name"   Description="res_raw_iron_desc"     StackSize="1000"  Weight="1g"    />
-	<Item ID= "21" Type="Resource" Name="res_raw_lead_name"   Description="res_raw_lead_desc"     StackSize="1000"  Weight="1g"    />
-	<Item ID= "22" Type="Resource" Name="res_raw_cooper_name" Description="res_raw_cooper_desc"   StackSize="1000"  Weight="1g"    />
+	<Item ID="20" Type="Resource" Name="res_raw_iron_name"    Description="res_raw_iron_desc"     StackSize="1000"  Weight="1g"    />
+	<Item ID="21" Type="Resource" Name="res_raw_lead_name"    Description="res_raw_lead_desc"     StackSize="1000"  Weight="1g"    />
+	<Item ID="22" Type="Resource" Name="res_raw_cooper_name"  Description="res_raw_cooper_desc"   StackSize="1000"  Weight="1g"    />
 
 </Data>

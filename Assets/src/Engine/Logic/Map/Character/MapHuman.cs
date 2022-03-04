@@ -122,6 +122,7 @@ namespace Engine.Map
                 changeGpsPointTimestamp = Time.time;
                 MoveContext.ChangePositionTimestamp = Time.time;
                 Vector3 unityPos = Conversions.GeoToWorldPosition(gps.CurrentLocation.LatitudeLongitude, map.CenterMercator, map.WorldRelativeScale).ToVector3xz();
+                unityPos.y = 0;
                 MoveContext.NextPosition = unityPos;
                 MoveContext.StartPosition = transform.localPosition;
                 MoveContext.Distance = Vector3.Distance(MoveContext.StartPosition, MoveContext.NextPosition);

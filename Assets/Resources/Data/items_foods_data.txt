@@ -8,9 +8,9 @@
 			Name="food_raw_roach_name"
 			Description="food_raw_roach_desc"
 			Action="use/food/raw_roach"
-			StackSize="40"
+			StackSize="20"
 			
-			Weight="1500mlg"
+			Weight="2000mlg"
 			StaticWeight="true"
 
 			UseSoundType="food/raw_roach"
@@ -23,9 +23,9 @@
 			Name="food_raw_fry_fish_name"
 			Description="food_raw_fry_fish_desc"
 			Action="use/food/raw_fry_fish"
-			StackSize="40"
+			StackSize="20"
 			
-			Weight="3000mlg"
+			Weight="7000mlg"
 			StaticWeight="true"
 
 			UseSoundType="food/raw_fry_fish"
@@ -38,9 +38,9 @@
 			Name="food_raw_larvae_name"
 			Description="food_raw_larvae_desc"
 			Action="use/food/raw_larvae"
-			StackSize="40"
+			StackSize="20"
 			
-			Weight="1000mlg"
+			Weight="5000mlg"
 			StaticWeight="true"
 
 			UseSoundType="food/raw_larvae"

@@ -2,6 +2,7 @@
 using Engine.EGUI;
 using Engine.Logic.Location;
 using Engine.Logic.Locations.Battle.Actions;
+using Engine.Logic.Locations.Generator;
 using UnityEngine;
 using UnityEngine.AI;
 using UnityEngine.EventSystems;
@@ -80,8 +81,8 @@ namespace Engine.Logic.Locations.Battle
         {
             foreach(var hit in hits)
             {
-                var navMeshInfo = hit.transform.GetComponent<NavMeshModifier>();
-                if (navMeshInfo != null && navMeshInfo.overrideArea)
+                var floor = hit.transform.GetComponent<WalkableFloor>();
+                if (floor != null)
                     return hit.point;
             }
             return Vector3.zero;
