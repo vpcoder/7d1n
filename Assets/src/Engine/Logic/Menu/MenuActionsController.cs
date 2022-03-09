@@ -1,6 +1,7 @@
 ﻿using Engine.Data;
 using Engine.Data.Stories;
 using Engine.DB;
+using Engine.Logic.Load;
 using Engine.Scenes;
 using UnityEngine;
 using UnityEngine.UI;
@@ -27,6 +28,8 @@ namespace Engine.Logic
             UnityEngine.Android.Permission.RequestUserPermission(UnityEngine.Android.Permission.CoarseLocation);
 #endif
 
+            Db.Instance.CheckDb();
+
             var playerID = GameSettings.Instance.Settings.PlayerID;
             if (playerID == -1)
             {
@@ -43,8 +46,15 @@ namespace Engine.Logic
 
         public void OnStartClick()
         {
+            var load = ObjectFinder.Find<SceneToNextSceneLoadProcessor>();
+            load.ShowLoad(LoadBackgroundType.Map);
+
             buttonsPanel.SetActive(false);
+
+            load.SetDescription(Localization.Instance.Get("ui_menu_load_playerdata"));
             CharacterStory.Instance.LoadAll(Game.Instance.Character);
+
+            load.SetDescription(Localization.Instance.Get("ui_menu_load_mapscene"));
             SceneManager.Instance.Switch(SceneName.Map);
         }
 
@@ -68,6 +78,8 @@ namespace Engine.Logic
 
         public void OnClearDBClick()
         {
+            for (int i = 0; i < 10; i++)
+                CharacterStory.Instance.Delete(i);
             DbConfigurator.DoResetDB();
         }
 

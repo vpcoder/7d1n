@@ -208,8 +208,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1cbc61529fde9454bbfe365cc92eb16f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  positionOffset: {x: 0, y: 0, z: 0}
-  rotationOffset: {x: 0, y: 0, z: 0}
+  positionOffset: {x: 0.055, y: 0.053, z: 0.003}
+  rotationOffset: {x: 84.61006, y: 175.09999, z: 353.21}
 --- !u!114 &2703501639803166848
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -234,8 +234,6 @@ MonoBehaviour:
   body: {fileID: 6178107808688427599}
   dropTimeout: 5
   maxStabilityDelta: 0.001
-  lastPositionsList: []
-  currentDelta: 0
 --- !u!65 &7443795156490013265
 BoxCollider:
   m_ObjectHideFlags: 0

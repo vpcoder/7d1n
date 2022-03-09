@@ -8,6 +8,7 @@ TagManager:
   - Canvas
   - LocationPath
   - SceneView
+  - LoadBody
   layers:
   - Default
   - TransparentFX

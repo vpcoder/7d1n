@@ -1,7 +1,13 @@
 # --------------------- ;
-# 7D1N - v0.0.0.1       ;
+# 7D1N - v0.0.0.50      ;
 # Проливка структуры БД ;
 # --------------------- ;
+
+# Метадата БД ;
+CREATE TABLE `meta` (
+	`id`				INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT UNIQUE,
+	`version`			TEXT NOT NULL
+);
 
 # Основные настройки игры ;
 CREATE TABLE `settings` (

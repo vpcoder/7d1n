@@ -45,7 +45,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 608d633210de7cc4888da26c8e8e7f30, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 7
+  speed: 10
   reactDistance: 0.001
   maxDistance: 100
   dropToGround: 1

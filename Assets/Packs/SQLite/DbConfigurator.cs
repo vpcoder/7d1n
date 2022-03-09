@@ -7,7 +7,7 @@ namespace Engine.DB
     /// Конфигуратор БД для отладки, в релиз не пойдёт
     /// </summary>
 	public class DbConfigurator
-	{
+    {
 
         public static string CreateMeta()
         {

@@ -1,10 +1,9 @@
 using Engine.Data;
 using Engine.EGUI;
-using Engine.IO;
+using Engine.Logic.Load;
 using Engine.Map;
 using Engine.Scenes;
 using UnityEngine;
-using UnityEngine.EventSystems;
 
 namespace Engine.Logic
 {
@@ -46,13 +45,17 @@ namespace Engine.Logic
                 return;
             }
 
+            var load = ObjectFinder.Find<SceneToNextSceneLoadProcessor>();
+            load.ShowLoad(LoadBackgroundType.Build);
+            load.SetDescription(Localization.Instance.Get("ui_map_load_location"));
+
             SaveContextToMemory();
             SceneManager.Instance.Switch(SceneName.Location);
         }
 
         private void SaveContextToMemory()
         {
-            Debug.Log("save ");
+            Debug.Log("save global map state to memory...");
 
             var character = ObjectFinder.Find<MapCharacter>();
             var human     = ObjectFinder.Find<MapHuman>();

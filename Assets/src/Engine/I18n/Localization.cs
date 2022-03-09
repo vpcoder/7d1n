@@ -2,6 +2,7 @@
 using Engine.DB.I18n;
 using System.Collections.Generic;
 using System.Linq;
+using UnityEngine;
 
 namespace Engine
 {
@@ -115,25 +116,23 @@ namespace Engine
         ///     ---
         ///     The key cannot be null
         /// </exception>
-        /// <exception cref="KeyNotFoundException">
-        ///     В словаре не нашлось локализованной строки на выбранном языке для указанного ключа
-        ///     ---
-        ///     The dictionary could not find a localized string in the selected language for the specified key
-        /// </exception>
         public string Get(string key)
         {
             if (dictionary == null)
                 ReloadDictionary();
 
+#if UNITY_EDITOR && DEBUG
             if (key == null)
                 throw new ArgumentNullException("key can't be nullpointer!");
-
-#if UNITY_EDITOR && DEBUG
-            if (!dictionary.ContainsKey(key))
-                throw new KeyNotFoundException("current language '" + CurrentLang.Name + "' with code '" + CurrentLang.Code + "' not contains value for key '" + key + "'!");
 #endif
 
-            return dictionary[key];
+            if (!dictionary.TryGetValue(key, out var message))
+            {
+                message = "?";
+                Debug.LogError("current language '" + CurrentLang.Name + "' with code '" + CurrentLang.Code + "' not contains value for key '" + key + "'!");
+            }
+
+            return message;
         }
 
         /// <summary>

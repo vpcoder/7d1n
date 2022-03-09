@@ -1,5 +1,4 @@
 ﻿using UnityEngine;
-using Engine.IO;
 using Engine.Data;
 using Mapbox.Unity.Location;
 using Mapbox.Unity.Utilities;
@@ -100,7 +99,7 @@ namespace Engine.Map
 
         }
 
-        private void Update()
+        private void FixedUpdate()
 		{
             if (Game.Instance.Runtime.Mode == Mode.Switch)
                 return;
@@ -122,7 +121,9 @@ namespace Engine.Map
                 changeGpsPointTimestamp = Time.time;
                 MoveContext.ChangePositionTimestamp = Time.time;
                 Vector3 unityPos = Conversions.GeoToWorldPosition(gps.CurrentLocation.LatitudeLongitude, map.CenterMercator, map.WorldRelativeScale).ToVector3xz();
-                unityPos.y = 0;
+                unityPos.y = unityPos.z;
+                unityPos.z = 0;
+
                 MoveContext.NextPosition = unityPos;
                 MoveContext.StartPosition = transform.localPosition;
                 MoveContext.Distance = Vector3.Distance(MoveContext.StartPosition, MoveContext.NextPosition);

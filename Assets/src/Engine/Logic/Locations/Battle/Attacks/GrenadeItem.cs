@@ -1,4 +1,5 @@
 ﻿using Engine.Data;
+using Engine.Data.Factories;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
@@ -54,15 +55,13 @@ namespace Engine.Logic.Locations
             if (distance > prevDistance || distance <= reactDistance)
             {
                 DoDamage();
-                AudioController.Instance.CreateTimedFragment(transform.position, MixerType.Sounds, weapon.ExplodeSoundType);
-                GameObject.Destroy(this.gameObject);
+                DoDestroy();
                 return;
             }
 
             if(distance > maxDistance)
             {
-                AudioController.Instance.CreateTimedFragment(transform.position, MixerType.Sounds, weapon.ExplodeSoundType);
-                GameObject.Destroy(gameObject);
+                DoDestroy();
             }
         }
 
@@ -73,6 +72,13 @@ namespace Engine.Logic.Locations
             return hits.Where(item => item.collider.gameObject.GetComponent<IDamagedObject>() != null)
                        .Select(item => item.collider.gameObject)
                        .ToList();
+        }
+
+        private void DoDestroy()
+        {
+            GrenadeEffectFactory.Instance.CreatePrefabInstance(weapon.ExplodeEffectType, transform.position);
+            AudioController.Instance.CreateTimedFragment(transform.position, MixerType.Sounds, weapon.ExplodeSoundType);
+            GameObject.Destroy(gameObject);
         }
 
         /// <summary>

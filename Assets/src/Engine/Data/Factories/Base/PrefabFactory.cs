@@ -41,6 +41,14 @@ namespace Engine.Data.Factories
             return result;
         }
 
+        public T CreatePrefabInstance(string id, Vector3 position)
+        {
+            var explode = Get(id);
+            if (explode == null)
+                return null;
+            return GameObject.Instantiate<T>(explode, position, Quaternion.identity);
+        }
+
     }
 
 }

@@ -112,6 +112,11 @@ INSERT INTO `i18n_ru_ru`(`key`,`value`) VALUES ('res_raw_cooper_desc', 'Бога
 
 # UI ;
 
+INSERT INTO `i18n_ru_ru`(`key`,`value`) VALUES ('ui_menu_load_playerdata', 'Загрузка данных о персонаже');
+INSERT INTO `i18n_ru_ru`(`key`,`value`) VALUES ('ui_menu_load_mapscene', 'Загрузка мира');
+INSERT INTO `i18n_ru_ru`(`key`,`value`) VALUES ('ui_map_load_location', 'Загрузка локации');
+INSERT INTO `i18n_ru_ru`(`key`,`value`) VALUES ('ui_location_load_navmesh', 'Генерация поиска путей');
+
 INSERT INTO `i18n_ru_ru`(`key`,`value`) VALUES ('ui_battle_actions_run', 'Выполнить');
 INSERT INTO `i18n_ru_ru`(`key`,`value`) VALUES ('ui_battle_actions_cancel', 'Отменить');
 INSERT INTO `i18n_ru_ru`(`key`,`value`) VALUES ('ui_battle_end_step', 'Конец хода');
