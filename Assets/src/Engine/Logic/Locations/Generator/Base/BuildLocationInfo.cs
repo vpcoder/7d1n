@@ -1,4 +1,5 @@
-﻿
+﻿using Engine.Generator;
+
 namespace Engine.Logic.Locations.Generator
 {
 
@@ -29,13 +30,25 @@ namespace Engine.Logic.Locations.Generator
         public long FloorsCount { get; set; }
 
         /// <summary>
-        ///     Количество комнат на этажах
+        ///     Текущий этаж
         ///     ---
-        ///     Number of rooms on the floors
+        ///     Current floor
         /// </summary>
-        public long RoomsCount { get; set; }
+        public long CurrentFloor { get; set; }
 
+        /// <summary>
+        ///     Тип локации (тип здания)
+        ///     ---
+        ///     Location type (building type)
+        /// </summary>
+        public LocationType LocationType { get; set; }
 
+        /// <summary>
+        ///     Общий стиль комнат в здании
+        ///     ---
+        ///     The general style of the rooms in the building
+        /// </summary>
+        public RoomType RoomType { get; set; }
 
     }
 

@@ -1,0 +1,20 @@
+<Data>
+
+	<Element ID="empty0001"
+
+		RoomType="Empty"
+
+		Floor="Locations/Builds/"
+
+		InsideWall="Locations/Builds/"
+		OutsideWall="Locations/Builds/"
+
+		InsideWallWithDoor="Locations/Builds/"
+		OutsideWallWithDoor="Locations/Builds/"
+
+		InsideWallWithWindow="Locations/Builds/"
+		OutsideWallWithWindow="Locations/Builds/"
+
+	/>
+
+</Data>

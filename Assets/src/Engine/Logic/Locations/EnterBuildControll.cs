@@ -1,6 +1,7 @@
 using Engine.Data;
 using Engine.EGUI;
 using Engine.Logic.Load;
+using Engine.Logic.Locations.Generator;
 using Engine.Map;
 using Engine.Scenes;
 using UnityEngine;
@@ -60,11 +61,14 @@ namespace Engine.Logic
             var character = ObjectFinder.Find<MapCharacter>();
             var human     = ObjectFinder.Find<MapHuman>();
             var runtime   = Game.Instance.Runtime;
+
             runtime.PlayerPosition    = human.transform.localPosition;
             runtime.CharacterPosition = character.transform.localPosition;
             runtime.PlayerContext     = human.MoveContext;
             runtime.CharacterContext  = character.MoveContext;
+
             runtime.Location = buildInfo;
+            runtime.GenerationInfo = LocationGenerateContex.Generate(buildInfo);
         }
 
     }

@@ -1,4 +1,5 @@
-﻿using Engine.Map;
+﻿using Engine.Logic.Locations.Generator;
+using Engine.Map;
 using Engine.Scenes;
 using System;
 using UnityEngine;
@@ -38,6 +39,7 @@ namespace Engine.Data
         }
 
         public Generator.LocationInfo Location { get; set; } = new Generator.LocationInfo();
+        public BuildLocationInfo GenerationInfo { get; set; } = new BuildLocationInfo();
 
         public Vector3 PlayerPosition { get; set; } = Vector3.zero;
         public Vector3 CharacterPosition { get; set; } = Vector3.zero;
