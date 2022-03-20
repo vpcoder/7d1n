@@ -36,7 +36,7 @@ namespace Engine.Logic.Locations.Generator.Environment.Building.Arrangement
         ///     ---
         ///     The type of room for which the arrangement is made
         /// </summary>
-        public abstract RoomKindType RoomType { get; }
+        public abstract LivingRoomKindType RoomType { get; }
 
         /// <summary>
         ///     Процесс расстановки.

@@ -11,7 +11,7 @@ namespace Engine.Logic.Map
 
         #region Singleton
 
-        private static Lazy<BiomGenerator> instance = new Lazy<BiomGenerator>(() => new BiomGenerator());
+        private static System.Lazy<BiomGenerator> instance = new System.Lazy<BiomGenerator>(() => new BiomGenerator());
         public static BiomGenerator Instance
         {
             get

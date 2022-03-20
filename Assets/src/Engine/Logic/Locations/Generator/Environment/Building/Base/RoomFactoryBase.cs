@@ -16,6 +16,8 @@ namespace Engine.Logic.Locations.Generator.Environment.Building
                                                         where TLoader : IEnvironmentItemLoader<E>
     {
 
+        #region Hidden Fields
+
         /// <summary>
         ///     Все объекты в комнате, по типу объекта
         ///     ---
@@ -23,12 +25,35 @@ namespace Engine.Logic.Locations.Generator.Environment.Building
         /// </summary>
         private IDictionary<E, IEnvironmentItem<E>> data;
 
+        #endregion
+
+        #region Ctor
+
         public RoomFactoryBase()
         {
             var loader = Activator.CreateInstance<TLoader>();
             this.data = ConvertToDictionary(loader.LoadAll());
         }
 
+        #endregion
+
+        #region Hidden Methods
+
+        /// <summary>
+        ///     Выполняет формирование словаря Объект -> Данные объекта
+        ///     ---
+        ///     Performs dictionary generation Object -> Object data
+        /// </summary>
+        /// <param name="collection">
+        ///     Коллекция объектов, из которой будет сформирован словарь
+        ///     ---
+        ///     The collection of objects from which the dictionary will be formed
+        /// </param>
+        /// <returns>
+        ///     Словарь: Объект -> Данные объекта
+        ///     ---
+        ///     Dictionary: Object -> Object data
+        /// </returns>
         private IDictionary<E, IEnvironmentItem<E>> ConvertToDictionary(ICollection<IEnvironmentItem<E>> collection)
         {
             var dictionary = new Dictionary<E, IEnvironmentItem<E>>();
@@ -36,6 +61,10 @@ namespace Engine.Logic.Locations.Generator.Environment.Building
                 dictionary.Add(item.Type, item);
             return dictionary;
         }
+
+        #endregion
+
+        #region Shared Methods
 
         /// <summary>
         ///     Получает все известные объекты для текущего типа комнаты
@@ -79,6 +108,8 @@ namespace Engine.Logic.Locations.Generator.Environment.Building
                 throw new KeyNotFoundException("object link by type '" + type.ToString() + "' not founded!");
             return item;
         }
+
+        #endregion
 
     }
 

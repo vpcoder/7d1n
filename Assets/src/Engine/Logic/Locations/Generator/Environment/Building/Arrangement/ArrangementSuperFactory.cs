@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using UnityEngine;
 
 namespace Engine.Logic.Locations.Generator.Environment.Building.Arrangement
@@ -27,7 +28,7 @@ namespace Engine.Logic.Locations.Generator.Environment.Building.Arrangement
 
         #endregion
 
-        private IDictionary<RoomKindType, IList<IArrangementProcessor>> data = new Dictionary<RoomKindType, IList<IArrangementProcessor>>();
+        private IDictionary<LivingRoomKindType, IList<IArrangementProcessor>> data = new Dictionary<LivingRoomKindType, IList<IArrangementProcessor>>();
 
 
 
