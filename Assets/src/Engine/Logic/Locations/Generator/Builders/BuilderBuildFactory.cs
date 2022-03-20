@@ -1,4 +1,7 @@
-﻿using Engine.Logic.Locations.Generator.Builders;
+﻿using Engine.Data.Generation;
+using Engine.Data.Generation.Factories;
+using Engine.Generator;
+using Engine.Logic.Locations.Generator.Builders;
 using System;
 using System.Collections.Generic;
 using UnityEngine;
@@ -40,12 +43,18 @@ namespace Engine.Logic.Locations.Generator
 
         public void Build(GenerationBuildContext context)
         {
-            foreach(var builder in builders)
+            var elementFactory = LocationTypeSuperFactory.Instance.Get(context.BuildInfo.LocationType);
+            var buildType = context.BuildInfo.RoomType;
+            var variationCount = elementFactory.GetCount(buildType);
+            var buildingVariationID = new System.Random((int)context.BuildInfo.BuildID).Next(1, variationCount);
+            context.BuildingElement = elementFactory.Get(buildType, buildingVariationID);
+
+            foreach (var builder in builders)
             {
-                var currentMarkers = context.MarkersByType[builder.Key];
                 builder.Value.Build(context);
             }
         }
+
 
     }
 

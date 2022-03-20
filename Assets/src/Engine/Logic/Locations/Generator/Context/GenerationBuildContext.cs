@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using Engine.Data.Generation.Elements;
 using Engine.Logic.Locations.Generator.Markers;
 
 namespace Engine.Logic.Locations.Generator
@@ -22,17 +23,12 @@ namespace Engine.Logic.Locations.Generator
         /// </summary>
         public BuildLocationInfo BuildInfo { get; set; }
 
-
-        public string GetFloorIdByRoomType()
-        {
-            switch(BuildInfo.RoomType)
-            {
-                case RoomType.Empty:
-                    return "";
-                default:
-                    throw new NotSupportedException();
-            }
-        }
+        /// <summary>
+        ///     Текущая вариация стиля помещения/здания
+        ///     ---
+        ///     Current room/building style variation
+        /// </summary>
+        public BuildingElement BuildingElement { get; set; }
 
     }
 

@@ -61,8 +61,8 @@ namespace Engine.Logic.Locations.Generator
             result.BuildID = locationInfo.ID;
             var percent = LocationInfoGenerator.MAX_BUILD_HEIGHT - LocationInfoGenerator.MIN_BUILD_HEIGHT * 0.01f;
             result.FloorsCount = 1 + Mathf.RoundToInt(locationInfo.Height * percent * 7);
-            result.LocationType = LocationType.House;
-            result.RoomType = RoomType.Empty;
+            result.LocationType = LocationType.Living;
+            result.RoomType = RoomType.Living;
             return result;
         }
 

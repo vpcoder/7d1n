@@ -9,17 +9,16 @@ namespace Engine.Logic.Locations.Generator.Builders
 
         public override void Build(GenerationBuildContext context)
         {
-            var currentMarks = context.MarkersByType[MarkerType];
+            var currentMarks = GetMarkers(context);
             if (currentMarks == null)
                 return;
 
-            var floorObject = Resources.Load<GameObject>("Locations/Builds/Window/Window01");
-            var wall = GameObject.Find("Wall").transform;
+            var floorObject = context.BuildingElement.InsideWallWithWindow;
 
             foreach (var abstractMarker in currentMarks) {
                 var position = abstractMarker.Position;
                 var rotation = Quaternion.Euler(abstractMarker.Rotation);
-                GameObject.Instantiate<GameObject>(floorObject, position, rotation, wall);
+                GameObject.Instantiate<GameObject>(floorObject, position, rotation, BuildParent);
             }
         }
 

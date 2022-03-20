@@ -1,4 +1,5 @@
-﻿using Engine.Logic.Locations.Generator.Markers;
+﻿using Engine.Data.Generation;
+using Engine.Logic.Locations.Generator.Markers;
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -10,12 +11,11 @@ namespace Engine.Logic.Locations.Generator.Builders
 
         public override void Build(GenerationBuildContext context)
         {
-            var currentMarks = context.MarkersByType[MarkerType];
+            var currentMarks = GetMarkers(context);
             if (currentMarks == null)
                 return;
 
-            var floorObject = Resources.Load<GameObject>("Locations/Builds/Floor/Floor01");
-            var floor = GameObject.Find("Floor").transform;
+            var floorObject = context.BuildingElement.Floor;
 
             foreach (var abstractMarker in currentMarks) {
 
@@ -23,7 +23,7 @@ namespace Engine.Logic.Locations.Generator.Builders
                 var position = marker.Position;
                 var rotation = Quaternion.Euler(marker.Rotation);
 
-                var item = GameObject.Instantiate<GameObject>(floorObject, position, rotation, floor);
+                var item = GameObject.Instantiate<GameObject>(floorObject, position, rotation, BuildParent);
                 if (!marker.IsWalkable)
                 {
                     GameObject.Destroy(item.GetComponent<WalkableFloor>());

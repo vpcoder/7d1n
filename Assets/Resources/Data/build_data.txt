@@ -1,19 +1,20 @@
 <Data>
 
-	<Element ID="empty0001"
+	<Element
+	
+		ID="1"
+		Type="Living"
 
-		RoomType="Empty"
+		Floor="Floor"
 
-		Floor="Locations/Builds/"
+		InsideWall="Wall"
+		OutsideWall="WallOutside"
 
-		InsideWall="Locations/Builds/"
-		OutsideWall="Locations/Builds/"
+		InsideWallWithDoor="WallDoor"
+		OutsideWallWithDoor="WallOutsideDoor"
 
-		InsideWallWithDoor="Locations/Builds/"
-		OutsideWallWithDoor="Locations/Builds/"
-
-		InsideWallWithWindow="Locations/Builds/"
-		OutsideWallWithWindow="Locations/Builds/"
+		InsideWallWithWindow="Window"
+		OutsideWallWithWindow="WindowOutside"
 
 	/>
 

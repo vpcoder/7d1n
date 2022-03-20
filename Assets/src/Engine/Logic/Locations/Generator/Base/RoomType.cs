@@ -16,12 +16,23 @@ namespace Engine.Logic.Locations.Generator
     /// </summary>
     public enum RoomType
     {
+
         /// <summary>
-        ///     Шаблон пустого пмещения
+        ///     Шаблон пустого помещения
         ///     ---
         ///     
         /// </summary>
-        Empty
+        Empty,
+
+        /// <summary>
+        ///     Жилое помещение
+        ///     
+        /// </summary>
+        Living,
+
+
+        DestroingRoom,
+
     };
 
 }

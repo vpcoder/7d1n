@@ -11,26 +11,29 @@ namespace Engine.Logic.Locations.Generator.Builders
 
         public override void Build(GenerationBuildContext context)
         {
-            var currentMarks = context.MarkersByType[MarkerType];
-            var floorMarkers = context.MarkersByType[typeof(FloorMarker)];
+            
+            var currentMarks = GetMarkers(context);
+            var floorMarkers = GetMarkers(context, typeof(FloorMarker));
             if (floorMarkers == null && currentMarks == null)
                 return;
 
-            var wallPrefab = Resources.Load<GameObject>("Locations/Builds/Wall/Wall01");
-            var outsidePrefab = Resources.Load<GameObject>("Locations/Builds/Wall/OutsideWall");
-            var wall = GameObject.Find("Wall").transform;
+            var wallPrefab = context.BuildingElement.InsideWall;
+            var outsidePrefab = context.BuildingElement.OutsideWall;
 
-            foreach (var abstractMarker in currentMarks)
+            if (currentMarks != null)
             {
-                var marker = abstractMarker as WallMarker;
-                var position = marker.Position;
-                var rotation = Quaternion.Euler(marker.Rotation);
-
-                GameObject.Instantiate<GameObject>(wallPrefab, position, rotation, wall);
-
-                if (marker.IsTwoSide)
+                foreach (var abstractMarker in currentMarks)
                 {
-                    GameObject.Instantiate<GameObject>(wallPrefab, position - new Vector3(LocationGenerateContex.FLOOR_TILE_SIZE.x, 0, 0), Quaternion.Euler(rotation.eulerAngles + new Vector3(0, 180, 0)), wall);
+                    var marker = abstractMarker as WallMarker;
+                    var position = marker.Position;
+                    var rotation = Quaternion.Euler(marker.Rotation);
+
+                    GameObject.Instantiate<GameObject>(wallPrefab, position, rotation, BuildParent);
+
+                    if (marker.IsTwoSide)
+                    {
+                        GameObject.Instantiate<GameObject>(wallPrefab, position - new Vector3(LocationGenerateContex.FLOOR_TILE_SIZE.x, 0, 0), Quaternion.Euler(rotation.eulerAngles + new Vector3(0, 180, 0)), BuildParent);
+                    }
                 }
             }
 
@@ -60,9 +63,9 @@ namespace Engine.Logic.Locations.Generator.Builders
                     var position = floor.Position + new Vector3(0, 0, LocationGenerateContex.FLOOR_TILE_SIZE.z);
                     if (!existsWall.Contains(position))
                     {
-                        GameObject.Instantiate<GameObject>(wallPrefab, position, rotation, wall);
+                        GameObject.Instantiate<GameObject>(wallPrefab, position, rotation, BuildParent);
                         position = position - new Vector3(0, 0, LocationGenerateContex.FLOOR_TILE_SIZE.z);
-                        GameObject.Instantiate<GameObject>(outsidePrefab, position, Quaternion.Euler(rotation.eulerAngles + new Vector3(0, 180, 0)), wall);
+                        GameObject.Instantiate<GameObject>(outsidePrefab, position, Quaternion.Euler(rotation.eulerAngles + new Vector3(0, 180, 0)), BuildParent);
                     }
                 }
                 rotation = Quaternion.Euler(0, 90, 0);
@@ -71,9 +74,9 @@ namespace Engine.Logic.Locations.Generator.Builders
                     var position = floor.Position - new Vector3(LocationGenerateContex.FLOOR_TILE_SIZE.x, 0, 0);
                     if (!existsWall.Contains(position))
                     {
-                        GameObject.Instantiate<GameObject>(wallPrefab, position, rotation, wall);
+                        GameObject.Instantiate<GameObject>(wallPrefab, position, rotation, BuildParent);
                         position = position + new Vector3(0, 0, LocationGenerateContex.FLOOR_TILE_SIZE.z);
-                        GameObject.Instantiate<GameObject>(outsidePrefab, position, Quaternion.Euler(rotation.eulerAngles + new Vector3(0, 180, 0)), wall);
+                        GameObject.Instantiate<GameObject>(outsidePrefab, position, Quaternion.Euler(rotation.eulerAngles + new Vector3(0, 180, 0)), BuildParent);
                     }
                 }
                 rotation = Quaternion.Euler(0, 180, 0);
@@ -82,9 +85,9 @@ namespace Engine.Logic.Locations.Generator.Builders
                     var position = floor.Position + new Vector3(-LocationGenerateContex.FLOOR_TILE_SIZE.x, 0, LocationGenerateContex.FLOOR_TILE_SIZE.z);
                     if (!existsWall.Contains(position))
                     {
-                        GameObject.Instantiate<GameObject>(wallPrefab, position, rotation, wall);
+                        GameObject.Instantiate<GameObject>(wallPrefab, position, rotation, BuildParent);
                         position = position + new Vector3(LocationGenerateContex.FLOOR_TILE_SIZE.x, 0, 0);
-                        GameObject.Instantiate<GameObject>(outsidePrefab, position, Quaternion.Euler(rotation.eulerAngles + new Vector3(0, 180, 0)), wall);
+                        GameObject.Instantiate<GameObject>(outsidePrefab, position, Quaternion.Euler(rotation.eulerAngles + new Vector3(0, 180, 0)), BuildParent);
                     }
                 }
                 rotation = Quaternion.Euler(0, 0, 0);
@@ -93,9 +96,9 @@ namespace Engine.Logic.Locations.Generator.Builders
                     var position = floor.Position;
                     if (!existsWall.Contains(position))
                     {
-                        GameObject.Instantiate<GameObject>(wallPrefab, position, rotation, wall);
+                        GameObject.Instantiate<GameObject>(wallPrefab, position, rotation, BuildParent);
                         position = position - new Vector3(LocationGenerateContex.FLOOR_TILE_SIZE.x, 0, 0);
-                        GameObject.Instantiate<GameObject>(outsidePrefab, position, Quaternion.Euler(rotation.eulerAngles + new Vector3(0, 180, 0)), wall);
+                        GameObject.Instantiate<GameObject>(outsidePrefab, position, Quaternion.Euler(rotation.eulerAngles + new Vector3(0, 180, 0)), BuildParent);
                     }
                 }
             }

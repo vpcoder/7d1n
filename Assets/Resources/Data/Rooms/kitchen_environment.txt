@@ -1,0 +1,8 @@
+﻿<Data>
+
+    <Item 
+        Type = "Sink"
+		Path = "Locations/Builds/Living/Environment/Kitchen/CounterSink_01"
+    />
+
+</Data>

@@ -9,18 +9,16 @@ namespace Engine.Logic.Locations.Generator.Builders
 
         public override void Build(GenerationBuildContext context)
         {
-            var currentMarks = context.MarkersByType[MarkerType];
+            var currentMarks = GetMarkers(context);
             if (currentMarks == null)
                 return;
 
-            var wallWithDoorObject = Resources.Load<GameObject>("Locations/Builds/Door/WallDoor01");
-
-            var wall = GameObject.Find("Wall").transform;
+            var wallWithDoorObject = context.BuildingElement.InsideWallWithDoor;
 
             foreach (var abstractMarker in currentMarks) {
                 var position = abstractMarker.Position;
                 var rotation = Quaternion.Euler(abstractMarker.Rotation);
-                GameObject.Instantiate<GameObject>(wallWithDoorObject, position, rotation, wall);
+                GameObject.Instantiate<GameObject>(wallWithDoorObject, position, rotation, BuildParent);
 
                 if (abstractMarker.IsTwoSide)
                 {
@@ -41,7 +39,7 @@ namespace Engine.Logic.Locations.Generator.Builders
                             position = position + new Vector3(0, 0, LocationGenerateContex.FLOOR_TILE_SIZE.z);
                             break;
                     }
-                    GameObject.Instantiate<GameObject>(wallWithDoorObject, position, rotation);
+                    GameObject.Instantiate<GameObject>(wallWithDoorObject, position, rotation, BuildParent);
                 }
             }
         }

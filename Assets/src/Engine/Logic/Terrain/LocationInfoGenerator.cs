@@ -10,7 +10,7 @@ namespace Engine.Generator
             switch(type)
             {
                 case LocationType.OpenSpace:   return Localization.Instance.Get("msg_location_open_space");
-                case LocationType.House:       return Localization.Instance.Get("msg_location_house");
+                case LocationType.Living:       return Localization.Instance.Get("msg_location_house");
                 case LocationType.Stock:       return Localization.Instance.Get("msg_location_stock");
                 case LocationType.SuperMarket: return Localization.Instance.Get("msg_location_super_market");
                 case LocationType.TechStore:   return Localization.Instance.Get("msg_location_tech_store");
@@ -45,7 +45,8 @@ namespace Engine.Generator
     public enum LocationType : int
     {
         OpenSpace   = 0x00, // Открытая местность
-        House       = 0x01, // Жилой дом
+
+        Living      = 0x01, // Жилой дом
         Stock       = 0x02, // Склад
         SuperMarket = 0x03, // Продуктовый магазин/Супермаркет
         TechStore   = 0x04, // Магазин техники
