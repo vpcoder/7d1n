@@ -12,7 +12,6 @@ namespace Engine.Logic.Locations
             var baker = ObjectFinder.Find<NavMeshBaker>();
             var surfaces = GameObject.FindObjectsOfType<NavMeshSurface>();
             baker.Bake(surfaces);
-            Destroy(this);
         }
 
     }

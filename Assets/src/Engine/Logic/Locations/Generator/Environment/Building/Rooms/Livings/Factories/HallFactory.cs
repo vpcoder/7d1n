@@ -14,14 +14,12 @@ namespace Engine.Logic.Locations.Generator.Environment.Building.Rooms
     public class HallFactory : RoomFactoryBase<HallItemType, HallObjectsXmlLoader>
     {
 
-        #region Singleton
-
-        private static readonly Lazy<HallFactory> instance = new Lazy<HallFactory>(() => new HallFactory());
-        public static HallFactory Instance { get { return instance.Value; } }
-        private HallFactory()
-        { }
-
-        #endregion
+        /// <summary>
+        ///     Комната - Зал
+        ///     ---
+        ///     Room - Hall
+        /// </summary>
+        public override RoomKindType RoomType => RoomKindType.Hall;
 
     }
 

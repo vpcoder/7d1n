@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using Engine.Logic.Locations.Generator.Markers;
 
@@ -20,7 +21,7 @@ namespace Engine.Logic.Locations.Generator
         ///     ---
         ///     All markers in the scene
         /// </summary>
-        public IEnumerable<IMarker> AllMarkers { get; set; }
+        public ICollection<IMarker> AllMarkers { get; set; }
 
         /// <summary>
         ///     Все маркеры в сцене, представленные словарём, группированном по типу

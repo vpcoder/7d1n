@@ -4,12 +4,12 @@ namespace Engine.Logic.Locations.Generator.Environment.Building
 
     /// <summary>
     /// 
-    /// Известные типы жилых помещений при генерации локаций
+    /// Известные типы помещений при генерации локаций
     /// ---
-    /// Known types of living quarters when generating locations
+    /// Known room types when generating locations
     /// 
     /// </summary>
-    public enum LivingRoomKindType : byte
+    public enum RoomKindType : int
     {
 
         /// <summary>

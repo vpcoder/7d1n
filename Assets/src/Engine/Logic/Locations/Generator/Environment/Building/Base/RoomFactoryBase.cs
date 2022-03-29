@@ -26,6 +26,17 @@ namespace Engine.Logic.Locations.Generator.Environment.Building
         private IDictionary<E, IEnvironmentItem<E>> data;
 
         #endregion
+        
+        #region Properties
+
+        /// <summary>
+        ///     Комната в которой располагаются объекты
+        ///     ---
+        ///     The room in which the objects are located
+        /// </summary>
+        public abstract RoomKindType RoomType { get; }
+
+        #endregion
 
         #region Ctor
 

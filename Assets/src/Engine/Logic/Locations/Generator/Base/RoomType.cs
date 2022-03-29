@@ -11,27 +11,18 @@ namespace Engine.Logic.Locations.Generator
     /// 
     /// Общий стиль комнат
     /// ---
-    /// 
+    /// General style of the rooms
     /// 
     /// </summary>
     public enum RoomType
     {
 
         /// <summary>
-        ///     Шаблон пустого помещения
+        ///     Обычный стиль комнат
         ///     ---
-        ///     
+        ///     Normal room style
         /// </summary>
-        Empty,
-
-        /// <summary>
-        ///     Жилое помещение
-        ///     
-        /// </summary>
-        Living,
-
-
-        DestroingRoom,
+        Blank,
 
     };
 

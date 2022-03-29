@@ -14,17 +14,22 @@ namespace Engine.Data.Stories
     {
 
         /// <summary>
-        /// Проксирующая коллекция для работы с БД
+        ///     Ленивый конструктор проксирующей коллекции
         /// </summary>
         private Lazy<TSqlProxy> ProxyInstance = new Lazy<TSqlProxy>(() => Activator.CreateInstance<TSqlProxy>());
 
+        /// <summary>
+        ///     Проксирующая коллекция для работы с БД
+        /// </summary>
+        private TSqlProxy Proxy => ProxyInstance.Value;
+        
         /// <summary>
         /// Удаляет объект из хранилища по идентификатору
         /// </summary>
         /// <param name="id">Идентификатор удаляемого объекта</param>
         public override void Delete(long id)
         {
-            ProxyInstance.Value.Delete(id);
+            Proxy.Delete(id);
         }
 
         /// <summary>
@@ -34,7 +39,7 @@ namespace Engine.Data.Stories
         /// <returns>Возвращает логическое значение "существует ли указанный объект в хранилище?"</returns>
         public override bool Exists(long id)
         {
-            return ProxyInstance.Value.IsExists(id);
+            return Proxy.IsExists(id);
         }
 
         /// <summary>
@@ -44,7 +49,7 @@ namespace Engine.Data.Stories
         /// <returns>Возвращает объект из хранилища</returns>
         public override T Get(long id)
         {
-            return ProxyInstance.Value.Get(id);
+            return Proxy.Get(id);
         }
 
         /// <summary>
@@ -55,7 +60,7 @@ namespace Engine.Data.Stories
         /// <param name="storyObject">Сохраняемый объект</param>
         public override void Save(T storyObject)
         {
-            ProxyInstance.Value.Save(storyObject);
+            Proxy.Save(storyObject);
         }
 
     }

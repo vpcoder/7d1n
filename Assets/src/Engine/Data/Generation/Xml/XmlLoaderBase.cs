@@ -6,27 +6,58 @@ using UnityEngine;
 namespace Engine.Data.Generation.Xml
 {
 
+    /// <summary>
+    /// 
+    /// Базовый загрузчик элемента на базе XML
+    /// ---
+    /// Basic XML-based element loader
+    /// 
+    /// </summary>
+    /// <typeparam name="T">
+    ///     Тип хранимого элемента
+    ///     ---
+    ///     Stored element type
+    /// </typeparam>
+    /// <typeparam name="E">
+    ///     Группа стилей
+    ///     ---
+    ///     Style group
+    /// </typeparam>
     public abstract class XmlLoaderBase<T, E> : IElementLoader<T, E>
                                               where T : class, IElementIdentity<E>
                                               where E : struct
     {
 
-        public abstract string[] FileNames { get; }
+        #region Hidden Fields
 
-        public abstract string RootDirectory { get; }
+        /// <summary>
+        ///     Список файлов, подлежащих чтению.
+        ///     Вся информация из файлов будет собрана в одну единую коллекцию для LoadAll
+        ///     ---
+        ///     The list of files to be read.
+        ///     All information from the files will be gathered into one single collection for LoadAll
+        /// </summary>
+        protected abstract string[] FileNames { get; }
 
-        protected XmlElement current;
+        /// <summary>
+        ///     Текущий элемент, который читаем из какого то файла
+        ///     ---
+        ///     The current item, which is read from some file
+        /// </summary>
+        private XmlElement current;
 
-        private string GetPath(E type, long id)
-        {
-            return RootDirectory + type.ToString() + "/" + id + "/";
-        }
+        #endregion
 
-        protected string GetResourcePath(T element, string attributeName)
-        {
-            return GetPath(element.Type, element.ID) + Str(attributeName);
-        }
-
+        /// <summary>
+        ///     Выполняет загрузку всех элементов из файлов, и представляет их в виде коллекции
+        ///     ---
+        ///     Loads all items from files, and presents them as a collection
+        /// </summary>
+        /// <returns>
+        ///     Коллекция загруженных элементов
+        ///     ---
+        ///     Collection of loaded items
+        /// </returns>
         public ICollection<T> LoadAll()
         {
             var data = new HashSet<T>();
@@ -65,18 +96,11 @@ namespace Engine.Data.Generation.Xml
         /// </returns>
         protected abstract T ReadElement();
 
-
-
         #region Helper Methods
 
         protected long Lng(string name)
         {
             return Lng(current, name);
-        }
-
-        protected long Lng(XmlElement element, string name)
-        {
-            return Get(element, name, long.Parse);
         }
 
         protected string Str(string name)
@@ -89,20 +113,25 @@ namespace Engine.Data.Generation.Xml
             return Enm<V>(current, name);
         }
 
-        protected string Str(XmlElement element, string name)
+        #endregion
+
+        #region Hidden Methods
+        
+        private long Lng(XmlElement element, string name)
+        {
+            return Get(element, name, long.Parse);
+        }
+        
+        private string Str(XmlElement element, string name)
         {
             return Get(element, name);
         }
 
-        protected V Enm<V>(XmlElement element, string name) where V : struct
+        private V Enm<V>(XmlElement element, string name) where V : struct
         {
             return Get(element, name, Enums<V>.Parse);
         }
-
-        #endregion
-
-        #region Hidden Methods
-
+        
         private V Get<V>(XmlElement element, string name, Func<string, V> parse)
         {
             try

@@ -9,7 +9,7 @@ namespace Engine.Logic.Locations.Generator.Builders
     public class WallBuilder : BuilderBase<WallMarker>
     {
 
-        public override void Build(GenerationBuildContext context)
+        public override void Build(GenerationRoomContext context)
         {
             
             var currentMarks = GetMarkers(context);
@@ -56,7 +56,6 @@ namespace Engine.Logic.Locations.Generator.Builders
                                                                   || !hasItemIn(floorPoints, floor, -1, 0)).ToList();
             foreach (var floor in floorWithoutWall)
             {
-                string name = floor.ToObject.name;
                 Quaternion rotation = Quaternion.Euler(0, -90, 0);
                 if (!hasItemIn(floorPoints, floor, 1, 0))
                 {
@@ -103,12 +102,7 @@ namespace Engine.Logic.Locations.Generator.Builders
                 }
             }
         }
-
-        private void CheckOutside(IDictionary<Vector3, FloorMarker> data, Quaternion rotation)
-        {
-
-        }
-
+        
         private bool hasItemIn(IDictionary<Vector3, FloorMarker> data, FloorMarker floor, int offsetX, int offsetZ)
         {
             Vector3 nextPos = floor.Position + new Vector3(offsetX * LocationGenerateContex.FLOOR_TILE_SIZE.x, 0f, offsetZ * LocationGenerateContex.FLOOR_TILE_SIZE.z);

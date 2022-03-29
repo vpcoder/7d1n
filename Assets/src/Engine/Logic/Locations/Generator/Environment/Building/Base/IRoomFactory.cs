@@ -10,7 +10,27 @@ namespace Engine.Logic.Locations.Generator.Environment.Building
     /// Factory for specific room items
     /// 
     /// </summary>
-    public interface IRoomFactory<E> where E : struct
+    public interface IRoomFactory
+    {
+        
+        /// <summary>
+        ///     Комната в которой находятся предметы
+        ///     ---
+        ///     The room in which the objects are located
+        /// </summary>
+        RoomKindType RoomType { get; }
+        
+    }
+    
+    /// <summary>
+    /// 
+    /// Фабрика для предметов конкретной комнаты
+    /// ---
+    /// Factory for specific room items
+    /// 
+    /// </summary>
+    public interface IRoomFactory<E> : IRoomFactory
+                                    where E : struct
     {
 
         /// <summary>

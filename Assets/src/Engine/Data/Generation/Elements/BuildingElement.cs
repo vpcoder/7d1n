@@ -23,7 +23,6 @@ namespace Engine.Data.Generation.Elements
         public GameObject OutsideWallWithDoor { get; set; }
         public GameObject InsideWallWithWindow { get; set; }
         public GameObject OutsideWallWithWindow { get; set; }
-        public GameObject Window { get; set; }
         public GameObject Door { get; set; }
 
     }

@@ -13,16 +13,14 @@ namespace Engine.Logic.Locations.Generator.Environment.Building.Rooms
     /// </summary>
     public class BedroomFactory : RoomFactoryBase<BedroomItemType, BedroomObjectsXmlLoader>
     {
-
-        #region Singleton
-
-        private static readonly Lazy<BedroomFactory> instance = new Lazy<BedroomFactory>(() => new BedroomFactory());
-        public static BedroomFactory Instance { get { return instance.Value; } }
-        private BedroomFactory()
-        { }
-
-        #endregion
-
+        
+        /// <summary>
+        ///     Комната - Спальня
+        ///     ---
+        ///     Room - Bedroom
+        /// </summary>
+        public override RoomKindType RoomType => RoomKindType.Bedroom;
+        
     }
 
 }

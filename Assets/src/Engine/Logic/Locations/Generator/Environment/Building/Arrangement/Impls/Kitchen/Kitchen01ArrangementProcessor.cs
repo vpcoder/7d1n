@@ -6,13 +6,13 @@ namespace Engine.Logic.Locations.Generator.Environment.Building.Arrangement.Impl
     public class Kitchen01ArrangementProcessor : ArrangementProcessorBase<KitchenItemType>
     {
 
-        public override LivingRoomKindType RoomType => LivingRoomKindType.Kitchen;
+        public override RoomKindType RoomType => RoomKindType.Kitchen;
 
 
-        public override bool InsertItemIntoScene(GenerationBuildContext contex, IEnvironmentItem<KitchenItemType> currentInsertItem)
+        public override bool InsertItemIntoScene(GenerationRoomContext context, IEnvironmentItem<KitchenItemType> currentInsertItem)
         {
 
-
+            
 
 
             return true;

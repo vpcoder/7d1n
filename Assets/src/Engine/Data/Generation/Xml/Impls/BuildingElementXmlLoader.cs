@@ -14,9 +14,7 @@ namespace Engine.Data.Generation.Xml.Impls
     /// </summary>
     public class BuildingElementXmlLoader : XmlLoaderBase<BuildingElement, RoomType>
     {
-        public override string[] FileNames => new[] { "Data/build_data" };
-
-        public override string RootDirectory => "Locations/Builds/";
+        protected override string[] FileNames => new[] { "Data/build_data" };
 
         protected override BuildingElement ReadElement()
         {
@@ -25,15 +23,15 @@ namespace Engine.Data.Generation.Xml.Impls
             element.ID   = Lng("ID");
             element.Type = Enm<RoomType>("Type");
 
-            element.Floor                  = Resources.Load<GameObject>(GetResourcePath(element, "Floor"));
-            element.InsideWall             = Resources.Load<GameObject>(GetResourcePath(element, "InsideWall"));
-            element.OutsideWall            = Resources.Load<GameObject>(GetResourcePath(element, "OutsideWall"));
-            element.InsideWallWithDoor     = Resources.Load<GameObject>(GetResourcePath(element, "InsideWallWithDoor"));
-            element.OutsideWallWithDoor    = Resources.Load<GameObject>(GetResourcePath(element, "OutsideWallWithDoor"));
-            element.InsideWallWithWindow   = Resources.Load<GameObject>(GetResourcePath(element, "InsideWallWithWindow"));
-            element.OutsideWallWithWindow  = Resources.Load<GameObject>(GetResourcePath(element, "OutsideWallWithWindow"));
-            element.Window                 = Resources.Load<GameObject>(GetResourcePath(element, "Window"));
-            element.Door                   = Resources.Load<GameObject>(GetResourcePath(element, "Door"));
+            element.Floor                  = Resources.Load<GameObject>(Str("Floor"));
+            element.Door                   = Resources.Load<GameObject>(Str("Door"));
+
+            element.InsideWall             = Resources.Load<GameObject>(Str("InsideWall"));
+            element.OutsideWall            = Resources.Load<GameObject>(Str("OutsideWall"));
+            element.InsideWallWithDoor     = Resources.Load<GameObject>(Str("InsideWallWithDoor"));
+            element.OutsideWallWithDoor    = Resources.Load<GameObject>(Str("OutsideWallWithDoor"));
+            element.InsideWallWithWindow   = Resources.Load<GameObject>(Str("InsideWallWithWindow"));
+            element.OutsideWallWithWindow  = Resources.Load<GameObject>(Str("OutsideWallWithWindow"));
 
             return element;
         }

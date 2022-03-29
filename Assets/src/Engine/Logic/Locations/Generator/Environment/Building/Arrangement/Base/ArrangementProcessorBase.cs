@@ -36,7 +36,7 @@ namespace Engine.Logic.Locations.Generator.Environment.Building.Arrangement
         ///     ---
         ///     The type of room for which the arrangement is made
         /// </summary>
-        public abstract LivingRoomKindType RoomType { get; }
+        public abstract RoomKindType RoomType { get; }
 
         /// <summary>
         ///     Процесс расстановки.
@@ -45,7 +45,7 @@ namespace Engine.Logic.Locations.Generator.Environment.Building.Arrangement
         ///     Arrangement process.
         ///     Performs the arrangement and hanging of availableItems objects in the room (contex generation context)
         /// </summary>
-        /// <param name="contex">
+        /// <param name="context">
         ///     Контекст генерируемого помещения
         ///     ---
         ///     Context of the generated room
@@ -55,8 +55,11 @@ namespace Engine.Logic.Locations.Generator.Environment.Building.Arrangement
         ///     ---
         ///     The list of available items for arranging
         /// </param>
-        public void ArrangementProcess(GenerationBuildContext contex, ICollection<IEnvironmentItem<E>> availableItems)
+        public void ArrangementProcess(GenerationRoomContext context, ICollection<IEnvironmentItem<E>> availableItems)
         {
+            if (availableItems == null || availableItems.Count == 0)
+                return; // Ничего не делаем, если нечего расставлять
+            
             var remaingItems = availableItems.ToList();
             this.arrangementContext.AvailableItems = availableItems.ToList();
             this.arrangementContext.RemainingItems = remaingItems;
@@ -70,7 +73,7 @@ namespace Engine.Logic.Locations.Generator.Environment.Building.Arrangement
 
                 try
                 {
-                    InsertItemIntoScene(contex, item);
+                    InsertItemIntoScene(context, item);
                 } catch (Exception ex)
                 {
                     Debug.LogException(ex);
@@ -93,7 +96,7 @@ namespace Engine.Logic.Locations.Generator.Environment.Building.Arrangement
         ///     Arrangement process.
         ///     Performs the arrangement and hanging of availableItems objects in the room (contex generation context)
         /// </summary>
-        /// <param name="contex">
+        /// <param name="context">
         ///     Контекст генерируемого помещения
         ///     ---
         ///     Context of the generated room
@@ -103,9 +106,11 @@ namespace Engine.Logic.Locations.Generator.Environment.Building.Arrangement
         ///     ---
         ///     The list of available items for arranging
         /// </param>
-        public void ArrangementProcess(GenerationBuildContext contex, ICollection<IEnvironmentItem> availableItems)
+        public void ArrangementProcess(GenerationRoomContext context, ICollection<IEnvironmentItem> availableItems)
         {
-            ArrangementProcess(contex, (ICollection<IEnvironmentItem<E>>)availableItems);
+            if (availableItems == null || availableItems.Count == 0)
+                return;
+            ArrangementProcess(context, availableItems.Select(item => (IEnvironmentItem<E>)item).ToList());
         }
 
         /// <summary>
@@ -113,7 +118,7 @@ namespace Engine.Logic.Locations.Generator.Environment.Building.Arrangement
         ///     ---
         ///     Performs staging/adds an object to the scene
         /// </summary>
-        /// <param name="contex">
+        /// <param name="context">
         ///     Контекст генерируемого помещения
         ///     ---
         ///     Context of the generated room
@@ -130,7 +135,7 @@ namespace Engine.Logic.Locations.Generator.Environment.Building.Arrangement
         ///     true - if the object was successfully placed in the scene,
         ///     false - if the object could not be placed in the scene
         /// </returns>
-        public abstract bool InsertItemIntoScene(GenerationBuildContext contex, IEnvironmentItem<E> currentInsertItem);
+        public abstract bool InsertItemIntoScene(GenerationRoomContext context, IEnvironmentItem<E> currentInsertItem);
 
     }
 

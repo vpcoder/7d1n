@@ -7,40 +7,35 @@ namespace Engine.Logic.Locations.Generator.Builders
     public class WallWithDoorBuilder : BuilderBase<WallWithDoorMarker>
     {
 
-        public override void Build(GenerationBuildContext context)
+        public override void Build(GenerationRoomContext context)
         {
             var currentMarks = GetMarkers(context);
             if (currentMarks == null)
                 return;
 
-            var wallWithDoorObject = context.BuildingElement.InsideWallWithDoor;
-
             foreach (var abstractMarker in currentMarks) {
                 var position = abstractMarker.Position;
                 var rotation = Quaternion.Euler(abstractMarker.Rotation);
-                GameObject.Instantiate<GameObject>(wallWithDoorObject, position, rotation, BuildParent);
+                GameObject.Instantiate<GameObject>(context.BuildingElement.InsideWallWithDoor, position, rotation, BuildParent);
 
-                if (abstractMarker.IsTwoSide)
+                rotation = Quaternion.Euler(rotation.eulerAngles + new Vector3(0, 180, 0));
+                var direction = CalcDirection(rotation);
+                switch(direction)
                 {
-                    rotation = Quaternion.Euler(rotation.eulerAngles + new Vector3(0, 180, 0));
-                    var direction = CalcDirection(rotation);
-                    switch(direction)
-                    {
-                        case Direction.Top:
-                            position = position + new Vector3(LocationGenerateContex.FLOOR_TILE_SIZE.x, 0, 0);
-                            break;
-                        case Direction.Bottom:
-                            position = position - new Vector3(LocationGenerateContex.FLOOR_TILE_SIZE.x, 0, 0);
-                            break;
-                        case Direction.Right:
-                            position = position - new Vector3(0, 0, LocationGenerateContex.FLOOR_TILE_SIZE.z);
-                            break;
-                        case Direction.Left:
-                            position = position + new Vector3(0, 0, LocationGenerateContex.FLOOR_TILE_SIZE.z);
-                            break;
-                    }
-                    GameObject.Instantiate<GameObject>(wallWithDoorObject, position, rotation, BuildParent);
+                    case Direction.Top:
+                        position = position + new Vector3(LocationGenerateContex.FLOOR_TILE_SIZE.x, 0, 0);
+                        break;
+                    case Direction.Bottom:
+                        position = position - new Vector3(LocationGenerateContex.FLOOR_TILE_SIZE.x, 0, 0);
+                        break;
+                    case Direction.Right:
+                        position = position - new Vector3(0, 0, LocationGenerateContex.FLOOR_TILE_SIZE.z);
+                        break;
+                    case Direction.Left:
+                        position = position + new Vector3(0, 0, LocationGenerateContex.FLOOR_TILE_SIZE.z);
+                        break;
                 }
+                GameObject.Instantiate<GameObject>(abstractMarker.IsTwoSide ? context.BuildingElement.InsideWallWithDoor : context.BuildingElement.OutsideWallWithDoor, position, rotation, BuildParent);
             }
         }
 
