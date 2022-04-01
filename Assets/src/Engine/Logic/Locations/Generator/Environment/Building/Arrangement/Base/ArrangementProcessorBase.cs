@@ -22,6 +22,8 @@ namespace Engine.Logic.Locations.Generator.Environment.Building.Arrangement
                                               where E : struct
     {
 
+        #region Hidden Fields
+        
         /// <summary>
         ///     Контекст расстановки.
         ///     Объекты, которые мы уже расставили в помещении
@@ -31,6 +33,10 @@ namespace Engine.Logic.Locations.Generator.Environment.Building.Arrangement
         /// </summary>
         protected ArrangementContext<E> arrangementContext = new ArrangementContext<E>();
 
+        #endregion
+        
+        #region Properties
+        
         /// <summary>
         ///     Тип комнаты, для которой происходит расстановка
         ///     ---
@@ -38,6 +44,10 @@ namespace Engine.Logic.Locations.Generator.Environment.Building.Arrangement
         /// </summary>
         public abstract RoomKindType RoomType { get; }
 
+        #endregion
+        
+        #region Shared Methods
+        
         /// <summary>
         ///     Процесс расстановки.
         ///     Выполняет расстановку и развешивание availableItems объектов в помещении (контекст генерации contex)
@@ -137,6 +147,8 @@ namespace Engine.Logic.Locations.Generator.Environment.Building.Arrangement
         /// </returns>
         public abstract bool InsertItemIntoScene(GenerationRoomContext context, IEnvironmentItem<E> currentInsertItem);
 
+        #endregion
+        
     }
 
 }

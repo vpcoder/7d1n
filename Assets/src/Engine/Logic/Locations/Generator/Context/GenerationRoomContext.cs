@@ -29,6 +29,15 @@ namespace Engine.Logic.Locations.Generator
         public BuildingElement BuildingElement { get; set; }
 
         /// <summary>
+        ///     Информация по тайлам пола.
+        ///     Полезна при расстановке мебели, стен и т.д.
+        ///     ---
+        ///     Information on the floor tiles.
+        ///     Useful when arranging furniture, walls, etc.
+        /// </summary>
+        public TileCellInfo TilesInfo { get; set; }
+
+        /// <summary>
         ///     Информация о сгенерированной мебели (без учёта расстановки)
         ///     ---
         ///     Information about the generated furniture (not including placement)

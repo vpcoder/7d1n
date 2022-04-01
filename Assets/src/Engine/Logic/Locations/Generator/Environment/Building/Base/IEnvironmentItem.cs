@@ -4,9 +4,11 @@ namespace Engine.Logic.Locations.Generator.Environment.Building
 {
 
     /// <summary>
-    ///     Объект окружения
-    ///     ---
-    ///     Environment object
+    /// 
+    /// Объект окружения
+    /// ---
+    /// Environment object
+    /// 
     /// </summary>
     public interface IEnvironmentItem
     {
