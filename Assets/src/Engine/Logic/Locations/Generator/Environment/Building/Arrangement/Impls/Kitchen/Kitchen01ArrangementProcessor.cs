@@ -12,15 +12,31 @@ namespace Engine.Logic.Locations.Generator.Environment.Building.Arrangement.Impl
         
         public override bool InsertItemIntoScene(GenerationRoomContext context, IEnvironmentItem<KitchenItemType> currentInsertItem)
         {
-            foreach (var item in context.TilesInfo.TilesData.Where(o => o.HasWindow).Select(o => o.Marker))
+            foreach (var item in context.TilesInfo.TilesData)
             {
-                Debug.Log(item.ToObject.name);
+                item.Marker.Emission = Color.black;
+            }
+            
+            foreach (var item in context.TilesInfo.TilesNearWall)
+            {
+                item.Marker.Emission = Color.cyan;
+            }
+            
+            foreach (var item in context.TilesInfo.TilesNearWindow)
+            {
+                item.Marker.Emission = Color.green;
+            }
+            
+            foreach (var item in context.TilesInfo.TilesNearDoor)
+            {
+                item.Marker.Emission = Color.white;
             }
 
 
             return true;
         }
 
+        
     }
 
 }

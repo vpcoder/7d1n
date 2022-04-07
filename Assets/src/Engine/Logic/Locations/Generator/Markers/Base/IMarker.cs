@@ -21,8 +21,6 @@ namespace Engine.Logic.Locations.Generator.Markers
 
         Vector3 Bounds { get; }
 
-        bool IsTwoSide { get; }
-
     }
 
 }

@@ -21,13 +21,6 @@ namespace Engine.Logic.Locations.Generator
         Empty,
         
         /// <summary>
-        ///     На этой грани соседствует другой тайл пола
-        ///     ---
-        ///     On this edge there is another floor tile next to it
-        /// </summary>
-        Floor,
-        
-        /// <summary>
         ///     На этой грани глухая стена
         ///     ---
         ///     There is a blank wall on this edge

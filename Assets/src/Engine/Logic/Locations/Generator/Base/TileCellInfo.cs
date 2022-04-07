@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Linq;
 
 namespace Engine.Logic.Locations.Generator
 {
@@ -15,7 +16,31 @@ namespace Engine.Logic.Locations.Generator
     public class TileCellInfo
     {
 
-        public ICollection<TileItem> TilesData { get; set; }
+        public IList<TileItem> TilesData { get; set; }
+
+        public IList<TileItem> TilesNearWall
+        {
+            get
+            {
+                return TilesData.Where(tile => tile.HasWall).ToList();
+            }
+        }
+        
+        public IList<TileItem> TilesNearWindow
+        {
+            get
+            {
+                return TilesData.Where(tile => tile.HasWindow).ToList();
+            }
+        }
+        
+        public IList<TileItem> TilesNearDoor
+        {
+            get
+            {
+                return TilesData.Where(tile => tile.HasDoor).ToList();
+            }
+        }
 
     }
     

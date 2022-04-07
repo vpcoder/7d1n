@@ -5,22 +5,11 @@ namespace Engine.Logic.Locations.Generator.Markers
 
     public abstract class MarkerBase : MonoBehaviour, IMarker
     {
-        [SerializeField]
-        private bool isTwoSide = true;
-
         public GameObject ToObject
         {
             get
             {
                 return gameObject;
-            }
-        }
-
-        public bool IsTwoSide
-        {
-            get
-            {
-                return isTwoSide;
             }
         }
 

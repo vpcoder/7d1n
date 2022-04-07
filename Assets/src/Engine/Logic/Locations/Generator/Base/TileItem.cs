@@ -51,10 +51,10 @@ namespace Engine.Logic.Locations.Generator
         public TileItem TopOfThis { get; set; }
         public TileItem BottomOfThis { get; set; }
 
-        public EdgeItem LeftEdge { get; set; } = EdgeItem.Empty;
-        public EdgeItem RightEdge { get; set; } = EdgeItem.Empty;
-        public EdgeItem TopEdge { get; set; } = EdgeItem.Empty;
-        public EdgeItem BottomEdge { get; set; } = EdgeItem.Empty;
+        public EdgeType LeftEdge { get; set; } = EdgeType.Empty;
+        public EdgeType RightEdge { get; set; } = EdgeType.Empty;
+        public EdgeType TopEdge { get; set; } = EdgeType.Empty;
+        public EdgeType BottomEdge { get; set; } = EdgeType.Empty;
 
         public bool IsSurrounded
         {
@@ -76,10 +76,10 @@ namespace Engine.Logic.Locations.Generator
         {
             get
             {
-                return LeftEdge.EdgeType == EdgeType.Window ||
-                       RightEdge.EdgeType == EdgeType.Window ||
-                       TopEdge.EdgeType == EdgeType.Window ||
-                       BottomEdge.EdgeType == EdgeType.Window;
+                return LeftEdge == EdgeType.Window ||
+                       RightEdge == EdgeType.Window ||
+                       TopEdge == EdgeType.Window ||
+                       BottomEdge == EdgeType.Window;
             }
         }
         
@@ -87,10 +87,10 @@ namespace Engine.Logic.Locations.Generator
         {
             get
             {
-                return LeftEdge.EdgeType == EdgeType.Door ||
-                       RightEdge.EdgeType == EdgeType.Door ||
-                       TopEdge.EdgeType == EdgeType.Door ||
-                       BottomEdge.EdgeType == EdgeType.Door;
+                return LeftEdge == EdgeType.Door ||
+                       RightEdge == EdgeType.Door ||
+                       TopEdge == EdgeType.Door ||
+                       BottomEdge == EdgeType.Door;
             }
         }
         
@@ -98,10 +98,10 @@ namespace Engine.Logic.Locations.Generator
         {
             get
             {
-                return LeftEdge.EdgeType == EdgeType.Wall ||
-                       RightEdge.EdgeType == EdgeType.Wall ||
-                       TopEdge.EdgeType == EdgeType.Wall ||
-                       BottomEdge.EdgeType == EdgeType.Wall;
+                return LeftEdge == EdgeType.Wall ||
+                       RightEdge == EdgeType.Wall ||
+                       TopEdge == EdgeType.Wall ||
+                       BottomEdge == EdgeType.Wall;
             }
         }
         

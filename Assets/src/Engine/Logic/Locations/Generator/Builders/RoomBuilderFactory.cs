@@ -67,11 +67,12 @@ namespace Engine.Logic.Locations.Generator
             var buildingVariationID = new System.Random((int)context.BuildInfo.BuildID).Next(1, variationCount);
             context.BuildingElement = elementFactory.Get(buildType, buildingVariationID);
 
-            foreach (var builder in builders)
-                builder.Value.Build(context);
-
             // Формируем информацию о тайлах
             BuildTileGridInfo(context);
+            
+            // Формируем помещение
+            foreach (var builder in builders)
+                builder.Value.Build(context);
         }
 
         /// <summary>
@@ -173,118 +174,65 @@ namespace Engine.Logic.Locations.Generator
             // Пробегаемся по тайлам, и связываем соседей, чтобы понимать где стены
             foreach (var tile in markerPosToMarker.Values)
             {
-                markerPosToMarker.TryGetValue(tile.Marker.Position + GetPosWithOffset(-1, 0), out var leftTile);
-                tile.LeftOfThis = leftTile;
-                markerPosToMarker.TryGetValue(tile.Marker.Position + GetPosWithOffset(1, 0), out var rightTile);
-                tile.RightOfThis = rightTile;
-                markerPosToMarker.TryGetValue(tile.Marker.Position + GetPosWithOffset(0, -1), out var topTile);
+                tile.Marker.Tile = tile;
+                tile.LeftEdge   = tile.Marker.LeftEdge;
+                tile.RightEdge  = tile.Marker.RightEdge;
+                tile.BottomEdge = tile.Marker.BottomEdge;
+                tile.TopEdge    = tile.Marker.TopEdge;
+                
+                markerPosToMarker.TryGetValue(tile.Marker.Position + GetPosWithOffset(-1, 0), out var topTile);
                 tile.TopOfThis = topTile;
-                markerPosToMarker.TryGetValue(tile.Marker.Position + GetPosWithOffset(0, 1), out var bottomTile);
+                markerPosToMarker.TryGetValue(tile.Marker.Position + GetPosWithOffset(1, 0), out var bottomTile);
                 tile.BottomOfThis = bottomTile;
+                markerPosToMarker.TryGetValue(tile.Marker.Position + GetPosWithOffset(0, -1), out var leftTile);
+                tile.LeftOfThis = leftTile;
+                markerPosToMarker.TryGetValue(tile.Marker.Position + GetPosWithOffset(0, 1), out var rightTile);
+                tile.RightOfThis = rightTile;
+
+                if (tile.LeftOfThis == null && tile.LeftEdge == EdgeType.Empty)
+                    tile.LeftEdge = EdgeType.Wall;
+                
+                if (tile.RightOfThis == null && tile.RightEdge == EdgeType.Empty)
+                    tile.RightEdge = EdgeType.Wall;
+                
+                if (tile.TopOfThis == null && tile.TopEdge == EdgeType.Empty)
+                    tile.TopEdge = EdgeType.Wall;
+                
+                if (tile.BottomOfThis == null && tile.BottomEdge == EdgeType.Empty)
+                    tile.BottomEdge = EdgeType.Wall;
             }
 
-            // Остальные маркеры стен, окон и дверей
-            foreach (var marker in context.AllMarkers)
+            foreach (var tile in markerPosToMarker.Values)
             {
-                if (marker is FloorMarker)
-                    continue;
-                UpdateEdgeLink(markerPosToMarker, marker, Direction.Left);
-                UpdateEdgeLink(markerPosToMarker, marker, Direction.Right);
-                UpdateEdgeLink(markerPosToMarker, marker, Direction.Top);
-                UpdateEdgeLink(markerPosToMarker, marker, Direction.Bottom);
-            }
+                if (tile.LeftOfThis != null && tile.LeftEdge != EdgeType.Empty)
+                {
+                    tile.LeftOfThis.RightEdge        = tile.LeftEdge;
+                    tile.LeftOfThis.Marker.RightEdge = tile.LeftEdge;
+                }
 
+                if (tile.RightOfThis != null && tile.RightEdge != EdgeType.Empty)
+                {
+                    tile.RightOfThis.LeftEdge        = tile.RightEdge;
+                    tile.RightOfThis.Marker.LeftEdge = tile.RightEdge;
+                }
+
+                if (tile.TopOfThis != null && tile.TopEdge != EdgeType.Empty)
+                {
+                    tile.TopOfThis.BottomEdge        = tile.TopEdge;
+                    tile.TopOfThis.Marker.BottomEdge = tile.TopEdge;
+                }
+
+                if (tile.BottomOfThis != null && tile.BottomEdge != EdgeType.Empty)
+                {
+                    tile.BottomOfThis.TopEdge        = tile.BottomEdge;
+                    tile.BottomOfThis.Marker.TopEdge = tile.BottomEdge;
+                }
+            }
+            
             // Сохраняем собранную информацию
             context.TilesInfo.TilesData = markerPosToMarker.Values.ToList();
         }
 
-        /// <summary>
-        ///     Заполняет ссылки на граничащие объекты - стены, двери, окна.
-        ///     На вход подаётся маркер, по маркеру находим тайлы, которые на нём расположены
-        ///     ---
-        ///     Fills in the references to the bordering objects - walls, doors, windows.
-        ///     A marker is fed to the input, we use the marker to find the tiles that are located on it
-        /// </summary>
-        /// <param name="markerPosToMarker">
-        ///     Мапа Позиция -> Тайл
-        ///     ---
-        ///     Map Position -> Tile
-        /// </param>
-        /// <param name="marker">
-        ///     Проверяемый маркер
-        ///     ---
-        ///     Marker to be checked
-        /// </param>
-        /// <param name="direction">
-        ///     Направление, по которому ищем соседа-тайла
-        ///     ---
-        ///     The direction in which to look for a neighbor-tile
-        /// </param>
-        /// <exception cref="NotSupportedException">
-        ///     Недействительное направление
-        ///     ---
-        ///     Invalid direction value
-        /// </exception>
-        private static void UpdateEdgeLink(IDictionary<Vector3, TileItem> markerPosToMarker, IMarker marker, Direction direction)
-        {
-            var offset = GetOffset(direction);
-            if (!markerPosToMarker.TryGetValue(marker.Position + GetPosWithOffset(offset.x, offset.y), out var tile))
-                return;
-
-            var edge = new EdgeItem()
-            {
-                Marker = marker,
-                EdgeType = GetEdgeType(marker.GetType()),
-            };
-
-            if (edge.EdgeType == EdgeType.Empty && tile.IsSurrounded)
-                edge.EdgeType = EdgeType.Floor;
-
-            switch (direction)
-            {
-                case Direction.Left:
-                    tile.LeftEdge = edge;
-                    break;
-                case Direction.Right:
-                    tile.RightEdge = edge;
-                    break;
-                case Direction.Top:
-                    tile.TopEdge = edge;
-                    break;
-                case Direction.Bottom:
-                    tile.BottomEdge = edge;
-                    break;
-                default:
-                    throw new NotSupportedException();
-            }
-        }
-
-        /// <summary>
-        ///     Получает тип граничащего объекта по типу маркера
-        ///     ---
-        ///     Gets the type of the bordering object by marker type
-        /// </summary>
-        /// <param name="type">
-        ///     Тип маркера
-        ///     ---
-        ///     Type of marker
-        /// </param>
-        /// <returns>
-        ///     Тип грани
-        ///     ---
-        ///     Edge type
-        /// </returns>
-        private static EdgeType GetEdgeType(Type type)
-        {
-            if (type == typeof(WallMarker))
-                return EdgeType.Wall;
-            if (type == typeof(WallWithDoorMarker))
-                return EdgeType.Door;
-            if (type == typeof(WallWithWindowMarker))
-                return EdgeType.Window;
-            return EdgeType.Empty;
-        }
-        
         /// <summary>
         ///     Преобразует смещение по осям в смещение позиции в пространстве в единицах unity
         ///     ---
@@ -309,54 +257,6 @@ namespace Engine.Logic.Locations.Generator
         {
             return new Vector3(offsetX * LocationGenerateContex.FLOOR_TILE_SIZE.x, 0f, offsetZ * LocationGenerateContex.FLOOR_TILE_SIZE.z);
         }
-
-        /// <summary>
-        ///     Выполняет преобразование направление в смещение
-        ///     ---
-        ///     Converts direction to offset
-        /// </summary>
-        /// <param name="direction">
-        ///     Направление в котором нужно искать соседний тайл
-        ///     ---
-        ///     The direction in which to look for a neighboring tile
-        /// </param>
-        /// <returns>
-        ///     Смещение по осям
-        ///     ---
-        ///     Axis Offset by X,Z (x,y)
-        /// </returns>
-        /// <exception cref="NotSupportedException">
-        ///     Недействительное направление
-        ///     ---
-        ///     Invalid direction value
-        /// </exception>
-        private static Vector2Int GetOffset(Direction direction)
-        {
-            switch (direction)
-            {
-                case Direction.Left:   return new Vector2Int(-1, 0);
-                case Direction.Right:  return new Vector2Int(1, 0);
-                case Direction.Top:    return new Vector2Int(0, -1);
-                case Direction.Bottom: return new Vector2Int(0, 1);
-                default:
-                    throw new NotSupportedException();
-            }
-        }
-
-        /// <summary>
-        ///
-        ///     Варианты направлений в сторону соседних тайлов относительно текущего
-        ///     ---
-        ///     Options for directions to neighboring tiles relative to the current one
-        /// 
-        /// </summary>
-        private enum Direction : byte
-        {
-            Left,
-            Right,
-            Top,
-            Bottom,
-        };
 
     }
 
