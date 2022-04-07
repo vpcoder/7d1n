@@ -15,9 +15,14 @@ namespace Engine.Logic.Locations.Generator
     /// </summary>
     public class TileCellInfo
     {
+        
+        #region Properties
 
+        /// <summary>
+        /// 
+        /// </summary>
         public IList<TileItem> TilesData { get; set; }
-
+        
         public IList<TileItem> TilesNearWall
         {
             get
@@ -41,6 +46,8 @@ namespace Engine.Logic.Locations.Generator
                 return TilesData.Where(tile => tile.HasDoor).ToList();
             }
         }
+        
+        #endregion
 
     }
     

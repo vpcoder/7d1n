@@ -1,5 +1,4 @@
-﻿using System.Linq;
-using Engine.Logic.Locations.Generator.Environment.Building.Rooms;
+﻿using Engine.Logic.Locations.Generator.Environment.Building.Rooms;
 using UnityEngine;
 
 namespace Engine.Logic.Locations.Generator.Environment.Building.Arrangement.Impls.Kitchen
@@ -19,6 +18,7 @@ namespace Engine.Logic.Locations.Generator.Environment.Building.Arrangement.Impl
             
             foreach (var item in context.TilesInfo.TilesNearWall)
             {
+               var list = item.GetEmptySegmentsOnTheFloorCloseToWall();
                 item.Marker.Emission = Color.cyan;
             }
             
@@ -31,7 +31,6 @@ namespace Engine.Logic.Locations.Generator.Environment.Building.Arrangement.Impl
             {
                 item.Marker.Emission = Color.white;
             }
-
 
             return true;
         }

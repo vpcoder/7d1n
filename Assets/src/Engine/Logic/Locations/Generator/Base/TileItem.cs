@@ -107,12 +107,148 @@ namespace Engine.Logic.Locations.Generator
         
         #endregion
         
-        public IDictionary<TileSegmentType, IEnvironmentItem> GetFurniture(TileLayoutType layoutType)
+        #region Shared Methods
+
+        /// <summary>
+        ///     Получает все свободные сегменты на полу у стены
+        ///     ---
+        ///     Gets all free segments on the floor at the wall
+        /// </summary>
+        /// <returns>
+        ///     
+        /// </returns>
+        public IList<TileSegmentType> GetEmptySegmentsOnTheFloorCloseToWall()
         {
-            FurnitureData.TryGetValue(layoutType, out var data);
+            var list = new List<TileSegmentType>();
+            var data = GetFurnitureOnTheFloorCloseToWall();
+            if (data.Count == 0)
+                return list;
+            foreach (var entry in data)
+            {
+                if(entry.Value == null)
+                    list.Add(entry.Key);
+            }
+            return list;
+        }
+        
+        /// <summary>
+        ///     Получает все сегменты на полу у стены (и пустые и заполненные)
+        ///     ---
+        ///     Gets all segments on the floor at the wall (both empty and filled)
+        /// </summary>
+        /// <returns>
+        ///     
+        /// </returns>
+        public IDictionary<TileSegmentType, IEnvironmentItem> GetFurnitureOnTheFloorCloseToWall()
+        {
+            var result = new Dictionary<TileSegmentType, IEnvironmentItem>();
+            if (!HasWall)
+                return result;
+
+            FurnitureData.TryGetValue(TileLayoutType.Floor, out var data);
+            
+            if (data == null)
+                return result;
+            
+            var s00 = false;
+            var s01 = false;
+            var s10 = false;
+            var s11 = false;
+            
+            if (LeftEdge == EdgeType.Wall)
+            {
+                data.TryGetValue(TileSegmentType.S00, out var s00Value);
+                s00 = true;
+                result.Add(TileSegmentType.S00, s00Value);
+                
+                data.TryGetValue(TileSegmentType.S10, out var s10Value);
+                s10 = true;
+                result.Add(TileSegmentType.S10, s10Value);
+            }
+            
+            if (RightEdge == EdgeType.Wall)
+            {
+                data.TryGetValue(TileSegmentType.S01, out var s01Value);
+                s01 = true;
+                result.Add(TileSegmentType.S01, s01Value);
+                
+                data.TryGetValue(TileSegmentType.S11, out var s11Value);
+                s11 = true;
+                result.Add(TileSegmentType.S11, s11Value);
+            }
+            
+            if (TopEdge == EdgeType.Wall)
+            {
+                if (!s00)
+                {
+                    data.TryGetValue(TileSegmentType.S00, out var s00Value);
+                    result.Add(TileSegmentType.S00, s00Value);
+                }
+                if (!s01)
+                {
+                    data.TryGetValue(TileSegmentType.S01, out var s01Value);
+                    result.Add(TileSegmentType.S01, s01Value);
+                }
+            }
+            
+            if (BottomEdge == EdgeType.Wall)
+            {
+                if (!s10)
+                {
+                    data.TryGetValue(TileSegmentType.S10, out var s10Value);
+                    result.Add(TileSegmentType.S10, s10Value);
+                }
+                if (!s11)
+                {
+                    data.TryGetValue(TileSegmentType.S11, out var s11Value);
+                    result.Add(TileSegmentType.S11, s11Value);
+                }
+            }
+            
+            return result;
+        }
+        
+        public IDictionary<TileSegmentType, IEnvironmentItem> GetFurnitureOnTheCeiling()
+        {
+            FurnitureData.TryGetValue(TileLayoutType.Ceiling, out var data);
             return data;
         }
         
+        public IDictionary<TileSegmentType, IEnvironmentItem> GetFurnitureOnTheFloor()
+        {
+            FurnitureData.TryGetValue(TileLayoutType.Floor, out var data);
+            return data;
+        }
+        
+        public IDictionary<TileLayoutType, IDictionary<TileSegmentType, IEnvironmentItem>> GetFurnitureOnTheWall()
+        {
+            var result = new Dictionary<TileLayoutType, IDictionary<TileSegmentType, IEnvironmentItem>>();
+            if (!HasWall)
+                return result;
+            if (LeftEdge == EdgeType.Wall)
+                ReadEdgeData(result, TileLayoutType.WallLeft);
+            if (RightEdge == EdgeType.Wall)
+                ReadEdgeData(result, TileLayoutType.WallRight);
+            if (TopEdge == EdgeType.Wall)
+                ReadEdgeData(result, TileLayoutType.WallTop);
+            if (BottomEdge == EdgeType.Wall)
+                ReadEdgeData(result, TileLayoutType.WallBottom);
+            return result;
+        }
+        
+        #endregion
+        
+        #region Utils Methods
+        
+        private void ReadEdgeData(IDictionary<TileLayoutType, IDictionary<TileSegmentType, IEnvironmentItem>> data, TileLayoutType layout)
+        {
+            FurnitureData.TryGetValue(layout, out var edgeData);
+            if (edgeData != null)
+                data.Add(layout, edgeData);
+        }
+        
+        #endregion
+
     }
 
 }

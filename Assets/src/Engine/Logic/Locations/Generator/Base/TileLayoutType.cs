@@ -12,9 +12,31 @@ namespace Engine.Logic.Locations.Generator
     /// </summary>
     public enum TileLayoutType : int
     {
+        
+        /// <summary>
+        ///     Слой расположен на полу
+        ///     ---
+        ///     The layer is located on the floor
+        /// </summary>
         Floor   = 0x00,
-        Wall    = 0x01,
-        Ceiling = 0x02,
+        
+        /// <summary>
+        ///     Слой расположен на одной из стен
+        ///     ---
+        ///     The layer is located on one of the walls
+        /// </summary>
+        WallLeft    = 0x01,
+        WallRight   = 0x02,
+        WallTop     = 0x03,
+        WallBottom  = 0x04,
+        
+        /// <summary>
+        ///     Слой расположен на потолке
+        ///     ---
+        ///     The layer is located on the ceiling
+        /// </summary>
+        Ceiling = 0x05,
+        
     };
     
 }

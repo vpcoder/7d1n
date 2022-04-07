@@ -18,7 +18,7 @@ namespace Engine.Logic.Locations.Generator
         /// |    |    |
         /// -----------
         /// </summary>
-        S00,
+        S00 = 0x00,
         
         /// <summary>
         /// -----------
@@ -27,7 +27,7 @@ namespace Engine.Logic.Locations.Generator
         /// |    |    |
         /// -----------
         /// </summary>
-        S01,
+        S01 = 0x01,
         
         /// <summary>
         /// -----------
@@ -36,7 +36,7 @@ namespace Engine.Logic.Locations.Generator
         /// |  * |    |
         /// -----------
         /// </summary>
-        S10,
+        S10 = 0x02,
         
         /// <summary>
         /// -----------
@@ -45,7 +45,7 @@ namespace Engine.Logic.Locations.Generator
         /// |    |  * |
         /// -----------
         /// </summary>
-        S11,
+        S11 = 0x03,
         
     };
     
