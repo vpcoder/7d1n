@@ -49,7 +49,7 @@ namespace Engine.Logic.Locations.Generator
         ///     The general style of the rooms in the building
         /// </summary>
         public RoomType RoomType { get; set; }
-
+        
     }
 
 }

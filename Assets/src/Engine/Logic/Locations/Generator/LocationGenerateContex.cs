@@ -107,6 +107,10 @@ namespace Engine.Logic.Locations.Generator
                 MarkersByType = markersByGroup,
                 RoomKindType = RoomKindType.Kitchen,
             };
+            
+            context.BuildRandom = new System.Random((int)context.BuildInfo.BuildID);
+            context.FloorRandom = new System.Random((int)context.BuildInfo.BuildID + (int)context.BuildInfo.CurrentFloor);
+            context.RoomRandom = new System.Random((int)context.BuildInfo.BuildID + (int)context.BuildInfo.CurrentFloor + (int)context.RoomKindType);
 
             // Генерация помещения
             RoomBuilderFactory.Instance.BuildRoom(context);

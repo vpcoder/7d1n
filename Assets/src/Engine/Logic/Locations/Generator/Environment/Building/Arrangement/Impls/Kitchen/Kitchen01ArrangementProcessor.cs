@@ -1,4 +1,6 @@
-﻿using Engine.Logic.Locations.Generator.Environment.Building.Rooms;
+﻿using System.Collections.Generic;
+using System.Linq;
+using Engine.Logic.Locations.Generator.Environment.Building.Rooms;
 using UnityEngine;
 
 namespace Engine.Logic.Locations.Generator.Environment.Building.Arrangement.Impls.Kitchen
@@ -14,27 +16,30 @@ namespace Engine.Logic.Locations.Generator.Environment.Building.Arrangement.Impl
             foreach (var item in context.TilesInfo.TilesData)
             {
                 item.Marker.Emission = Color.black;
+                item.Marker.Segments.Clear();
             }
-            
-            foreach (var item in context.TilesInfo.TilesNearWall)
+
+            if (currentInsertItem.Type == KitchenItemType.Sink)
             {
-               var list = item.GetEmptySegmentsOnTheFloorCloseToWall();
-                item.Marker.Emission = Color.cyan;
-            }
+                var onTheDoorNearWindow = new List<TileSegmentLink>();
+                var tilesList = context.TilesInfo.TilesNearWindow;
             
-            foreach (var item in context.TilesInfo.TilesNearWindow)
-            {
-                item.Marker.Emission = Color.green;
-            }
-            
-            foreach (var item in context.TilesInfo.TilesNearDoor)
-            {
-                item.Marker.Emission = Color.white;
+                foreach (var floor in tilesList)
+                    onTheDoorNearWindow.AddRange(floor.GetFurnitureOnTheFloorCloseToWindow());
+
+                var list = onTheDoorNearWindow.Where(link => link.Item == null).ToList();
+                if (list.Count != 0)
+                {
+                    var index = context.RoomRandom.Next(0, list.Count - 1);
+                    var item = list[index];
+                    item.Tile.Set(item.Layout, item.SegmentType, currentInsertItem);
+                    item.Marker.Segments[item.SegmentType] = Color.magenta;
+                    Object.Instantiate(currentInsertItem.ToObject, item.Marker.GetSegmentPos(EdgeLayout.Floor, item.SegmentType), item.Marker.GetLayoutRot(item.EdgeLayout), BuildParent);
+                }
             }
 
             return true;
         }
-
         
     }
 

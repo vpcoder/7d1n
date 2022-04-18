@@ -50,38 +50,34 @@ namespace Engine.Logic.Locations.Generator.Builders
 
         private void BuildInsideWalls(GenerationRoomContext context, TileItem tile)
         {
-            var marker = tile.Marker;
-            
-            if (tile.LeftEdge != EdgeType.Empty)
-                BuildInsideEdge(context, tile.LeftEdge, marker.LeftInsideWallPos, marker.LeftInsideWallRot);
-            
-            if (tile.RightEdge != EdgeType.Empty)
-                BuildInsideEdge(context, tile.RightEdge, marker.RightInsideWallPos, marker.RightInsideWallRot);
-            
-            if (tile.TopEdge != EdgeType.Empty)
-                BuildInsideEdge(context, tile.TopEdge, marker.TopInsideWallPos, marker.TopInsideWallRot);
-            
-            if (tile.BottomEdge != EdgeType.Empty)
-                BuildInsideEdge(context, tile.BottomEdge, marker.BottomInsideWallPos, marker.BottomInsideWallRot);
+            var edges = new[] { EdgeLayout.LeftInside, EdgeLayout.RightInside, EdgeLayout.TopInside, EdgeLayout.BottomInside };
+            foreach (var layout in edges)
+                BuildInsideEdge(context, tile, layout);
         }
         
         private void BuildOutsideWalls(GenerationRoomContext context, TileItem tile)
         {
-            var marker = tile.Marker;
-            
-            if (tile.LeftOfThis == null)
-                BuildOutsideEdge(context, tile.LeftEdge, marker.LeftOutsideWallPos, marker.LeftOutsideWallRot);
-            
-            if (tile.RightOfThis == null)
-                BuildOutsideEdge(context, tile.RightEdge, marker.RightOutsideWallPos, marker.RightOutsideWallRot);
-
-            if (tile.TopOfThis == null)
-                BuildOutsideEdge(context, tile.TopEdge, marker.TopOutsideWallPos, marker.TopOutsideWallRot);
-
-            if (tile.BottomOfThis == null)
-                BuildOutsideEdge(context, tile.BottomEdge, marker.BottomOutsideWallPos, marker.BottomOutsideWallRot);
+            var edges = new[] { EdgeLayout.LeftOutside, EdgeLayout.RightOutside, EdgeLayout.TopOutside, EdgeLayout.BottomOutside };
+            foreach (var layout in edges)
+                BuildOutsideEdge(context, tile, layout);
         }
         
+        private void BuildInsideEdge(GenerationRoomContext context, TileItem tile, EdgeLayout layout)
+        {
+            var marker = tile.Marker;
+            var edge = tile.GetEdge(layout);
+            if (edge != EdgeType.Empty)
+                BuildInsideEdge(context, edge, marker.GetLayoutPos(layout), marker.GetLayoutRot(layout));
+        }
+        
+        private void BuildOutsideEdge(GenerationRoomContext context, TileItem tile, EdgeLayout layout)
+        {
+            var marker = tile.Marker;
+            var edge = tile.GetEdge(layout);
+            if (edge != EdgeType.Empty)
+                BuildOutsideEdge(context, edge, marker.GetLayoutPos(layout), marker.GetLayoutRot(layout));
+        }
+
         private void BuildInsideEdge(GenerationRoomContext context, EdgeType type, Vector3 pos, Quaternion rot)
         {
             var prefab = GetInsideWallPrefabByEdgeType(context, type);

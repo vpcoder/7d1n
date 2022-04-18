@@ -1,6 +1,8 @@
+using System;
 using System.Collections.Generic;
 using Engine.Logic.Locations.Generator.Environment.Building;
 using Engine.Logic.Locations.Generator.Markers;
+using Mapbox.Map;
 
 namespace Engine.Logic.Locations.Generator
 {
@@ -40,10 +42,12 @@ namespace Engine.Logic.Locations.Generator
     public class TileItem
     {
         
+        
+        private readonly IDictionary<TileLayoutType, IDictionary<TileSegmentType, IEnvironmentItem>> furnitureData = new Dictionary<TileLayoutType, IDictionary<TileSegmentType, IEnvironmentItem>>();
+
+        
         #region Properties
-        
-        public IDictionary<TileLayoutType, IDictionary<TileSegmentType, IEnvironmentItem>> FurnitureData { get; set; }
-        
+
         public FloorMarker Marker { get; set; }
 
         public TileItem LeftOfThis { get; set; }
@@ -56,6 +60,27 @@ namespace Engine.Logic.Locations.Generator
         public EdgeType TopEdge { get; set; } = EdgeType.Empty;
         public EdgeType BottomEdge { get; set; } = EdgeType.Empty;
 
+        public EdgeType GetEdge(EdgeLayout layout)
+        {
+            switch (layout)
+            {
+                case EdgeLayout.LeftInside:
+                case EdgeLayout.LeftOutside:
+                    return LeftEdge;
+                case EdgeLayout.RightInside:
+                case EdgeLayout.RightOutside:
+                    return RightEdge;
+                case EdgeLayout.TopInside:
+                case EdgeLayout.TopOutside:
+                    return TopEdge;
+                case EdgeLayout.BottomInside:
+                case EdgeLayout.BottomOutside:
+                    return BottomEdge;
+                default:
+                    throw new NotSupportedException(layout.ToString());
+            }
+        }
+        
         public bool IsSurrounded
         {
             get
@@ -69,6 +94,22 @@ namespace Engine.Logic.Locations.Generator
             get
             {
                 return LeftOfThis == null || RightOfThis == null || TopOfThis != null || BottomOfThis != null;
+            }
+        }
+
+        public bool HasNotAnyEdge
+        {
+            get
+            {
+                return !HasAnyEdge;
+            }
+        }
+        
+        public bool HasAnyEdge
+        {
+            get
+            {
+                return HasWindow || HasDoor || HasWall;
             }
         }
         
@@ -109,6 +150,25 @@ namespace Engine.Logic.Locations.Generator
         
         #region Shared Methods
 
+        public void Set(TileLayoutType layout, TileSegmentType segment, IEnvironmentItem item)
+        {
+            furnitureData.TryGetValue(layout, out var data);
+            if (data == null)
+            {
+                data = new Dictionary<TileSegmentType, IEnvironmentItem>();
+                furnitureData[layout] = data;
+            }
+            data[segment] = item;
+        }
+
+        public IEnvironmentItem Get(TileLayoutType layout, TileSegmentType segment)
+        {
+            furnitureData.TryGetValue(layout, out var data);
+            if (data == null)
+                return null;
+            return data[segment];
+        }
+        
         /// <summary>
         ///     Получает все свободные сегменты на полу у стены
         ///     ---
@@ -117,20 +177,20 @@ namespace Engine.Logic.Locations.Generator
         /// <returns>
         ///     
         /// </returns>
-        public IList<TileSegmentType> GetEmptySegmentsOnTheFloorCloseToWall()
+        public IList<TileSegmentLink> GetEmptySegmentsOnTheFloorCloseToWall()
         {
-            var list = new List<TileSegmentType>();
+            var list = new List<TileSegmentLink>();
             var data = GetFurnitureOnTheFloorCloseToWall();
             if (data.Count == 0)
                 return list;
-            foreach (var entry in data)
+            foreach (var link in data)
             {
-                if(entry.Value == null)
-                    list.Add(entry.Key);
+                if(link.Item == null)
+                    list.Add(link);
             }
             return list;
         }
-        
+
         /// <summary>
         ///     Получает все сегменты на полу у стены (и пустые и заполненные)
         ///     ---
@@ -139,69 +199,157 @@ namespace Engine.Logic.Locations.Generator
         /// <returns>
         ///     
         /// </returns>
-        public IDictionary<TileSegmentType, IEnvironmentItem> GetFurnitureOnTheFloorCloseToWall()
+        public IList<TileSegmentLink> GetFurnitureOnTheFloorCloseToWall()
         {
-            var result = new Dictionary<TileSegmentType, IEnvironmentItem>();
-            if (!HasWall)
+            return GetFurnitureOnTheFloorCloseToWall(EdgeType.Wall);
+        }
+        
+        public IList<TileSegmentLink> GetFurnitureOnTheFloorCloseToWindow()
+        {
+            return GetFurnitureOnTheFloorCloseToWall(EdgeType.Window);
+        }
+        
+        public IList<TileSegmentLink> GetFurnitureOnTheFloorCloseToDoor()
+        {
+            return GetFurnitureOnTheFloorCloseToWall(EdgeType.Door);
+        }
+
+        private IList<TileSegmentLink> GetFurnitureOnTheFloorCloseToWall(EdgeType edge)
+        {
+            var result = new List<TileSegmentLink>();
+            if (HasNotAnyEdge)
                 return result;
 
-            FurnitureData.TryGetValue(TileLayoutType.Floor, out var data);
-            
+            var layout = TileLayoutType.Floor;
+
+            furnitureData.TryGetValue(layout, out var data);
+
             if (data == null)
-                return result;
+                data = new Dictionary<TileSegmentType, IEnvironmentItem>();
             
             var s00 = false;
             var s01 = false;
             var s10 = false;
             var s11 = false;
             
-            if (LeftEdge == EdgeType.Wall)
+            if (LeftEdge == edge)
             {
                 data.TryGetValue(TileSegmentType.S00, out var s00Value);
                 s00 = true;
-                result.Add(TileSegmentType.S00, s00Value);
-                
+                result.Add(new TileSegmentLink()
+                {
+                    Tile = this,
+                    Layout = layout,
+                    Item = s00Value,
+                    Marker = Marker,
+                    SegmentType = TileSegmentType.S00,
+                    EdgeType = edge,
+                    EdgeLayout = EdgeLayout.LeftInside,
+                });
                 data.TryGetValue(TileSegmentType.S10, out var s10Value);
                 s10 = true;
-                result.Add(TileSegmentType.S10, s10Value);
+                result.Add(new TileSegmentLink()
+                {
+                    Tile = this,
+                    Layout = layout,
+                    Item = s10Value,
+                    Marker = Marker,
+                    SegmentType = TileSegmentType.S10,
+                    EdgeType = edge,
+                    EdgeLayout = EdgeLayout.LeftInside,
+                });
             }
             
-            if (RightEdge == EdgeType.Wall)
+            if (RightEdge == edge)
             {
                 data.TryGetValue(TileSegmentType.S01, out var s01Value);
                 s01 = true;
-                result.Add(TileSegmentType.S01, s01Value);
+                result.Add(new TileSegmentLink()
+                {
+                    Tile = this,
+                    Layout = layout,
+                    Item = s01Value,
+                    Marker = Marker,
+                    SegmentType = TileSegmentType.S01,
+                    EdgeType = edge,
+                    EdgeLayout = EdgeLayout.RightInside,
+                });
                 
                 data.TryGetValue(TileSegmentType.S11, out var s11Value);
                 s11 = true;
-                result.Add(TileSegmentType.S11, s11Value);
+                result.Add(new TileSegmentLink()
+                {
+                    Tile = this,
+                    Layout = layout,
+                    Item = s11Value,
+                    Marker = Marker,
+                    SegmentType = TileSegmentType.S11,
+                    EdgeType = edge,
+                    EdgeLayout = EdgeLayout.RightInside,
+                });
             }
             
-            if (TopEdge == EdgeType.Wall)
+            if (TopEdge == edge)
             {
                 if (!s00)
                 {
                     data.TryGetValue(TileSegmentType.S00, out var s00Value);
-                    result.Add(TileSegmentType.S00, s00Value);
+                    result.Add(new TileSegmentLink()
+                    {
+                        Tile = this,
+                        Layout = layout,
+                        Item = s00Value,
+                        Marker = Marker,
+                        SegmentType = TileSegmentType.S00,
+                        EdgeType = edge,
+                        EdgeLayout = EdgeLayout.TopInside,
+                    });
                 }
                 if (!s01)
                 {
                     data.TryGetValue(TileSegmentType.S01, out var s01Value);
-                    result.Add(TileSegmentType.S01, s01Value);
+                    result.Add(new TileSegmentLink()
+                    {
+                        Tile = this,
+                        Layout = layout,
+                        Item = s01Value,
+                        Marker = Marker,
+                        SegmentType = TileSegmentType.S01,
+                        EdgeType = edge,
+                        EdgeLayout = EdgeLayout.TopInside,
+                    });
                 }
             }
             
-            if (BottomEdge == EdgeType.Wall)
+            if (BottomEdge == edge)
             {
                 if (!s10)
                 {
                     data.TryGetValue(TileSegmentType.S10, out var s10Value);
-                    result.Add(TileSegmentType.S10, s10Value);
+                    result.Add(new TileSegmentLink()
+                    {
+                        Tile = this,
+                        Layout = layout,
+                        Item = s10Value,
+                        Marker = Marker,
+                        SegmentType = TileSegmentType.S10,
+                        EdgeType = edge,
+                        EdgeLayout = EdgeLayout.BottomInside,
+                    });
                 }
                 if (!s11)
                 {
                     data.TryGetValue(TileSegmentType.S11, out var s11Value);
-                    result.Add(TileSegmentType.S11, s11Value);
+                    result.Add(new TileSegmentLink()
+                    {
+                        Tile = this,
+                        Layout = layout,
+                        Item = s11Value,
+                        Marker = Marker,
+                        SegmentType = TileSegmentType.S11,
+                        EdgeType = edge,
+                        EdgeLayout = EdgeLayout.BottomInside,
+                    });
                 }
             }
             
@@ -210,20 +358,20 @@ namespace Engine.Logic.Locations.Generator
         
         public IDictionary<TileSegmentType, IEnvironmentItem> GetFurnitureOnTheCeiling()
         {
-            FurnitureData.TryGetValue(TileLayoutType.Ceiling, out var data);
+            furnitureData.TryGetValue(TileLayoutType.Ceiling, out var data);
             return data;
         }
         
         public IDictionary<TileSegmentType, IEnvironmentItem> GetFurnitureOnTheFloor()
         {
-            FurnitureData.TryGetValue(TileLayoutType.Floor, out var data);
+            furnitureData.TryGetValue(TileLayoutType.Floor, out var data);
             return data;
         }
         
         public IDictionary<TileLayoutType, IDictionary<TileSegmentType, IEnvironmentItem>> GetFurnitureOnTheWall()
         {
             var result = new Dictionary<TileLayoutType, IDictionary<TileSegmentType, IEnvironmentItem>>();
-            if (!HasWall)
+            if (HasNotAnyEdge)
                 return result;
             if (LeftEdge == EdgeType.Wall)
                 ReadEdgeData(result, TileLayoutType.WallLeft);
@@ -242,7 +390,7 @@ namespace Engine.Logic.Locations.Generator
         
         private void ReadEdgeData(IDictionary<TileLayoutType, IDictionary<TileSegmentType, IEnvironmentItem>> data, TileLayoutType layout)
         {
-            FurnitureData.TryGetValue(layout, out var edgeData);
+            furnitureData.TryGetValue(layout, out var edgeData);
             if (edgeData != null)
                 data.Add(layout, edgeData);
         }

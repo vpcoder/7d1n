@@ -50,7 +50,14 @@ namespace Engine.Logic.Locations.Generator
         ///     The type of room that is currently being generated
         /// </summary>
         public RoomKindType RoomKindType { get; set; }
-        
+
+        /// <summary>
+        ///     Набор случайных значений для текущего здания, этажа и комнаты (в совокупности)
+        /// </summary>
+        public System.Random RoomRandom { get; set; }
+        public System.Random BuildRandom { get; set; }
+        public System.Random FloorRandom { get; set; }
+
     }
     
 }

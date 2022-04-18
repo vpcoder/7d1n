@@ -1,4 +1,6 @@
-﻿using UnityEngine;
+﻿using System;
+using System.Collections.Generic;
+using UnityEngine;
 
 namespace Engine.Logic.Locations.Generator.Markers
 {
@@ -72,135 +74,107 @@ namespace Engine.Logic.Locations.Generator.Markers
 
         public override Vector3 Bounds { get { return LocationGenerateContex.FLOOR_TILE_SIZE; } }
 
-        public Vector3 LeftOutsideWallPos
+        public EdgeType GetEdge(EdgeLayout layout)
         {
-            get
+            switch (layout)
             {
-                return transform.position + new Vector3(-LocationGenerateContex.WALL_TILE_SIZE.x, 0, 0);
-            }
-        }
-
-        public Quaternion LeftOutsideWallRot
-        {
-            get
-            {
-                return Quaternion.Euler(0f, 180f, 0f);
-            }
-        }
-
-        public Vector3 RightOutsideWallPos
-        {
-            get
-            {
-                return transform.position + new Vector3(0, 0, LocationGenerateContex.WALL_TILE_SIZE.x);
-            }
-        }
-
-        public Quaternion RightOutsideWallRot
-        {
-            get
-            {
-                return Quaternion.Euler(0f, 0f, 0f);
-            }
-        }
-
-        public Vector3 TopOutsideWallPos
-        {
-            get
-            {
-                return transform.position + new Vector3(-LocationGenerateContex.WALL_TILE_SIZE.x, 0, LocationGenerateContex.WALL_TILE_SIZE.x);
-            }
-        }
-
-        public Quaternion TopOutsideWallRot
-        {
-            get
-            {
-                return Quaternion.Euler(0f, -90f, 0f);
-            }
-        }
-
-        public Vector3 BottomOutsideWallPos
-        {
-            get
-            {
-                return transform.position;
+                case EdgeLayout.LeftInside:
+                case EdgeLayout.LeftOutside:
+                    return LeftEdge;
+                case EdgeLayout.RightInside:
+                case EdgeLayout.RightOutside:
+                    return RightEdge;
+                case EdgeLayout.TopInside:
+                case EdgeLayout.TopOutside:
+                    return TopEdge;
+                case EdgeLayout.BottomInside:
+                case EdgeLayout.BottomOutside:
+                    return BottomEdge;
+                default:
+                    throw new NotSupportedException(layout.ToString());
             }
         }
         
-        public Quaternion BottomOutsideWallRot
+        public Quaternion GetLayoutRot(EdgeLayout layout)
         {
-            get
+            switch (layout)
             {
-                return Quaternion.Euler(0f, 90f, 0f);
+                case EdgeLayout.BottomInside:
+                    return Quaternion.Euler(0f, -90f, 0f);
+                case EdgeLayout.TopInside:
+                    return Quaternion.Euler(0f, 90f, 0f);
+                case EdgeLayout.RightInside:
+                    return Quaternion.Euler(0f, 180f, 0f);
+                case EdgeLayout.LeftInside:
+                    return Quaternion.Euler(0f, 0f, 0f);
+                
+                case EdgeLayout.BottomOutside:
+                    return Quaternion.Euler(0f, 90f, 0f);
+                case EdgeLayout.TopOutside:
+                    return Quaternion.Euler(0f, -90f, 0f);
+                case EdgeLayout.RightOutside:
+                    return Quaternion.Euler(0f, 0f, 0f);
+                case EdgeLayout.LeftOutside:
+                    return Quaternion.Euler(0f, 180f, 0f);
+                
+                case EdgeLayout.Floor:
+                case EdgeLayout.Ceiling:
+                    return Quaternion.identity;
+                
+                default:
+                    throw new NotSupportedException(layout.ToString());
             }
         }
         
-        public Vector3 LeftInsideWallPos
+        public Vector3 GetLayoutPos(EdgeLayout layout)
         {
-            get
+            switch (layout)
             {
-                return transform.position;
-            }
-        }
-
-        public Quaternion LeftInsideWallRot
-        {
-            get
-            {
-                return Quaternion.Euler(0f, 0f, 0f);
-            }
-        }
-
-        public Vector3 RightInsideWallPos
-        {
-            get
-            {
-                return transform.position + new Vector3(-LocationGenerateContex.WALL_TILE_SIZE.x, 0,
-                    LocationGenerateContex.WALL_TILE_SIZE.x);
-            }
-        }
-
-        public Quaternion RightInsideWallRot
-        {
-            get
-            {
-                return Quaternion.Euler(0f, 180f, 0f);
-            }
-        }
-
-        public Vector3 TopInsideWallPos
-        {
-            get
-            {
-                return transform.position + new Vector3(-LocationGenerateContex.WALL_TILE_SIZE.x, 0, 0);
-            }
-        }
-
-        public Quaternion TopInsideWallRot
-        {
-            get
-            {
-                return Quaternion.Euler(0f, 90f, 0f);
-            }
-        }
-
-        public Vector3 BottomInsideWallPos
-        {
-            get
-            {
-                return transform.position + new Vector3(0, 0, LocationGenerateContex.WALL_TILE_SIZE.x);
+                case EdgeLayout.BottomInside:
+                    return transform.position + new Vector3(0, 0, LocationGenerateContex.WALL_TILE_SIZE.x);
+                case EdgeLayout.TopInside:
+                    return transform.position + new Vector3(-LocationGenerateContex.WALL_TILE_SIZE.x, 0, 0);
+                case EdgeLayout.RightInside:
+                    return transform.position + new Vector3(-LocationGenerateContex.WALL_TILE_SIZE.x, 0,
+                        LocationGenerateContex.WALL_TILE_SIZE.x);
+                case EdgeLayout.LeftInside:
+                    return transform.position;
+                
+                case EdgeLayout.BottomOutside:
+                    return transform.position;
+                case EdgeLayout.TopOutside:
+                    return transform.position + new Vector3(-LocationGenerateContex.WALL_TILE_SIZE.x, 0, LocationGenerateContex.WALL_TILE_SIZE.x);
+                case EdgeLayout.RightOutside:
+                    return transform.position + new Vector3(0, 0, LocationGenerateContex.WALL_TILE_SIZE.x);
+                case EdgeLayout.LeftOutside:
+                    return transform.position + new Vector3(-LocationGenerateContex.WALL_TILE_SIZE.x, 0, 0);
+                
+                case EdgeLayout.Floor:
+                case EdgeLayout.Ceiling:
+                    return transform.position;
+                
+                default:
+                    throw new NotSupportedException(layout.ToString());
             }
         }
         
-        public Quaternion BottomInsideWallRot
+        public Vector3 GetSegmentPos(EdgeLayout layout, TileSegmentType type)
         {
-            get
+            switch (type)
             {
-                return Quaternion.Euler(0f, -90f, 0f);
+                case TileSegmentType.S00:
+                    return transform.position + new Vector3(-Bounds.x, 0, Bounds.z) * 0.25f;
+                case TileSegmentType.S01:
+                    return transform.position + new Vector3(-Bounds.x * 0.75f, 0, Bounds.z * 0.25f);
+                case TileSegmentType.S10:
+                    return transform.position + new Vector3(-Bounds.x * 0.25f, 0, Bounds.z * 0.75f);
+                case TileSegmentType.S11:
+                    return transform.position + new Vector3(-Bounds.x * 0.75f, 0, Bounds.z * 0.75f);
+                default:
+                    throw new NotSupportedException(layout.ToString());
             }
         }
-
+        
         #endregion
         
         #region Editor
@@ -211,10 +185,19 @@ namespace Engine.Logic.Locations.Generator.Markers
         
         public Color Emission { get; set; } = Color.black;
 
+        public Dictionary<TileSegmentType, Color> Segments = new Dictionary<TileSegmentType, Color>();
+
         private void OnDrawGizmosSelected()
         {
-            Gizmos.color = Color.green;
             var bounds = Bounds;
+            
+            foreach (var segment in Segments)
+            {
+                Gizmos.color = segment.Value;
+                Gizmos.DrawCube(GetSegmentPos(EdgeLayout.Floor, segment.Key), new Vector3(bounds.x * 0.5f, LINE_SIZE.y, bounds.z * 0.5f));
+            }
+            
+            Gizmos.color = Color.green;
             var q = transform.rotation;
             
             Gizmos.color = GetByEdge(LeftEdge);
@@ -263,16 +246,16 @@ namespace Engine.Logic.Locations.Generator.Markers
             DrawFloor();
 
             if (LeftEdge != EdgeType.Empty)
-                DrawWall(GetByEdge(LeftEdge), LeftInsideWallPos, LeftInsideWallRot, LocationGenerateContex.WALL_TILE_SIZE);
+                DrawWall(GetByEdge(LeftEdge),  GetLayoutPos(EdgeLayout.LeftInside), GetLayoutRot(EdgeLayout.LeftInside), LocationGenerateContex.WALL_TILE_SIZE);
             
             if (RightEdge != EdgeType.Empty)
-                DrawWall(GetByEdge(RightEdge), RightInsideWallPos, RightInsideWallRot, LocationGenerateContex.WALL_TILE_SIZE);
+                DrawWall(GetByEdge(RightEdge), GetLayoutPos(EdgeLayout.RightInside), GetLayoutRot(EdgeLayout.RightInside), LocationGenerateContex.WALL_TILE_SIZE);
             
             if (TopEdge != EdgeType.Empty)
-                DrawWall(GetByEdge(TopEdge), TopInsideWallPos, TopInsideWallRot, LocationGenerateContex.WALL_TILE_SIZE);
+                DrawWall(GetByEdge(TopEdge), GetLayoutPos(EdgeLayout.TopInside), GetLayoutRot(EdgeLayout.TopInside), LocationGenerateContex.WALL_TILE_SIZE);
             
             if (BottomEdge != EdgeType.Empty)
-                DrawWall(GetByEdge(BottomEdge), BottomInsideWallPos, BottomInsideWallRot, LocationGenerateContex.WALL_TILE_SIZE);
+                DrawWall(GetByEdge(BottomEdge), GetLayoutPos(EdgeLayout.BottomInside), GetLayoutRot(EdgeLayout.BottomInside), LocationGenerateContex.WALL_TILE_SIZE);
         }
 
         private void DrawFloor()

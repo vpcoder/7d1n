@@ -64,7 +64,7 @@ namespace Engine.Logic.Locations.Generator
             var elementFactory = LocationTypeSuperFactory.Instance.Get(context.BuildInfo.LocationType);
             var buildType = context.BuildInfo.RoomType;
             var variationCount = elementFactory.GetCount(buildType);
-            var buildingVariationID = new System.Random((int)context.BuildInfo.BuildID).Next(1, variationCount);
+            var buildingVariationID = context.BuildRandom.Next(1, variationCount);
             context.BuildingElement = elementFactory.Get(buildType, buildingVariationID);
 
             // Формируем информацию о тайлах
@@ -135,7 +135,7 @@ namespace Engine.Logic.Locations.Generator
             if (list == null || list.Count == 0)
                 return new List<IEnvironmentItem>();
             
-            var currentFurnitureProcessorIndex = new System.Random((int)(context.BuildInfo.BuildID + context.BuildInfo.CurrentFloor)).Next(0, list.Count);
+            var currentFurnitureProcessorIndex = context.FloorRandom.Next(0, list.Count);
             var processor = list[currentFurnitureProcessorIndex];
 
             return processor.Create(context);
@@ -167,7 +167,6 @@ namespace Engine.Logic.Locations.Generator
             // Положение маркера к тайлу
             IDictionary<Vector3, TileItem> markerPosToMarker = floorMarkers.ToDictionary(marker => marker.Position, marker => new TileItem()
             {
-                FurnitureData = new Dictionary<TileLayoutType, IDictionary<TileSegmentType, IEnvironmentItem>>(),
                 Marker = (FloorMarker) marker,
             });
             
@@ -204,25 +203,25 @@ namespace Engine.Logic.Locations.Generator
 
             foreach (var tile in markerPosToMarker.Values)
             {
-                if (tile.LeftOfThis != null && tile.LeftEdge != EdgeType.Empty)
+                if (tile.LeftOfThis != null && tile.LeftEdge != EdgeType.Empty && tile.LeftEdge != EdgeType.Window)
                 {
                     tile.LeftOfThis.RightEdge        = tile.LeftEdge;
                     tile.LeftOfThis.Marker.RightEdge = tile.LeftEdge;
                 }
 
-                if (tile.RightOfThis != null && tile.RightEdge != EdgeType.Empty)
+                if (tile.RightOfThis != null && tile.RightEdge != EdgeType.Empty && tile.RightEdge != EdgeType.Window)
                 {
                     tile.RightOfThis.LeftEdge        = tile.RightEdge;
                     tile.RightOfThis.Marker.LeftEdge = tile.RightEdge;
                 }
 
-                if (tile.TopOfThis != null && tile.TopEdge != EdgeType.Empty)
+                if (tile.TopOfThis != null && tile.TopEdge != EdgeType.Empty && tile.TopEdge != EdgeType.Window)
                 {
                     tile.TopOfThis.BottomEdge        = tile.TopEdge;
                     tile.TopOfThis.Marker.BottomEdge = tile.TopEdge;
                 }
 
-                if (tile.BottomOfThis != null && tile.BottomEdge != EdgeType.Empty)
+                if (tile.BottomOfThis != null && tile.BottomEdge != EdgeType.Empty && tile.BottomEdge != EdgeType.Window)
                 {
                     tile.BottomOfThis.TopEdge        = tile.BottomEdge;
                     tile.BottomOfThis.Marker.TopEdge = tile.BottomEdge;

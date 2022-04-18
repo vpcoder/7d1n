@@ -146,7 +146,37 @@ namespace Engine.Logic.Locations.Generator.Environment.Building.Arrangement
         ///     false - if the object could not be placed in the scene
         /// </returns>
         public abstract bool InsertItemIntoScene(GenerationRoomContext context, IEnvironmentItem<E> currentInsertItem);
-
+        
+        /// <summary>
+        ///     Кеш для BuildParent
+        ///     ---
+        ///     Cache for BuildParent
+        /// </summary>
+        private Transform buildParent;
+        
+        /// <summary>
+        ///     Дочерний Transform в котором будут располагаться сгенерированные объекты помещения (стены, пол, окна, двери и прочее)
+        ///     ---
+        ///     The child Transform in which the generated room objects will be located (walls, floor, windows, doors, etc.)
+        /// </summary>
+        protected Transform BuildParent
+        {
+            get
+            {
+                if(buildParent != null)
+                {
+                    return buildParent;
+                }
+                var parent = GameObject.Find("BuildData");
+                if(parent == null)
+                {
+                    parent = new GameObject("BuildData");
+                }
+                buildParent = parent.transform;
+                return buildParent;
+            }
+        }
+        
         #endregion
         
     }
