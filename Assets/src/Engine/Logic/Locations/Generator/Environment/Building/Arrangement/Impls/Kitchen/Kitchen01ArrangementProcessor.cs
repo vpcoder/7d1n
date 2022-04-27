@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using System.Linq;
 using Engine.Logic.Locations.Generator.Environment.Building.Rooms;
 using UnityEngine;
 
@@ -9,38 +8,30 @@ namespace Engine.Logic.Locations.Generator.Environment.Building.Arrangement.Impl
     public class Kitchen01ArrangementProcessor : ArrangementProcessorBase<KitchenItemType>
     {
 
+        private readonly IDictionary<KitchenItemType, IItemPutProcessor<KitchenItemType>> putProcessorsData =
+            new Dictionary<KitchenItemType, IItemPutProcessor<KitchenItemType>>();
+        
         public override RoomKindType RoomType => RoomKindType.Kitchen;
+        
+        public Kitchen01ArrangementProcessor()
+        {
+            foreach (var processor in AssembliesHandler.CreateImplementations<IItemPutProcessor<KitchenItemType>>())
+                putProcessorsData.Add(processor.Type, processor);
+        }
         
         public override bool InsertItemIntoScene(GenerationRoomContext context, IEnvironmentItem<KitchenItemType> currentInsertItem)
         {
+            // FIXME: Для отладки
             foreach (var item in context.TilesInfo.TilesData)
             {
                 item.Marker.Emission = Color.black;
                 item.Marker.Segments.Clear();
             }
 
-            if (currentInsertItem.Type == KitchenItemType.Sink)
-            {
-                var onTheDoorNearWindow = new List<TileSegmentLink>();
-                var tilesList = context.TilesInfo.TilesNearWindow;
-            
-                foreach (var floor in tilesList)
-                    onTheDoorNearWindow.AddRange(floor.GetFurnitureOnTheFloorCloseToWindow());
-
-                var list = onTheDoorNearWindow.Where(link => link.Item == null).ToList();
-                if (list.Count != 0)
-                {
-                    var index = context.RoomRandom.Next(0, list.Count - 1);
-                    var item = list[index];
-                    item.Tile.Set(item.Layout, item.SegmentType, currentInsertItem);
-                    item.Marker.Segments[item.SegmentType] = Color.magenta;
-                    Object.Instantiate(currentInsertItem.ToObject, item.Marker.GetSegmentPos(EdgeLayout.Floor, item.SegmentType), item.Marker.GetLayoutRot(item.EdgeLayout), BuildParent);
-                }
-            }
-
-            return true;
+            putProcessorsData.TryGetValue(currentInsertItem.Type, out var processor);
+            return processor?.TryPutItem(context, currentInsertItem) ?? false;
         }
-        
+
     }
 
 }

@@ -113,7 +113,9 @@ namespace Engine.Logic.Locations.Generator.Furniture
                 var environmentItem = factory.Get(item.Type);
                 if (environmentItem == null)
                     throw new NotSupportedException("factory '" + typeof(E).FullName + "' isn't contains furniture '" + item.Type + "'!");
-                availableItems.Add(environmentItem);
+                
+                for(int i = 0; i < item.Count; i++)
+                    availableItems.Add(environmentItem);
             }
 
             return availableItems;

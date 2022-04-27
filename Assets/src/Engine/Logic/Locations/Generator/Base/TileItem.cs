@@ -177,18 +177,9 @@ namespace Engine.Logic.Locations.Generator
         /// <returns>
         ///     
         /// </returns>
-        public IList<TileSegmentLink> GetEmptySegmentsOnTheFloorCloseToWall()
+        public IList<TileSegmentLink> GetEmptyFurnitureOnTheLayoutByEdge(TileLayoutType layout, EdgeType edge)
         {
-            var list = new List<TileSegmentLink>();
-            var data = GetFurnitureOnTheFloorCloseToWall();
-            if (data.Count == 0)
-                return list;
-            foreach (var link in data)
-            {
-                if(link.Item == null)
-                    list.Add(link);
-            }
-            return list;
+            return GetFurnitureOnTheLayoutByEdge(layout, edge, item => item.Item == null);
         }
 
         /// <summary>
@@ -199,28 +190,11 @@ namespace Engine.Logic.Locations.Generator
         /// <returns>
         ///     
         /// </returns>
-        public IList<TileSegmentLink> GetFurnitureOnTheFloorCloseToWall()
-        {
-            return GetFurnitureOnTheFloorCloseToWall(EdgeType.Wall);
-        }
-        
-        public IList<TileSegmentLink> GetFurnitureOnTheFloorCloseToWindow()
-        {
-            return GetFurnitureOnTheFloorCloseToWall(EdgeType.Window);
-        }
-        
-        public IList<TileSegmentLink> GetFurnitureOnTheFloorCloseToDoor()
-        {
-            return GetFurnitureOnTheFloorCloseToWall(EdgeType.Door);
-        }
-
-        private IList<TileSegmentLink> GetFurnitureOnTheFloorCloseToWall(EdgeType edge)
+        private IList<TileSegmentLink> GetFurnitureOnTheLayoutByEdge(TileLayoutType layout, EdgeType edge, Func<TileSegmentLink, bool> filter = null)
         {
             var result = new List<TileSegmentLink>();
             if (HasNotAnyEdge)
                 return result;
-
-            var layout = TileLayoutType.Floor;
 
             furnitureData.TryGetValue(layout, out var data);
 
@@ -236,7 +210,8 @@ namespace Engine.Logic.Locations.Generator
             {
                 data.TryGetValue(TileSegmentType.S00, out var s00Value);
                 s00 = true;
-                result.Add(new TileSegmentLink()
+                
+                TryAddWithCheck(result, new TileSegmentLink()
                 {
                     Tile = this,
                     Layout = layout,
@@ -245,26 +220,10 @@ namespace Engine.Logic.Locations.Generator
                     SegmentType = TileSegmentType.S00,
                     EdgeType = edge,
                     EdgeLayout = EdgeLayout.LeftInside,
-                });
-                data.TryGetValue(TileSegmentType.S10, out var s10Value);
-                s10 = true;
-                result.Add(new TileSegmentLink()
-                {
-                    Tile = this,
-                    Layout = layout,
-                    Item = s10Value,
-                    Marker = Marker,
-                    SegmentType = TileSegmentType.S10,
-                    EdgeType = edge,
-                    EdgeLayout = EdgeLayout.LeftInside,
-                });
-            }
-            
-            if (RightEdge == edge)
-            {
+                }, filter);
                 data.TryGetValue(TileSegmentType.S01, out var s01Value);
                 s01 = true;
-                result.Add(new TileSegmentLink()
+                TryAddWithCheck(result, new TileSegmentLink()
                 {
                     Tile = this,
                     Layout = layout,
@@ -272,12 +231,27 @@ namespace Engine.Logic.Locations.Generator
                     Marker = Marker,
                     SegmentType = TileSegmentType.S01,
                     EdgeType = edge,
+                    EdgeLayout = EdgeLayout.LeftInside,
+                }, filter);
+            }
+            
+            if (RightEdge == edge)
+            {
+                data.TryGetValue(TileSegmentType.S10, out var s10Value);
+                s10 = true;
+                TryAddWithCheck(result, new TileSegmentLink()
+                {
+                    Tile = this,
+                    Layout = layout,
+                    Item = s10Value,
+                    Marker = Marker,
+                    SegmentType = TileSegmentType.S10,
+                    EdgeType = edge,
                     EdgeLayout = EdgeLayout.RightInside,
-                });
-                
+                }, filter);
                 data.TryGetValue(TileSegmentType.S11, out var s11Value);
                 s11 = true;
-                result.Add(new TileSegmentLink()
+                TryAddWithCheck(result, new TileSegmentLink()
                 {
                     Tile = this,
                     Layout = layout,
@@ -286,29 +260,29 @@ namespace Engine.Logic.Locations.Generator
                     SegmentType = TileSegmentType.S11,
                     EdgeType = edge,
                     EdgeLayout = EdgeLayout.RightInside,
-                });
+                }, filter);
             }
             
             if (TopEdge == edge)
             {
-                if (!s00)
+                if (!s11)
                 {
-                    data.TryGetValue(TileSegmentType.S00, out var s00Value);
-                    result.Add(new TileSegmentLink()
+                    data.TryGetValue(TileSegmentType.S11, out var s11Value);
+                    TryAddWithCheck(result, new TileSegmentLink()
                     {
                         Tile = this,
                         Layout = layout,
-                        Item = s00Value,
+                        Item = s11Value,
                         Marker = Marker,
-                        SegmentType = TileSegmentType.S00,
+                        SegmentType = TileSegmentType.S11,
                         EdgeType = edge,
                         EdgeLayout = EdgeLayout.TopInside,
-                    });
+                    }, filter);
                 }
                 if (!s01)
                 {
                     data.TryGetValue(TileSegmentType.S01, out var s01Value);
-                    result.Add(new TileSegmentLink()
+                    TryAddWithCheck(result, new TileSegmentLink()
                     {
                         Tile = this,
                         Layout = layout,
@@ -317,16 +291,30 @@ namespace Engine.Logic.Locations.Generator
                         SegmentType = TileSegmentType.S01,
                         EdgeType = edge,
                         EdgeLayout = EdgeLayout.TopInside,
-                    });
+                    }, filter);
                 }
             }
-            
+
             if (BottomEdge == edge)
             {
+                if (!s00)
+                {
+                    data.TryGetValue(TileSegmentType.S00, out var s00Value);
+                    TryAddWithCheck(result, new TileSegmentLink()
+                    {
+                        Tile = this,
+                        Layout = layout,
+                        Item = s00Value,
+                        Marker = Marker,
+                        SegmentType = TileSegmentType.S00,
+                        EdgeType = edge,
+                        EdgeLayout = EdgeLayout.BottomInside,
+                    }, filter);
+                }
                 if (!s10)
                 {
                     data.TryGetValue(TileSegmentType.S10, out var s10Value);
-                    result.Add(new TileSegmentLink()
+                    TryAddWithCheck(result, new TileSegmentLink()
                     {
                         Tile = this,
                         Layout = layout,
@@ -335,25 +323,17 @@ namespace Engine.Logic.Locations.Generator
                         SegmentType = TileSegmentType.S10,
                         EdgeType = edge,
                         EdgeLayout = EdgeLayout.BottomInside,
-                    });
-                }
-                if (!s11)
-                {
-                    data.TryGetValue(TileSegmentType.S11, out var s11Value);
-                    result.Add(new TileSegmentLink()
-                    {
-                        Tile = this,
-                        Layout = layout,
-                        Item = s11Value,
-                        Marker = Marker,
-                        SegmentType = TileSegmentType.S11,
-                        EdgeType = edge,
-                        EdgeLayout = EdgeLayout.BottomInside,
-                    });
+                    }, filter);
                 }
             }
-            
             return result;
+        }
+
+        private void TryAddWithCheck(IList<TileSegmentLink> list, TileSegmentLink item, Func<TileSegmentLink, bool> filter)
+        {
+            if (filter != null && !filter(item))
+                return; // Есть фильтрация, и она отсеила наш элемент, не добавляем его
+            list.Add(item); // Либо фильтрации не было, либо мы подошли по её критериям
         }
         
         public IDictionary<TileSegmentType, IEnvironmentItem> GetFurnitureOnTheCeiling()

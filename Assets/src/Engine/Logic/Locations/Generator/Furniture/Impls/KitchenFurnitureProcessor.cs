@@ -22,6 +22,24 @@ namespace Engine.Logic.Locations.Generator.Furniture
                 Count = 1,
             });
             
+            items.Add(new FurnitureItem<KitchenItemType>()
+            {
+                Type = KitchenItemType.Counter,
+                Count = 2,
+            });
+            
+            items.Add(new FurnitureItem<KitchenItemType>()
+            {
+                Type = KitchenItemType.EmptyCounter,
+                Count = 1,
+            });
+            
+            items.Add(new FurnitureItem<KitchenItemType>()
+            {
+                Type = KitchenItemType.CounterCorner,
+                Count = 5,
+            });
+            
             return items;
         }
 

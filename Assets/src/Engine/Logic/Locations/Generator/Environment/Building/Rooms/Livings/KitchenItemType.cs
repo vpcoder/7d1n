@@ -18,7 +18,28 @@ namespace Engine.Logic.Locations.Generator.Environment.Building.Rooms
         ///     Sink
         /// </summary>
         Sink,
-
+        
+        /// <summary>
+        ///     Ящик с полками (на полу)
+        ///     ---
+        ///     
+        /// </summary>
+        Counter,
+        
+        /// <summary>
+        ///     Столешница
+        ///     ---
+        /// 
+        /// </summary>
+        EmptyCounter,
+        
+        /// <summary>
+        ///     Угловая часть кухни
+        ///     ---
+        /// 
+        /// </summary>
+        CounterCorner,
+        
     }
 
 }

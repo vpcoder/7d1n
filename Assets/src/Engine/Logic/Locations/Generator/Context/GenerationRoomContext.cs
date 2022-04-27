@@ -38,7 +38,7 @@ namespace Engine.Logic.Locations.Generator
         public TileCellInfo TilesInfo { get; set; }
 
         /// <summary>
-        ///     Информация о сгенерированной мебели (без учёта расстановки)
+        ///     Информация о сгенерированной мебели
         ///     ---
         ///     Information about the generated furniture (not including placement)
         /// </summary>

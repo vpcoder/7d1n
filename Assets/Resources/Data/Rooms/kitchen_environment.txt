@@ -1,8 +1,20 @@
 ﻿<Data>
 
-    <Item 
+    <Item
         Type = "Sink"
 		Path = "Locations/Builds/Living/Environment/Kitchen/CounterSink_01"
+    />
+    <Item
+        Type = "Counter"
+		Path = "Locations/Builds/Living/Environment/Kitchen/Counter_01"
+    />
+    <Item
+        Type = "EmptyCounter"
+    	Path = "Locations/Builds/Living/Environment/Kitchen/Counter_02"
+    />
+    <Item
+        Type = "CounterCorner"
+		Path = "Locations/Builds/Living/Environment/Kitchen/CounterCorner_01"
     />
 
 </Data>
