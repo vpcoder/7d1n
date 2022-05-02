@@ -23,7 +23,7 @@ namespace Engine.Logic.Locations.Generator.Environment.Building.Arrangement
         ///     ---
         ///     List of already placed objects in the scene
         /// </summary>
-        public IList<ArrangementItem<E>> Items { get; } = new List<ArrangementItem<E>>();
+        public IDictionary<E, IList<ArrangementItemContext<E>>> Items { get; } = new Dictionary<E, IList<ArrangementItemContext<E>>>();
 
         /// <summary>
         ///     Список всех объектов, который нам сказали разместить в сцене
@@ -38,6 +38,12 @@ namespace Engine.Logic.Locations.Generator.Environment.Building.Arrangement
         ///     A list of the remaining facilities that we plan to place
         /// </summary>
         public ICollection<IEnvironmentItem<E>> RemainingItems { get; set; }
+
+        public IList<ArrangementItemContext<E>> GetItems(E type)
+        {
+            Items.TryGetValue(type, out var items);
+            return items;
+        }
 
     }
 

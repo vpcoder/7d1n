@@ -8,16 +8,31 @@ namespace Engine.Logic.Locations.Generator.Environment.Building.Arrangement.Impl
     public class Kitchen01ArrangementProcessor : ArrangementProcessorBase<KitchenItemType>
     {
 
-        private readonly IDictionary<KitchenItemType, IItemPutProcessor<KitchenItemType>> putProcessorsData =
-            new Dictionary<KitchenItemType, IItemPutProcessor<KitchenItemType>>();
+        #region Hidden Fields
+        
+        private readonly IDictionary<KitchenItemType, IItemPutProcessor<KitchenItemType>> putProcessorsData;
+        
+        #endregion
+        
+        #region Properties
         
         public override RoomKindType RoomType => RoomKindType.Kitchen;
         
+        #endregion
+
+        #region Ctor
+
         public Kitchen01ArrangementProcessor()
         {
+            putProcessorsData = new Dictionary<KitchenItemType, IItemPutProcessor<KitchenItemType>>();
             foreach (var processor in AssembliesHandler.CreateImplementations<IItemPutProcessor<KitchenItemType>>())
+            {
+                processor.Parent = this;
                 putProcessorsData.Add(processor.Type, processor);
+            }
         }
+        
+        #endregion
         
         public override bool InsertItemIntoScene(GenerationRoomContext context, IEnvironmentItem<KitchenItemType> currentInsertItem)
         {
@@ -28,6 +43,7 @@ namespace Engine.Logic.Locations.Generator.Environment.Building.Arrangement.Impl
                 item.Marker.Segments.Clear();
             }
 
+            // Добавление мебели через процессоры
             putProcessorsData.TryGetValue(currentInsertItem.Type, out var processor);
             return processor?.TryPutItem(context, currentInsertItem) ?? false;
         }

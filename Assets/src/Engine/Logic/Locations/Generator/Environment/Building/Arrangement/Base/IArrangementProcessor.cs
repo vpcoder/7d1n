@@ -58,6 +58,8 @@ namespace Engine.Logic.Locations.Generator.Environment.Building.Arrangement
                                       where E : struct
     {
 
+        public ArrangementContext<E> ArrangementContext { get; }
+        
         /// <summary>
         ///     Процесс расстановки.
         ///     Выполняет расстановку и развешивание availableItems объектов в помещении (контекст генерации contex)

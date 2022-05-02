@@ -36,7 +36,9 @@ namespace Engine.Logic.Locations.Generator.Environment.Building.Arrangement
         #endregion
         
         #region Properties
-        
+
+        public ArrangementContext<E> ArrangementContext => arrangementContext;
+
         /// <summary>
         ///     Тип комнаты, для которой происходит расстановка
         ///     ---

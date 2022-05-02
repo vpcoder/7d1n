@@ -15,7 +15,7 @@ namespace Engine.Logic.Locations.Generator.Environment.Building.Arrangement.Impl
             var tilesList = context.TilesInfo.TilesNearWindow;
             
             foreach (var floor in tilesList)
-                onTheDoorNearWindow.AddRange(floor.GetEmptyFurnitureOnTheLayoutByEdge(TileLayoutType.Floor, EdgeType.Window));
+                onTheDoorNearWindow.AddRange(floor.GetFurnitureOnTheLayoutByEdge(TileLayoutType.Floor, EdgeType.Window, TileItem.EmptyEnvironmentItemFilter));
 
             return TryPutOnRandomSegment(context, onTheDoorNearWindow, EdgeLayout.Floor, currentInsertItem);
         }
