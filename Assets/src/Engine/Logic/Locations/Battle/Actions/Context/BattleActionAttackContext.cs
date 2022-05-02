@@ -10,6 +10,7 @@ namespace Engine.Logic.Locations.Battle.Actions
         public IDamagedObject Target { get; set; }
         public IWeapon Weapon { get; set; }
         public GameObject AttackMarker { get; set; }
+        public Vector3 WeaponPointPos { get; set; }
     }
 
 }

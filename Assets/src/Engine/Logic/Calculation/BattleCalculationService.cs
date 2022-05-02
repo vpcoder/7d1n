@@ -2,103 +2,158 @@
 using Engine.Data.Factories;
 using Engine.Logic;
 using Engine.Logic.Locations;
+using Engine.Logic.Locations.Objects;
 using UnityEngine;
 
 namespace Engine
 {
 
     /// <summary>
+    /// 
     /// Сервис расчётов битвы
+    /// ---
+    /// Battle Calculation Service
+    /// 
     /// </summary>
     public class BattleCalculationService
     {
 
-        #pragma warning disable IDE0060
+#pragma warning disable IDE0060
 
         /// <summary>
-        /// Атака дальнего боя
+        ///     Атака дальнего боя
+        ///     ---
+        ///     Ranged Attack
         /// </summary>
-        /// <param name="source">Кто атакует</param>
-        public static void DoFirearmsAttack(IAttackCharacter source)
+        /// <param name="source">
+        ///     Кто атакует
+        ///     ---
+        ///     Who is attacking
+        /// </param>
+        public static void DoFirearmsAttack(IAttackObject source)
         {
             var firearms = (IFirearmsWeapon)source.Weapon;
             var bulletPrefab = BulletEffectFactory.Instance.Get(firearms.AmmoEffectType);
             var bullet = GameObject.Instantiate<GameObject>(bulletPrefab);
             var bulletItem = bullet.GetComponent<BulletItem>();
-            bulletItem.Init(source, source.ToObject.transform.position, source.TargetAttackPos, firearms);
+
+            var firearmsBehaviour = source.WeaponObject?.GetComponent<IFirearmsBehaviour>();
+            var shotPos = firearmsBehaviour == null ? source.AttackCharacterObject.transform.position : firearmsBehaviour.ShotPosition;
+
+            var targetPos = source.TargetAttackPos;
+            targetPos.y = shotPos.y;
+
+            bulletItem.Init(source, shotPos, targetPos, firearms);
         }
 
         /// <summary>
-        /// Метаем нож
+        ///     Метаем нож
         /// </summary>
-        /// <param name="source">Кто атакует</param>
-        public static void DoEdgedThrowAttack(IAttackCharacter source)
+        /// <param name="source">
+        ///     Кто атакует
+        ///     ---
+        ///     Who is attacking
+        /// </param>
+        public static void DoEdgedThrowAttack(IAttackObject source, IEdgedWeapon edged, Vector3 weaponPos)
         {
-            var edged = (IEdgedWeapon)source.Weapon;
             var throwPrefab = EdgedEffectFactory.Instance.Get(edged.ThrowEffectType);
             var bullet = GameObject.Instantiate<GameObject>(throwPrefab);
             var edgedItem = bullet.GetComponent<ThrowItem>();
-            edgedItem.Init(source, source.ToObject.transform.position, source.TargetAttackPos, edged);
+
+            var targetPos = source.TargetAttackPos;
+            targetPos.y = weaponPos.y;
+
+            edgedItem.Init(source, weaponPos, targetPos, edged);
         }
 
         /// <summary>
-        /// Метаем гранату
+        ///     Метаем гранату
+        ///     ---
+        ///     
         /// </summary>
-        /// <param name="source">Кто атакует</param>
-        public static void DoGrenadeAttack(IAttackCharacter source)
+        /// <param name="source">
+        ///     Кто атакует
+        ///     ---
+        ///     Who is attacking
+        /// </param>
+        public static void DoGrenadeAttack(IAttackObject source, IGrenadeWeapon grenade, Vector3 weaponPos)
         {
-            var grenade = (IGrenadeWeapon)source.Weapon;
             var grenadePrefab = GrenadeEffectFactory.Instance.Get(grenade.GrenadeEffectType);
             var bullet = GameObject.Instantiate<GameObject>(grenadePrefab);
             var grenadeItem = bullet.GetComponent<GrenadeItem>();
-            grenadeItem.Init(source, source.ToObject.transform.position, source.TargetAttackPos, grenade);
+            grenadeItem.Init(source, source.AttackCharacterObject.transform.position, source.TargetAttackPos, grenade);
         }
 
         /// <summary>
-        /// Атака ближнего боя
+        ///     Атака ближнего боя
         /// </summary>
-        /// <param name="source">Кто атакует</param>
-        /// <param name="target">Кого атакует</param>
-        public static void DoEdgedAttack(IAttackCharacter source, IDamagedObject target)
+        /// <param name="source">
+        ///     Кто атакует
+        ///     ---
+        ///     Who is attacking
+        /// </param>
+        /// <param name="target">
+        ///     Кого атакует
+        /// </param>
+        public static void DoEdgedAttack(IAttackObject source, IDamagedObject target)
         {
             DoEdgedDamage(source, target, (IEdgedWeapon)source.Weapon);
         }
 
         /// <summary>
-        /// Передача урона от снаряда
+        ///     Передача урона от снаряда
+        ///     ---
+        ///     
         /// </summary>
-        /// <param name="source">Кто атакует</param>
-        /// <param name="target">Кого атакует</param>
-        /// <param name="weapon">Оружие дальнего действия</param>
-        /// <param name="bulletItem">Пуля, которая наносит урон</param>
-        public static void DoBulletDamage(IAttackCharacter source, IDamagedObject target, IFirearmsWeapon weapon, BulletItem bulletItem)
+        /// <param name="source">
+        ///     Кто атакует
+        ///     ---
+        ///     Who is attacking
+        /// </param>
+        /// <param name="target">
+        ///     Кого атакует
+        ///     ---
+        ///     
+        /// </param>
+        /// <param name="weapon">
+        ///     Оружие дальнего действия
+        ///     ---
+        ///     
+        /// </param>
+        /// <param name="bulletItem">
+        ///     Пуля, которая наносит урон
+        ///     ---
+        ///     
+        /// </param>
+        public static void DoBulletDamage(IAttackObject source, IDamagedObject target, IFirearmsWeapon weapon, BulletItem bulletItem)
         {
             var damage = ReactiveDamageWithTargetDefence(target.Protection, weapon.Damage);
             DoDamage(source, target, damage);
         }
 
-        public static void DoEdgedThrowDamage(IAttackCharacter source, IDamagedObject target, IEdgedWeapon weapon, ThrowItem throwItem)
+        public static void DoEdgedThrowDamage(IAttackObject source, IDamagedObject target, IEdgedWeapon weapon, ThrowItem throwItem)
         {
             var damage = ReactiveDamageWithTargetDefence(target.Protection, weapon.ThrowDamage);
             DoDamage(source, target, damage);
         }
 
-        public static void DoGrenadeDamage(IAttackCharacter source, IDamagedObject target, IGrenadeWeapon weapon, GrenadeItem grenadeItem)
+        public static void DoGrenadeDamage(IAttackObject source, IDamagedObject target, IGrenadeWeapon weapon, GrenadeItem grenadeItem)
         {
             var damage = ReactiveDamageWithTargetDefence(target.Protection, weapon.Damage);
             DoDamage(source, target, damage);
         }
 
-        private static void DoEdgedDamage(IAttackCharacter source, IDamagedObject target, IEdgedWeapon weapon)
+        private static void DoEdgedDamage(IAttackObject source, IDamagedObject target, IEdgedWeapon weapon)
         {
             var damage = ReactiveDamageWithTargetDefence(target.Protection, weapon.Damage);
             DoDamage(source, target, damage);
         }
 
-        private static void DoDamage(IAttackCharacter source, IDamagedObject target, int weaponDamage)
+        private static void DoDamage(IAttackObject source, IDamagedObject target, int weaponDamage)
         {
             var damage = ReactiveDamageWithTargetDefence(target.Protection, weaponDamage);
             target.Health -= damage;
+            target.TakeDamage();
 
             AudioController.Instance.CreateTimedFragment(target.ToObject.transform.position, MixerType.Sounds, "damage");
 
@@ -155,12 +210,24 @@ namespace Engine
 
         public static float GetProtectionPercent(int protection)
         {
+            if(protection < 0) // Отрицательная защита означает что объект не влияет на сраняды, он ничтожен, как лист бумаги на пути пули
+                return -100f; // -100% вероятность защиты
             return protection / 1000f;
         }
 
         public static string GetProtectionPercentText(int protection)
         {
             return GetProtectionPercent(protection).ToString("0.00%");
+        }
+
+        public static float GetPenetrationPerent(float penetrationPercent, float targetProtectionPercent)
+        {
+            return Mathf.Max(penetrationPercent - targetProtectionPercent, 0f);
+        }
+
+        public static bool IsPenetration(float penetrationPercent)
+        {
+            return Random.Range(0f, 100f) <= penetrationPercent;
         }
 
     }

@@ -11,6 +11,8 @@ namespace Engine.Logic
     public class TerrainGenerator
     {
 
+        public Vector3 ColliderSize { get; } = new Vector3(100, 1, 100);
+
         /// <summary>
         /// Размер ячейки биома
         /// </summary>

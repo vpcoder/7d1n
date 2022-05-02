@@ -4,7 +4,11 @@ namespace Engine.Data
 {
 
     /// <summary>
+    /// 
     /// Набор информации о предмете для сериализации
+    /// ---
+    /// Set of information about the object for serialization
+    /// 
     /// </summary>
     [Serializable]
     public class ItemInfo

@@ -11,21 +11,66 @@ namespace Engine.Logic.Locations
 {
 
     /// <summary>
+    /// 
     /// Визуализация перемещений персонажа игрока
+    /// ---
+    /// Visualization of player character movements
+    /// 
     /// </summary>
-    public class CharacterMoveVisializerController : MonoBehaviour
+    public class CharacterMoveVisializerController : MonoBehaviour,
+                                                     IDragHandler,
+                                                     IPointerDownHandler
     {
 
-        [SerializeField] private LineRenderer activeLine;
-        [SerializeField] private LineRenderer errorLine;
-        [SerializeField] private Text txtPathCost;
-        [SerializeField] private Text txtActivePathCost;
+        #region Hidden Fields
 
         /// <summary>
-        /// Формирует и отображает линейку с затратами ОД за передвижение
+        ///     Ломаная линия активного пути - пути, который персонаж сможет преодолеть за доступные ОД
+        ///     ---
+        ///     The line of the active path - the path that the character will be able to overcome for the available APs
         /// </summary>
-        /// <param name="path">Путь который надо визуализировать</param>
-        /// <param name="ap">Число доступных ОД</param>
+        [SerializeField] private LineRenderer activeLine;
+
+        /// <summary>
+        ///     Ломаная линия недостижимого пути - пути, на который недостаточно ОД
+        ///     ---
+        ///     The line of an unattainable path, a path for which there is insufficient APs
+        /// </summary>
+        [SerializeField] private LineRenderer errorLine;
+
+        /// <summary>
+        ///     Общая стоимость пути в ОД
+        ///     ---
+        ///     Total cost of path in APs
+        /// </summary>
+        [SerializeField] private Text txtPathCost;
+
+        /// <summary>
+        ///     Стоимость достижимой части пути за доступные ОД
+        ///     ---
+        ///     The cost of the achievable part of the path for the available APs
+        /// </summary>
+        [SerializeField] private Text txtActivePathCost;
+
+        #endregion
+
+        #region Methods
+
+        /// <summary>
+        ///     Формирует и отображает линейку с затратами ОД за передвижение
+        ///     ---
+        ///     Forms and displays the ruler with AP costs for movement
+        /// </summary>
+        /// <param name="path">
+        ///     Путь который надо визуализировать
+        ///     ---
+        ///     The path to visualize
+        /// </param>
+        /// <param name="ap">
+        ///     Число доступных ОД
+        ///     ---
+        ///     Number of available APs
+        /// </param>
         public SmartPath ShowPath(List<Vector3> path, int ap)
         {
             var result = PathHelper.GetSmartPath(path, ap);
@@ -61,7 +106,9 @@ namespace Engine.Logic.Locations
         }
 
         /// <summary>
-        /// Прячет ранее сформированный и отрисованный путь
+        ///     Прячет ранее сформированный и отрисованный путь
+        ///     ---
+        ///     Hides the previously formed and drawn path
         /// </summary>
         public void HidePath()
         {
@@ -73,11 +120,45 @@ namespace Engine.Logic.Locations
             errorLine.SetPositions(Arrays<Vector3>.Empty);
         }
 
-        private void FixedUpdate()
+        /// <summary>
+        ///     Обновляет информацию о пути и затратах при совершении этого пути
+        ///     ---
+        ///     Updates information about the path and costs when making this path
+        /// </summary>
+        /// <param name="pathInfo">
+        ///     Информация о пути
+        ///     ---
+        ///     Path information
+        /// </param>
+        private void UpdateActionInfo(SmartPath pathInfo)
         {
-            if (EventSystem.current.IsPointerOverGameObject())
+            var needAp = pathInfo.ActivePathAP;
+
+            var battleManager = ObjectFinder.Find<BattleManager>();
+            var battleActions = battleManager.BattleActions;
+
+            if (battleActions.AttackContext.AttackMarker != null)
                 return;
 
+            battleActions.NeedAP = needAp;
+
+            battleActions.Show(); // Отображаем панель действия, чтобы пользователь сказал - совершать его или нет
+            battleActions.Action = CharacterBattleAction.Move;
+            battleActions.MoveContext.Points = pathInfo.ActivePath;
+
+            battleActions.UpdateState();
+
+            var handsActionsController = ObjectFinder.Find<HandsActionsController>();
+            handsActionsController.DoUnselectActions();
+            handsActionsController.HideActions();
+        }
+
+        #endregion
+
+        #region Unity Events
+
+        private void CheckEvents()
+        {
             if (Game.Instance.Runtime.BattleContext.OrderIndex != EnemyGroup.PlayerGroup) // Не ход игрока?
                 return;
 
@@ -114,29 +195,17 @@ namespace Engine.Logic.Locations
             }
         }
 
-        private void UpdateActionInfo(SmartPath pathInfo)
+        public void OnDrag(PointerEventData eventData)
         {
-            var needAp = pathInfo.ActivePathAP;
-
-            var battleManager = ObjectFinder.Find<BattleManager>();
-            var battleActions = battleManager.BattleActions;
-
-            if (battleActions.AttackContext.AttackMarker != null)
-                return;
-
-
-            battleActions.NeedAP = needAp;
-
-            battleActions.Show(); // Отображаем панель действия, чтобы пользователь сказал - совершать его или нет
-            battleActions.Action = BattleAction.Move;
-            battleActions.MoveContext.Points = pathInfo.ActivePath;
-
-            battleActions.UpdateState();
-
-            var handsActionsController = ObjectFinder.Find<HandsActionsController>();
-            handsActionsController.DoUnselectActions();
-            handsActionsController.HideActions();
+            CheckEvents();
         }
+
+        public void OnPointerDown(PointerEventData eventData)
+        {
+            CheckEvents();
+        }
+
+        #endregion
 
     }
 

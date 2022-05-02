@@ -21,7 +21,9 @@ namespace Engine.Scenes
         {
             var runtime = Game.Instance.Runtime;
 
-            if(runtime.Scene == SceneName.Location) // Текущая сцена - локация?
+            Debug.Log("load scene '" + runtime.Scene.ToString() + "'...");
+
+            if (runtime.Scene == SceneName.Location) // Текущая сцена - локация?
                 ObjectFinder.Find<LocationSaver>().SaveLocation(Game.Instance.Runtime.Location); // Сохраняем состояние сцены в хранилище
 
             runtime.Mode = Mode.Switch;

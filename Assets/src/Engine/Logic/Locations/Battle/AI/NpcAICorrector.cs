@@ -11,7 +11,7 @@ namespace Engine.Logic.Locations
     {
         private static readonly Lazy<NpcAICorrector> instance = new Lazy<NpcAICorrector>(() => new NpcAICorrector());
         public static NpcAICorrector Instance { get { return instance.Value; } }
-
+        private NpcAICorrector() { }
 
 
     }

@@ -13,9 +13,9 @@ namespace Engine.Data
     {
 
         ///<summary>
-        /// Идентификатор
-        /// ---
-        /// Identifier
+        ///     Идентификатор
+        ///     ---
+        ///     Identifier
         ///</summary>
         long ID { get; set; }
 

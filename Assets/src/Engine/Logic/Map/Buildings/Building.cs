@@ -24,7 +24,6 @@ namespace Engine.Logic.Map
 
             selected.DoUnselect();
             ObjectFinder.Find<FeatureUiMarker>().Show(null);
-            ObjectFinder.Find<EnterBuildControll>().Hide();
         }
 
         /// <summary>
@@ -63,9 +62,6 @@ namespace Engine.Logic.Map
         /// </summary>
         private void OnMouseUpAsButton()
         {
-            if (EventSystem.current.IsPointerOverGameObject())
-                return;
-
             Unselect();
             selected = this;
             selected.DoSelect();

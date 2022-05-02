@@ -1,7 +1,7 @@
 ﻿using Engine.Data;
 using Engine.Data.Stories;
-using Engine.IO;
-using Engine.Map;
+using Engine.Scenes.Loader;
+using src.Engine.Scenes.Loader;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -13,8 +13,7 @@ namespace Engine.Logic
 
         [SerializeField] private GameObject topPanelPrefab;
         [SerializeField] private GameObject scanUIPrefab;
-
-        private bool exitFlag = false;
+        [SerializeField] private GameObject locationGUIPrefab;
 
         private void Start()
         {
@@ -23,53 +22,37 @@ namespace Engine.Logic
 
         private void Awake()
         {
-            exitFlag = true;
-        }
-
-        public void Load()
-        {
-            Debug.Log("Loaded!");
-        }
-
-        private void Update()
-        {
-            if (!exitFlag)
-                return;
-
+            Debug.Log("switch loaded scene...");
+            
             var game = Game.Instance;
             var runtime = game.Runtime;
+            var sceneLoader = LoadFactory.Instance.Get(runtime.Scene);
+
+            var loadContext = new LoadContext()
+            {
+                TopPanel = topPanelPrefab,
+                ScanUI = scanUIPrefab,
+                LocationGUI = locationGUIPrefab,
+            };
+            
+            sceneLoader?.PreLoad(loadContext);
 
             SetupCanvasSettings();
 
-            if(runtime.Scene == Scenes.SceneName.Location)
-                ObjectFinder.Find<LocationLoader>().LoadLocation(runtime.Location);
-
-            if(runtime.Scene != Scenes.SceneName.Menu) // Это не меню, выполняем полное сохранение
-            {
-                CharacterStory.Instance.SaveAll(Game.Instance.Character);
-            }
-
-            if (runtime.Scene == Scenes.SceneName.Map || runtime.Scene == Scenes.SceneName.Location)
-            {
-                LoadPanels();
-            }
-
-            if (runtime.Scene == Scenes.SceneName.Map)
-            {
-                LoadMapScene();
-            }
-
+            sceneLoader?.Load(loadContext);
+            
             if (runtime.Mode == Mode.Switch)
                 runtime.Mode = Mode.Game;
 
-            Load();
-
-            GameObject.Destroy(this);
-            exitFlag = false;
+            sceneLoader?.PostLoad(loadContext);
+            
+            Destroy(this);
         }
-
-        private void SetupCanvasSettings()
+        
+        private static void SetupCanvasSettings()
         {
+            Debug.Log("setup canvas...");
+
             var canvas = ObjectFinder.Get<Canvas>("Canvas");
             var canvasScaler = canvas.GetComponent<CanvasScaler>();
 
@@ -77,33 +60,6 @@ namespace Engine.Logic
             canvasScaler.uiScaleMode = CanvasScaler.ScaleMode.ScaleWithScreenSize;
             canvasScaler.matchWidthOrHeight = 0.5f;
             canvasScaler.referencePixelsPerUnit = 100;
-        }
-
-        private void LoadPanels()
-        {
-            var canvas = ObjectFinder.Get<Canvas>("Canvas");
-            var panel = GameObject.Instantiate<GameObject>(topPanelPrefab, canvas.transform);
-            panel.transform.name = "TopPanel";
-            panel.transform.SetAsFirstSibling();
-        }
-
-        private void LoadMapScene()
-        {
-            var canvas = ObjectFinder.Get<Canvas>("Canvas").transform;
-
-            var game = Game.Instance;
-            var runtime = game.Runtime;
-
-            var mapPlayer = ObjectFinder.Find<MapHuman>();
-            mapPlayer.transform.localPosition = runtime.PlayerPosition;
-            mapPlayer.MoveContext = runtime.PlayerContext;
-
-            var characterMap = ObjectFinder.Find<MapCharacter>();
-            characterMap.transform.localPosition = runtime.CharacterPosition;
-            characterMap.MoveContext = runtime.CharacterContext;
-
-            var scanPanel = GameObject.Instantiate<GameObject>(scanUIPrefab, canvas);
-            scanPanel.transform.SetAsFirstSibling();
         }
 
     }

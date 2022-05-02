@@ -70,6 +70,9 @@ namespace Engine.Map
 
         private void Update()
 		{
+            if (DeviceInput.IsUiTouch())
+                return;
+
             var mode = Game.Instance.Runtime.Mode;
             if (mode != Mode.Game &&
                 mode != Mode.Battle)

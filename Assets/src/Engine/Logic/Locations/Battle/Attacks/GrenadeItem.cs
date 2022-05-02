@@ -1,4 +1,5 @@
 ﻿using Engine.Data;
+using Engine.Data.Factories;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
@@ -15,7 +16,7 @@ namespace Engine.Logic.Locations
         [SerializeField] private float speed = 25f;
         [SerializeField] private float reactDistance = 0.1f;
         [SerializeField] private float maxDistance = 20f;
-        private IAttackCharacter source;
+        private IAttackObject source;
 
         private Vector3 targetPos;
         private Vector3 startPos;
@@ -25,7 +26,7 @@ namespace Engine.Logic.Locations
 
         private float timestamp;
 
-        public void Init(IAttackCharacter source, Vector3 startPos, Vector3 targetPos, IGrenadeWeapon weapon)
+        public void Init(IAttackObject source, Vector3 startPos, Vector3 targetPos, IGrenadeWeapon weapon)
         {
             this.transform.position = startPos;
             this.transform.LookAt(targetPos);
@@ -54,15 +55,13 @@ namespace Engine.Logic.Locations
             if (distance > prevDistance || distance <= reactDistance)
             {
                 DoDamage();
-                AudioController.Instance.CreateTimedFragment(transform.position, MixerType.Sounds, weapon.ExplodeSoundType);
-                GameObject.Destroy(this.gameObject);
+                DoDestroy();
                 return;
             }
 
             if(distance > maxDistance)
             {
-                AudioController.Instance.CreateTimedFragment(transform.position, MixerType.Sounds, weapon.ExplodeSoundType);
-                GameObject.Destroy(gameObject);
+                DoDestroy();
             }
         }
 
@@ -73,6 +72,13 @@ namespace Engine.Logic.Locations
             return hits.Where(item => item.collider.gameObject.GetComponent<IDamagedObject>() != null)
                        .Select(item => item.collider.gameObject)
                        .ToList();
+        }
+
+        private void DoDestroy()
+        {
+            GrenadeEffectFactory.Instance.CreatePrefabInstance(weapon.ExplodeEffectType, transform.position);
+            AudioController.Instance.CreateTimedFragment(transform.position, MixerType.Sounds, weapon.ExplodeSoundType);
+            GameObject.Destroy(gameObject);
         }
 
         /// <summary>

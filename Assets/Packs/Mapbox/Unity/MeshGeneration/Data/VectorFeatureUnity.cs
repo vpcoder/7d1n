@@ -9,7 +9,7 @@ namespace Mapbox.Unity.MeshGeneration.Data
 
 	public class VectorFeatureUnity
 	{
-        public Engine.Generator.LocationInfo Info;
+        public Engine.Generator.LocationInfo Info { get; set; }
         public VectorTileFeature Data;
 		public Dictionary<string, object> Properties;
 		public List<List<Vector3>> Points = new List<List<Vector3>>();

@@ -10,4 +10,4 @@ The repository includes the source code of the **7d1n** project and its resource
 
 ## License
 
-This project is licensed under the **MIT License** - see the **LICENSE** file for details.
+This project is licensed under the **MIT License** - see the [LICENSE](LICENSE) file for details.

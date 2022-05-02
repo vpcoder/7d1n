@@ -10,7 +10,7 @@ namespace Engine.Generator
             switch(type)
             {
                 case LocationType.OpenSpace:   return Localization.Instance.Get("msg_location_open_space");
-                case LocationType.House:       return Localization.Instance.Get("msg_location_house");
+                case LocationType.Living:       return Localization.Instance.Get("msg_location_house");
                 case LocationType.Stock:       return Localization.Instance.Get("msg_location_stock");
                 case LocationType.SuperMarket: return Localization.Instance.Get("msg_location_super_market");
                 case LocationType.TechStore:   return Localization.Instance.Get("msg_location_tech_store");
@@ -45,7 +45,8 @@ namespace Engine.Generator
     public enum LocationType : int
     {
         OpenSpace   = 0x00, // Открытая местность
-        House       = 0x01, // Жилой дом
+
+        Living      = 0x01, // Жилой дом
         Stock       = 0x02, // Склад
         SuperMarket = 0x03, // Продуктовый магазин/Супермаркет
         TechStore   = 0x04, // Магазин техники
@@ -70,10 +71,13 @@ namespace Engine.Generator
     public static class LocationInfoGenerator
     {
 
+        public const int MIN_BUILD_HEIGHT = 8;
+        public const int MAX_BUILD_HEIGHT = 60;
+
         public static LocationInfo Generate(long id)
         {
             var random = new Random((int)id);
-            var height = random.Next(8, 60);
+            var height = random.Next(MIN_BUILD_HEIGHT, MAX_BUILD_HEIGHT);
             var type = (LocationType)random.Next(1, UnityEngine.Enums<LocationType>.Count);
             var size = (LocationSize)random.Next(0, UnityEngine.Enums<LocationSize>.Count);
 

@@ -309,7 +309,7 @@ namespace Mapbox.Unity.Map
 		/// <returns>The initialize.</returns>
 		/// <param name="latLon">Lat lon.</param>
 		/// <param name="zoom">Zoom.</param>
-		public virtual void Initialize(Vector2d latLon, int zoom)
+		public virtual void Initialize(Vector2d latLon, float zoom)
 		{
 			_initializeOnStart = false;
 			if (_options == null)

@@ -18,7 +18,7 @@ namespace Mapbox.Unity.MeshGeneration.Data
 	{
 		public TileTerrainType ElevationType;
 
-        public BiomType Biom; // { get; set; }
+        public BiomType Biom { get; set; }
 
 		[SerializeField]
 		private Texture2D _rasterData;

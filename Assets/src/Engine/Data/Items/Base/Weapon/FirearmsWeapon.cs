@@ -71,6 +71,7 @@ namespace Engine.Data
             {
                 ID = ID,
                 ToolType = ToolType,
+                WeaponType = WeaponType,
                 Type = Type,
                 Name = Name,
                 Description = Description,
@@ -84,6 +85,7 @@ namespace Engine.Data
                 Damage = Damage,
                 UseAP = UseAP,
                 MaxDistance = MaxDistance,
+                AimRadius = AimRadius,
 
                 AmmoID = AmmoID,
                 AmmoStackSize = AmmoStackSize,

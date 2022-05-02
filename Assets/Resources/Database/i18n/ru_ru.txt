@@ -1,0 +1,211 @@
+﻿# ----------------------- ;
+# 7D1N - v0.0.0.1         ;
+# Проливка русского языка ;
+# ----------------------- ;
+
+CREATE TABLE `i18n_ru_ru` (
+	`id`	INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT UNIQUE,
+	`key`	TEXT NOT NULL,
+	`value`	TEXT NOT NULL
+);
+
+INSERT INTO `i18n_lang`(`id`,`code`,`name`) VALUES (0, 'ru_ru', 'Русский');
+
+# ----------------------- ;
+
+# Ресурсы ;
+
+INSERT INTO `i18n_ru_ru`(`key`,`value`) VALUES ('res_wood_name', 'Дерево');
+INSERT INTO `i18n_ru_ru`(`key`,`value`) VALUES ('res_wood_desc', 'Фрагменты необработанной древесины');
+INSERT INTO `i18n_ru_ru`(`key`,`value`) VALUES ('res_scrap_name', 'Металлолом');
+INSERT INTO `i18n_ru_ru`(`key`,`value`) VALUES ('res_scrap_desc', 'Фрагменты необработанных металлических деталей');
+INSERT INTO `i18n_ru_ru`(`key`,`value`) VALUES ('res_iron_name', 'Железо');
+INSERT INTO `i18n_ru_ru`(`key`,`value`) VALUES ('res_iron_desc', 'Очищенное от примисей железо');
+INSERT INTO `i18n_ru_ru`(`key`,`value`) VALUES ('res_lead_name', 'Свинец');
+INSERT INTO `i18n_ru_ru`(`key`,`value`) VALUES ('res_lead_desc', 'Очищенный от примисей свинец');
+INSERT INTO `i18n_ru_ru`(`key`,`value`) VALUES ('res_cooper_name', 'Медь');
+INSERT INTO `i18n_ru_ru`(`key`,`value`) VALUES ('res_cooper_desc', 'Очищенная от примисей медь');
+INSERT INTO `i18n_ru_ru`(`key`,`value`) VALUES ('res_plastic_name', 'Пластик');
+INSERT INTO `i18n_ru_ru`(`key`,`value`) VALUES ('res_plastic_desc', 'Фрагменты необработанного пластика');
+INSERT INTO `i18n_ru_ru`(`key`,`value`) VALUES ('res_paper_name', 'Бумага');
+INSERT INTO `i18n_ru_ru`(`key`,`value`) VALUES ('res_paper_desc', 'Фрагменты необработанной бумаги');
+INSERT INTO `i18n_ru_ru`(`key`,`value`) VALUES ('res_electric_name', 'Электроматериалы');
+INSERT INTO `i18n_ru_ru`(`key`,`value`) VALUES ('res_electric_desc', 'Транзисторы, резисторы, конденсаторы, диоды');
+INSERT INTO `i18n_ru_ru`(`key`,`value`) VALUES ('res_stone_name', 'Камень');
+INSERT INTO `i18n_ru_ru`(`key`,`value`) VALUES ('res_stone_desc', 'Куски необработанных камней');
+INSERT INTO `i18n_ru_ru`(`key`,`value`) VALUES ('res_salt_name', 'Соль');
+INSERT INTO `i18n_ru_ru`(`key`,`value`) VALUES ('res_salt_desc', 'Химическая соль');
+INSERT INTO `i18n_ru_ru`(`key`,`value`) VALUES ('res_coal_name', 'Уголь');
+INSERT INTO `i18n_ru_ru`(`key`,`value`) VALUES ('res_coal_desc', 'Куски каменного угля');
+INSERT INTO `i18n_ru_ru`(`key`,`value`) VALUES ('res_water_name', 'Чистая вода');
+INSERT INTO `i18n_ru_ru`(`key`,`value`) VALUES ('res_water_desc', 'Капли чистой воды, собранные в ёмкость');
+INSERT INTO `i18n_ru_ru`(`key`,`value`) VALUES ('res_acid_name', 'Чистая кислота');
+INSERT INTO `i18n_ru_ru`(`key`,`value`) VALUES ('res_acid_desc', 'Капли чистой кислоты, собранные в ёмкость');
+INSERT INTO `i18n_ru_ru`(`key`,`value`) VALUES ('res_lye_name', 'Чистая щёлочь');
+INSERT INTO `i18n_ru_ru`(`key`,`value`) VALUES ('res_lye_desc', 'Капли чистой щёлочи, собранные в ёмкость');
+INSERT INTO `i18n_ru_ru`(`key`,`value`) VALUES ('res_fuel_name', 'Топливо');
+INSERT INTO `i18n_ru_ru`(`key`,`value`) VALUES ('res_fuel_desc', 'Капли топлива, собранные в ёмкость');
+INSERT INTO `i18n_ru_ru`(`key`,`value`) VALUES ('res_fiber_name', 'Волокно');
+INSERT INTO `i18n_ru_ru`(`key`,`value`) VALUES ('res_fiber_desc', 'Тканевое волокно из кусочков ткани');
+INSERT INTO `i18n_ru_ru`(`key`,`value`) VALUES ('res_rubber_name', 'Резина');
+INSERT INTO `i18n_ru_ru`(`key`,`value`) VALUES ('res_rubber_desc', 'Фрагменты резины');
+INSERT INTO `i18n_ru_ru`(`key`,`value`) VALUES ('res_powder_name', 'Порох');
+INSERT INTO `i18n_ru_ru`(`key`,`value`) VALUES ('res_powder_desk', 'Щепотка пороха');
+INSERT INTO `i18n_ru_ru`(`key`,`value`) VALUES ('res_explosive_name', 'Взрывчатка');
+INSERT INTO `i18n_ru_ru`(`key`,`value`) VALUES ('res_explosive_desc', 'Слепленные комки взрывчатки');
+INSERT INTO `i18n_ru_ru`(`key`,`value`) VALUES ('res_dirty_water_name', 'Грязная вода');
+INSERT INTO `i18n_ru_ru`(`key`,`value`) VALUES ('res_dirty_water_desc', 'Эта вода заражена, лучше её не пить');
+
+INSERT INTO `i18n_ru_ru`(`key`,`value`) VALUES ('res_raw_iron_name', 'Железная руда');
+INSERT INTO `i18n_ru_ru`(`key`,`value`) VALUES ('res_raw_iron_desc', 'Богатая железом порода');
+INSERT INTO `i18n_ru_ru`(`key`,`value`) VALUES ('res_raw_lead_name', 'Свинцовая руда');
+INSERT INTO `i18n_ru_ru`(`key`,`value`) VALUES ('res_raw_lead_desc', 'Богатая свинцом порода');
+INSERT INTO `i18n_ru_ru`(`key`,`value`) VALUES ('res_raw_cooper_name', 'Медная руда');
+INSERT INTO `i18n_ru_ru`(`key`,`value`) VALUES ('res_raw_cooper_desc', 'Богатая медью порода');
+
+# Объекты ;
+
+	INSERT INTO `i18n_ru_ru`(`key`,`value`) VALUES ('tv_1_name', 'Телевизор');
+	INSERT INTO `i18n_ru_ru`(`key`,`value`) VALUES ('tv_1_desc', 'ЖК телевизор');
+	INSERT INTO `i18n_ru_ru`(`key`,`value`) VALUES ('shelf_1_name', 'Полка');
+	INSERT INTO `i18n_ru_ru`(`key`,`value`) VALUES ('shelf_1_desc', 'Деревянная полка для телевизора');
+	INSERT INTO `i18n_ru_ru`(`key`,`value`) VALUES ('door_box_1_name', 'Дверная коробка');
+	INSERT INTO `i18n_ru_ru`(`key`,`value`) VALUES ('door_box_1_desc', 'Деревянная дверная коробка');
+	INSERT INTO `i18n_ru_ru`(`key`,`value`) VALUES ('door_1_name', 'Дверь');
+	INSERT INTO `i18n_ru_ru`(`key`,`value`) VALUES ('door_1_desc', 'Деревянная дверь');
+	
+	# Оружие ;
+
+		INSERT INTO `i18n_ru_ru`(`key`,`value`) VALUES ('weapon_system_hands_name', 'Голые руки');
+		INSERT INTO `i18n_ru_ru`(`key`,`value`) VALUES ('weapon_system_hands_desc', 'Лучше в них что нибудь взять, но если ничего нет, пойдёт и так');
+
+		INSERT INTO `i18n_ru_ru`(`key`,`value`) VALUES ('weapon_pistol_pm_name', 'Пистолет ПМ');
+		INSERT INTO `i18n_ru_ru`(`key`,`value`) VALUES ('weapon_pistol_pm_desc', 'Пистолет Макарова 9x18мм');
+
+	# Патроны ;
+
+		INSERT INTO `i18n_ru_ru`(`key`,`value`) VALUES ('ammo_9x18_name', 'Патроны 9x18мм');
+		INSERT INTO `i18n_ru_ru`(`key`,`value`) VALUES ('ammo_9x18_desc', 'Пистолетные патроны 9x18мм');
+
+	# Ножи ;
+
+		INSERT INTO `i18n_ru_ru`(`key`,`value`) VALUES ('weapon_knife_kitchen_name', 'Кухонный нож');
+		INSERT INTO `i18n_ru_ru`(`key`,`value`) VALUES ('weapon_knife_kitchen_desc', 'Нож с широким лезвием, хорошо разделывает мясо');
+
+	# Гранаты ;
+
+		INSERT INTO `i18n_ru_ru`(`key`,`value`) VALUES ('weapon_grenade_f1_name', 'Ф1');
+		INSERT INTO `i18n_ru_ru`(`key`,`value`) VALUES ('weapon_grenade_f1_desc', 'Осколочная граната Ф1');
+
+		INSERT INTO `i18n_ru_ru`(`key`,`value`) VALUES ('weapon_grenade_rgd5_name', 'РГД-5');
+		INSERT INTO `i18n_ru_ru`(`key`,`value`) VALUES ('weapon_grenade_rgd5_desc', 'Ручная граната РГД-5');
+
+	# Еда ;
+		
+		INSERT INTO `i18n_ru_ru`(`key`,`value`) VALUES ('food_raw_roach_name', 'Живой таракан');
+		INSERT INTO `i18n_ru_ru`(`key`,`value`) VALUES ('food_raw_roach_desc', 'Чёрный таракан, наверное он съедобен');
+		INSERT INTO `i18n_ru_ru`(`key`,`value`) VALUES ('food_raw_fry_fish_name', 'Мальки живца');
+		INSERT INTO `i18n_ru_ru`(`key`,`value`) VALUES ('food_raw_fry_fish_desc', 'Очень мелкая рыбёшка, такими не наешься');
+		INSERT INTO `i18n_ru_ru`(`key`,`value`) VALUES ('food_raw_larvae_name', 'Личинка жука');
+		INSERT INTO `i18n_ru_ru`(`key`,`value`) VALUES ('food_raw_larvae_desc', 'Склизкая и шевелится');
+		
+
+# UI ;
+
+INSERT INTO `i18n_ru_ru`(`key`,`value`) VALUES ('ui_menu_load_playerdata', 'Загрузка данных о персонаже');
+INSERT INTO `i18n_ru_ru`(`key`,`value`) VALUES ('ui_menu_load_mapscene', 'Загрузка мира');
+INSERT INTO `i18n_ru_ru`(`key`,`value`) VALUES ('ui_map_load_location', 'Загрузка локации');
+INSERT INTO `i18n_ru_ru`(`key`,`value`) VALUES ('ui_location_load_navmesh', 'Генерация поиска путей');
+
+INSERT INTO `i18n_ru_ru`(`key`,`value`) VALUES ('ui_battle_actions_run', 'Выполнить');
+INSERT INTO `i18n_ru_ru`(`key`,`value`) VALUES ('ui_battle_actions_cancel', 'Отменить');
+INSERT INTO `i18n_ru_ru`(`key`,`value`) VALUES ('ui_battle_end_step', 'Конец хода');
+INSERT INTO `i18n_ru_ru`(`key`,`value`) VALUES ('ui_skills_tabs_battle', 'Битва');
+INSERT INTO `i18n_ru_ru`(`key`,`value`) VALUES ('ui_skills_tabs_searsh', 'Поиск');
+INSERT INTO `i18n_ru_ru`(`key`,`value`) VALUES ('ui_skills_tabs_craft', 'Создание');
+INSERT INTO `i18n_ru_ru`(`key`,`value`) VALUES ('ui_loading', 'Загрузка...');
+
+INSERT INTO `i18n_ru_ru`(`key`,`value`) VALUES ('ui_button_startgame', 'Начать');
+INSERT INTO `i18n_ru_ru`(`key`,`value`) VALUES ('ui_button_players', 'Выбор персонажа');
+INSERT INTO `i18n_ru_ru`(`key`,`value`) VALUES ('ui_button_settings', 'Настройки');
+INSERT INTO `i18n_ru_ru`(`key`,`value`) VALUES ('ui_button_exit', 'Выход');
+
+INSERT INTO `i18n_ru_ru`(`key`,`value`) VALUES ('ui_equip_cancel', 'Отменить');
+INSERT INTO `i18n_ru_ru`(`key`,`value`) VALUES ('ui_equip_drop', 'Снять');
+
+INSERT INTO `i18n_ru_ru`(`key`,`value`) VALUES ('ui_button_player_select', 'Выбрать');
+INSERT INTO `i18n_ru_ru`(`key`,`value`) VALUES ('ui_button_player_add', 'Создать');
+INSERT INTO `i18n_ru_ru`(`key`,`value`) VALUES ('ui_button_player_delete', 'Удалить');
+INSERT INTO `i18n_ru_ru`(`key`,`value`) VALUES ('ui_button_player_cancel', 'Отменить');
+INSERT INTO `i18n_ru_ru`(`key`,`value`) VALUES ('ui_player_enter_name', 'Введите имя...');
+
+INSERT INTO `i18n_ru_ru`(`key`,`value`) VALUES ('ui_scan_hunt', 'Мелкая охота');
+INSERT INTO `i18n_ru_ru`(`key`,`value`) VALUES ('ui_scan_inspect', 'Исследовать местность');
+
+# Messages ;
+
+INSERT INTO `i18n_ru_ru`(`key`,`value`) VALUES ('msg_weight_mlg', 'млг.');
+INSERT INTO `i18n_ru_ru`(`key`,`value`) VALUES ('msg_weight_g', 'г.');
+INSERT INTO `i18n_ru_ru`(`key`,`value`) VALUES ('msg_weight_kg', 'кг.');
+
+INSERT INTO `i18n_ru_ru`(`key`,`value`) VALUES ('msg_ap', 'ОД');
+INSERT INTO `i18n_ru_ru`(`key`,`value`) VALUES ('msg_count', 'ед.');
+
+INSERT INTO `i18n_ru_ru`(`key`,`value`) VALUES ('msg_name', 'Имя');
+INSERT INTO `i18n_ru_ru`(`key`,`value`) VALUES ('msg_mainlevel', 'Уровень');
+INSERT INTO `i18n_ru_ru`(`key`,`value`) VALUES ('msg_mainexp', 'Опыт');
+INSERT INTO `i18n_ru_ru`(`key`,`value`) VALUES ('msg_mainpoints', 'Свободных очков');
+INSERT INTO `i18n_ru_ru`(`key`,`value`) VALUES ('msg_protection', 'Защита');
+INSERT INTO `i18n_ru_ru`(`key`,`value`) VALUES ('msg_health', 'Здоровье');
+
+INSERT INTO `i18n_ru_ru`(`key`,`value`) VALUES ('msg_intellect', 'Интеллект');
+INSERT INTO `i18n_ru_ru`(`key`,`value`) VALUES ('msg_strength', 'Сила');
+INSERT INTO `i18n_ru_ru`(`key`,`value`) VALUES ('msg_agility', 'Ловкость');
+INSERT INTO `i18n_ru_ru`(`key`,`value`) VALUES ('msg_endurance', 'Выносливость');
+
+INSERT INTO `i18n_ru_ru`(`key`,`value`) VALUES ('msg_battle_action_description1', 'Вы совершаете');
+INSERT INTO `i18n_ru_ru`(`key`,`value`) VALUES ('msg_battle_action_attack_firearms', 'стрельбу из оружия');
+INSERT INTO `i18n_ru_ru`(`key`,`value`) VALUES ('msg_battle_action_reload_firearms', 'перезарядку оружия');
+INSERT INTO `i18n_ru_ru`(`key`,`value`) VALUES ('msg_battle_action_attack_edged', 'атаку холодным оружием');
+INSERT INTO `i18n_ru_ru`(`key`,`value`) VALUES ('msg_battle_action_throw_edged', 'бросок метательного оружия');
+INSERT INTO `i18n_ru_ru`(`key`,`value`) VALUES ('msg_battle_action_throw_grenade', 'бросок гранаты');
+INSERT INTO `i18n_ru_ru`(`key`,`value`) VALUES ('msg_battle_action_move', 'перемещение');
+INSERT INTO `i18n_ru_ru`(`key`,`value`) VALUES ('msg_battle_action_use', 'действие над объектом');
+INSERT INTO `i18n_ru_ru`(`key`,`value`) VALUES ('msg_battle_action_description2', 'На действие требуется');
+
+INSERT INTO `i18n_ru_ru`(`key`,`value`) VALUES ('msg_error_cant_do_exit', 'Выход слишком далеко, мне нужно подойти к нему');
+INSERT INTO `i18n_ru_ru`(`key`,`value`) VALUES ('msg_error_cant_pickup_item', 'Не могу подобрать, объект не пустой!');
+INSERT INTO `i18n_ru_ru`(`key`,`value`) VALUES ('msg_error_cant_enter_to_location', 'Я не могу так рисковать в текущем состоянии! (Необходимо хотябы 10 единиц здоровья)');
+
+INSERT INTO `i18n_ru_ru`(`key`,`value`) VALUES ('msg_load_inet', 'Интернет на устройстве');
+INSERT INTO `i18n_ru_ru`(`key`,`value`) VALUES ('msg_load_gps', 'Геолокация на устройстве');
+INSERT INTO `i18n_ru_ru`(`key`,`value`) VALUES ('msg_load_on', 'работает');
+INSERT INTO `i18n_ru_ru`(`key`,`value`) VALUES ('msg_load_off', 'не работает');
+
+INSERT INTO `i18n_ru_ru`(`key`,`value`) VALUES ('msg_map_scan_wealth', 'Богатство локации');
+INSERT INTO `i18n_ru_ru`(`key`,`value`) VALUES ('msg_map_scan_info_water_biom', 'Всё вокруг затоплено примерно по колено, из-за воды очень трудно перемещаться. Кажется, в воде есть мелкая живность.');
+INSERT INTO `i18n_ru_ru`(`key`,`value`) VALUES ('msg_map_scan_info_wooden_biom', 'Почву буквально захватили разросшиеся деревья и кустарники. В траве и на земле куча живности.');
+INSERT INTO `i18n_ru_ru`(`key`,`value`) VALUES ('msg_map_scan_info_sand_biom', 'Ноги утопают в песке, кажется будто само время завязло в нём и замерло. Не видно ничего живого.');
+INSERT INTO `i18n_ru_ru`(`key`,`value`) VALUES ('msg_map_scan_info_exhausted_biom', 'Воздух густой и тяжёлый, в нём летает пыль смешанная с туманом. Мухи как будто ничего не замечают, сбиваются в тучи и облепляют всё вокруг. Кроме мух здесь нет живности.');
+INSERT INTO `i18n_ru_ru`(`key`,`value`) VALUES ('msg_map_scan_info_earthquake_biom', 'Почва приемущественно каменистая, испещрена трещинами уходящими глубоко под землю, а в некоторые трещины можно провалиться целиком. Кажется тут должна быть живность.');
+
+INSERT INTO `i18n_ru_ru`(`key`,`value`) VALUES ('msg_location_name', 'Тип локации');
+
+INSERT INTO `i18n_ru_ru`(`key`,`value`) VALUES ('msg_location_open_space', 'Открытая местность');
+INSERT INTO `i18n_ru_ru`(`key`,`value`) VALUES ('msg_location_house', 'Жилой дом');
+INSERT INTO `i18n_ru_ru`(`key`,`value`) VALUES ('msg_location_stock', 'Склад');
+INSERT INTO `i18n_ru_ru`(`key`,`value`) VALUES ('msg_location_super_market', 'Супермаркет');
+INSERT INTO `i18n_ru_ru`(`key`,`value`) VALUES ('msg_location_tech_store', 'Магазин техники');
+INSERT INTO `i18n_ru_ru`(`key`,`value`) VALUES ('msg_location_med', 'Аптека');
+INSERT INTO `i18n_ru_ru`(`key`,`value`) VALUES ('msg_location_hospital', 'Больница');
+INSERT INTO `i18n_ru_ru`(`key`,`value`) VALUES ('msg_location_army', 'Военное здание');
+
+INSERT INTO `i18n_ru_ru`(`key`,`value`) VALUES ('msg_location_size_name', 'Размер локации');
+
+INSERT INTO `i18n_ru_ru`(`key`,`value`) VALUES ('msg_location_size_small', 'Маленькая');
+INSERT INTO `i18n_ru_ru`(`key`,`value`) VALUES ('msg_location_size_normal', 'Нормальная');
+INSERT INTO `i18n_ru_ru`(`key`,`value`) VALUES ('msg_location_size_large', 'Большая');
+															         
+# Debug ;
+
+INSERT INTO `i18n_ru_ru`(`key`,`value`) VALUES ('ui_tmp_cleandb', 'Очистить БД');

@@ -96,6 +96,16 @@ namespace Engine.Data
             return Items[index];
         }
 
+        public IItem GetFirstById(long itemId)
+        {
+            return Items.Where(o => o.ID == itemId).FirstOrDefault();
+        }
+
+        public List<IItem> GetById(long itemId)
+        {
+            return Items.Where(o => o.ID == itemId).ToList();
+        }
+
         /// <summary>
         /// Определяет, сколько указанных предметов есть в сумке
         /// </summary>

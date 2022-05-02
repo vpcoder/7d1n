@@ -12,7 +12,6 @@ namespace Engine.Data
             return new NPC()
             {
                 ID = ID,
-                SpritePath = SpritePath,
                 AP = AP,
                 Exp = Exp,
                 EnemyGroup = EnemyGroup,

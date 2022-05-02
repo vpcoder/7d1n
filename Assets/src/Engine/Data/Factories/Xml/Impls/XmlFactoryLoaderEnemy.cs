@@ -1,40 +1,55 @@
-﻿using System.Linq;
-
+﻿
 namespace Engine.Data.Factories.Xml
 {
+
+    public interface INpcInfo : IIdentity
+    {
+        string BodyName { get; }
+        string BehaviourName { get; }
+        string SpriteName { get; }
+    }
+
+    public class NpcInfo : INpcInfo
+    {
+        public string BodyName { get; set; }
+
+        public string BehaviourName { get; set; }
+
+        public string SpriteName { get; set; }
+
+        public long ID { get; set; }
+
+        public IIdentity Copy()
+        {
+            return new NpcInfo()
+            {
+                ID = ID,
+                BodyName = BodyName,
+                BehaviourName = BehaviourName,
+                SpriteName = SpriteName,
+            };
+        }
+    }
 
     /// <summary>
     /// Загрузчик фабрики врагов
     /// </summary>
-    public class XmlFactoryLoaderEnemy : XmlFactoryLoaderBase<IEnemy>
+    public class XmlFactoryLoaderNpc : XmlFactoryLoaderBase<INpcInfo>
     {
 
-        public XmlFactoryLoaderEnemy()
+        public XmlFactoryLoaderNpc()
         {
-            FileNames = new[] { "Data/enemies_data" };
+            FileNames = new[] { "Data/npc_data" };
         }
 
-        protected override IEnemy ReadItem()
+        protected override INpcInfo ReadItem()
         {
-            NPC npc = new NPC();
-            npc.ID         = Lng("ID");
-            npc.Exp        = Lng("Exp");
-            npc.EnemyGroup = Enm<EnemyGroup>("EnemyGroup");
-            npc.SpritePath = Str("SpritePath");
-            npc.AP         = Int("AP");
-            npc.Protection = Int("Protection");
-            npc.Health     = Int("Health");
-
-            npc.ItemsMaxCountForGeneration   = Int("ItemsCount");
-            npc.WeaponsMaxCountForGeneration = Int("WeaponsCount");
-
-            var items = DblSplt("Items").Select(item => new Part() { ResourceID = long.Parse(item[0]), ResourceCount = long.Parse(item[1]), Difficulty = 0 }).ToList();
-            npc.ItemsForGeneration = items;
-
-            var weapons = Splt("Weapons").Select(id => long.Parse(id)).ToList();
-            npc.WeaponsForGeneration = weapons;
-
-            return npc;
+            var npcInfo = new NpcInfo();
+            npcInfo.ID            = Lng("ID");
+            npcInfo.BodyName      = Str("Body");
+            npcInfo.BehaviourName = Str("Behaviour");
+            npcInfo.SpriteName    = Str("Sprite");
+            return npcInfo;
         }
 
     }

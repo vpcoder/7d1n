@@ -13,7 +13,7 @@ namespace Engine.Logic.Locations
     /// <summary>
     /// Персонаж игрока на локации
     /// </summary>
-    public class LocationCharacter : EnemyItem
+    public class LocationCharacter : EnemyNpcBehaviour
     {
 
 #pragma warning disable IDE0044, IDE0051, IDE0059
@@ -114,8 +114,7 @@ namespace Engine.Logic.Locations
         public override void OnStart()
         {
             navMeshPath = new NavMeshPath();
-            enemy = new PlayerCharacter();
-            UpdateBody();
+            Enemy = new PlayerCharacter();
         }
 
         public override void OnUpdate()

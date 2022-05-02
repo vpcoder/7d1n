@@ -38,11 +38,17 @@ namespace Engine.Data
 		
 		public long MaxWeight   { get; set; } = 45000000; // Максимально переносимый вес 45кг
 
-        public int  MaxAP       { get; set; } = 8;
+        public int MaxAP { get; set; } =
+#if UNITY_EDITOR && DEBUG
+            800
+#else
+            8
+#endif
+            ;
 
-        #endregion
+#endregion
 
-        #region Serialization
+#region Serialization
 
         public StateStoryObject CreateData()
         {
@@ -73,7 +79,7 @@ namespace Engine.Data
             this.MaxAP      = data.MaxAP;
         }
 
-        #endregion
+#endregion
 
     }
 	

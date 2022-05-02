@@ -14,44 +14,53 @@ namespace Engine.Data
     {
 
         /// <summary>
-        /// Тип инструмента
-        /// ---
-        /// Type of tool
+        ///     Тип инструмента
+        ///     ---
+        ///     Type of tool
         /// </summary>
         ToolType ToolType { get; set; }
 
         ///<summary>
-        /// Группа предмета
-        /// ---
-        /// Item Group
+        ///     Группа предмета
+        ///     ---
+        ///     Item Group
         ///</summary>
         GroupType Type { get; set; }
 
         ///<summary>
-        /// Локализованное название предмета
-        /// ---
-        /// Localized item name
+        ///     Локализованное название предмета
+        ///     ---
+        ///     Localized item name
         ///</summary>
         string Name { get; set; }
 
         ///<summary>
-        /// Локализованное описание предмета
-        /// ---
-        /// Localized item description
+        ///     Локализованное описание предмета
+        ///     ---
+        ///     Localized item description
         ///</summary>
         string Description { get; set; }
 
         ///<summary>
-        /// Внешний вид предмета/объекта/ресурса
-        /// ---
-        /// Appearance of the item/object/resource
+        ///     Внешний вид предмета/объекта/ресурса
+        ///     ---
+        ///     Appearance of the item/object/resource
         ///</summary>
         Sprite Sprite { get; }
 
         /// <summary>
-        /// Вес
-        /// ---
-        /// Weight
+        ///     Объект предмета на локации
+        ///     ---
+        ///     The object of the item on the location
+        /// </summary>
+        GameObject Prefab { get; }
+
+        /// <summary>
+        ///     Вес сущности.
+        ///     Рассчитывается рекурсивно, если сущность состоить из нескольких частей, её вес будет равен сумме весов частей.
+        ///     ---
+        ///     Entity weight.
+        ///     If the entity consists of several parts, its weight will be equal to the sum of the weights of the parts.
         /// </summary>
         long Weight { get; set; }
 

@@ -1,4 +1,6 @@
 ﻿
+using System;
+
 namespace Engine.Data.Stories
 {
 
@@ -8,7 +10,7 @@ namespace Engine.Data.Stories
         #region Singleton
 
         private static readonly Lazy<CharacterStory> instance = new Lazy<CharacterStory>(() => new CharacterStory());
-        public static CharacterStory Instance { get { return instance.Value; } }
+        public static CharacterStory Instance => instance.Value;
         private CharacterStory() { }
 
         #endregion

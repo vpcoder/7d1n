@@ -37,7 +37,10 @@ namespace Engine.Logic.Locations
         public void HideActions()
         {
             foreach (var item in actionItems)
+            {
+                item.DoUnselect();
                 item.Hide();
+            }
         }
 
         public void DoUnselectActions()

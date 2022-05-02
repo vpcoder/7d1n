@@ -1,4 +1,5 @@
-﻿using Engine.DB.Migrations;
+﻿using Engine.Data;
+using Engine.DB.Migrations;
 using System;
 using System.Collections.Generic;
 using UnityEngine;
@@ -19,9 +20,9 @@ namespace Engine.DB
         #region Ctor
 
         /// <summary>
-        /// Список доступных языков, которыми будет набиваться БД при инициализации
-        /// ---
-        /// List of available languages, which will be filled in the database during initialization
+        ///     Список доступных языков, которыми будет набиваться БД при инициализации
+        ///     ---
+        ///     List of available languages, which will be filled in the database during initialization
         /// </summary>
         private static readonly ISet<string> i18nList = new HashSet<string>()
         {
@@ -32,8 +33,6 @@ namespace Engine.DB
         {
             Debug.Log("DB: " + DbFileName);
             CheckFolders();
-            CheckDb();
-            MigrationFactory.Instance.DoMigration(this);
         }
 
         private void CheckFolders()
@@ -46,6 +45,13 @@ namespace Engine.DB
         {
             // Главная проливка структуры БД
             DoSqlScript("init_script");
+
+            // Обновляем версию БД
+            Do(connect =>
+            {
+                var version = Game.Instance.Buildtime.Version.ToString();
+                connect.Execute("INSERT INTO `meta` ( `id`, `version` ) VALUES( 0, '" + version + "' )");
+            });
 
             // Проливаем языки
             foreach (var langItem in i18nList)
@@ -131,12 +137,20 @@ namespace Engine.DB
         {
             get
             {
-                Meta meta = null;
-                Do(connection =>
+                try
                 {
-                    meta = connection.QueryFirst<Meta>(0);
-                });
-                return new Version(meta.Version);
+                    Meta meta = null;
+                    Do(connection =>
+                    {
+                        meta = connection.QueryFirst<Meta>(0);
+                    });
+                    return new Version(meta.Version);
+                }
+                catch (Exception ex)
+                {
+                    Debug.LogException(ex);
+                    return new Version("0.0.0.0");
+                }
             }
         }
 
@@ -164,16 +178,22 @@ namespace Engine.DB
         public bool CheckDb()
         {
             var exists = IsDbExists;
-            if (!exists)
+            if (!exists || CurrentDbVersion < Game.Instance.Buildtime.Version) // FIXME: убрать перепроливку с нуля, если БД уже существует
             {
                 CreateEmptyDb();
                 DoFillDB();
             }
+            //MigrationFactory.Instance.DoMigration(this);
             return exists;
         }
 
         public void CreateEmptyDb()
         {
+            try
+            {
+                System.IO.File.Delete(DbFileName);
+            }
+            catch { }
             try
             {
                 System.IO.File.WriteAllBytes(DbFileName, DbEmptyData);

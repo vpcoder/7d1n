@@ -1,23 +1,39 @@
-﻿
-using Engine.Data.Factories;
+﻿using Engine.Data.Factories;
 
 namespace Engine.Data
 {
 
     /// <summary>
-    /// Класс-сериализатор объектов
+    /// 
+    /// Класс-сериализатор предметов
+    /// ---
+    /// Item serializer class
+    /// 
     /// </summary>
     public class ItemSerializator
     {
 
         /// <summary>
-        /// Выполняет конвертацию предмета в формат, пригодный для сериализации
+        ///     Выполняет конвертацию игрового предмета в информацию о предмете (сериализуемый объект)
+        ///     ---
+        ///     Converts the game object into information about the object (serializable object)
         /// </summary>
-        /// <param name="item">Предмет, который надо конвертировать</param>
-        /// <returns>Объект для сериализации</returns>
+        /// <param name="item">
+        ///     Игровой предмет, который надо конвертировать
+        ///     ---
+        ///     Game item to be converted
+        /// </param>
+        /// <returns>
+        ///     Информация о предмете
+        ///     ---
+        ///     Item information
+        /// </returns>
         public static ItemInfo Convert(IItem item)
         {
             var data = new ItemInfo();
+
+            if (item == null)
+                return data;
 
             data.ID    = item.ID;
             data.Count = item.Count;
@@ -42,12 +58,25 @@ namespace Engine.Data
         }
 
         /// <summary>
-        /// Выполняет конвертацию объекта для сериализации в игровой предмет
+        ///     Выполняет конвертацию информации о предмете в игровой предмет
+        ///     ---
+        ///     Converts information about the item into a game item
         /// </summary>
-        /// <param name="info">Объект для сериализации</param>
-        /// <returns>Предмет</returns>
+        /// <param name="info">
+        ///     Информация о предмете
+        ///     ---
+        ///     Item information
+        /// </param>
+        /// <returns>
+        ///     Предмет
+        ///     ---
+        ///     Item
+        /// </returns>
         public static IItem Convert(ItemInfo info)
         {
+            if (info == null)
+                return null;
+
             var item = ItemFactory.Instance.Create(info.ID, info.Count);
             var craftable = item as ICraftableItem;
             var firearms = item as IFirearmsWeapon;

@@ -22,11 +22,11 @@ namespace Engine.Logic.Locations.Battle.Actions
         #region Properties
 
         /// <summary>
-        /// Перемещение
-        /// ---
-        /// Moving
+        ///     Перемещение
+        ///     ---
+        ///     Moving
         /// </summary>
-        public override BattleAction Action => BattleAction.Move;
+        public override CharacterBattleAction Action => CharacterBattleAction.Move;
 
         #endregion
 

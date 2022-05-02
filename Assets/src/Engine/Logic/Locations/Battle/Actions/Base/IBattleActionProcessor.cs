@@ -17,27 +17,27 @@ namespace Engine.Logic.Locations.Battle.Actions
         #region Properties
 
         /// <summary>
-        /// Действие которому соответствует процессор
-        /// ---
-        /// Action to which the processor corresponds
+        ///     Действие которому соответствует процессор
+        ///     ---
+        ///     Action to which the processor corresponds
         /// </summary>
-        BattleAction Action { get; }
+        CharacterBattleAction Action { get; }
 
         #endregion
 
         #region Methods
 
         /// <summary>
-        /// Метод выполняет действие процессора в битве
-        /// ---
-        /// The method performs the action of the processor in the battle
+        ///     Метод выполняет действие процессора в битве
+        ///     ---
+        ///     The method performs the action of the processor in the battle
         /// </summary>
         void Process(IBattleActionContext context);
 
         /// <summary>
-        /// Метод прекращает выполнять действие процессора
-        /// ---
-        /// The method stops executing the processor action
+        ///     Метод прекращает выполнять действие процессора
+        ///     ---
+        ///     The method stops executing the processor action
         /// </summary>
         void Rollback(IBattleActionContext context);
 

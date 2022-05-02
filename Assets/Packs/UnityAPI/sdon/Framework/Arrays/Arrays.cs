@@ -18,26 +18,26 @@ namespace UnityEngine {
 		/// </summary>
 		private static readonly T[] empty = new T[0];
 
-		#endregion
+        #endregion
 
-		#region Properties
+        #region Properties
 
-		/// <summary>
-		/// Свойство возвращает пустой экземпляр массива заданного типа
-		/// </summary>
-		/// <example>
-		/// Пример использования 1:
-		/// <code>
-		/// private MyClass[] data = Arrays<MyClass>.Empty;
-		/// </code>
-		/// Пример использования 2:
-		/// <code>
-		/// if(data == Arrays<MyClass>.Empty) { // массив пуст
-		///		...
-		///	}
-		/// </code>
-		/// </example>
-		public static T[] Empty {
+        /// <summary>
+        /// Свойство возвращает пустой экземпляр массива заданного типа
+        /// </summary>
+        /// <example>
+        /// Пример использования 1:
+        /// <code>[[<![CDATA[
+        /// private MyClass[] data = Arrays<MyClass>.Empty;
+        /// ]]></code>[[<![CDATA[
+        /// Пример использования 2:
+        /// <code>
+        /// if(data == Arrays<MyClass>.Empty) { // массив пуст
+        ///		...
+        ///	}
+        /// ]]></code>
+        /// </example>
+        public static T[] Empty {
 			get {
 				return empty;
 			}

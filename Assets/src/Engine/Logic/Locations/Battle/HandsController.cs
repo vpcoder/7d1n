@@ -1,4 +1,5 @@
 ﻿using Engine.Data;
+using Engine.Logic.Locations.Battle;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -60,9 +61,13 @@ namespace Engine.Logic.Locations
         {
             if (selected != null)
                 selected.DoUnselect();
+
             actionController.HideActions();
+            Game.Instance.Runtime.ActionMode = ActionMode.Move;
             Selected = null;
+
             ObjectFinder.Find<BattleActionsController>().Hide();
+            ObjectFinder.Find<CharacterAimController>().Hide();
         }
 
         public void DoSelectHand(HandCellItem selected)
@@ -81,11 +86,12 @@ namespace Engine.Logic.Locations
 
             actionController.HideActions();
 
-            if (Game.Instance.Runtime.Mode != Mode.Battle)
-                return;
+            // if (Game.Instance.Runtime.Mode != Mode.Battle)
+            //    return;
 
             if (selected.Weapon != null)
             {
+                ObjectFinder.Find<LocationCharacter>().EquipWeapon(selected.Weapon);
                 switch (selected.Weapon.Type)
                 {
                     case GroupType.WeaponGrenade:
@@ -109,7 +115,7 @@ namespace Engine.Logic.Locations
 
         public void DoSelectHandAction(HandActionType action)
         {
-            ObjectFinder.Find<BattleAttackCheckerController>().DoHandsActionClick(action, Selected?.Weapon);
+            ObjectFinder.Find<CharacterAimController>().DoHandsActionClick(action, Selected?.Weapon);
         }
 
     }

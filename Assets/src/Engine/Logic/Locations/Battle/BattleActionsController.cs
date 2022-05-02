@@ -39,7 +39,7 @@ namespace Engine.Logic.Locations
             set;
         }
 
-        public BattleAction Action
+        public CharacterBattleAction Action
         {
             get;
             set;
@@ -47,18 +47,18 @@ namespace Engine.Logic.Locations
 
         public void UpdateState()
         {
-            if (Action != BattleAction.Move)
+            if (Action != CharacterBattleAction.Move)
             {
                 ObjectFinder.Find<CharacterMoveVisializerController>().HidePath();
                 MoveContext.Points = null;
             }
 
-            if (Action != BattleAction.Use)
+            if (Action != CharacterBattleAction.Use)
             {
                 UseContext.UseItem = null;
             }
 
-            if(Action != BattleAction.Attack)
+            if(Action != CharacterBattleAction.Attack)
             {
                 AttackContext.Weapon = null;
                 if (AttackContext.AttackMarker != null)
@@ -73,13 +73,13 @@ namespace Engine.Logic.Locations
             btnActionRun.enabled = Game.Instance.Runtime.BattleContext.CurrentCharacterAP >= NeedAP;
         }
 
-        private string GetMessageBattleAction(BattleAction action)
+        private string GetMessageBattleAction(CharacterBattleAction action)
         {
             switch(action)
             {
-                case BattleAction.Move:
+                case CharacterBattleAction.Move:
                     return Localization.Instance.Get("msg_battle_action_move");
-                case BattleAction.Attack:
+                case CharacterBattleAction.Attack:
                     switch(AttackContext.Action)
                     {
                         case HandActionType.AttackFirearms:
@@ -94,7 +94,7 @@ namespace Engine.Logic.Locations
                             return Localization.Instance.Get("msg_battle_action_throw_grenade");
                     }
                     break;
-                case BattleAction.Use:
+                case CharacterBattleAction.Use:
                     return Localization.Instance.Get("msg_battle_action_use");
             }
             return "?";
@@ -135,13 +135,13 @@ namespace Engine.Logic.Locations
         ///     ---
         ///     Context corresponding to the specified action
         /// </returns>
-        private IBattleActionContext GetContextByAction(BattleAction action)
+        private IBattleActionContext GetContextByAction(CharacterBattleAction action)
         {
             switch(action)
             {
-                case BattleAction.Move   : return MoveContext;
-                case BattleAction.Use    : return UseContext;
-                case BattleAction.Attack : return AttackContext;
+                case CharacterBattleAction.Move   : return MoveContext;
+                case CharacterBattleAction.Use    : return UseContext;
+                case CharacterBattleAction.Attack : return AttackContext;
                 default:
                     throw new NotSupportedException("value '" + action.ToString() + "' isn't supported!");
             }
@@ -158,7 +158,7 @@ namespace Engine.Logic.Locations
                 return;
 
             var context = GetContextByAction(Action);
-            BattleActionFactory.Instance.InvokeProcess(Action, context);
+            CharacterBattleActionFactory.Instance.InvokeProcess(Action, context);
         }
 
         /// <summary>
@@ -169,7 +169,7 @@ namespace Engine.Logic.Locations
         public void DoCancelClick()
         {
             var context = GetContextByAction(Action);
-            BattleActionFactory.Instance.InvokeRollback(Action, context);
+            CharacterBattleActionFactory.Instance.InvokeRollback(Action, context);
         }
 
     }

@@ -8,6 +8,8 @@ namespace Engine.Logic.Locations.Animation
         public const string MoveSpeedKey   = "Move";
         public const string WeaponEquipKey = "Weapon";
         public const string AttackTypeKey  = "Attack";
+        public const string DamageKey      = "Damage";
+        public const string DeadKey        = "Dead";
     }
 
 }

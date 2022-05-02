@@ -82,7 +82,7 @@ namespace Engine.Logic.Locations
 
                         battleActions.Show(); // Отображаем панель действия, чтобы пользователь сказал - совершать его или нет
                         battleActions.NeedAP = useItem.AP;
-                        battleActions.Action = BattleAction.Use;
+                        battleActions.Action = CharacterBattleAction.Use;
                         battleActions.UseContext.UseItem = useItem;
                         battleActions.UpdateState();
                     }

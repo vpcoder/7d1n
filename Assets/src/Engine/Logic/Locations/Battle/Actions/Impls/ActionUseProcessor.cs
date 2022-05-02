@@ -6,8 +6,10 @@ namespace Engine.Logic.Locations.Battle.Actions
     /// <summary>
     /// 
     /// Процессор, выполняющий действие использование
+    /// Примером использование может быть - открытие или закрытие двери
     /// ---
     /// The processor that performs the action of using
+    /// An example of a use would be to open or close a door
     /// 
     /// </summary>
     public class ActionUseProcessor : BattleActionProcessor<BattleActionUseContext>
@@ -16,11 +18,11 @@ namespace Engine.Logic.Locations.Battle.Actions
         #region Properties
 
         /// <summary>
-        /// Использование объекта на локации
-        /// ---
-        /// Using an object on location
+        ///     Использование объекта на локации
+        ///     ---
+        ///     Using an object on location
         /// </summary>
-        public override BattleAction Action => BattleAction.Use;
+        public override CharacterBattleAction Action => CharacterBattleAction.Use;
 
         #endregion
 

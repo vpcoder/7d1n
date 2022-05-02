@@ -28,7 +28,7 @@ namespace Engine.Data.Stories
 
         private string CreatePath(long index)
         {
-            return Folder + "/" + FileName + "_" + index.ToString();
+            return Folder + "/" + FileName + "_" + index;
         }
 
         /// <summary>

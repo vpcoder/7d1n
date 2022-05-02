@@ -1,24 +1,17 @@
 ﻿using UnityEngine;
-using Engine.I18N;
-using UnityEditor.Sdon.I18N;
 using System.IO;
 
 namespace UnityEditor {
 
 	/// <summary>
 	/// Класс **APILayout** для создания специфичных полей в редакторе Unity
-	/// Авторы: devbaensi.com
+	/// Авторы: 7d1n
 	/// Дата: 20.01.2017
 	/// Версия: 1.0.0
 	/// </summary>
 	public static class APILayout {
 
 		#region Hidden Fields
-
-		/// <summary>
-		/// Общее окно редактора I18N текста (хранит один единственный экземпляр окна, чтобы не позволять плодить окна пользователям)
-		/// </summary>
-		private static EditorWindow i18nEditor;
 
 		/// <summary>
 		/// Начало относительного пути к файлам
@@ -57,76 +50,10 @@ namespace UnityEditor {
 			return path.Replace(".", Application.dataPath.Replace("/Assets/", "/"));
 		}
 
-		private static void showI18nEditor() {
-
-			if (i18nEditor == null) {
-				i18nEditor = EditorWindow.GetWindow(typeof(DictionaryEditorWindow));
-				i18nEditor.titleContent = new GUIContent("I18N Словарь");
-			}
-
-			i18nEditor.Show();
-		}
-
 		#endregion
 
 
 		#region Field Editors
-
-		/// <summary>
-		/// Строит I18N-текстовое поле
-		/// </summary>
-		/// <param name="textId">Метка текстового поля</param>
-		/// <param name="option">Опции</param>
-		/// <returns>Результат изменения значения I18N-текстового поля</returns>
-		public static string I18NTextField(string textId, params GUILayoutOption[] option) {
-
-			bool notExist = !CLang.getInstance().ContainsKey(textId);
-
-			EditorGUILayout.BeginVertical();
-
-			EditorGUILayout.BeginHorizontal();
-
-			if (notExist) {
-				GUI.color = new Color(1f, 0, 0);
-			}
-
-			textId = EditorGUILayout.TextField(textId, option);
-
-			notExist = !CLang.getInstance().ContainsKey(textId);
-
-			GUI.color = Color.white;
-
-			if (notExist) {
-				GUILayout.Box(IconsFactory.Instance.GetIcon(Icons.Error), GUILayout.Width(24), GUILayout.Height(21));
-			}
-
-			if (GUILayout.Button(IconsFactory.Instance.GetIcon(Icons.ClipboardCopy), GUILayout.Width(26))) {
-				showI18nEditor();
-			}
-
-			EditorGUILayout.EndHorizontal();
-
-			if (CLang.getInstance().ContainsKey(textId)) {
-				EditorGUILayout.BeginHorizontal();
-				GUILayout.FlexibleSpace();
-				GUILayout.Label("'" + CLang.getInstance().tryGet(textId, true) + "'");
-				GUILayout.FlexibleSpace();
-				EditorGUILayout.EndHorizontal();
-			}
-
-			EditorGUILayout.EndVertical();
-
-			return textId;
-		}
-
-		/// <summary>
-		/// Строит I18N-текстовое поле
-		/// </summary>
-		/// <param name="textId">Метка текстового поля</param>
-		/// <returns>Результат изменения значения I18N-текстового поля</returns>
-		public static string I18NTextField(string textId) {
-			return I18NTextField(textId, GUILayout.Height(21));
-		}
 
 		/// <summary>
 		/// Редактор поля с сылкой на файл

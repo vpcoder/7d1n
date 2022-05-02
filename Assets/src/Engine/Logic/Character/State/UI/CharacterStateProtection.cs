@@ -9,9 +9,9 @@ namespace Engine.Character
 	public class CharacterStateProtection : CharacterStateUI
 	{
 		
-		public override void OnStart()
+		public override void OnUpdate()
 		{
-            Value = Game.Instance.Character.State.Protection + Game.Instance.Character.Equipment.Protection;
+            Value = CurrentCharacterCalculationService.CurrentProtection();
         }
 		
 	}

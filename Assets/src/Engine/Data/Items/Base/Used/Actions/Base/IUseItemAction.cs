@@ -14,11 +14,17 @@ namespace Engine.Data.Items.Used
     {
 
         /// <summary>
-        /// Метод, выполняющий использование
-        /// ---
-        /// A method that performs the use of
+        ///     Метод, выполняющий использование
+        ///     ---
+        ///     A method that performs the use of
         /// </summary>
-        /// <returns></returns>
+        /// <returns>
+        ///     true - если предмет был одноразовым, и он уничтожился
+        ///     false - если предмет многоразовый, и остаётся в инветаре
+        ///     ---
+        ///     true - if the item was single-use and it is destroyed
+        ///     false - if the item is reusable and stays in the inventory
+        /// </returns>
         bool DoAction();
 
     }

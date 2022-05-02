@@ -1,4 +1,5 @@
 ﻿using Engine.Data;
+using Engine.Logic.Locations.Animation;
 using UnityEngine;
 
 namespace Engine.Logic.Locations.Battle.Actions
@@ -17,11 +18,11 @@ namespace Engine.Logic.Locations.Battle.Actions
         #region Properties
 
         /// <summary>
-        /// Атака
-        /// ---
-        /// Attack
+        ///     Атака
+        ///     ---
+        ///     Attack
         /// </summary>
-        public override BattleAction Action => BattleAction.Attack;
+        public override CharacterBattleAction Action => CharacterBattleAction.Attack;
 
         #endregion
 
@@ -34,8 +35,8 @@ namespace Engine.Logic.Locations.Battle.Actions
 
             if (context.Weapon != null)
             {
+                context.WeaponPointPos = character.WeaponObject?.transform.position ?? Vector3.zero;
                 character.Weapon = context.Weapon;
-
                 switch (context.Weapon.Type)
                 {
                     case GroupType.WeaponEdged:
@@ -52,7 +53,6 @@ namespace Engine.Logic.Locations.Battle.Actions
 
             handsActionsController.DoUnselectActions();
 
-            context.Weapon = null;
             if (context.AttackMarker != null)
                 GameObject.Destroy(context.AttackMarker);
             context.AttackMarker = null;
@@ -62,24 +62,11 @@ namespace Engine.Logic.Locations.Battle.Actions
 
         private static void DoAttackGrenadeWeaponAction(BattleActionAttackContext context, BattleActionsController controller, HandsController handsController, LocationCharacter character)
         {
-            var grenade = (IGrenadeWeapon)context.Weapon;
-
             if (context.Action == HandActionType.ThrowGrenade)
             {
                 character.TargetAttackPos = context.AttackMarker.transform.position;
-
-                BattleCalculationService.DoGrenadeAttack(character);
-
-                Game.Instance.Character.Inventory.RemoveByAddress(grenade); // Удаляем то что выкинули
-                Game.Instance.Character.Equipment.TryRemoveItem(grenade); // Убираем из экипировки
-                handsController.TryRemoveItem(grenade); // Убираем из рук
-
-                handsController.Selected?.UpdateCellInfo();
-
-                context.Weapon = null;
-                if (context.AttackMarker != null)
-                    GameObject.Destroy(context.AttackMarker);
-
+                // Запускаем анимацию, непосредственная атака пойдёт после её завершения
+                ObjectFinder.Find<LocationCharacter>().Animator.SetInteger(AnimationKey.AttackTypeKey, (int)AttackType.GrenadeThrow);
                 Game.Instance.Runtime.BattleContext.CurrentCharacterAP -= controller.NeedAP; // Тратим ОД
                 controller.Hide();
             }
@@ -112,6 +99,8 @@ namespace Engine.Logic.Locations.Battle.Actions
                 firearms.AmmoCount += valueAmmo;
                 handsController.Selected?.UpdateCellInfo();
                 controller.Hide();
+
+                ObjectFinder.Find<LocationCharacter>().Animator.SetInteger(AnimationKey.AttackTypeKey, (int)AttackType.Reload);
             }
         }
 
@@ -129,9 +118,7 @@ namespace Engine.Logic.Locations.Battle.Actions
             firearms.AmmoCount--;
             handsController.Selected?.UpdateCellInfo();
 
-            context.Weapon = null;
-            if (context.AttackMarker != null)
-                GameObject.Destroy(context.AttackMarker);
+            ObjectFinder.Find<LocationCharacter>().Animator.SetInteger(AnimationKey.AttackTypeKey, (int)AttackType.SingleShot);
 
             Game.Instance.Runtime.BattleContext.CurrentCharacterAP -= controller.NeedAP; // Тратим ОД
             controller.Hide();
@@ -141,32 +128,17 @@ namespace Engine.Logic.Locations.Battle.Actions
         {
             if (context.Action == HandActionType.AttackEdged && context.Target != null) // Атакуем ножом вблизи
             {
-
                 BattleCalculationService.DoEdgedAttack(character, context.Target);
-
-                context.Weapon = null;
-                if (context.AttackMarker != null)
-                    GameObject.Destroy(context.AttackMarker);
-
+                ObjectFinder.Find<LocationCharacter>().Animator.SetInteger(AnimationKey.AttackTypeKey, (int)AttackType.EdgedAttack);
                 Game.Instance.Runtime.BattleContext.CurrentCharacterAP -= controller.NeedAP; // Тратим ОД
                 controller.Hide();
             }
 
             if (context.Action == HandActionType.ThrowEdged) // Кидаем нож
             {
-                var edged = (IEdgedWeapon)context.Weapon;
                 character.TargetAttackPos = context.AttackMarker.transform.position;
-                BattleCalculationService.DoEdgedThrowAttack(character);
-
-                Game.Instance.Character.Inventory.RemoveByAddress(edged); // Удаляем то что выкинули
-                Game.Instance.Character.Equipment.TryRemoveItem(edged); // Убираем из экипировки
-                handsController.TryRemoveItem(edged); // Убираем из рук
-                handsController.Selected?.UpdateCellInfo();
-
-                context.Weapon = null;
-                if (context.AttackMarker != null)
-                    GameObject.Destroy(context.AttackMarker);
-
+                // Запускаем анимацию, непосредственная атака пойдёт после её завершения
+                ObjectFinder.Find<LocationCharacter>().Animator.SetInteger(AnimationKey.AttackTypeKey, (int)AttackType.EdgedThrow);
                 Game.Instance.Runtime.BattleContext.CurrentCharacterAP -= controller.NeedAP; // Тратим ОД
                 controller.Hide();
             }

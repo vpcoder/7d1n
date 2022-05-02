@@ -11,11 +11,6 @@ namespace Engine.Data
     {
 
         /// <summary>
-        /// Путь к спрайту
-        /// </summary>
-        string SpritePath { get; }
-
-        /// <summary>
         /// Текущие очки действия
         /// </summary>
         int AP { get; set; }
