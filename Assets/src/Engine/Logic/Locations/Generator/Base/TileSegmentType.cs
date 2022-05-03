@@ -6,9 +6,9 @@ namespace Engine.Logic.Locations.Generator
     
     /// <summary>
     ///
-    /// Сегменты маленьких тайлов на полу
+    /// Сегменты маленьких тайлов
     /// ---
-    /// Segments of small tiles on the floor
+    /// Segments of small tiles
     /// 
     /// </summary>
     public enum TileSegmentType
@@ -16,36 +16,36 @@ namespace Engine.Logic.Locations.Generator
         
         /// <summary>
         /// -----------
-        /// |  * |    |
-        /// |----|----|
         /// |    |    |
+        /// |----|----|
+        /// |  * |    |
         /// -----------
         /// </summary>
         S00 = 0x00,
         
         /// <summary>
         /// -----------
-        /// |    |    |
-        /// |----|----|
         /// |  * |    |
+        /// |----|----|
+        /// |    |    |
         /// -----------
         /// </summary>
         S01 = 0x01,
         
         /// <summary>
         /// -----------
-        /// |    |  * |
-        /// |----|----|
         /// |    |    |
+        /// |----|----|
+        /// |    |  * |
         /// -----------
         /// </summary>
         S10 = 0x02,
         
         /// <summary>
         /// -----------
-        /// |    |    |
-        /// |----|----|
         /// |    |  * |
+        /// |----|----|
+        /// |    |    |
         /// -----------
         /// </summary>
         S11 = 0x03,
@@ -81,10 +81,10 @@ namespace Engine.Logic.Locations.Generator
                             nextTile = currentTile; // Остаёмся на текущем тайле
                             return TileSegmentType.S10;
                         case TileFindDirection.Top:
-                            nextTile = currentTile.TopOfThis; // Уходим на верхний тайл
+                            nextTile = currentTile;
                             return TileSegmentType.S01;
                         case TileFindDirection.Bottom:
-                            nextTile = currentTile; // Остаёмся на текущем тайле
+                            nextTile = currentTile.BottomOfThis;
                             return TileSegmentType.S01;
                         default:
                             throw new NotSupportedException();
@@ -99,10 +99,10 @@ namespace Engine.Logic.Locations.Generator
                             nextTile = currentTile; // Остаёмся на текущем тайле
                             return TileSegmentType.S11;
                         case TileFindDirection.Top:
-                            nextTile = currentTile; // Остаёмся на текущем тайле
+                            nextTile = currentTile.TopOfThis;
                             return TileSegmentType.S00;
                         case TileFindDirection.Bottom:
-                            nextTile = currentTile.BottomOfThis; // Уходим на нижний тайл
+                            nextTile = currentTile;
                             return TileSegmentType.S00;
                         default:
                             throw new NotSupportedException();
@@ -117,10 +117,10 @@ namespace Engine.Logic.Locations.Generator
                             nextTile = currentTile.RightOfThis; // Уходим на правый тайл
                             return TileSegmentType.S00;
                         case TileFindDirection.Top:
-                            nextTile = currentTile.TopOfThis; // Уходим на верхний тайл
+                            nextTile = currentTile;
                             return TileSegmentType.S11;
                         case TileFindDirection.Bottom:
-                            nextTile = currentTile; // Остаёмся на текущем тайле
+                            nextTile = currentTile.BottomOfThis;
                             return TileSegmentType.S11;
                         default:
                             throw new NotSupportedException();
@@ -135,10 +135,10 @@ namespace Engine.Logic.Locations.Generator
                             nextTile = currentTile.RightOfThis; // Уходим на правый тайл
                             return TileSegmentType.S01;
                         case TileFindDirection.Top:
-                            nextTile = currentTile; // Остаёмся на текущем тайле
+                            nextTile = currentTile.TopOfThis;
                             return TileSegmentType.S10;
                         case TileFindDirection.Bottom:
-                            nextTile = currentTile.BottomOfThis; // Уходим на нижний тайл
+                            nextTile = currentTile;
                             return TileSegmentType.S10;
                         default:
                             throw new NotSupportedException();

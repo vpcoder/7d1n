@@ -74,7 +74,7 @@ namespace Engine.Logic.Locations.Generator.Builders
         {
             var marker = tile.Marker;
             var edge = tile.GetEdge(layout);
-            if (edge != EdgeType.Empty)
+            if (edge != EdgeType.Empty && tile.GetTile(layout) == null)
                 BuildOutsideEdge(context, edge, marker.GetLayoutPos(layout), marker.GetLayoutRot(layout));
         }
 

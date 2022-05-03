@@ -59,11 +59,6 @@ namespace Engine.Logic.Locations.Generator.Environment.Building.Arrangement
             
             randomItem.Tile.Set(randomItem.Layout, randomItem.SegmentType, item);
 
-            // FIXME: Для отладки
-            randomItem.Marker.Segments[randomItem.SegmentType] = Color.yellow;
-            foreach (var test in list)
-                test.Marker.Segments[test.SegmentType] = Color.green;
-
             var unityGameObject = Object.Instantiate
             (
                 item.ToObject, 

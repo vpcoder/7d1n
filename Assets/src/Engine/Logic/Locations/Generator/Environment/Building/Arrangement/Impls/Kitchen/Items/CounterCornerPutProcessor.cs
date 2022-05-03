@@ -1,4 +1,3 @@
-using System.Collections.Generic;
 using Engine.Logic.Locations.Generator.Environment.Building.Rooms;
 
 namespace Engine.Logic.Locations.Generator.Environment.Building.Arrangement.Impls.Kitchen.Items
@@ -17,7 +16,7 @@ namespace Engine.Logic.Locations.Generator.Environment.Building.Arrangement.Impl
                 return false;
 
             var link = sink.Context;
-            var cornerSegments = link.Tile.GetFurnitureOnTheLayoutByFindCrossDirection(TileLayoutType.Floor, link.SegmentType, 6, Filter);
+            var cornerSegments = TileService.GetFurnitureOnTheLayoutByFindCrossDirection(link.Tile, TileLayoutType.Floor, link.SegmentType, 6, Filter);
             return TryPutOnRandomSegment(context, cornerSegments, EdgeLayout.Floor, currentInsertItem);
         }
         
@@ -25,7 +24,7 @@ namespace Engine.Logic.Locations.Generator.Environment.Building.Arrangement.Impl
         {
             if (link.Item != null)
                 return false; // Нас не интерисуют заполненные мебелью сегменты
-            return link.Tile.HasInnerCorner; // Тайлы с внутренними углами
+            return link.Tile.InCorner(link.SegmentType); // Тайлы с внутренними углами
         }
         
     }
