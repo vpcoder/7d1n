@@ -253,6 +253,64 @@ namespace Engine.Logic.Locations.Generator
             return list;
         }
 
+        public static IList<TileSegmentLink> GetFurnitureOnTheLayoutByFindCorner(TileSegmentLink cornerLink, int deep, Func<TileSegmentLink, bool> filter = null)
+        {
+            var direction = AlongsideDirection(cornerLink.EdgeLayout);
+            // Вращаем направление на 90 градусов
+            direction = (direction == TileFindDirection.Left || direction == TileFindDirection.Right) ? TileFindDirection.Top : TileFindDirection.Left;
+            return GetFurnitureOnTheLayoutByFindBothDirection(cornerLink.Tile, cornerLink.Layout,
+                cornerLink.SegmentType, direction, deep, filter);
+        }
+
+        public static IList<TileSegmentLink> GetFurnitureOnTheLayoutByTiles(TileLayoutType tileLayout, ICollection<TileItem> tiles, Func<TileSegmentLink, bool> filter = null)
+        {
+            var list = new List<TileSegmentLink>();
+            foreach (var tile in tiles)
+            {
+                var link = new TileSegmentLink()
+                {
+                    Layout = tileLayout,
+                    Tile = tile,
+                    Marker = tile.Marker,
+                    SegmentType = TileSegmentType.S00,
+                    EdgeLayout = EdgeLayout.LeftInside,
+                    EdgeType = tile.GetEdge(EdgeLayout.LeftInside)
+                };
+                TryAddWithCheck(list, link, filter);
+                link = new TileSegmentLink()
+                {
+                    Layout = tileLayout,
+                    Tile = tile,
+                    Marker = tile.Marker,
+                    SegmentType = TileSegmentType.S01,
+                    EdgeLayout = EdgeLayout.TopInside,
+                    EdgeType = tile.GetEdge(EdgeLayout.TopInside)
+                };
+                TryAddWithCheck(list, link, filter);
+                link = new TileSegmentLink()
+                {
+                    Layout = tileLayout,
+                    Tile = tile,
+                    Marker = tile.Marker,
+                    SegmentType = TileSegmentType.S10,
+                    EdgeLayout = EdgeLayout.BottomInside,
+                    EdgeType = tile.GetEdge(EdgeLayout.BottomInside)
+                };
+                TryAddWithCheck(list, link, filter);
+                link = new TileSegmentLink()
+                {
+                    Layout = tileLayout,
+                    Tile = tile,
+                    Marker = tile.Marker,
+                    SegmentType = TileSegmentType.S11,
+                    EdgeLayout = EdgeLayout.RightInside,
+                    EdgeType = tile.GetEdge(EdgeLayout.RightInside)
+                };
+                TryAddWithCheck(list, link, filter);
+            }
+            return list;
+        }
+
         /// <summary>
         ///     Получает все сегменты на слое layout рядом с edge (и пустые и заполненные)
         ///     ---

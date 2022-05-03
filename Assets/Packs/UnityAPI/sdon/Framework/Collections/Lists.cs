@@ -1,10 +1,17 @@
+using System;
 using System.Collections.Generic;
+using JetBrains.Annotations;
 
 namespace UnityEngine
 {
     
     public static class Lists
     {
+
+        public static List<T> newArrayList<T>(params T[] items)
+        {
+            return new List<T>(items);
+        }
 
         public static bool IsEmpty<T>(ICollection<T> list)
         {

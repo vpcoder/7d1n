@@ -5,10 +5,10 @@ using UnityEngine;
 namespace Engine.Logic.Locations.Generator.Environment.Building.Arrangement.Impls.Kitchen.Items
 {
     
-    public class CounterPutProcessor : ItemPutBaseProcessor<KitchenItemType>
+    public class OvenPutProcessor : ItemPutBaseProcessor<KitchenItemType>
     {
         
-        public override KitchenItemType Type => KitchenItemType.Counter;
+        public override KitchenItemType Type => KitchenItemType.Oven;
         
         public override bool TryPutItem(GenerationRoomContext context, IEnvironmentItem<KitchenItemType> currentInsertItem)
         {
@@ -38,7 +38,7 @@ namespace Engine.Logic.Locations.Generator.Environment.Building.Arrangement.Impl
                 return null;
             foreach (var cornerLink in cornerList)
             {
-                var list = TileService.GetFurnitureOnTheLayoutByFindCorner(cornerLink, 6, Filter);
+                var list = TileService.GetFurnitureOnTheLayoutByFindCorner(cornerLink, 6, linkItem => linkItem.Tile.InCorner(linkItem.SegmentType) && !linkItem.Tile.HasDoor);
                 if(Lists.IsEmpty(list))
                     continue;
                 return Lists.newArrayList(Lists.First(list, TileSegmentLink.Empty));
@@ -55,7 +55,7 @@ namespace Engine.Logic.Locations.Generator.Environment.Building.Arrangement.Impl
                 return null;
             var link = sink.Context;
             var direction = TileService.AlongsideDirection(link.EdgeLayout); // Направление вдоль стены
-            return TileService.GetFurnitureOnTheLayoutByFindBothDirection(link.Tile, TileLayoutType.Floor, link.SegmentType, direction, 6, linkItem => linkItem.Tile.InCorner(linkItem.SegmentType) && !linkItem.Tile.HasDoor);
+            return TileService.GetFurnitureOnTheLayoutByFindBothDirection(link.Tile, TileLayoutType.Floor, link.SegmentType, direction, 6, Filter);
         }
 
         private bool Filter(TileSegmentLink link)

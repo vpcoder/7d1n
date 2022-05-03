@@ -28,5 +28,16 @@
         Type = "CounterCorner"
 		Path = "Locations/Builds/Living/Environment/Kitchen/CounterCorner_01"
     />
-
+    <Item
+        Type = "Table"
+		Path = "Locations/Builds/Living/Environment/Kitchen/Table_01"
+    />
+    <Item
+        Type = "Chair"
+    	Path = "Locations/Builds/Living/Environment/Kitchen/Chair_01"
+    />
+    <Item
+        Type = "Microwave"
+    	Path = "Locations/Builds/Living/Environment/Kitchen/Microwave_01"
+    />
 </Data>

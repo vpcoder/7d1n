@@ -61,6 +61,27 @@ namespace Engine.Logic.Locations.Generator.Environment.Building.Rooms
         /// </summary>
         CounterCorner,
         
+        /// <summary>
+        ///     Кухонный стол
+        ///     ---
+        ///     
+        /// </summary>
+        Table,
+        
+        /// <summary>
+        ///     Стул
+        ///     ---
+        ///     
+        /// </summary>
+        Chair,
+        
+        /// <summary>
+        ///     Микроволновка
+        ///     ---
+        ///     
+        /// </summary>
+        Microwave,
+        
     }
 
 }

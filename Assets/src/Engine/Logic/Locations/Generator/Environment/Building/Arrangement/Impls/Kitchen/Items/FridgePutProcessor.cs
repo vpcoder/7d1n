@@ -5,10 +5,10 @@ using UnityEngine;
 namespace Engine.Logic.Locations.Generator.Environment.Building.Arrangement.Impls.Kitchen.Items
 {
     
-    public class CounterPutProcessor : ItemPutBaseProcessor<KitchenItemType>
+    public class FridgePutProcessor : ItemPutBaseProcessor<KitchenItemType>
     {
         
-        public override KitchenItemType Type => KitchenItemType.Counter;
+        public override KitchenItemType Type => KitchenItemType.Fridge;
         
         public override bool TryPutItem(GenerationRoomContext context, IEnvironmentItem<KitchenItemType> currentInsertItem)
         {
@@ -60,8 +60,8 @@ namespace Engine.Logic.Locations.Generator.Environment.Building.Arrangement.Impl
 
         private bool Filter(TileSegmentLink link)
         {
-            if (link.Item != null || link.Tile.HasDoor)
-                return false; // Нас не интерисуют заполненные мебелью сегменты и сегменты у двери
+            if (link.Item != null || link.Tile.HasDoor || link.Tile.HasWindow)
+                return false; // Нас не интерисуют заполненные мебелью сегменты и сегменты у двери или окон
             // Остальные места нам подходят
             return true;
         }

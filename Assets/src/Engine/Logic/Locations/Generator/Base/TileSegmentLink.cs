@@ -6,6 +6,12 @@ namespace Engine.Logic.Locations.Generator
     
     public struct TileSegmentLink
     {
+        public static readonly TileSegmentLink Empty = new TileSegmentLink()
+        {
+            IsEmpty = true,
+        };
+
+        public bool IsEmpty { get; set; }
         public TileItem Tile { get; set; }
         public TileLayoutType Layout { get; set; }
         public EdgeLayout EdgeLayout { get; set; }

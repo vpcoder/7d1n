@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using Engine.Logic.Locations.Generator.Environment.Building;
 using Engine.Logic.Locations.Generator.Markers;
+using UnityEngine;
 
 namespace Engine.Logic.Locations.Generator
 {
@@ -329,6 +330,14 @@ namespace Engine.Logic.Locations.Generator
                        BottomEdge == EdgeType.Wall;
             }
         }
+
+        public bool IsEmptyFurniture
+        {
+            get
+            {
+                return Maps.IsEmpty(furnitureData);
+            }
+        }
         
         #endregion
         
@@ -361,6 +370,11 @@ namespace Engine.Logic.Locations.Generator
             {
                 data = new Dictionary<TileSegmentType, IEnvironmentItem>();
                 furnitureData.Add(layout, data);
+            }
+            if (item == null)
+            {
+                data.Remove(segment);
+                return;
             }
             data[segment] = item;
         }

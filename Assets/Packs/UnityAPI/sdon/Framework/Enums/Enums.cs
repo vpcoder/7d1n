@@ -32,6 +32,16 @@ namespace UnityEngine
 
 		#region Functions
 
+		public static bool IsOneOf(T value, params T[] values)
+		{
+			foreach (var item in values)
+			{
+				if (item.Equals(value))
+					return true;
+			}
+			return false;
+		}
+		
 		/// <summary>
 		/// Возвращает массив енумов по типу
 		/// </summary>

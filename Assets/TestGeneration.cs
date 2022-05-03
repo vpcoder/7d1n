@@ -17,6 +17,8 @@ public class TestGeneration : MonoBehaviour
         Game.Instance.Runtime.GenerationInfo = LocationGenerateContex.Generate(Game.Instance.Runtime.Location); // Тестовые сведения о здании и этаже
         LocationGenerateContex.GenerateByMarkers(list);
         ObjectFinder.Find<NavMeshGenerator>().CreateNavMesh();
+
+        seed = UnityEngine.Random.Range(0, 10000);
     }
 
     public void Clear()
