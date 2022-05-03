@@ -16,6 +16,35 @@ namespace Engine.Logic.Locations.Generator
     {
         
         public static readonly Func<TileSegmentLink, bool> EmptyEnvironmentItemFilter = (link => link.Item == null);
+
+        /// <summary>
+        ///     Преобразует грань в направление вдоль этой грани
+        ///     ---
+        ///     Converts an edge into a direction along that edge
+        /// </summary>
+        /// <param name="layout">
+        ///     Грань, по которой необходимо получить направление
+        ///     ---
+        ///     The facet where you need to get a referral
+        /// </param>
+        /// <returns>
+        ///     Направление вдоль указанной грани
+        ///     ---
+        ///     The direction along the indicated edge
+        /// </returns>
+        public static TileFindDirection AlongsideDirection(EdgeLayout layout)
+        {
+            switch (layout)
+            {
+                case EdgeLayout.BottomInside:
+                case EdgeLayout.BottomOutside:
+                case EdgeLayout.TopInside:
+                case EdgeLayout.TopOutside:
+                    return TileFindDirection.Left;
+                default:
+                    return TileFindDirection.Top;
+            }
+        }
         
         public static EdgeLayout GetLayout(TileLayoutType tileLayout)
         {

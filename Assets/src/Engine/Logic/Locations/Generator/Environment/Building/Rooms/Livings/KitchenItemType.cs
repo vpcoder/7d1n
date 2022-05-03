@@ -27,6 +27,27 @@ namespace Engine.Logic.Locations.Generator.Environment.Building.Rooms
         Counter,
         
         /// <summary>
+        ///     Посудомоечная машинка
+        ///     ---
+        ///     
+        /// </summary>
+        CounterWashing,
+        
+        /// <summary>
+        ///     Холодильник
+        ///     ---
+        ///     
+        /// </summary>
+        Fridge,
+        
+        /// <summary>
+        ///     Газовая плита
+        ///     ---
+        ///     
+        /// </summary>
+        Oven,
+        
+        /// <summary>
         ///     Столешница
         ///     ---
         /// 

@@ -11,6 +11,10 @@ public class TestGenerationEditor : CustomEditorT<TestGeneration>
         {
             target.Target.Make();
         }
+        if(GUILayout.Button("Clear"))
+        {
+            target.Target.Clear();
+        }
     }
 
 }

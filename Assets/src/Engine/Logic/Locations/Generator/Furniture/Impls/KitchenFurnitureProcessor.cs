@@ -25,6 +25,24 @@ namespace Engine.Logic.Locations.Generator.Furniture
             items.Add(new FurnitureItem<KitchenItemType>()
             {
                 Type = KitchenItemType.Counter,
+                Count = 1,
+            });
+            
+            items.Add(new FurnitureItem<KitchenItemType>()
+            {
+                Type = KitchenItemType.CounterWashing,
+                Count = 1,
+            });
+            
+            items.Add(new FurnitureItem<KitchenItemType>()
+            {
+                Type = KitchenItemType.Oven,
+                Count = 1,
+            });
+            
+            items.Add(new FurnitureItem<KitchenItemType>()
+            {
+                Type = KitchenItemType.CounterCorner,
                 Count = 2,
             });
             
@@ -36,8 +54,8 @@ namespace Engine.Logic.Locations.Generator.Furniture
             
             items.Add(new FurnitureItem<KitchenItemType>()
             {
-                Type = KitchenItemType.CounterCorner,
-                Count = 5,
+                Type = KitchenItemType.Fridge,
+                Count = 1,
             });
             
             return items;

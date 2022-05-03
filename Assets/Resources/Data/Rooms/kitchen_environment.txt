@@ -9,6 +9,18 @@
 		Path = "Locations/Builds/Living/Environment/Kitchen/Counter_01"
     />
     <Item
+        Type = "CounterWashing"
+    	Path = "Locations/Builds/Living/Environment/Kitchen/CounterWashing_01"
+    />
+    <Item
+        Type = "Fridge"
+    	Path = "Locations/Builds/Living/Environment/Kitchen/Fridge_01"
+    />
+    <Item
+        Type = "Oven"
+    	Path = "Locations/Builds/Living/Environment/Kitchen/Oven_01"
+    />
+    <Item
         Type = "EmptyCounter"
     	Path = "Locations/Builds/Living/Environment/Kitchen/Counter_02"
     />

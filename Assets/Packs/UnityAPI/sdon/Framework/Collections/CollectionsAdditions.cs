@@ -3,7 +3,7 @@
 namespace UnityEngine
 {
 
-    public static class IDictionaryAdditions
+    public static class CollectionsAdditions
     {
 
         public static void AddInToDictionary<K, T, V>(this IDictionary<K, IDictionary<T, V>> dictionary, K key, T otherKey, V value)

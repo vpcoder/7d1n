@@ -63,7 +63,7 @@
 
 		void OnGUI()
 		{
-			if (_assets == null || _assets.Count == 0)
+			if (Lists.IsEmpty(_assets))
 			{
 				var list = AssetDatabase.FindAssets("t:" + _type.Name);
 				_assets = new List<ScriptableObject>();

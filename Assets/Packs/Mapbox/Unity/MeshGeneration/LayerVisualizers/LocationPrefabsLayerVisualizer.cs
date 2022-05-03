@@ -173,7 +173,7 @@ namespace Mapbox.Unity.MeshGeneration.Interfaces
 			{
 
 				List<LocationPrefabCategories> categoriesList = GetSelectedCategoriesList(item.categories);
-				if (categoriesList == null || categoriesList.Count == 0)
+				if (Lists.IsEmpty(categoriesList))
 				{
 					return;
 				}

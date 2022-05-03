@@ -100,7 +100,7 @@ namespace Engine.Logic.Locations.Generator.Furniture
         public ICollection<IEnvironmentItem> Create(GenerationRoomContext context)
         {
             var items = CreateE(context);
-            if (items == null || items.Count == 0)
+            if (Lists.IsEmpty(items))
                 return new List<IEnvironmentItem>();
             
             var factory = RoomSuperFactory.Instance.Get<E>(context.RoomKindType);

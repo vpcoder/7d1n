@@ -1,4 +1,5 @@
 using Engine.Logic.Locations.Generator.Environment.Building.Rooms;
+using UnityEngine;
 
 namespace Engine.Logic.Locations.Generator.Environment.Building.Arrangement.Impls.Kitchen.Items
 {
@@ -11,7 +12,7 @@ namespace Engine.Logic.Locations.Generator.Environment.Building.Arrangement.Impl
         public override bool TryPutItem(GenerationRoomContext context, IEnvironmentItem<KitchenItemType> currentInsertItem)
         {
             var sinkList = Parent.ArrangementContext.GetItems(KitchenItemType.Sink);
-            var sink = sinkList == null || sinkList.Count == 0 ? null : sinkList[0];
+            var sink = Lists.First(sinkList);
             if (sink == null)
                 return false;
 
@@ -22,8 +23,8 @@ namespace Engine.Logic.Locations.Generator.Environment.Building.Arrangement.Impl
         
         private bool Filter(TileSegmentLink link)
         {
-            if (link.Item != null)
-                return false; // Нас не интерисуют заполненные мебелью сегменты
+            if (link.Item != null || link.Tile.HasDoor)
+                return false; // Нас не интерисуют заполненные мебелью сегменты и сегменты у двери
             return link.Tile.InCorner(link.SegmentType); // Тайлы с внутренними углами
         }
         

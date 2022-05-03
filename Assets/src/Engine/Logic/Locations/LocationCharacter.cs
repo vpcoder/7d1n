@@ -125,7 +125,7 @@ namespace Engine.Logic.Locations
             if (Game.Instance.Runtime.Mode == Mode.Switch)
                 return;
 
-            if (path == null || path.Count == 0)
+            if (Lists.IsEmpty(path))
                 return; // Путь пустой, значит персонаж стоит на месте
 
             // Получаем текущую точку, куда следуюет идти
@@ -155,7 +155,7 @@ namespace Engine.Logic.Locations
         /// </summary>
         private void UpdatePoint()
         {
-            if (path == null || path.Count == 0)
+            if (Lists.IsEmpty(path))
                 return;
 
             Animator.SetInteger(AnimationKey.MoveSpeedKey, (int)MoveSpeedType.Run); // Меняем состояние на бег

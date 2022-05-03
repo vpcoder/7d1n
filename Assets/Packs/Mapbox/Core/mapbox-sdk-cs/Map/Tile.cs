@@ -4,6 +4,8 @@
 // </copyright>
 //-----------------------------------------------------------------------
 
+using UnityEngine;
+
 namespace Mapbox.Map
 {
 	using System;
@@ -75,7 +77,7 @@ namespace Mapbox.Map
 		{
 			get
 			{
-				if (null == _exceptions || _exceptions.Count == 0) { return string.Empty; }
+				if (Lists.IsEmpty(_exceptions)) { return string.Empty; }
 				return string.Join(Environment.NewLine, _exceptions.Select(e => e.Message).ToArray());
 			}
 		}

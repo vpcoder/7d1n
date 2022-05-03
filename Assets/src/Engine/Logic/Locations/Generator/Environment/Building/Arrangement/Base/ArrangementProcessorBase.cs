@@ -69,7 +69,7 @@ namespace Engine.Logic.Locations.Generator.Environment.Building.Arrangement
         /// </param>
         public void ArrangementProcess(GenerationRoomContext context, ICollection<IEnvironmentItem<E>> availableItems)
         {
-            if (availableItems == null || availableItems.Count == 0)
+            if (Lists.IsEmpty(availableItems))
                 return; // Ничего не делаем, если нечего расставлять
             
             var remaingItems = availableItems.ToList();
@@ -120,7 +120,7 @@ namespace Engine.Logic.Locations.Generator.Environment.Building.Arrangement
         /// </param>
         public void ArrangementProcess(GenerationRoomContext context, ICollection<IEnvironmentItem> availableItems)
         {
-            if (availableItems == null || availableItems.Count == 0)
+            if (Lists.IsEmpty(availableItems))
                 return;
             ArrangementProcess(context, availableItems.Select(item => (IEnvironmentItem<E>)item).ToList());
         }

@@ -10,10 +10,17 @@ namespace Engine.Logic.Locations
         public void CreateNavMesh()
         {
             var baker = ObjectFinder.Find<NavMeshBaker>();
-            var surfaces = GameObject.FindObjectsOfType<NavMeshSurface>();
+            var surfaces = FindObjectsOfType<NavMeshSurface>();
             baker.Bake(surfaces);
         }
 
+        public void ClearNavMesh()
+        {
+            var baker = ObjectFinder.Find<NavMeshBaker>();
+            var surfaces = FindObjectsOfType<NavMeshSurface>();
+            baker.Clear(surfaces);
+        }
+        
     }
 
 }

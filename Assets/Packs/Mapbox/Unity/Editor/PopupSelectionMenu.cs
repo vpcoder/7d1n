@@ -30,7 +30,7 @@ namespace Mapbox.Editor
 
 		public override void OnGUI(Rect rect)
 		{
-			if (_modTypes == null || _modTypes.Count == 0)
+			if (Lists.IsEmpty(_modTypes))
 			{
 				_modTypes = new List<Type>();
 

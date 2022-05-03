@@ -159,7 +159,7 @@ namespace Engine.Logic.Locations
 
 		private IItem TryFindAmmo(IFirearmsWeapon weapon, List<IItem> items)
 		{
-            if (items == null || items.Count == 0)
+            if (Lists.IsEmpty(items))
                 return null;
 			return items.Where(item => item.ID == weapon.AmmoID).FirstOrDefault();
 		}
@@ -188,7 +188,7 @@ namespace Engine.Logic.Locations
 			var endPos = target.ToObject.transform.position;
 			var path = enemy.CalculatePath(endPos);
 
-            if (path == null || path.Count == 0)
+            if (Lists.IsEmpty(path))
                 return result;
 
             if (path.Count == 0)

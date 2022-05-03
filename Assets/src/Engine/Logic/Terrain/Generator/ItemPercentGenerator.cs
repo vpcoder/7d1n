@@ -3,6 +3,7 @@ using Engine.Data.Factories;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using UnityEngine;
 
 namespace Engine.Logic
 {
@@ -100,7 +101,7 @@ namespace Engine.Logic
 
         public ItemInfo GetRandom(ItemPercentContext context)
         {
-            if(context.Items == null || context.Items.Count == 0)
+            if(Lists.IsEmpty(context.Items))
                 throw new NotSupportedException("Контекст не может быть с пустым списком!");
 
             int value = UnityEngine.Random.Range(0, context.MaxWeight);

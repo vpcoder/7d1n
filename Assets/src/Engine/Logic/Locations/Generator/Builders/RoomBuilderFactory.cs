@@ -105,7 +105,7 @@ namespace Engine.Logic.Locations.Generator
         private void DoArrangementFurniture(GenerationRoomContext context)
         {
             var list = ArrangementSuperFactory.Instance.Get(context.RoomKindType);
-            if (list == null || list.Count == 0)
+            if (Lists.IsEmpty(list))
                 return;
             
             var currentArrangementIndex = new System.Random((int)(context.BuildInfo.BuildID + context.BuildInfo.CurrentFloor)).Next(0, list.Count);
@@ -132,7 +132,7 @@ namespace Engine.Logic.Locations.Generator
         private ICollection<IEnvironmentItem> BuildFurnitureInfo(GenerationRoomContext context)
         {
             var list = FurnitureProcessorSuperFactory.Instance.Get(context.RoomKindType);
-            if (list == null || list.Count == 0)
+            if (Lists.IsEmpty(list))
                 return new List<IEnvironmentItem>();
             
             var currentFurnitureProcessorIndex = context.FloorRandom.Next(0, list.Count);
@@ -161,7 +161,7 @@ namespace Engine.Logic.Locations.Generator
             };
 
             context.MarkersByType.TryGetValue(typeof(FloorMarker), out var floorMarkers);
-            if (floorMarkers == null || floorMarkers.Count == 0)
+            if (Lists.IsEmpty(floorMarkers))
                 return; // Нет пола - нет сетки тайлов
 
             // Положение маркера к тайлу

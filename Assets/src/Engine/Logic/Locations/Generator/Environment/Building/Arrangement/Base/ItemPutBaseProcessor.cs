@@ -51,7 +51,7 @@ namespace Engine.Logic.Locations.Generator.Environment.Building.Arrangement
         /// </returns>
         protected bool TryPutOnRandomSegment(GenerationRoomContext context, IList<TileSegmentLink> list, EdgeLayout layout, IEnvironmentItem<E> item)
         {
-            if (list.Count == 0)
+            if (Lists.IsEmpty(list))
                 return false;
             
             var index = context.RoomRandom.Next(0, list.Count - 1);

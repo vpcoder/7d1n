@@ -1,6 +1,7 @@
 ﻿using Engine.Data;
 using Engine.Data.Factories;
 using System.Linq;
+using UnityEngine;
 
 namespace Engine
 {
@@ -34,8 +35,7 @@ namespace Engine
                 return GetWeight((IUsed)item);
 
             var parts = item.Parts;
-
-            if (parts == null || parts.Count == 0)
+            if (Lists.IsEmpty(parts))
                 return 0L;
 
             return parts.Select(o => GetWeight(o.ResourceID) * o.ResourceCount).Sum();
@@ -52,8 +52,7 @@ namespace Engine
                 return used.Weight;
 
             var parts = used.Parts;
-
-            if (parts == null || parts.Count == 0)
+            if (Lists.IsEmpty(parts))
                 return 0L;
 
             return parts.Select(o => GetWeight(o.ResourceID) * o.ResourceCount).Sum();
@@ -77,7 +76,7 @@ namespace Engine
             if (weight < 1000L)
                 return weight + " " + Localization.Instance.Get("msg_weight_mlg");
 
-            if (weight >= 1000L && weight < 1000000L)
+            if (weight < 1000000L)
                 return (weight / 1000L) + " " + Localization.Instance.Get("msg_weight_g");
 
             return (weight / 1000000L) + " " + Localization.Instance.Get("msg_weight_kg");
