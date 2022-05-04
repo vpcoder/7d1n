@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using Engine.Logic.Locations.Generator.Environment.Building.Rooms;
 using UnityEngine;
 
@@ -12,7 +13,7 @@ namespace Engine.Logic.Locations.Generator.Environment.Building.Arrangement.Impl
         public override bool TryPutItem(GenerationRoomContext context, IEnvironmentItem<KitchenItemType> currentInsertItem)
         {
             var foundedSegments = TileService.GetFurnitureOnTheLayoutByTiles(TileLayoutType.Floor, context.TilesInfo.TilesData, Filter);
-            return TryPutOnRandomSegment(context, foundedSegments, EdgeLayout.Floor, currentInsertItem);
+            return TryPutOnRandomSegment(context, foundedSegments, EdgeLayout.Floor, currentInsertItem, true);
         }
 
         private bool Filter(TileSegmentLink link)
@@ -22,7 +23,7 @@ namespace Engine.Logic.Locations.Generator.Environment.Building.Arrangement.Impl
                 || CheckLinkedTilesHasDoor(link.Tile))
                 return false; // Нас не интерисуют заполненные мебелью сегменты и сегменты у двери, так же не интерисуют тайлы которые находятся напротив двери
             
-            link.Marker.Segments[link.SegmentType] = Color.magenta;
+            link.Marker.Segments[link.SegmentType] = Color.yellow;
             
             // Остальные места нам подходят
             return true;

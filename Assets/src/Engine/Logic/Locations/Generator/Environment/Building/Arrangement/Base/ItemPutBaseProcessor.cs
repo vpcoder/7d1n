@@ -49,15 +49,25 @@ namespace Engine.Logic.Locations.Generator.Environment.Building.Arrangement
         ///     true - if the object was successfully placed in the scene
         ///     false - if no suitable free space was found and the object was not placed
         /// </returns>
-        protected bool TryPutOnRandomSegment(GenerationRoomContext context, IList<TileSegmentLink> list, EdgeLayout layout, IEnvironmentItem<E> item)
+        protected bool TryPutOnRandomSegment(GenerationRoomContext context, IList<TileSegmentLink> list, EdgeLayout layout, IEnvironmentItem<E> item, bool fillAllTile = false)
         {
             if (Lists.IsEmpty(list))
                 return false;
             
             var index = context.RoomRandom.Next(0, list.Count - 1);
             var randomItem = list[index];
-            
-            randomItem.Tile.Set(randomItem.Layout, randomItem.SegmentType, item);
+
+            if (fillAllTile)
+            {
+                randomItem.Tile.Set(randomItem.Layout, TileSegmentType.S00, item);
+                randomItem.Tile.Set(randomItem.Layout, TileSegmentType.S01, item);
+                randomItem.Tile.Set(randomItem.Layout, TileSegmentType.S10, item);
+                randomItem.Tile.Set(randomItem.Layout, TileSegmentType.S11, item);
+            }
+            else
+            {
+                randomItem.Tile.Set(randomItem.Layout, randomItem.SegmentType, item);
+            }
 
             var unityGameObject = Object.Instantiate
             (

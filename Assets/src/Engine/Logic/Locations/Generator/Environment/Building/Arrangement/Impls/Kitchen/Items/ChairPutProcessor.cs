@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using Engine.Logic.Locations.Generator.Environment.Building.Rooms;
+using Mapbox.Map;
 using UnityEngine;
 
 namespace Engine.Logic.Locations.Generator.Environment.Building.Arrangement.Impls.Kitchen.Items
@@ -49,7 +50,8 @@ namespace Engine.Logic.Locations.Generator.Environment.Building.Arrangement.Impl
                 PutIfExists(tiles, tile.BottomOfThis.LeftOfThis);
                 PutIfExists(tiles, tile.BottomOfThis.RightOfThis);
             }
-            return TileService.GetFurnitureOnTheLayoutByTiles(TileLayoutType.Floor, tiles, linkItem =>
+            
+            var foundedSegments = TileService.GetFurnitureOnTheLayoutByTiles(TileLayoutType.Floor, tiles, linkItem =>
             {
                 if (linkItem.Item != null
                     || linkItem.Tile.HasDoor
@@ -75,6 +77,33 @@ namespace Engine.Logic.Locations.Generator.Environment.Building.Arrangement.Impl
                 // Остальные места нам не подходят
                 return false;
             });
+
+            if (Lists.IsEmpty(foundedSegments))
+                return foundedSegments;
+            
+            var updatedList = new List<TileSegmentLink>();
+            foreach (var segmentLink in foundedSegments)
+            {
+                
+                // Поворачиваем стулья относительно положения стола
+                var updatedLayout = EdgeLayout.LeftInside;
+                if (segmentLink.Tile.LeftOfThis == tile)
+                    updatedLayout = EdgeLayout.RightInside;
+                if (segmentLink.Tile.RightOfThis == tile)
+                    updatedLayout = EdgeLayout.LeftInside;
+                if (segmentLink.Tile.TopOfThis == tile)
+                    updatedLayout = EdgeLayout.BottomInside;
+                if (segmentLink.Tile.BottomOfThis == tile)
+                    updatedLayout = EdgeLayout.TopInside;
+                
+                updatedList.Add(new TileSegmentLink(segmentLink)
+                {
+                    EdgeLayout = updatedLayout,
+                    EdgeType = segmentLink.Tile.GetEdge(updatedLayout),
+                });
+            }
+            
+            return updatedList;
         }
 
         private void PutIfExists(IList<TileItem> list, TileItem item)
