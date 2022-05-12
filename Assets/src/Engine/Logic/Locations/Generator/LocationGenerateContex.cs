@@ -3,6 +3,8 @@ using Engine.Generator;
 using Engine.Logic.Locations.Generator.Markers;
 using System;
 using System.Collections.Generic;
+using System.Linq;
+using Engine.Data.Generation.Factories;
 using Engine.Logic.Locations.Generator.Environment.Building;
 using UnityEngine;
 
@@ -76,7 +78,9 @@ namespace Engine.Logic.Locations.Generator
 
             result.LocationType = LocationType.Living;
             result.RoomType = RoomType.Blank;
-
+            
+            result.EnemyInfo = new BuildEnemyInfo();
+            
             return result;
         }
 
@@ -87,36 +91,59 @@ namespace Engine.Logic.Locations.Generator
         ///     Performs room generation by markers.
         ///     As a result of the generation we will get a full room in the scene.
         /// </summary>
-        /// <param name="markers">
+        /// <param name="roomMarkers">
         ///     Маркеры, формирующие помещение, которое надо будет сгенерировать
         ///     ---
         ///     Markers that form the room to be generated
         /// </param>
-        public static void GenerateByMarkers(ICollection<IMarker> markers)
+        /// <param name="roomKindType">
+        ///     Тип формируемой комнаты
+        ///     ---
+        ///     Type of room to be shaped
+        /// </param>
+        public static void GenerateRoomByMarkers(ICollection<IMarker> roomMarkers, RoomKindType roomKindType)
         {
-
-            var markersByGroup = new Dictionary<Type, IList<IMarker>>();
-            foreach(IMarker marker in markers)
-                markersByGroup.AddInToList(marker.GetType(), marker);
-
+            var markersByGroupOnRoom = new Dictionary<Type, IList<IMarker>>();
+            foreach(IMarker marker in roomMarkers)
+                markersByGroupOnRoom.AddInToList(marker.GetType(), marker);
+            
             var context = new GenerationRoomContext()
             {
-                AllMarkers = markers,
+                AllMarkersInRoom = roomMarkers,
                 BuildInfo = Game.Instance.Runtime.GenerationInfo,
                 FurnitureInfo = new BuildFurnitureInfo(),
-                MarkersByType = markersByGroup,
-                RoomKindType = RoomKindType.Kitchen,
+                MarkersByTypeOnRoom = markersByGroupOnRoom,
+                RoomKindType = roomKindType,
             };
             
             context.BuildRandom = new System.Random((int)context.BuildInfo.BuildID);
             context.FloorRandom = new System.Random((int)context.BuildInfo.BuildID + (int)context.BuildInfo.CurrentFloor);
             context.RoomRandom = new System.Random((int)context.BuildInfo.BuildID + (int)context.BuildInfo.CurrentFloor + (int)context.RoomKindType);
 
-            // Генерация помещения
-            RoomBuilderFactory.Instance.BuildRoom(context);
+            // Генерация сетки помещения
+            RoomBuilderFactory.Instance.BuildTileGridInfo(context);
 
             // Заполнение помещения объектами
             RoomBuilderFactory.Instance.BuildRoomObjects(context);
+        }
+
+        public static void GenerateGlobalScene(ICollection<IMarker> markersInToScene)
+        {
+            var buildInfo = Game.Instance.Runtime.GenerationInfo;
+            
+            var context = new BuildLocationGlobalInfo()
+            {
+                Markers = markersInToScene.ToList(),
+                BuildRandom = new System.Random((int)buildInfo.BuildID),
+            };
+
+            var elementFactory = LocationTypeSuperFactory.Instance.Get(buildInfo.LocationType);
+            var buildType = buildInfo.RoomType;
+            var variationCount = elementFactory.GetCount(buildType);
+            var buildingVariationID = context.BuildRandom.Next(1, variationCount);
+            context.BuildingElement = elementFactory.Get(buildType, buildingVariationID);
+
+            RoomBuilderFactory.Instance.BuildGlobalScene(context);
         }
 
         #endregion

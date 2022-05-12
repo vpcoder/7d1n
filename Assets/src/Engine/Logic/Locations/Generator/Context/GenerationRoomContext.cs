@@ -22,13 +22,6 @@ namespace Engine.Logic.Locations.Generator
         public BuildLocationInfo BuildInfo { get; set; }
 
         /// <summary>
-        ///     Текущая вариация стиля помещения/здания
-        ///     ---
-        ///     Current room/building style variation
-        /// </summary>
-        public BuildingElement BuildingElement { get; set; }
-
-        /// <summary>
         ///     Информация по тайлам пола.
         ///     Полезна при расстановке мебели, стен и т.д.
         ///     ---
@@ -53,6 +46,8 @@ namespace Engine.Logic.Locations.Generator
 
         /// <summary>
         ///     Набор случайных значений для текущего здания, этажа и комнаты (в совокупности)
+        ///     ---
+        ///     Set of random values for the current building, floor and room (in aggregate)
         /// </summary>
         public System.Random RoomRandom { get; set; }
         public System.Random BuildRandom { get; set; }

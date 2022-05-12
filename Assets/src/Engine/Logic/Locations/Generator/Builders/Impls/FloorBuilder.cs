@@ -11,16 +11,16 @@ namespace Engine.Logic.Locations.Generator.Builders
     public class FloorBuilder : BuilderBase<FloorMarker>
     {
 
-        public override void Build(GenerationRoomContext context)
+        public override void Build(BuildLocationGlobalInfo context)
         {
-            var currentMarks = GetMarkers(context);
+            var currentMarks = GetMarkers<FloorMarker>(context);
             if (currentMarks == null)
                 return;
             
             BuildFloor(context, currentMarks);
         }
 
-        private void BuildFloor(GenerationRoomContext context, ICollection<IMarker> currentMarks)
+        private void BuildFloor(BuildLocationGlobalInfo context, ICollection<IMarker> currentMarks)
         {
             foreach (var abstractMarker in currentMarks)
             {
@@ -39,7 +39,7 @@ namespace Engine.Logic.Locations.Generator.Builders
             }
         }
 
-        private void BuildWall(GenerationRoomContext context, TileItem tile)
+        private void BuildWall(BuildLocationGlobalInfo context, TileItem tile)
         {
             // внутренние и специальные стены
             BuildInsideWalls(context, tile);
@@ -48,21 +48,21 @@ namespace Engine.Logic.Locations.Generator.Builders
             BuildOutsideWalls(context, tile);
         }
 
-        private void BuildInsideWalls(GenerationRoomContext context, TileItem tile)
+        private void BuildInsideWalls(BuildLocationGlobalInfo context, TileItem tile)
         {
             var edges = new[] { EdgeLayout.LeftInside, EdgeLayout.RightInside, EdgeLayout.TopInside, EdgeLayout.BottomInside };
             foreach (var layout in edges)
                 BuildInsideEdge(context, tile, layout);
         }
         
-        private void BuildOutsideWalls(GenerationRoomContext context, TileItem tile)
+        private void BuildOutsideWalls(BuildLocationGlobalInfo context, TileItem tile)
         {
             var edges = new[] { EdgeLayout.LeftOutside, EdgeLayout.RightOutside, EdgeLayout.TopOutside, EdgeLayout.BottomOutside };
             foreach (var layout in edges)
                 BuildOutsideEdge(context, tile, layout);
         }
         
-        private void BuildInsideEdge(GenerationRoomContext context, TileItem tile, EdgeLayout layout)
+        private void BuildInsideEdge(BuildLocationGlobalInfo context, TileItem tile, EdgeLayout layout)
         {
             var marker = tile.Marker;
             var edge = tile.GetEdge(layout);
@@ -70,7 +70,7 @@ namespace Engine.Logic.Locations.Generator.Builders
                 BuildInsideEdge(context, edge, marker.GetLayoutPos(layout), marker.GetLayoutRot(layout));
         }
         
-        private void BuildOutsideEdge(GenerationRoomContext context, TileItem tile, EdgeLayout layout)
+        private void BuildOutsideEdge(BuildLocationGlobalInfo context, TileItem tile, EdgeLayout layout)
         {
             var marker = tile.Marker;
             var edge = tile.GetEdge(layout);
@@ -78,7 +78,7 @@ namespace Engine.Logic.Locations.Generator.Builders
                 BuildOutsideEdge(context, edge, marker.GetLayoutPos(layout), marker.GetLayoutRot(layout));
         }
 
-        private void BuildInsideEdge(GenerationRoomContext context, EdgeType type, Vector3 pos, Quaternion rot)
+        private void BuildInsideEdge(BuildLocationGlobalInfo context, EdgeType type, Vector3 pos, Quaternion rot)
         {
             var prefab = GetInsideWallPrefabByEdgeType(context, type);
             if (prefab == null)
@@ -87,7 +87,7 @@ namespace Engine.Logic.Locations.Generator.Builders
             Object.Instantiate(prefab, pos, rot, BuildParent);
         }
 
-        private GameObject GetInsideWallPrefabByEdgeType(GenerationRoomContext context, EdgeType type)
+        private GameObject GetInsideWallPrefabByEdgeType(BuildLocationGlobalInfo context, EdgeType type)
         {
             if (type == EdgeType.Empty)
                 return null;
@@ -101,7 +101,7 @@ namespace Engine.Logic.Locations.Generator.Builders
             }
         }
         
-        private void BuildOutsideEdge(GenerationRoomContext context, EdgeType type, Vector3 pos, Quaternion rot)
+        private void BuildOutsideEdge(BuildLocationGlobalInfo context, EdgeType type, Vector3 pos, Quaternion rot)
         {
             var prefab = GetOutsideWallPrefabByEdgeType(context, type);
             if (prefab == null)
@@ -110,7 +110,7 @@ namespace Engine.Logic.Locations.Generator.Builders
             Object.Instantiate(prefab, pos, rot, BuildParent);
         }
         
-        private GameObject GetOutsideWallPrefabByEdgeType(GenerationRoomContext context, EdgeType type)
+        private GameObject GetOutsideWallPrefabByEdgeType(BuildLocationGlobalInfo context, EdgeType type)
         {
             if (type == EdgeType.Empty)
                 return null;

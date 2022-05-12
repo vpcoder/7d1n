@@ -49,7 +49,14 @@ namespace Engine.Logic.Locations.Generator
         ///     The general style of the rooms in the building
         /// </summary>
         public RoomType RoomType { get; set; }
-        
+
+        /// <summary>
+        ///     Информация о NPC в помещениях
+        ///     ---
+        ///     Information about NPCs in rooms
+        /// </summary>
+        public BuildEnemyInfo EnemyInfo { get; set; }
+
     }
 
 }

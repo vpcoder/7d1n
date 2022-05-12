@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using Engine.Data;
 using UnityEngine;
 
 namespace Engine.Logic.Locations.Generator.Environment.Building.Arrangement
@@ -24,6 +25,8 @@ namespace Engine.Logic.Locations.Generator.Environment.Building.Arrangement
 
         #region Hidden Fields
         
+        private readonly IDictionary<E, IItemPutProcessor<E>> putProcessorsData;
+
         /// <summary>
         ///     Контекст расстановки.
         ///     Объекты, которые мы уже расставили в помещении
@@ -47,6 +50,25 @@ namespace Engine.Logic.Locations.Generator.Environment.Building.Arrangement
         public abstract RoomKindType RoomType { get; }
 
         #endregion
+        
+        #region Ctor
+
+        protected ArrangementProcessorBase()
+        {
+            putProcessorsData = new Dictionary<E, IItemPutProcessor<E>>();
+            foreach (var processor in CreateProcessors())
+            {
+                processor.Parent = this;
+                putProcessorsData.Add(processor.Type, processor);
+            }
+        }
+        
+        #endregion
+
+        private ICollection<IItemPutProcessor<E>> CreateProcessors()
+        {
+            return AssembliesHandler.CreateImplementations<IItemPutProcessor<E>>();
+        }
         
         #region Shared Methods
         
@@ -99,6 +121,20 @@ namespace Engine.Logic.Locations.Generator.Environment.Building.Arrangement
             this.arrangementContext.AvailableItems.Clear();
             this.arrangementContext.AvailableItems = null;
             this.arrangementContext.Items.Clear();
+
+            FillEnemyInfoByEmptySegments(context);
+        }
+
+        private void FillEnemyInfoByEmptySegments(GenerationRoomContext context)
+        {
+            var enemyInfo = Game.Instance.Runtime.GenerationInfo.EnemyInfo;
+            foreach (var emptySegmentLink in TileService.GetFurnitureOnTheLayoutByTiles(TileLayoutType.Floor, context.TilesInfo.TilesData, TileService.EmptyEnvironmentItemFilter))
+            {
+                enemyInfo.EnemyStartPoints.Add(new EnemyPointInfo()
+                {
+                    Position = emptySegmentLink.Marker.GetSegmentPos(EdgeLayout.Floor, emptySegmentLink.SegmentType),
+                });
+            }
         }
 
         /// <summary>
@@ -147,7 +183,19 @@ namespace Engine.Logic.Locations.Generator.Environment.Building.Arrangement
         ///     true - if the object was successfully placed in the scene,
         ///     false - if the object could not be placed in the scene
         /// </returns>
-        public abstract bool InsertItemIntoScene(GenerationRoomContext context, IEnvironmentItem<E> currentInsertItem);
+        public virtual bool InsertItemIntoScene(GenerationRoomContext context, IEnvironmentItem<E> currentInsertItem)
+        {
+            // FIXME: Для отладки
+            foreach (var item in context.TilesInfo.TilesData)
+            {
+                item.Marker.Emission = Color.black;
+                item.Marker.Segments.Clear();
+            }
+
+            // Добавление мебели через процессоры
+            putProcessorsData.TryGetValue(currentInsertItem.Type, out var processor);
+            return processor?.TryPutItem(context, currentInsertItem) ?? false;
+        }
         
         /// <summary>
         ///     Кеш для BuildParent

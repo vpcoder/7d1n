@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
-using Engine.Data.Generation.Factories;
 using Engine.Logic.Locations.Generator.Builders;
 using Engine.Logic.Locations.Generator.Environment.Building.Arrangement;
 using Engine.Logic.Locations.Generator.Environment.Building;
@@ -49,26 +48,9 @@ namespace Engine.Logic.Locations.Generator
         /// </summary>
         private IDictionary<Type, IBuilder> builders = new Dictionary<Type, IBuilder>();
 
-        /// <summary>
-        ///     Builds a room by markers and forms a tile grid
-        ///     ---
-        ///     Performs construction of a room by markers
-        /// </summary>
-        /// <param name="context">
-        ///     Контекст генерации помещения
-        ///     ---
-        ///     Room Generation Context
-        /// </param>
-        public void BuildRoom(GenerationRoomContext context)
+        public void BuildGlobalScene(BuildLocationGlobalInfo context)
         {
-            var elementFactory = LocationTypeSuperFactory.Instance.Get(context.BuildInfo.LocationType);
-            var buildType = context.BuildInfo.RoomType;
-            var variationCount = elementFactory.GetCount(buildType);
-            var buildingVariationID = context.BuildRandom.Next(1, variationCount);
-            context.BuildingElement = elementFactory.Get(buildType, buildingVariationID);
-
-            // Формируем информацию о тайлах
-            BuildTileGridInfo(context);
+            BuildGlobalTileGridInfo(context);
             
             // Формируем помещение
             foreach (var builder in builders)
@@ -140,7 +122,55 @@ namespace Engine.Logic.Locations.Generator
 
             return processor.Create(context);
         }
+        
+        public void BuildGlobalTileGridInfo(BuildLocationGlobalInfo context)
+        {
+            var floorMarkers = context.Markers
+                .Select(marker => marker as FloorMarker)
+                .Where(marker => marker != null)
+                .ToList();
+            
+            if (Lists.IsEmpty(floorMarkers))
+                return; // Нет пола - нет сетки тайлов
 
+            // Положение маркера к тайлу
+            IDictionary<Vector3, TileItem> markerPosToMarker = floorMarkers.ToDictionary(marker => marker.Position, marker => new TileItem()
+            {
+                Marker = marker,
+                LeftEdge = marker.LeftEdge,
+                RightEdge = marker.RightEdge,
+                BottomEdge = marker.BottomEdge,
+                TopEdge = marker.TopEdge,
+            });
+            
+            // Пробегаемся по тайлам, и связываем соседей, чтобы понимать где стены
+            foreach (var tile in markerPosToMarker.Values)
+            {
+                tile.Marker.Tile = tile;
+                
+                markerPosToMarker.TryGetValue(tile.Marker.Position + GetPosWithOffset(-1, 0), out var topTile);
+                tile.TopOfThis = topTile;
+                markerPosToMarker.TryGetValue(tile.Marker.Position + GetPosWithOffset(1, 0), out var bottomTile);
+                tile.BottomOfThis = bottomTile;
+                markerPosToMarker.TryGetValue(tile.Marker.Position + GetPosWithOffset(0, -1), out var leftTile);
+                tile.LeftOfThis = leftTile;
+                markerPosToMarker.TryGetValue(tile.Marker.Position + GetPosWithOffset(0, 1), out var rightTile);
+                tile.RightOfThis = rightTile;
+                
+                if ((leftTile == null || leftTile.Marker.RoomHierarchy != tile.Marker.RoomHierarchy) && tile.LeftEdge == EdgeType.Empty)
+                    tile.LeftEdge = leftTile != null && leftTile.RightEdge != EdgeType.Empty ? leftTile.RightEdge : EdgeType.Wall;
+
+                if ((rightTile == null || rightTile.Marker.RoomHierarchy != tile.Marker.RoomHierarchy) && tile.RightEdge == EdgeType.Empty)
+                    tile.RightEdge = rightTile != null && rightTile.LeftEdge != EdgeType.Empty ? rightTile.LeftEdge : EdgeType.Wall;
+                
+                if ((topTile == null || topTile.Marker.RoomHierarchy != tile.Marker.RoomHierarchy) && tile.TopEdge == EdgeType.Empty)
+                    tile.TopEdge = topTile != null && topTile.BottomEdge != EdgeType.Empty ? topTile.BottomEdge : EdgeType.Wall;
+                
+                if ((bottomTile == null || bottomTile.Marker.RoomHierarchy != tile.Marker.RoomHierarchy) && tile.BottomEdge == EdgeType.Empty)
+                    tile.BottomEdge = bottomTile != null && bottomTile.TopEdge != EdgeType.Empty ? bottomTile.TopEdge : EdgeType.Wall;
+            }
+        }
+        
         /// <summary>
         ///     Выполняет формирование информации о тайлах помещения.
         ///     Сначала пробегаемся по всем маркерам пола, затем определяем что на границах тайлов, выполняем связывание соседних маркеров
@@ -153,14 +183,14 @@ namespace Engine.Logic.Locations.Generator
         ///     ---
         ///     Room Generation Context
         /// </param>
-        private void BuildTileGridInfo(GenerationRoomContext context)
+        public void BuildTileGridInfo(GenerationRoomContext context)
         {
             context.TilesInfo = new TileCellInfo()
             {
                 TilesData = new List<TileItem>()
             };
 
-            context.MarkersByType.TryGetValue(typeof(FloorMarker), out var floorMarkers);
+            context.MarkersByTypeOnRoom.TryGetValue(typeof(FloorMarker), out var floorMarkers);
             if (Lists.IsEmpty(floorMarkers))
                 return; // Нет пола - нет сетки тайлов
 

@@ -15,20 +15,20 @@ namespace Engine.Logic.Locations.Generator
     /// </summary>
     public abstract class GenerationContextBase
     {
+        
+        /// <summary>
+        ///     Все маркеры в комнате
+        ///     ---
+        ///     All markers in the room
+        /// </summary>
+        public ICollection<IMarker> AllMarkersInRoom { get; set; }
 
         /// <summary>
-        ///     All markers in the scene represented by the enumeration
+        ///     Все маркеры в комнате, представленные словарём, группированном по типу
         ///     ---
-        ///     All markers in the scene
+        ///     All markers in the room represented by the dictionary grouped by type
         /// </summary>
-        public ICollection<IMarker> AllMarkers { get; set; }
-
-        /// <summary>
-        ///     Все маркеры в сцене, представленные словарём, группированном по типу
-        ///     ---
-        ///     All markers in the scene represented by the dictionary grouped by type
-        /// </summary>
-        public IDictionary<Type, IList<IMarker>> MarkersByType { get; set; }
+        public IDictionary<Type, IList<IMarker>> MarkersByTypeOnRoom { get; set; }
 
     }
 

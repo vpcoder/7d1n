@@ -3,12 +3,12 @@
 namespace Engine.Logic.Locations.Generator.Environment.Building.Arrangement.Impls.Kitchen
 {
 
-    public class Kitchen01ArrangementProcessor : ArrangementProcessorBase<KitchenItemType>
+    public class Hall01ArrangementProcessor : ArrangementProcessorBase<HallItemType>
     {
         
         #region Properties
         
-        public override RoomKindType RoomType => RoomKindType.Kitchen;
+        public override RoomKindType RoomType => RoomKindType.Hall;
         
         #endregion
 

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace UnityEngine {
 
@@ -235,6 +236,17 @@ namespace UnityEngine {
 
 #endif
 
+		}
+
+		public static ICollection<T> GetChildComponents<T>(this Transform transform)
+		{
+			var list = new List<T>();
+			var parentComponent = transform.GetComponent<T>();
+			if(parentComponent != null)
+				list.Add(parentComponent);
+			foreach (var child in transform.Childs())
+				list.AddRange(GetChildComponents<T>(child));
+			return list;
 		}
 
 		/// <summary>

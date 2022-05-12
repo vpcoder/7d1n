@@ -17,7 +17,7 @@ namespace Engine.Logic.Locations.Generator.Environment.Building.Rooms
         ///     ---
         ///     TV-Set
         /// </summary>
-        Tvset,
+        TVset,
 
     }
 

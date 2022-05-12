@@ -10,8 +10,8 @@ namespace Engine.Data
     public class Runtime
     {
 
-        public long PlayerID { get; set; } = 0;
-        public bool BattleFlag { get; set; } = false;
+        public long PlayerID { get; set; }
+        public bool BattleFlag { get; set; }
         public Mode Mode { get; set; } = Mode.Game;
         public ActionMode ActionMode { get; set; } = ActionMode.Move;
 

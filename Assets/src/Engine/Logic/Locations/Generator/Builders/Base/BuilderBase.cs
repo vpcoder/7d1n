@@ -1,6 +1,7 @@
 ﻿using Engine.Logic.Locations.Generator.Markers;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 namespace Engine.Logic.Locations.Generator.Builders
@@ -74,31 +75,11 @@ namespace Engine.Logic.Locations.Generator.Builders
         ///     ---
         ///     Generation context, with information about all markers in the scene
         /// </param>
-        public abstract void Build(GenerationRoomContext context);
+        public abstract void Build(BuildLocationGlobalInfo context);
 
         #endregion
         
         #region Utils Methods
-        
-        /// <summary>
-        ///     Получает текущие маркеры из контекста
-        ///     ---
-        ///     Gets the current markers from the context
-        /// </summary>
-        /// <param name="context">
-        ///     Контекст генерации, с информацией о всех маркерах в сцене
-        ///     ---
-        ///     Generation context, with information about all markers in the scene
-        /// </param>
-        /// <returns>
-        ///     Список текущих маркеров для типа "T"
-        ///     ---
-        ///     List of current tokens for type "T"
-        /// </returns>
-        protected IList<IMarker> GetMarkers(GenerationRoomContext context)
-        {
-            return GetMarkers(context, MarkerType);
-        }
 
         /// <summary>
         ///     Получает все маркеры типа "type" из контекста
@@ -120,11 +101,11 @@ namespace Engine.Logic.Locations.Generator.Builders
         ///     ---
         ///     List of markers for type "type"
         /// </returns>
-        protected IList<IMarker> GetMarkers(GenerationRoomContext context, Type type)
+        protected IList<IMarker> GetMarkers<V>(BuildLocationGlobalInfo context) where V : class
         {
-            if (!context.MarkersByType.TryGetValue(type, out var currentMarkers))
-                return null;
-            return currentMarkers;
+            return context.Markers
+                .Where(marker => marker is V)
+                .ToList();
         }
         
         #endregion

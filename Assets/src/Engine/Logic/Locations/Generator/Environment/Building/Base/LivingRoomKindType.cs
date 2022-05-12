@@ -13,6 +13,13 @@ namespace Engine.Logic.Locations.Generator.Environment.Building
     {
 
         /// <summary>
+        ///     Коридоры, соединяющие комнаты
+        ///     ---
+        ///     Corridors connecting the rooms
+        /// </summary>
+        Corridor,
+        
+        /// <summary>
         ///     Кухня и её окружение
         ///     ---
         ///     The kitchen and its surroundings

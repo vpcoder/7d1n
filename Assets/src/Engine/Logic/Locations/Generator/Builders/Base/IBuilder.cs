@@ -32,7 +32,7 @@ namespace Engine.Logic.Locations.Generator.Builders
         ///     ---
         ///     Generation context, with information about all markers in the scene
         /// </param>
-        void Build(GenerationRoomContext context);
+        void Build(BuildLocationGlobalInfo context);
 
     }
 

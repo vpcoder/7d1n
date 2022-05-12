@@ -10,7 +10,7 @@ namespace Engine.Logic
 {
 
     /// <summary>
-    /// Контроллер входа в локацию
+    /// РљРѕРЅС‚СЂРѕР»Р»РµСЂ РІС…РѕРґР° РІ Р»РѕРєР°С†РёСЋ
     /// </summary>
     public class EnterBuildControll : MonoBehaviour
     {
@@ -34,12 +34,12 @@ namespace Engine.Logic
         }
 
         /// <summary>
-        /// Игрок нажал на кнопку входа в локацию
+        /// РРіСЂРѕРє РЅР°Р¶Р°Р» РЅР° РєРЅРѕРїРєСѓ РІС…РѕРґР° РІ Р»РѕРєР°С†РёСЋ
         /// </summary>
         public void DoClick()
         {
-            if (Game.Instance.Character.State.Health <= 10 // Проверяем, хватает ли у персонажа здоровье
-                || Game.Instance.Character.State.Infection >= 90) // Персонаж не должен быть сильно инфецирован
+            if (Game.Instance.Character.State.Health <= 10 // РџСЂРѕРІРµСЂСЏРµРј, С…РІР°С‚Р°РµС‚ Р»Рё Сѓ РїРµСЂСЃРѕРЅР°Р¶Р° Р·РґРѕСЂРѕРІСЊРµ
+                || Game.Instance.Character.State.Infection >= 90) // РџРµСЂСЃРѕРЅР°Р¶ РЅРµ РґРѕР»Р¶РµРЅ Р±С‹С‚СЊ СЃРёР»СЊРЅРѕ РёРЅС„РµС†РёСЂРѕРІР°РЅ
             {
                 var character = ObjectFinder.Find<MapCharacter>();
                 UIHintMessageManager.Show(hintPrefab, character.transform.position, Localization.Instance.Get("msg_error_cant_enter_to_location"));

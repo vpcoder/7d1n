@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using Engine.Logic.Locations.Generator.Environment.Building;
 using UnityEngine;
 
 namespace Engine.Logic.Locations.Generator.Markers
@@ -39,6 +40,8 @@ namespace Engine.Logic.Locations.Generator.Markers
         [Comments("Есть ли снизу от этого тайла стена? | Is there a wall to the bottom of this tile?")]
 #endif
         [SerializeField] private EdgeType bottomEdge = EdgeType.Empty;
+
+        [SerializeField] private RoomHierarchyBehaviour roomHierarchy;
         
         #endregion
         
@@ -47,6 +50,12 @@ namespace Engine.Logic.Locations.Generator.Markers
         public bool IsWalkable { get { return isWalkable; } set { isWalkable = value; } }
 
         public TileItem Tile { get; set; }
+
+        public RoomHierarchyBehaviour RoomHierarchy
+        {
+            get { return this.roomHierarchy; }
+            set { this.roomHierarchy = value; }
+        }
 
         public EdgeType LeftEdge
         {

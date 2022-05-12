@@ -29,6 +29,7 @@ namespace UnityEditor {
 		/// Хранит список полей целевого объекта
 		/// </summary>
 		private FieldInfo[] fieldsData;
+		private IDictionary<string, FieldInfo> fieldsMap;
 
 		/// <summary>
 		/// Список SerializeField полей
@@ -96,8 +97,10 @@ namespace UnityEditor {
 		
 			this.target = target;
 			this.fieldsData = target.GetType().GetFields(BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance);
-
+			this.fieldsMap = new Dictionary<string, FieldInfo>();
+			
 			foreach (FieldInfo field in fieldsData) {
+				fieldsMap.Add(field.Name, field);
 				SerializedProperty property = serialized.FindProperty(field.Name);
 				if (property != null) {
 					fieldsSerialized.Add(property);
@@ -105,14 +108,25 @@ namespace UnityEditor {
 			}
 
 			initBaseMethods();
-
 		}
 
+		public void SetFieldValue<V>(string name, V value)
+		{
+			var field = GetFieldInfo(name);
+			field?.SetValue(Target, value);
+		}
+		
+		public V GetFieldValue<V>(string name)
+		{
+			var field = GetFieldInfo(name);
+			return (V)field?.GetValue(Target);
+		}
+		
 		/// <summary>
 		/// Возвращает метаданные поля по имени
 		/// </summary>
 		/// <param name="name">Имя поля, мета-данные которого необходимо получить</param>
-			/// <returns>Возвращает метаданные поля по имени</returns>
+		/// <returns>Возвращает метаданные поля по имени</returns>
 		public FieldInfo GetFieldInfo(string name) {
 			foreach (FieldInfo field in fieldsData) {
 				if (field.Name == name) {
@@ -141,19 +155,19 @@ namespace UnityEditor {
 		/// </summary>
 		private void initBaseMethods(){
 			
-			methods.Add(Method_Awake, getMethod(Method_Awake));
-			methods.Add(Method_FixedUpdate, getMethod(Method_FixedUpdate));
-			methods.Add(Method_LateUpdate, getMethod(Method_LateUpdate));
-			methods.Add(Method_OnDestroy, getMethod(Method_OnDestroy));
-			methods.Add(Method_OnDisable, getMethod(Method_OnDisable));
-			methods.Add(Method_OnDrawGizmos, getMethod(Method_OnDrawGizmos));
-			methods.Add(Method_OnDrawGizmosSelected, getMethod(Method_OnDrawGizmosSelected));
-			methods.Add(Method_OnEnable, getMethod(Method_OnEnable));
-			methods.Add(Method_OnGUI, getMethod(Method_OnGUI));
-			methods.Add(Method_OnValidate, getMethod(Method_OnValidate));
-			methods.Add(Method_Reset, getMethod(Method_Reset));
-			methods.Add(Method_Start, getMethod(Method_Start));
-			methods.Add(Method_Update, getMethod(Method_Update));
+			methods.Add(Method_Awake, GetMethod(Method_Awake));
+			methods.Add(Method_FixedUpdate, GetMethod(Method_FixedUpdate));
+			methods.Add(Method_LateUpdate, GetMethod(Method_LateUpdate));
+			methods.Add(Method_OnDestroy, GetMethod(Method_OnDestroy));
+			methods.Add(Method_OnDisable, GetMethod(Method_OnDisable));
+			methods.Add(Method_OnDrawGizmos, GetMethod(Method_OnDrawGizmos));
+			methods.Add(Method_OnDrawGizmosSelected, GetMethod(Method_OnDrawGizmosSelected));
+			methods.Add(Method_OnEnable, GetMethod(Method_OnEnable));
+			methods.Add(Method_OnGUI, GetMethod(Method_OnGUI));
+			methods.Add(Method_OnValidate, GetMethod(Method_OnValidate));
+			methods.Add(Method_Reset, GetMethod(Method_Reset));
+			methods.Add(Method_Start, GetMethod(Method_Start));
+			methods.Add(Method_Update, GetMethod(Method_Update));
 			
 		}
 
@@ -162,7 +176,7 @@ namespace UnityEditor {
 		/// </summary>
 		/// <param name="name">Имя метода</param>
 		/// <returns>Метаданные метода name из класса T</returns>
-		private MethodInfo getMethod(string name){
+		private MethodInfo GetMethod(string name){
 			return typeof(T).GetMethod(name, BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance);
 		}
 
@@ -171,8 +185,9 @@ namespace UnityEditor {
 		/// </summary>
 		/// <param name="name">Имя поля</param>
 		/// <returns>Метаданные поля name из класса T</returns>
-		private FieldInfo getField(string name) {
-			return typeof(T).GetField(name, BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance);
+		private FieldInfo GetField(string name)
+		{
+			return fieldsMap[name];
 		}
 
 		/// <summary>
