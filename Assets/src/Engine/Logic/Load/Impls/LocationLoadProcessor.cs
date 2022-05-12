@@ -31,6 +31,7 @@ namespace Engine.Logic.Load
             Game.Instance.Runtime.Location.ID = Random.Range(0, 10000);
             Game.Instance.Runtime.GenerationInfo = LocationGenerateContex.Generate(Game.Instance.Runtime.Location); // Тестовые сведения о здании и этаже
             
+            SetDescription(Localization.Instance.Get("ui_location_load_rooms"));
             // Собираем все комнаты в сцене
             var rooms = FindObjectsOfType<RoomHierarchyBehaviour>();
             var markers = new List<IMarker>();

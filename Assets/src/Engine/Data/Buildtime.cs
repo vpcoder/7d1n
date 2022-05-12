@@ -7,7 +7,7 @@ namespace Engine.Data
     public class Buildtime
     {
 
-        public Version Version { get; } = new Version("1.0.0.50");
+        public Version Version { get; } = new Version("1.0.0.51");
 
     }
 

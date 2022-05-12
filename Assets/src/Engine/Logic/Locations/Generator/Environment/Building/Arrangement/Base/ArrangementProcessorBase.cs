@@ -185,13 +185,6 @@ namespace Engine.Logic.Locations.Generator.Environment.Building.Arrangement
         /// </returns>
         public virtual bool InsertItemIntoScene(GenerationRoomContext context, IEnvironmentItem<E> currentInsertItem)
         {
-            // FIXME: Для отладки
-            foreach (var item in context.TilesInfo.TilesData)
-            {
-                item.Marker.Emission = Color.black;
-                item.Marker.Segments.Clear();
-            }
-
             // Добавление мебели через процессоры
             putProcessorsData.TryGetValue(currentInsertItem.Type, out var processor);
             return processor?.TryPutItem(context, currentInsertItem) ?? false;

@@ -116,6 +116,7 @@ INSERT INTO `i18n_ru_ru`(`key`,`value`) VALUES ('ui_menu_load_playerdata', 'За
 INSERT INTO `i18n_ru_ru`(`key`,`value`) VALUES ('ui_menu_load_mapscene', 'Загрузка мира');
 INSERT INTO `i18n_ru_ru`(`key`,`value`) VALUES ('ui_map_load_location', 'Загрузка локации');
 INSERT INTO `i18n_ru_ru`(`key`,`value`) VALUES ('ui_location_load_navmesh', 'Генерация поиска путей');
+INSERT INTO `i18n_ru_ru`(`key`,`value`) VALUES ('ui_location_load_rooms', 'Генерация помещений');
 
 INSERT INTO `i18n_ru_ru`(`key`,`value`) VALUES ('ui_battle_actions_run', 'Выполнить');
 INSERT INTO `i18n_ru_ru`(`key`,`value`) VALUES ('ui_battle_actions_cancel', 'Отменить');

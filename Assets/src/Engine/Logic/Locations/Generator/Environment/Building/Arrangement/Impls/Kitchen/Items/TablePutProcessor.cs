@@ -1,6 +1,4 @@
-using System.Collections.Generic;
 using Engine.Logic.Locations.Generator.Environment.Building.Rooms;
-using UnityEngine;
 
 namespace Engine.Logic.Locations.Generator.Environment.Building.Arrangement.Impls.Kitchen.Items
 {
@@ -22,8 +20,6 @@ namespace Engine.Logic.Locations.Generator.Environment.Building.Arrangement.Impl
                 || link.Tile.HasDoor
                 || CheckLinkedTilesHasDoor(link.Tile))
                 return false; // Нас не интерисуют заполненные мебелью сегменты и сегменты у двери, так же не интерисуют тайлы которые находятся напротив двери
-            
-            link.Marker.Segments[link.SegmentType] = Color.yellow;
             
             // Остальные места нам подходят
             return true;
