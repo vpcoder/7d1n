@@ -35,14 +35,18 @@ namespace Engine.Logic.Load
         public void ShowLoad(LoadBackgroundType type)
         {
             background.sprite = GetSpriteByType(type);
-            StartLoad();
+            StartCoroutine(LoadProcess());
         }
 
         public override void OnCompleteLoad()
-        { }
+        {
+            
+        }
 
         public override void OnStartLoad()
-        { }
+        {
+            
+        }
 
     }
 

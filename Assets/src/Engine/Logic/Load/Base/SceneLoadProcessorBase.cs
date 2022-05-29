@@ -1,4 +1,5 @@
-﻿using Engine.EGUI;
+﻿using System.Collections;
+using Engine.EGUI;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -11,9 +12,17 @@ namespace Engine.Logic.Load
         [SerializeField] private Text txtDescription;
         [SerializeField] private Text txtTitle;
 
-        protected bool loadingFlag = true;
+        protected const float MIN_WAIT = 0.001f;
+        protected bool isLoaded;
+        protected bool isLoadingProcess;
 
-        public bool IsLoading { get { return loadingFlag; } }
+        private void Awake()
+        {
+            if(!isLoadingProcess && !isLoaded)
+                StartCoroutine(LoadProcess());
+        }
+        
+        public bool IsLoaded { get { return !isLoadingProcess && isLoaded; } }
 
         public void SetTitle(string title)
         {
@@ -27,7 +36,7 @@ namespace Engine.Logic.Load
 
         public virtual void StartLoad()
         {
-            loadingFlag = true;
+            isLoadingProcess = true;
             Show();
             OnStartLoad();
         }
@@ -35,13 +44,20 @@ namespace Engine.Logic.Load
         public virtual void CompleteLoad()
         {
             Hide();
-            loadingFlag = false;
+            isLoadingProcess = false;
             OnCompleteLoad();
         }
 
         public abstract void OnStartLoad();
 
         public abstract void OnCompleteLoad();
+
+        public virtual IEnumerator LoadProcess()
+        {
+            StartLoad();
+            yield return new WaitForSeconds(MIN_WAIT);
+            CompleteLoad();
+        }
 
     }
 

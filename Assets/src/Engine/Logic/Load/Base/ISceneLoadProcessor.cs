@@ -5,7 +5,7 @@ namespace Engine.Logic.Load
     public interface ISceneLoadProcessor
     {
 
-        bool IsLoading { get; }
+        bool IsLoaded { get; }
 
         void StartLoad();
 

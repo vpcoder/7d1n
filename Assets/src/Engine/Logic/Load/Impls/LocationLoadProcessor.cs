@@ -13,23 +13,15 @@ namespace Engine.Logic.Load
 
     public class LocationLoadProcessor : SceneLoadProcessorBase
     {
-        private const float MIN_WAIT = 0.001f;
-        private bool isLoaded;
-
-        private void Awake()
+        
+        public override IEnumerator LoadProcess()
         {
-            if(!isLoaded)
-                StartCoroutine(LoadProcess());
-        }
-
-        private IEnumerator LoadProcess()
-        {
-            isLoaded = true;
             StartLoad();
 
             // FIXME: тестовые данные
             Game.Instance.Runtime.Location.ID = Random.Range(0, 10000);
             Game.Instance.Runtime.GenerationInfo = LocationGenerateContex.Generate(Game.Instance.Runtime.Location); // Тестовые сведения о здании и этаже
+            
             
             SetDescription(Localization.Instance.Get("ui_location_load_rooms"));
             // Собираем все комнаты в сцене
@@ -91,7 +83,7 @@ namespace Engine.Logic.Load
             ObjectFinder.Find<HandsController>().GetCell(0).Weapon = pm;
 
             var enemyInfo = Game.Instance.Runtime.GenerationInfo.EnemyInfo;
-            for (int i = 0; i < 10; i++)
+            for (int i = 0; i < 3; i++)
             {
                 if (enemyInfo.EnemyStartPoints.Count == 0)
                     break;

@@ -2,10 +2,10 @@
 using System.Collections.Generic;
 using UnityEngine;
 using System.Linq;
-using Engine.Data.Factories;
 using Engine.Scenes;
 using UnityEngine.AI;
 using Engine.Logic.Locations.Animation;
+using Engine.Logic.Map;
 
 namespace Engine.Logic.Locations
 {
@@ -18,10 +18,9 @@ namespace Engine.Logic.Locations
 
 #pragma warning disable IDE0044, IDE0051, IDE0059
 
-        [SerializeField] private Transform directionObject;
         [SerializeField] private float pickUpDistance = 1f;
         [SerializeField] private float speed = 3f;
-        [SerializeField] public MoveContext MoveContext;
+        [SerializeField] private MoveContext moveContext;
 
         private NavMeshPath navMeshPath;
 
@@ -31,58 +30,32 @@ namespace Engine.Logic.Locations
         /// </summary>
         private List<Vector3> path;
 
+        private LocationCameraController cameraController;
+        
         /// <summary>
         /// Расстояние на которую персонаж может вытянуть руку - поднять предмет, использовать объект и т.д.
         /// </summary>
-        public float PickUpDistance
-        {
-            get
-            {
-                return pickUpDistance;
-            }
-        }
+        public float PickUpDistance => pickUpDistance;
 
         /// <summary>
         /// Положение персонажа в мире
         /// </summary>
-        public Vector3 Position
-        {
-            get
-            {
-                return transform.position;
-            }
-        }
+        public Vector3 Position => transform.position;
 
         /// <summary>
         /// Точка из которой персонаж начал движение
         /// </summary>
-        public Vector3 StartPosition
-        {
-            get
-            {
-                return MoveContext.StartPosition;
-            }
-        }
+        public Vector3 StartPosition => moveContext.StartPosition;
 
         /// <summary>
         /// Точка, в которую идёт персонаж в текущий момент
         /// </summary>
         public Vector3 NextPosition
         {
-            get
-            {
-                return MoveContext.NextPosition;
-            }
+            get => moveContext.NextPosition;
             set
             {
-                if(agent.CalculatePath(value, navMeshPath))
-                {
-                    path = navMeshPath.corners.ToList();
-                }
-                else
-                {
-                    path = null;
-                }
+                path = agent.CalculatePath(value, navMeshPath) ? navMeshPath.corners.ToList() : null;
                 UpdatePoint();
             }
         }
@@ -115,6 +88,7 @@ namespace Engine.Logic.Locations
         {
             navMeshPath = new NavMeshPath();
             Enemy = new PlayerCharacter();
+            cameraController = ObjectFinder.Find<LocationCameraController>();
         }
 
         public override void OnUpdate()
@@ -127,14 +101,14 @@ namespace Engine.Logic.Locations
 
             if (Lists.IsEmpty(path))
                 return; // Путь пустой, значит персонаж стоит на месте
-
-            // Получаем текущую точку, куда следуюет идти
-            var point = path[0];
-
+            
+            // Во время перемещения двигаем камеру за персонажем
+            cameraController.UpdateCameraPos();
+            
             // Рассчитываем прогресс движения и перемещаем персонажа
-            float progress = (Time.time - MoveContext.ChangePositionTimestamp) * speed / MoveContext.Distance;
-            transform.position = Vector3.Lerp(MoveContext.StartPosition, MoveContext.NextPosition, Mathf.Min(progress, 1f));
-            transform.rotation = Quaternion.Lerp(MoveContext.StartRotation, MoveContext.NextRotation, Mathf.Min(progress * 4f, 1f));
+            float progress = (Time.time - moveContext.ChangePositionTimestamp) * speed / moveContext.Distance;
+            transform.position = Vector3.Lerp(moveContext.StartPosition, moveContext.NextPosition, Mathf.Min(progress, 1f));
+            transform.rotation = Quaternion.Lerp(moveContext.StartRotation, moveContext.NextRotation, Mathf.Min(progress * 4f, 1f));
 
             if (progress >= 1f)
             {
@@ -160,14 +134,14 @@ namespace Engine.Logic.Locations
 
             Animator.SetInteger(AnimationKey.MoveSpeedKey, (int)MoveSpeedType.Run); // Меняем состояние на бег
 
-            directionObject.LookAt(path[0]); // Выставляем параметры поворота персонажа в сторону точки куда он бежит
-            MoveContext.NextRotation = Quaternion.Euler(0, directionObject.rotation.eulerAngles.y, 0);
-            MoveContext.StartRotation = transform.rotation;
+            lookDirectionTransform.LookAt(path[0]); // Выставляем параметры поворота персонажа в сторону точки куда он бежит
+            moveContext.NextRotation = Quaternion.Euler(0, lookDirectionTransform.rotation.eulerAngles.y, 0);
+            moveContext.StartRotation = transform.rotation;
 
-            MoveContext.NextPosition = path[0]; // Выставляем параметры следующей точки куда нужно бежать
-            MoveContext.StartPosition = transform.position;
-            MoveContext.ChangePositionTimestamp = Time.time;
-            MoveContext.Distance = Vector3.Distance(StartPosition, NextPosition);
+            moveContext.NextPosition = path[0]; // Выставляем параметры следующей точки куда нужно бежать
+            moveContext.StartPosition = transform.position;
+            moveContext.ChangePositionTimestamp = Time.time;
+            moveContext.Distance = Vector3.Distance(StartPosition, NextPosition);
         }
 
         /// <summary>
