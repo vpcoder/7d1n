@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4157144710333342}
   - component: {fileID: 3859272736785086735}
+  - component: {fileID: 3407506666276183386}
   m_Layer: 0
   m_Name: Fridge_01
   m_TagString: Untagged
@@ -43,8 +44,21 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 1, y: 2.0921369, z: 0.75000244}
-  m_Center: {x: 0, y: 1.0460684, z: -0.0000012218952}
+  m_Size: {x: 1, y: 2.0921369, z: 0.8227823}
+  m_Center: {x: 0, y: 1.0460684, z: 0.03638868}
+--- !u!114 &3407506666276183386
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1000079732574060}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8b4abf34eae0460ba159e7f53963eed4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  anchorPos: {x: 0.4997777, y: 0, z: 0.44717467}
 --- !u!1 &1700063989979628
 GameObject:
   m_ObjectHideFlags: 0

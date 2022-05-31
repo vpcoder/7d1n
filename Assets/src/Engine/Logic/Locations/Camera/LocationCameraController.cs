@@ -84,7 +84,7 @@ namespace Engine.Logic.Map
 
         private void Awake()
         {
-            UpdateCameraPos(0.001f, 0f);
+            UpdateCameraPos();
         }
 
         public void UpdateCameraPos()

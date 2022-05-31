@@ -13,11 +13,32 @@ namespace Engine.Logic.Locations.Generator.Environment.Building.Rooms
     {
 
         /// <summary>
+        ///     Стол под телевизор
+        ///     ---
+        ///     
+        /// </summary>
+        TVCabinet,
+        
+        /// <summary>
+        ///     Диван
+        ///     ---
+        /// 
+        /// </summary>
+        Couch,
+        
+        /// <summary>
+        ///     Кресло
+        ///     ---
+        /// 
+        /// </summary>
+        Chair,
+        
+        /// <summary>
         ///     Телевизор
         ///     ---
         ///     TV-Set
         /// </summary>
-        TVset,
+        TVSet,
 
     }
 

@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using UnityEngine;
 using System.Reflection;
 
@@ -70,7 +71,7 @@ namespace UnityEditor {
 		/// <summary>
 		/// Выполняет построение секции описания редактора
 		/// </summary>
-		private void doDescriptionSection() {
+		private void DoDescriptionSection() {
 
 			string description = GetDescription();
 
@@ -88,7 +89,7 @@ namespace UnityEditor {
 		/// <summary>
 		/// Выполняет построения секции дополнительной информации (произвольно текста) для редактора
 		/// </summary>
-		private void doTextInfoSection() {
+		private void DoTextInfoSection() {
 
 			string textInfo = GetTextInfo();
 
@@ -101,12 +102,12 @@ namespace UnityEditor {
 		/// <summary>
 		/// Выполняет построение секции редактирования
 		/// </summary>
-		private void doEditorSection() {
+		private void DoEditorSection() {
 
 			EditorVisibleType visibleType = GetEditorVisibleType();
 
 			if (visibleType == EditorVisibleType.HideInFader) {
-				showEditor = EditorGUILayout.Foldout(showEditor, "Редактор");
+				showEditor = EditorGUILayout.Foldout(showEditor, "Editor | Редактор");
 				if (showEditor) {
 					OnDefaultEditor();
 				}
@@ -116,7 +117,7 @@ namespace UnityEditor {
 				OnDefaultEditor();
 			}
 
-			showDocs = EditorGUILayout.Foldout(showDocs, "Документация");
+			showDocs = EditorGUILayout.Foldout(showDocs, "Documentation | Документация");
 			if (showDocs) {
 				OnDocsEditor();
 			}
@@ -144,9 +145,9 @@ namespace UnityEditor {
 
 		public override void OnInspectorGUI() {
 
-			doDescriptionSection();
-			doTextInfoSection();
-			doEditorSection();
+			DoDescriptionSection();
+			DoTextInfoSection();
+			DoEditorSection();
 
 		}
 
@@ -186,8 +187,8 @@ namespace UnityEditor {
 				}
 
 				EditorGUILayout.BeginHorizontal();
-				EditorGUILayout.LabelField(field.Name, getEditorLabel(field));
-				checkEditorComment(field);
+				EditorGUILayout.LabelField(field.Name, GetEditorLabel(field));
+				CheckEditorComment(field);
 
 			}
 
@@ -197,7 +198,7 @@ namespace UnityEditor {
 		/// Проверяет, и строит метку для поля в редакторе
 		/// </summary>
 		/// <param name="field">Поле, для которого строится метка</param>
-		protected string getEditorLabel(FieldInfo field) {
+		protected string GetEditorLabel(FieldInfo field) {
 
 			CaptionAttribute attribute = field.GetAttribute<CaptionAttribute>();
 			if (attribute != null) {
@@ -212,7 +213,7 @@ namespace UnityEditor {
 		/// Проверяет и, при необходимости, строит блок комментариев для указанного поля
 		/// </summary>
 		/// <param name="field">Поле, для которого строится блок комментариев</param>
-		protected void checkEditorComment(FieldInfo field) {
+		protected void CheckEditorComment(FieldInfo field) {
 
 			CommentsAttribute comments = field.GetAttribute<CommentsAttribute>();
 			if (comments == null) {

@@ -57,8 +57,15 @@ namespace Engine.Logic.Locations.Generator.Environment.Building.Arrangement
     public interface IArrangementProcessor<E> : IArrangementProcessor
                                       where E : struct
     {
-
-        public ArrangementContext<E> ArrangementContext { get; }
+        
+        /// <summary>
+        ///     Контекст расстановки.
+        ///     Объекты, которые мы уже расставили в помещении
+        ///     ---
+        ///     Context of the placement.
+        ///     Objects that we have already set up in the room
+        /// </summary>
+        ArrangementContext<E> ArrangementContext { get; }
         
         /// <summary>
         ///     Процесс расстановки.

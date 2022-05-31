@@ -15,61 +15,19 @@ namespace Engine.Logic.Locations.Generator.Furniture
         {
             var items = new List<IFurnitureItem<KitchenItemType>>();
 
-            // Добавляем раковину
-            items.Add(new FurnitureItem<KitchenItemType>()
-            {
-                Type = KitchenItemType.Sink,
-                Count = 1,
-            });
+            AddItem(items, KitchenItemType.Sink);
             
-            items.Add(new FurnitureItem<KitchenItemType>()
-            {
-                Type = KitchenItemType.CounterWashing,
-                Count = 1,
-            });
+            AddItem(items, KitchenItemType.CounterWashing);
+            AddItem(items, KitchenItemType.Oven);
             
-            items.Add(new FurnitureItem<KitchenItemType>()
-            {
-                Type = KitchenItemType.Oven,
-                Count = 1,
-            });
+            AddItem(items, KitchenItemType.CounterCorner, random.Next(1, 2));
+            AddItem(items, KitchenItemType.Counter, random.Next(1, 2));
+            AddItem(items, KitchenItemType.EmptyCounter);
+            AddItem(items, KitchenItemType.Fridge);
+            AddItem(items, KitchenItemType.Table);
             
-            items.Add(new FurnitureItem<KitchenItemType>()
-            {
-                Type = KitchenItemType.CounterCorner,
-                Count = 2,
-            });
-            
-            items.Add(new FurnitureItem<KitchenItemType>()
-            {
-                Type = KitchenItemType.Counter,
-                Count = 1,
-            });
-            
-            items.Add(new FurnitureItem<KitchenItemType>()
-            {
-                Type = KitchenItemType.EmptyCounter,
-                Count = 1,
-            });
-            
-            items.Add(new FurnitureItem<KitchenItemType>()
-            {
-                Type = KitchenItemType.Fridge,
-                Count = 1,
-            });
-            
-            items.Add(new FurnitureItem<KitchenItemType>()
-            {
-                Type = KitchenItemType.Table,
-                Count = 1,
-            });
-            
-            items.Add(new FurnitureItem<KitchenItemType>()
-            {
-                Type = KitchenItemType.Chair,
-                Count = 3,
-            });
-            
+            AddItem(items, KitchenItemType.Chair, random.Next(1, 4));
+
             return items;
         }
 

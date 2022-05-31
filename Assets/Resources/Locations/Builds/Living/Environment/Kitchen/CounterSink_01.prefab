@@ -91,6 +91,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4927316864281234}
   - component: {fileID: 4757540077029258367}
+  - component: {fileID: 7597646727066372343}
   m_Layer: 0
   m_Name: CounterSink_01
   m_TagString: Untagged
@@ -124,8 +125,21 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 1.281024, y: 1.4691496, z: 1.0110412}
-  m_Center: {x: 0.01646638, y: 0.7324085, z: 0.09187055}
+  m_Size: {x: 1.281024, y: 0.9487047, z: 1.0110412}
+  m_Center: {x: 0.01646638, y: 0.4721861, z: 0.09187055}
+--- !u!114 &7597646727066372343
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1605675975734952}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8b4abf34eae0460ba159e7f53963eed4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  anchorPos: {x: 0.6530767, y: 0, z: 0.5955149}
 --- !u!1 &1974892120712264
 GameObject:
   m_ObjectHideFlags: 0

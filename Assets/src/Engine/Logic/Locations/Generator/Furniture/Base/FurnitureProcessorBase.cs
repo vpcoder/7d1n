@@ -122,6 +122,15 @@ namespace Engine.Logic.Locations.Generator.Furniture
         }
         
         #endregion
+
+        protected void AddItem(IList<IFurnitureItem<E>> list, E type, int count = 1)
+        {
+            list.Add(new FurnitureItem<E>()
+            {
+                Type = type,
+                Count = count,
+            });
+        }
         
     }
     

@@ -21,8 +21,9 @@ namespace Engine.Logic.Load
             // FIXME: тестовые данные
             Game.Instance.Runtime.Location.ID = Random.Range(0, 10000);
             Game.Instance.Runtime.GenerationInfo = LocationGenerateContex.Generate(Game.Instance.Runtime.Location); // Тестовые сведения о здании и этаже
-            
-            
+
+
+            var enemyPointsList = new List<EnemyPointInfo>();
             SetDescription(Localization.Instance.Get("ui_location_load_rooms"));
             // Собираем все комнаты в сцене
             var rooms = FindObjectsOfType<RoomHierarchyBehaviour>();
@@ -31,6 +32,7 @@ namespace Engine.Logic.Load
             {
                 markers.AddRange(room.GetMarkers());
                 LocationGenerateContex.GenerateRoomByMarkers(room.GetMarkers(), room.RoomType);
+                enemyPointsList.AddRange(Game.Instance.Runtime.GenerationInfo.EnemyInfo.EnemyStartPoints);
             }
             // Генерация всей сцены (стены, пол и прочее)
             LocationGenerateContex.GenerateGlobalScene(markers);
@@ -43,7 +45,7 @@ namespace Engine.Logic.Load
             yield return new WaitForSeconds(MIN_WAIT);
             ObjectFinder.Find<NavMeshGenerator>().CreateNavMesh();
             
-            Test();
+            Test(enemyPointsList);
 
             // Конец загрузки
             CompleteLoad();
@@ -66,7 +68,7 @@ namespace Engine.Logic.Load
             character.SetActive(false);
         }
         
-        private void Test()
+        private void Test(List<EnemyPointInfo> enemyPointsList)
         {
             var character = Game.Instance.Character;
 
@@ -82,13 +84,12 @@ namespace Engine.Logic.Load
             character.Equipment.Use1 = pm;
             ObjectFinder.Find<HandsController>().GetCell(0).Weapon = pm;
 
-            var enemyInfo = Game.Instance.Runtime.GenerationInfo.EnemyInfo;
-            for (int i = 0; i < 3; i++)
+            for (int i = 0; i < 5; i++)
             {
-                if (enemyInfo.EnemyStartPoints.Count == 0)
+                if (enemyPointsList.Count == 0)
                     break;
 
-                var randomPoint = enemyInfo.EnemyStartPoints[Random.Range(0, enemyInfo.EnemyStartPoints.Count)];
+                var randomPoint = enemyPointsList[Random.Range(0, enemyPointsList.Count)];
                 
                 var behaviour = NpcFactory.Instance.GetBehaviour(100L);
                 var pos = randomPoint.Position;
@@ -97,9 +98,9 @@ namespace Engine.Logic.Load
                 rot.x = 0;
                 rot.z = 0;
 
-                var npc = GameObject.Instantiate<GameObject>(behaviour, pos, Quaternion.Euler(rot));
+                var npc = Instantiate(behaviour, pos, Quaternion.Euler(rot));
 
-                enemyInfo.EnemyStartPoints.Remove(randomPoint);
+                enemyPointsList.Remove(randomPoint);
             }
 
         }

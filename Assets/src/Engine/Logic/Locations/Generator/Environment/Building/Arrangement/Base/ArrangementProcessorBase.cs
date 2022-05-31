@@ -34,12 +34,19 @@ namespace Engine.Logic.Locations.Generator.Environment.Building.Arrangement
         ///     Context of the placement.
         ///     Objects that we have already set up in the room
         /// </summary>
-        protected ArrangementContext<E> arrangementContext = new ArrangementContext<E>();
+        private readonly ArrangementContext<E> arrangementContext = new ArrangementContext<E>();
 
         #endregion
         
         #region Properties
 
+        /// <summary>
+        ///     Контекст расстановки.
+        ///     Объекты, которые мы уже расставили в помещении
+        ///     ---
+        ///     Context of the placement.
+        ///     Objects that we have already set up in the room
+        /// </summary>
         public ArrangementContext<E> ArrangementContext => arrangementContext;
 
         /// <summary>
