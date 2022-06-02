@@ -65,6 +65,25 @@ INSERT INTO `i18n_ru_ru`(`key`,`value`) VALUES ('res_raw_cooper_desc', 'Бога
 
 # Объекты ;
 
+	INSERT INTO `i18n_ru_ru`(`key`,`value`) VALUES ('sink_1_name', 'Раковина');
+	INSERT INTO `i18n_ru_ru`(`key`,`value`) VALUES ('sink_1_desc', 'Старая раковина, в ней мыли посуду и использовали в хозяйстве');
+	INSERT INTO `i18n_ru_ru`(`key`,`value`) VALUES ('counter_corner_1_name', 'Угловая столешница');
+	INSERT INTO `i18n_ru_ru`(`key`,`value`) VALUES ('counter_corner_1_desc', 'Часть кухни, в ней есть металлические детали');
+	INSERT INTO `i18n_ru_ru`(`key`,`value`) VALUES ('counter_empty_1_name', 'Пустая столешница');
+	INSERT INTO `i18n_ru_ru`(`key`,`value`) VALUES ('counter_empty_1_desc', 'Часть кухни, в ней только дерево');
+	INSERT INTO `i18n_ru_ru`(`key`,`value`) VALUES ('counter_shelf_1_name', 'Столешница с полками');
+	INSERT INTO `i18n_ru_ru`(`key`,`value`) VALUES ('counter_shelf_1_desc', 'Часть кухни, в ней только дерево');
+	INSERT INTO `i18n_ru_ru`(`key`,`value`) VALUES ('counter_washing_1_name', 'Столешница с посудомойкой');
+	INSERT INTO `i18n_ru_ru`(`key`,`value`) VALUES ('counter_washing_1_desc', 'Часть кухни, в ней есть электроника');
+	INSERT INTO `i18n_ru_ru`(`key`,`value`) VALUES ('fridge_1_name', 'Холодильник');
+	INSERT INTO `i18n_ru_ru`(`key`,`value`) VALUES ('fridge_1_desc', 'Охлаждает продукты для хранения, в нём должны быть электронные части');
+	INSERT INTO `i18n_ru_ru`(`key`,`value`) VALUES ('oven_1_name', 'Электроплитка');
+	INSERT INTO `i18n_ru_ru`(`key`,`value`) VALUES ('oven_1_desc', 'Разогревает пищу, в ней куча металла');
+	INSERT INTO `i18n_ru_ru`(`key`,`value`) VALUES ('kitchen_table_1_name', 'Кухонный стол');
+	INSERT INTO `i18n_ru_ru`(`key`,`value`) VALUES ('kitchen_table_1_desc', 'За таким столом люди собираются вместе чтобы поесть в компании, он из дерева');
+	INSERT INTO `i18n_ru_ru`(`key`,`value`) VALUES ('kitchen_chair_1_name', 'Кухонный стул');
+	INSERT INTO `i18n_ru_ru`(`key`,`value`) VALUES ('kitchen_chair_1_desc', 'На этом стуле сидят за столом, он деревянный');
+	
 	INSERT INTO `i18n_ru_ru`(`key`,`value`) VALUES ('tv_1_name', 'Телевизор');
 	INSERT INTO `i18n_ru_ru`(`key`,`value`) VALUES ('tv_1_desc', 'ЖК телевизор');
 	INSERT INTO `i18n_ru_ru`(`key`,`value`) VALUES ('shelf_1_name', 'Полка');

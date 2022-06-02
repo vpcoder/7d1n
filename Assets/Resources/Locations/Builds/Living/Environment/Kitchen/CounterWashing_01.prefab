@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 4910889157554330}
   - component: {fileID: 9203304543830434989}
   - component: {fileID: 8585540950095170670}
+  - component: {fileID: 6211448642991797527}
   m_Layer: 0
   m_Name: CounterWashing_01
   m_TagString: Untagged
@@ -44,8 +45,8 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 1.2545364, y: 0.94957304, z: 1}
-  m_Center: {x: 0.6272682, y: 0.47478652, z: 0.5}
+  m_Size: {x: 1.2612102, y: 0.94957304, z: 1.0112717}
+  m_Center: {x: 0.025057435, y: 0.47478652, z: 0.10329464}
 --- !u!114 &8585540950095170670
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -58,7 +59,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8b4abf34eae0460ba159e7f53963eed4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  anchorPos: {x: 1.253524, y: 0, z: 0.9992598}
+  anchorPos: {x: 0.656262, y: 0, z: 0.61083215}
+--- !u!114 &6211448642991797527
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1209171293886436}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 22c43db63fd20c640bb4ac8240bf1726, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  itemID: 100004
 --- !u!1 &1896556458770432
 GameObject:
   m_ObjectHideFlags: 0
@@ -249,7 +263,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5517637174817563320}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: -0.6, y: 0, z: -0.4}
   m_LocalScale: {x: 1.25, y: 1, z: 1}
   m_Children:
   - {fileID: 4456326414892756}

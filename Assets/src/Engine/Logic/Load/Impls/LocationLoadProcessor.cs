@@ -71,15 +71,15 @@ namespace Engine.Logic.Load
         private void Test(List<EnemyPointInfo> enemyPointsList)
         {
             var character = Game.Instance.Character;
+            
+            character.Inventory.Add(DataDictionary.Weapons.WEAPON_PISTOL_PM, 1);
+            character.Inventory.Add(DataDictionary.Weapons.AMMO_9X18, 20);
 
-            character.Inventory.Add(1000L, 1);
-            character.Inventory.Add(2000L, 20);
+            character.Inventory.Add(DataDictionary.Weapons.WEAPON_KNIFE_KITCHEN, 1);
+            character.Inventory.Add(DataDictionary.Weapons.WEAPON_GRENADE_RGD5, 1);
+            character.Inventory.Add(DataDictionary.Weapons.WEAPON_GRENADE_F1, 1);
 
-            character.Inventory.Add(3000L, 1);
-            character.Inventory.Add(4000L, 1);
-            character.Inventory.Add(4001L, 1);
-
-            var pm = (IFirearmsWeapon)character.Inventory.GetFirstById(1000L);
+            var pm = (IFirearmsWeapon)character.Inventory.GetFirstById(DataDictionary.Weapons.WEAPON_PISTOL_PM);
             pm.AmmoCount = 4;
             character.Equipment.Use1 = pm;
             ObjectFinder.Find<HandsController>().GetCell(0).Weapon = pm;

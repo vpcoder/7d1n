@@ -200,6 +200,17 @@ namespace UnityEditor {
 			GUIAddition.ResetColors();
 		}
 
+		/// <summary>
+		/// Строит сообщение HelpBox
+		/// </summary>
+		/// <param name="caption">Текст сообщения на HelpBox элементе</param>
+		public static void WarningBox(string caption) {
+			if (caption == null) {
+				caption = "";
+			}
+			EditorGUILayout.HelpBox(caption, MessageType.Warning);
+		}
+
 		#endregion
 
 	}

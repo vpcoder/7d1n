@@ -18,15 +18,15 @@ namespace Engine.Logic.Locations
         [SerializeField] private Image imgIcon;
         [SerializeField] private GameObject actionPanel;
 
-        private LocationObjectItem selectedItem;
+        private LocationObjectItemBehaviour _selectedItemBehaviour;
 
-        public void Show(LocationObjectItem objectItem)
+        public void Show(LocationObjectItemBehaviour objectItemBehaviour)
         {
             Game.Instance.Runtime.Mode = Mode.GUI;
 
-            selectedItem = objectItem;
+            _selectedItemBehaviour = objectItemBehaviour;
 
-            IItem item = objectItem.Item;
+            IItem item = objectItemBehaviour.Item;
 
             txtName.text = Localization.Instance.Get(item.Name);
             txtDescription.text = Localization.Instance.Get(item.Description);
@@ -49,13 +49,13 @@ namespace Engine.Logic.Locations
 
         public void OnPickUpClick()
         {
-            if (selectedItem == null)
+            if (_selectedItemBehaviour == null)
             {
                 Hide();
                 return;
             }
 
-            if(!CanPickup(selectedItem))
+            if(!CanPickup(_selectedItemBehaviour))
             {
                 var character = ObjectFinder.Find<LocationCharacter>().transform;
                 UIHintMessageManager.Show(hintMessagePrefab.gameObject, character.position, Localization.Instance.Get("msg_error_cant_pickup_item"));
@@ -63,23 +63,23 @@ namespace Engine.Logic.Locations
                 return;
             }
 
-            var door = selectedItem.GetComponent<DoorController>();
+            var door = _selectedItemBehaviour.GetComponent<DoorController>();
             if (door != null)
                 door.State = DoorState.OPENED;
 
-            Game.Instance.Character.Inventory.Add(selectedItem.ID, 1);
-            GameObject.Destroy(selectedItem.gameObject);
+            Game.Instance.Character.Inventory.Add(_selectedItemBehaviour.ID, 1);
+            GameObject.Destroy(_selectedItemBehaviour.gameObject);
 
             Hide();
         }
 
-        public bool CanPickup(LocationObjectItem objectItem)
+        public bool CanPickup(LocationObjectItemBehaviour objectItemBehaviour)
         {
-            if (objectItem.transform.childCount == 0)
+            if (objectItemBehaviour.transform.childCount == 0)
                 return true;
-            for(int child = 0; child < objectItem.transform.childCount; child++)
+            for(int child = 0; child < objectItemBehaviour.transform.childCount; child++)
             {
-                var childObjectItem = objectItem.transform.GetChild(child).GetComponent<LocationObjectItem>();
+                var childObjectItem = objectItemBehaviour.transform.GetChild(child).GetComponent<LocationObjectItemBehaviour>();
                 if (childObjectItem != null)
                     return false;
             }

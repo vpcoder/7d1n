@@ -49,8 +49,8 @@ namespace Engine.Data.Factories
         public IItem Create(long id, long count)
         {
             var item = Create(id);
-            item.Weight = item.GetWeight();
             item.Count = count;
+            item.Weight = item.GetWeight();
             return item;
         }
 

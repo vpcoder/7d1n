@@ -166,7 +166,7 @@ namespace Engine.Data.Factories.Xml
             resource.ID          = Lng("ID");
             resource.StackSize   = Lng("StackSize");
 
-            var weight           = Str("Weight");
+            var weight      = Str("Weight");
             resource.Weight      = ReadWeight(weight);
 
             resource.Name        = Str("Name");

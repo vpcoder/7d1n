@@ -10,7 +10,7 @@ namespace Engine.Logic.Locations
     /// Контроллер, обрабатывающий клики по предметам
     /// Данный компонент вешается на объект, на который планируется совершать нажатия, и выполнять заданные действия
     /// </summary>
-    [RequireComponent(typeof(LocationObjectItem))]
+    [RequireComponent(typeof(LocationObjectItemBehaviour))]
     public class ItemSelectController : MonoBehaviour
     {
 
@@ -50,7 +50,7 @@ namespace Engine.Logic.Locations
         /// </summary>
         public void OnMenuClick()
         {
-            var item = GetComponent<LocationObjectItem>();
+            var item = GetComponent<LocationObjectItemBehaviour>();
             ObjectFinder.Find<ActionPanelController>().Show(item);
         }
 
@@ -59,37 +59,22 @@ namespace Engine.Logic.Locations
         /// </summary>
         public void OnUseClick()
         {
-            var item = GetComponent<LocationObjectItem>();
+            if (Game.Instance.Runtime.Mode != Mode.Game && Game.Instance.Runtime.BattleContext.OrderIndex != EnemyGroup.PlayerGroup) // Не наш ход
+                return;
+            
+            var item = GetComponent<LocationObjectItemBehaviour>();
+            var useItem = item.GetComponent<LocationObjectBattleUseController>();
+            if(useItem != null)
+            {
+                var battleManager = ObjectFinder.Find<BattleManager>();
+                var battleActions = battleManager.BattleActions;
 
-            switch (Game.Instance.Runtime.Mode) {
-                case Mode.Game:
-
-                    var useObject = item.GetComponent<IUseObjectController>();
-                    if (useObject != null)
-                        useObject.DoUse();
-
-                    break;
-                case Mode.Battle:
-
-                    if (Game.Instance.Runtime.BattleContext.OrderIndex != EnemyGroup.PlayerGroup) // Не наш ход
-                        return;
-
-                    var useItem = item.GetComponent<LocationObjectBattleUseController>();
-                    if(useItem != null)
-                    {
-                        var battleManager = ObjectFinder.Find<BattleManager>();
-                        var battleActions = battleManager.BattleActions;
-
-                        battleActions.Show(); // Отображаем панель действия, чтобы пользователь сказал - совершать его или нет
-                        battleActions.NeedAP = useItem.AP;
-                        battleActions.Action = CharacterBattleAction.Use;
-                        battleActions.UseContext.UseItem = useItem;
-                        battleActions.UpdateState();
-                    }
-
-                    break;
+                battleActions.Show(); // Отображаем панель действия, чтобы пользователь сказал - совершать его или нет
+                battleActions.NeedAP = useItem.AP;
+                battleActions.Action = CharacterBattleAction.Use;
+                battleActions.UseContext.UseItem = useItem;
+                battleActions.UpdateState();
             }
-
         }
 
         /// <summary>

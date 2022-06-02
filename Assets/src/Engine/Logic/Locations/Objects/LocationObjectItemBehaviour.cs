@@ -5,7 +5,7 @@ using UnityEngine;
 namespace Engine.Logic.Locations
 {
 
-    public class LocationObjectItem : MonoBehaviour
+    public class LocationObjectItemBehaviour : MonoBehaviour
     {
 
         [SerializeField] private long itemID;
