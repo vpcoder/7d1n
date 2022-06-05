@@ -256,6 +256,7 @@ GameObject:
   - component: {fileID: 4008211223898096}
   - component: {fileID: 5727442438498858320}
   - component: {fileID: 4032703642275469109}
+  - component: {fileID: -34876998027668125}
   m_Layer: 0
   m_Name: TVCabinet_01
   m_TagString: Untagged
@@ -304,6 +305,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   anchorPos: {x: 1.81197, y: 0, z: 0.11293579}
+--- !u!114 &-34876998027668125
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1551739599243302}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 22c43db63fd20c640bb4ac8240bf1726, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  itemID: 100102
 --- !u!1 &1679701644295756
 GameObject:
   m_ObjectHideFlags: 0

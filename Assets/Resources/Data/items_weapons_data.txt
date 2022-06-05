@@ -63,7 +63,7 @@
 			JammingSoundType="firearms/pm_jamming"
 		>
 			<Part ResID="2" ResCount="300" Difficulty="1"/> <!-- Железо  -->
-			<Part ResID="5" ResCount="20"  Difficulty="1"/> <!-- Пластик -->
+			<Part ResID="9" ResCount="20"  Difficulty="1"/> <!-- Пластик -->
 		</Item>
 	<!--/Огнестрел-->
 
@@ -78,7 +78,7 @@
 		>
 			<Part ResID="4"  ResCount="4" Difficulty="1"/> <!-- Медь    -->
 			<Part ResID="3"  ResCount="9" Difficulty="1"/> <!-- Свинец  -->
-			<Part ResID="17" ResCount="5" Difficulty="1"/> <!-- Порох   -->
+			<Part ResID="25" ResCount="5" Difficulty="1"/> <!-- Порох   -->
 		</Item>
 	<!--/Патроны-->
 
@@ -107,7 +107,7 @@
 			ThrowEffectType="knife"
 		>
 			<Part ResID="2" ResCount="60" Difficulty="1"/> <!-- Железо  -->
-			<Part ResID="5" ResCount="20" Difficulty="1"/> <!-- Пластик -->
+			<Part ResID="9" ResCount="20" Difficulty="1"/> <!-- Пластик -->
 		</Item>
 	<!--/Ножи-->
 
@@ -133,8 +133,8 @@
 			ExplodeSoundType="grenades/f1_explode"
 		>
 			<Part ResID="2"  ResCount="60" Difficulty="1"/> <!-- Железо  -->
-			<Part ResID="5"  ResCount="20" Difficulty="1"/> <!-- Пластик -->
-			<Part ResID="17" ResCount="20" Difficulty="1"/> <!-- Порох   -->
+			<Part ResID="9"  ResCount="20" Difficulty="1"/> <!-- Пластик -->
+			<Part ResID="25" ResCount="20" Difficulty="1"/> <!-- Порох   -->
 		</Item>
 
 		<!-- РГД5 -->
@@ -158,8 +158,8 @@
 			ExplodeSoundType="grenades/rgd5_explode"
 		>
 			<Part ResID="2" ResCount="60" Difficulty="1"/> <!-- Железо  -->
-			<Part ResID="5" ResCount="20" Difficulty="1"/> <!-- Пластик -->
-			<Part ResID="17" ResCount="20" Difficulty="1"/> <!-- Порох   -->
+			<Part ResID="9" ResCount="20" Difficulty="1"/> <!-- Пластик -->
+			<Part ResID="25" ResCount="20" Difficulty="1"/> <!-- Порох   -->
 		</Item>
 	<!--/Гранаты-->
 

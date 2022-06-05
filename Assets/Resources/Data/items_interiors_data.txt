@@ -1,6 +1,8 @@
 ﻿<Data>
 
+
     <!-- Kitchen | Кухня -->
+
 
         <!-- Sink | Раковина -->
 	    <Item
@@ -11,8 +13,8 @@
 	    	StackSize="1"
 	    >
 	    	<Part ResID="0" ResCount="4000" Difficulty="1"/> <!-- Дерево       -->
-	    	<Part ResID="2" ResCount="2500" Difficulty="2"/> <!-- Металлолом   -->
-	    	<Part ResID="5" ResCount="5"    Difficulty="2"/> <!-- Пластик      -->
+	    	<Part ResID="1" ResCount="2500" Difficulty="2"/> <!-- Металлолом   -->
+	    	<Part ResID="9" ResCount="5"    Difficulty="2"/> <!-- Пластик      -->
 	    </Item>
 	    
 	    <!-- Counter corner | Угловая столешница -->
@@ -24,7 +26,7 @@
         	StackSize="1"
         >
         	<Part ResID="0" ResCount="5000" Difficulty="1"/> <!-- Дерево       -->
-        	<Part ResID="5" ResCount="5"    Difficulty="2"/> <!-- Пластик      -->
+        	<Part ResID="9" ResCount="5"    Difficulty="2"/> <!-- Пластик      -->
         </Item>	    
         
 	    <!-- Counter empty | Пустая столешница -->
@@ -36,7 +38,7 @@
         	StackSize="1"
         >
         	<Part ResID="0" ResCount="5000" Difficulty="1"/> <!-- Дерево       -->
-        	<Part ResID="5" ResCount="5"    Difficulty="2"/> <!-- Пластик      -->
+        	<Part ResID="9" ResCount="5"    Difficulty="2"/> <!-- Пластик      -->
         </Item>
         
 	    <!-- Counter shelf | Столешница с полками -->
@@ -48,7 +50,7 @@
         	StackSize="1"
         >
         	<Part ResID="0" ResCount="5000" Difficulty="1"/> <!-- Дерево       -->
-        	<Part ResID="5" ResCount="5"    Difficulty="2"/> <!-- Пластик      -->
+        	<Part ResID="9" ResCount="5"    Difficulty="2"/> <!-- Пластик      -->
         </Item>
         
 	    <!-- Counter washing | Столешница с посудомойкой -->
@@ -59,11 +61,11 @@
         	Description="counter_washing_1_desc"
         	StackSize="1"
         >
-        	<Part ResID="0" ResCount="1000" Difficulty="1"/> <!-- Дерево       -->
-    	    <Part ResID="2" ResCount="1000" Difficulty="2"/> <!-- Металлолом   -->
-        	<Part ResID="5" ResCount="500"  Difficulty="2"/> <!-- Пластик      -->
-        	<Part ResID="4" ResCount="200"  Difficulty="3"/> <!-- Медь         -->
-        	<Part ResID="7" ResCount="100"  Difficulty="4"/> <!-- Электроника  -->
+        	<Part ResID="0"  ResCount="1000" Difficulty="1"/> <!-- Дерево       -->
+    	    <Part ResID="1"  ResCount="1000" Difficulty="2"/> <!-- Металлолом   -->
+        	<Part ResID="9"  ResCount="500"  Difficulty="2"/> <!-- Пластик      -->
+        	<Part ResID="4"  ResCount="200"  Difficulty="3"/> <!-- Медь         -->
+        	<Part ResID="11" ResCount="100"  Difficulty="4"/> <!-- Электроника  -->
         </Item>
         
 	    <!-- Fridge | Холодильник -->
@@ -74,10 +76,10 @@
         	Description="fridge_1_desc"
         	StackSize="1"
         >
-        	<Part ResID="5" ResCount="1500" Difficulty="1"/> <!-- Пластик      -->
-    	    <Part ResID="2" ResCount="2000" Difficulty="2"/> <!-- Металлолом   -->
-        	<Part ResID="4" ResCount="100"  Difficulty="3"/> <!-- Медь         -->
-        	<Part ResID="7" ResCount="50"   Difficulty="4"/> <!-- Электроника  -->
+        	<Part ResID="9"  ResCount="1500" Difficulty="1"/> <!-- Пластик      -->
+    	    <Part ResID="1"  ResCount="2000" Difficulty="2"/> <!-- Металлолом   -->
+        	<Part ResID="4"  ResCount="100"  Difficulty="3"/> <!-- Медь         -->
+        	<Part ResID="11" ResCount="50"   Difficulty="4"/> <!-- Электроника  -->
         </Item>
         
 	    <!-- Oven | Электроплита -->
@@ -88,9 +90,9 @@
         	Description="oven_1_desc"
         	StackSize="1"
         >
-    	    <Part ResID="2" ResCount="3000" Difficulty="2"/> <!-- Металлолом   -->
-        	<Part ResID="5" ResCount="100"  Difficulty="2"/> <!-- Пластик      -->
-        	<Part ResID="7" ResCount="10"   Difficulty="4"/> <!-- Электроника  -->
+    	    <Part ResID="1"  ResCount="3000" Difficulty="2"/> <!-- Металлолом   -->
+        	<Part ResID="9"  ResCount="100"  Difficulty="2"/> <!-- Пластик      -->
+        	<Part ResID="11" ResCount="10"   Difficulty="4"/> <!-- Электроника  -->
         </Item>
         
 	    <!-- Kitchen table | Кухонный стол -->
@@ -113,58 +115,120 @@
         	StackSize="1"
         >
         	<Part ResID="0" ResCount="1000" Difficulty="1"/> <!-- Дерево       -->
-        	<Part ResID="2" ResCount="50" Difficulty="2"/>   <!-- Металлолом   -->
+        	<Part ResID="1" ResCount="50" Difficulty="2"/>   <!-- Металлолом   -->
         </Item>
 	    
 	    
-	<Item
-    	ID="100"
-    	Type="LocationObject"
-    	Name="tv_1_name"
-    	Description="tv_1_desc"
-    	StackSize="1"
-    >
-    	<Part ResID="7" ResCount="13"   Difficulty="2"/> <!-- Электроника  -->
-    	<Part ResID="2" ResCount="5"    Difficulty="2"/> <!-- Металлолом   -->
-    	<Part ResID="4" ResCount="5"    Difficulty="2"/> <!-- Медь         -->
-    	<Part ResID="5" ResCount="100"  Difficulty="1"/> <!-- Пластик      -->
-    </Item>
+	<!-- Hall | Зал -->
+	    
+	    
+	    <!-- Hall chair | Кресло в зале -->
+        <Item
+        	ID="100100"
+        	Type="LocationObject"
+        	Name="hall_chair_1_name"
+        	Description="hall_chair_1_desc"
+        	StackSize="1"
+        >
+        	<Part ResID="0"  ResCount="2000" Difficulty="1"/>  <!-- Дерево       -->
+        	<Part ResID="23" ResCount="200"  Difficulty="1"/>  <!-- Ткань       -->
+        	<Part ResID="1"  ResCount="50"   Difficulty="2"/>  <!-- Металлолом   -->
+        </Item>
+	    
+	    <!-- Couch | Диван -->
+        <Item
+        	ID="100101"
+        	Type="LocationObject"
+        	Name="hall_couch_1_name"
+        	Description="hall_couch_1_desc"
+        	StackSize="1"
+        >
+        	<Part ResID="0"  ResCount="2500" Difficulty="1"/>  <!-- Дерево       -->
+        	<Part ResID="23" ResCount="300"  Difficulty="1"/>  <!-- Ткань        -->
+        	<Part ResID="1"  ResCount="50"   Difficulty="2"/>  <!-- Металлолом   -->
+        </Item>
+        
+	    <!-- TV cabinet | Стол для телевизора -->
+        <Item
+        	ID="100102"
+        	Type="LocationObject"
+        	Name="hall_tv_cabinet_1_name"
+        	Description="hall_tv_cabinet_1_desc"
+        	StackSize="1"
+        >
+        	<Part ResID="0"  ResCount="3500" Difficulty="1"/>  <!-- Дерево       -->
+        	<Part ResID="1"  ResCount="50"   Difficulty="2"/>  <!-- Металлолом   -->
+        	<Part ResID="9"  ResCount="100"  Difficulty="2"/>  <!-- Пластик      -->
+        </Item>
+        
+	    <!-- TVSet | Телевизор -->
+        <Item
+        	ID="100103"
+        	Type="LocationObject"
+        	Name="tvset_1_name"
+        	Description="tvset_1_desc"
+        	StackSize="1"
+        >
+        	<Part ResID="1"   ResCount="50"   Difficulty="2"/>  <!-- Металлолом   -->
+        	<Part ResID="9"   ResCount="500"  Difficulty="2"/>  <!-- Пластик      -->
+    	    <Part ResID="11"  ResCount="300"  Difficulty="3"/>  <!-- Электроника  -->
+    	    <Part ResID="4"   ResCount="5"    Difficulty="3"/>  <!-- Медь         -->
+        </Item>
 	
-    <!-- Полка под телевизор -->
-	<Item
-		ID="500"
-		Type="LocationObject"
-		Name="shelf_1_name"
-		Description="shelf_1_desc"
-		StackSize="1"
-	>
-		<Part ResID="0" ResCount="1500" Difficulty="1"/> <!-- Дерево     -->
-		<Part ResID="2" ResCount="10"   Difficulty="2"/> <!-- Металлолом -->
-		<Part ResID="5" ResCount="20"   Difficulty="1"/> <!-- Пластик    -->
-	</Item>
 	
-    <!-- Деревянная дверная коробка в стене -->
-	<Item
-		ID="510"
-		Type="LocationObject"
-		Name="door_box_1_name"
-		Description="door_box_1_desc"
-		StackSize="1"
-	>
-		<Part ResID="0" ResCount="80" Difficulty="1"/>  <!-- Дерево     -->
-		<Part ResID="2" ResCount="2"  Difficulty="2"/>  <!-- Металлолом -->
-	</Item>
+	<!-- Toilet/Bath | Туалет/Ванная -->
 	
+	    <!-- Sink | Раковина -->
+        <Item
+        	ID="100200"
+        	Type="LocationObject"
+        	Name="bath_sink_1_name"
+        	Description="bath_sink_1_desc"
+        	StackSize="1"
+        >
+        	<Part ResID="13" ResCount="1000"  Difficulty="2"/>  <!-- Керамика     -->
+        	<Part ResID="1"  ResCount="200"   Difficulty="2"/>  <!-- Металлолом   -->
+        </Item>
+	
+	    <!-- Washer | Стиральная машинка -->
+        <Item
+        	ID="100201"
+        	Type="LocationObject"
+        	Name="bath_washer_1_name"
+        	Description="bath_washer_1_desc"
+        	StackSize="1"
+        >
+            <Part ResID="24"  ResCount="50"   Difficulty="1"/>  <!-- Резина       -->
+        	<Part ResID="1"   ResCount="500"  Difficulty="2"/>  <!-- Металлолом   -->
+        	<Part ResID="9"   ResCount="500"  Difficulty="2"/>  <!-- Пластик      -->
+            <Part ResID="11"  ResCount="300"  Difficulty="3"/>  <!-- Электроника  -->
+            <Part ResID="4"   ResCount="200"  Difficulty="3"/>  <!-- Медь         -->
+        </Item>
+        
+        <!-- Bath | Ванна -->
+        <Item
+        	ID="100202"
+        	Type="LocationObject"
+        	Name="bath_1_name"
+        	Description="bath_1_desc"
+        	StackSize="1"
+        >
+        	<Part ResID="13" ResCount="1000"  Difficulty="2"/>  <!-- Керамика     -->
+        	<Part ResID="1"  ResCount="200"   Difficulty="2"/>  <!-- Металлолом   -->
+        </Item>
+    
+    
+    
     <!-- Деревянная дверь -->
 	<Item
-		ID="511"
+		ID="101000"
 		Type="LocationObject"
 		Name="door_1_name"
 		Description="door_1_desc"
 		StackSize="1"
 	>
 		<Part ResID="0" ResCount="2500" Difficulty="1"/>  <!-- Дерево     -->
-		<Part ResID="2" ResCount="20"   Difficulty="2"/>  <!-- Металлолом -->
+		<Part ResID="1" ResCount="150"  Difficulty="2"/>  <!-- Металлолом -->
 	</Item>
 
 </Data>
