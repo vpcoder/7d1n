@@ -1,6 +1,7 @@
 ﻿<Data>
 
 
+    <!-- =============== -->
     <!-- Kitchen | Кухня -->
 
 
@@ -118,7 +119,33 @@
         	<Part ResID="1" ResCount="50" Difficulty="2"/>   <!-- Металлолом   -->
         </Item>
 	    
+	    <!-- Toaster | Тостер -->
+        <Item
+        	ID="100009"
+        	Type="LocationObject"
+        	Name="toaster_1_name"
+        	Description="toaster_1_desc"
+        	StackSize="1"
+        >
+        	<Part ResID="1"  ResCount="150" Difficulty="2"/>  <!-- Металлолом   -->
+    	    <Part ResID="11" ResCount="50"  Difficulty="3"/>  <!-- Электроника  -->
+        </Item>
 	    
+	    <!-- Microwave | Микроволновка -->
+        <Item
+        	ID="100010"
+        	Type="LocationObject"
+        	Name="microwave_1_name"
+        	Description="microwave_1_desc"
+        	StackSize="1"
+        >
+        	<Part ResID="1"  ResCount="150" Difficulty="2"/>  <!-- Металлолом   -->
+        	<Part ResID="9"  ResCount="100" Difficulty="1"/>  <!-- Пластик      -->
+    	    <Part ResID="11" ResCount="150" Difficulty="2"/>  <!-- Электроника  -->
+        </Item>
+	
+	
+	<!-- ========== -->
 	<!-- Hall | Зал -->
 	    
 	    
@@ -176,7 +203,9 @@
         </Item>
 	
 	
+	<!-- =========================== -->
 	<!-- Toilet/Bath | Туалет/Ванная -->
+	
 	
 	    <!-- Sink | Раковина -->
         <Item
@@ -219,6 +248,7 @@
     
     
     
+    
     <!-- Деревянная дверь -->
 	<Item
 		ID="101000"
@@ -228,7 +258,8 @@
 		StackSize="1"
 	>
 		<Part ResID="0" ResCount="2500" Difficulty="1"/>  <!-- Дерево     -->
-		<Part ResID="1" ResCount="150"  Difficulty="2"/>  <!-- Металлолом -->
+		<Part ResID="1" ResCount="50"   Difficulty="2"/>  <!-- Металлолом -->
 	</Item>
+
 
 </Data>

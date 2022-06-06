@@ -91,7 +91,7 @@ GameObject:
   - component: {fileID: 6579484892900513752}
   - component: {fileID: 6579484892900513755}
   m_Layer: 5
-  m_Name: ActionPanel
+  m_Name: Body
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -612,7 +612,7 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 6579484894210994872}
-  m_RootOrder: 1
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
@@ -759,7 +759,7 @@ RectTransform:
   m_Children:
   - {fileID: 6579484892900513754}
   m_Father: {fileID: 6579484894210994872}
-  m_RootOrder: 0
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
@@ -778,12 +778,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 05d8234040b47ed408b3dec4169d4877, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  body: {fileID: 6579484892900513749}
+  visible: 0
   hintMessagePrefab: {fileID: 839712707183261450, guid: 5622133fd8bd0e1499b6000b085198dc,
     type: 3}
   txtName: {fileID: 6579484894234587793}
   txtDescription: {fileID: 6579484893172826590}
   imgIcon: {fileID: 6579484893073533215}
-  actionPanel: {fileID: 6579484892900513749}
 --- !u!1 &6579484894210994875
 GameObject:
   m_ObjectHideFlags: 0
@@ -811,8 +812,8 @@ RectTransform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
-  - {fileID: 6579484894096402753}
   - {fileID: 6579484893917537463}
+  - {fileID: 6579484894096402753}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}

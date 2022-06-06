@@ -29,9 +29,6 @@ namespace Engine.Logic.Locations
 
         private void OnMouseUp()
         {
-            if (EventSystem.current.IsPointerOverGameObject())
-                return;
-
             if (!CheckDistance())
                 return;
 
@@ -41,8 +38,8 @@ namespace Engine.Logic.Locations
                 return;
             }
 
-            if(Game.Instance.Runtime.Mode == Mode.Game) // Это клик с задержкой, нужно развернуть меню
-                OnMenuClick();
+            //if(Game.Instance.Runtime.Mode == Mode.Game) // Это клик с задержкой, нужно развернуть меню
+            OnMenuClick();
         }
 
         /// <summary>

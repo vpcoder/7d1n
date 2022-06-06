@@ -93,6 +93,7 @@ GameObject:
   - component: {fileID: 4516909087156348}
   - component: {fileID: 7450942306482499816}
   - component: {fileID: 3860925006189825525}
+  - component: {fileID: 354114500008188165}
   m_Layer: 0
   m_Name: Microwave_01
   m_TagString: Untagged
@@ -141,6 +142,27 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   anchorPos: {x: 0.2869848, y: 0, z: 0.25228843}
+--- !u!114 &354114500008188165
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1996138439020052}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 22c43db63fd20c640bb4ac8240bf1726, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  itemInfo:
+    ID: 100010
+    Count: 1
+    Type: 240
+    Firearms:
+      AmmoCount: 0
+    Craftable:
+      Level: 0
+      Author: 
 --- !u!1 &7615041372944287034
 GameObject:
   m_ObjectHideFlags: 0

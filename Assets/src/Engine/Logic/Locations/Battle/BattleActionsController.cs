@@ -19,32 +19,68 @@ namespace Engine.Logic.Locations
     public class BattleActionsController : Panel
     {
 
+        #region Hidden Fields
+        
         /// <summary>
-        /// Описание действия совершаемого игроком
+        ///     Описание действия совершаемого игроком
+        ///     ---
+        ///     Description of the action performed by the player
         /// </summary>
         [SerializeField] private Text txtActionDescription;
 
         /// <summary>
-        /// Кнопка совершения действия
+        ///     Кнопка совершения действия
+        ///     ---
+        ///     Button to perform an action
         /// </summary>
         [SerializeField] private Button btnActionRun;
 
+        #endregion
+        
+        #region Properties
+        
+        /// <summary>
+        ///     Хранит контекст необходимый для совершения действий перемещения
+        ///     ---
+        ///     Stores the context needed to perform a move action
+        /// </summary>
         public BattleActionMoveContext MoveContext { get; } = new BattleActionMoveContext();
+        
+        /// <summary>
+        ///     Хранит контекст необходимый для совершения действий использования
+        ///     ---
+        ///     Stores the context necessary to perform actions of use
+        /// </summary>
         public BattleActionUseContext UseContext { get; } = new BattleActionUseContext();
+        
+        /// <summary>
+        ///     Хранит контекст необходимый для совершения действий атаки
+        ///     ---
+        ///     Stores the context required for the attack actions
+        /// </summary>
         public BattleActionAttackContext AttackContext { get; } = new BattleActionAttackContext();
 
-        public int NeedAP
-        {
-            get;
-            set;
-        }
+        /// <summary>
+        ///     Требование к ОД для совершения указанного действия
+        ///     ---
+        ///     Requirement for AP to perform the specified action
+        /// </summary>
+        public int NeedAP { get; set; }
 
-        public CharacterBattleAction Action
-        {
-            get;
-            set;
-        }
+        /// <summary>
+        ///     Текущий тип совершаемого действия
+        ///     ---
+        ///     The current type of action being performed
+        /// </summary>
+        public CharacterBattleAction Action { get; set; }
 
+        #endregion
+        
+        /// <summary>
+        ///     Обновляет сведения на панели совершаемого действия (отображает текст действия, возможность его совершения, стоимость ОД и т.д.)
+        ///     ---
+        ///     Updates the information on the action panel (displays the text of the action, the possibility to perform it, the cost of AP, etc.)
+        /// </summary>
         public void UpdateState()
         {
             if (Action != CharacterBattleAction.Move)
@@ -73,6 +109,21 @@ namespace Engine.Logic.Locations
             btnActionRun.enabled = Game.Instance.Runtime.BattleContext.CurrentCharacterAP >= NeedAP;
         }
 
+        /// <summary>
+        ///     Локализует текст действия, в зависимости от типа действия, оружия в руках и т.д.
+        ///     ---
+        ///     Localizes the text of the action, depending on the type of action, weapon in hand, etc.
+        /// </summary>
+        /// <param name="action">
+        ///     Совершаемое действие
+        ///     ---
+        ///     The action being performed
+        /// </param>
+        /// <returns>
+        ///     Локализованную строку с описанием того что будет совершено
+        ///     ---
+        ///     A localized string describing what will be done
+        /// </returns>
         private string GetMessageBattleAction(CharacterBattleAction action)
         {
             switch(action)
@@ -100,6 +151,16 @@ namespace Engine.Logic.Locations
             return "?";
         }
 
+        /// <summary>
+        ///     Формирует текст сообщения для описания текущего действия, которое хочет совершить игрок
+        ///     ---
+        ///     Generates a message text to describe the current action the player wants to take
+        /// </summary>
+        /// <returns>
+        ///     Текст описывающий действие выполняемое персонажем, возможность его совершения, и стоимость в ОД, если игрок в бою
+        ///     ---
+        ///     Text describing the action performed by the character, the possibility of performing it, and the cost in AP if the player is in combat
+        /// </returns>
         private string CreateActionMessage()
         {
             var builder = new StringBuilder();
@@ -107,16 +168,16 @@ namespace Engine.Logic.Locations
             builder.Append(" <color=\"#ff0\">");
             builder.Append(GetMessageBattleAction(Action));
             builder.Append(" </color>\r\n");
-            builder.Append(Localization.Instance.Get("msg_battle_action_description2"));
 
-            if(Game.Instance.Runtime.BattleContext.CurrentCharacterAP >= NeedAP)
-                builder.Append(": <color=\"#0f0\">");
-            else
-                builder.Append(": <color=\"#f00\">");
-
-            builder.Append(NeedAP);
-            builder.Append(" </color>");
-            builder.Append(Localization.Instance.Get("msg_ap"));
+            if (Game.Instance.Runtime.BattleFlag) // Во время битвы важны траты ОД, показываем их в окне действия, без битвы расход ОД не важен, поэтому мы его прячем
+            {
+                builder.Append(Localization.Instance.Get("msg_battle_action_description2"));
+                builder.Append(Game.Instance.Runtime.BattleContext.CurrentCharacterAP >= NeedAP ? ": <color=\"#0f0\">" : ": <color=\"#f00\">");
+                builder.Append(NeedAP);
+                builder.Append(" </color>");
+                builder.Append(Localization.Instance.Get("msg_ap"));
+            }
+            
             return builder.ToString();
         }
 
@@ -143,18 +204,19 @@ namespace Engine.Logic.Locations
                 case CharacterBattleAction.Use    : return UseContext;
                 case CharacterBattleAction.Attack : return AttackContext;
                 default:
-                    throw new NotSupportedException("value '" + action.ToString() + "' isn't supported!");
+                    throw new NotSupportedException("value '" + action + "' isn't supported!");
             }
         }
 
         /// <summary>
-        /// Клик по кнопке "Выполнить"
-        /// ---
-        /// Click the "Run" button
+        ///     Клик по кнопке "Выполнить"
+        ///     ---
+        ///     Click the "Run" button
         /// </summary>
         public void DoActionClick()
         {
-            if (Game.Instance.Runtime.BattleContext.CurrentCharacterAP < NeedAP)
+            if (Game.Instance.Runtime.BattleContext.CurrentCharacterAP < NeedAP
+                && Game.Instance.Runtime.BattleFlag)
                 return;
 
             var context = GetContextByAction(Action);
@@ -162,9 +224,9 @@ namespace Engine.Logic.Locations
         }
 
         /// <summary>
-        /// Клик по кнопке "Отменить"
-        /// ---
-        /// Click the "Cancel" button
+        ///     Клик по кнопке "Отменить"
+        ///     ---
+        ///     Click the "Cancel" button
         /// </summary>
         public void DoCancelClick()
         {

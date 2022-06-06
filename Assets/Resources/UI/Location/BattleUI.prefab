@@ -356,11 +356,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 54f9ad4c44bc74c4b9d24dcaa6b02c6c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  moveCellItemPrefab: {fileID: 4320889226160919293, guid: bfe375ce6f67a374498577f85cdd0487,
-    type: 3}
   damageHintPrefab: {fileID: 5799691508664346388, guid: e45721109f6467a44b6c973d12940256,
     type: 3}
-  cells: []
   enemies: []
   battleActionsController: {fileID: 8421040108870365671}
   EnemyEndStepCounter: 0
@@ -397,11 +394,11 @@ RectTransform:
   m_Father: {fileID: 7792924285098753225}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 1}
-  m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: -18}
-  m_SizeDelta: {x: -20.000004, y: 170}
-  m_Pivot: {x: 0.5, y: 1}
+  m_AnchorMin: {x: 0.038000003, y: 0.4}
+  m_AnchorMax: {x: 0.96000004, y: 0.95}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 0, y: 0}
+  m_Pivot: {x: 1, y: 1}
 --- !u!222 &2118605047644353591
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -443,7 +440,13 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: '#Long Action Text'
+  m_Text: '#Long Action Text
+
+    Line 2
+
+    Line 3
+
+    Line 4'
 --- !u!1 &2598949289379378552
 GameObject:
   m_ObjectHideFlags: 0
@@ -947,9 +950,9 @@ RectTransform:
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
+  m_AnchorMax: {x: 0.3, y: 0.5}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 300, y: 300}
+  m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 0}
 --- !u!114 &8421040108870365671
 MonoBehaviour:
@@ -964,10 +967,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   body: {fileID: 8846107097923665853}
+  visible: 0
   txtActionDescription: {fileID: 7813579598624234724}
   btnActionRun: {fileID: 7479734922292047715}
-  btnActionCancel: {fileID: 2977299324609251040}
-  handsController: {fileID: 8998035782980007179}
 --- !u!1 &4470797095830293291
 GameObject:
   m_ObjectHideFlags: 0
@@ -1107,10 +1109,10 @@ RectTransform:
   m_Father: {fileID: 7792924285098753225}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 1, y: 0}
-  m_AnchoredPosition: {x: 0, y: 20}
-  m_SizeDelta: {x: -40, y: 30}
+  m_AnchorMin: {x: 0.038000003, y: 0.05750703}
+  m_AnchorMax: {x: 0.96000004, y: 0.18112443}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0}
 --- !u!222 &6810990447092012676
 CanvasRenderer:
@@ -1592,10 +1594,10 @@ RectTransform:
   m_Father: {fileID: 7792924285098753225}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 1, y: 0}
-  m_AnchoredPosition: {x: 0, y: 70}
-  m_SizeDelta: {x: -40, y: 30}
+  m_AnchorMin: {x: 0.038000003, y: 0.23}
+  m_AnchorMax: {x: 0.96000004, y: 0.36224884}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0}
 --- !u!222 &77396784493459251
 CanvasRenderer:
@@ -1769,7 +1771,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
   m_AnchoredPosition: {x: 20, y: 20}
-  m_SizeDelta: {x: 160, y: 30}
+  m_SizeDelta: {x: 220, y: 70}
   m_Pivot: {x: 0, y: 0}
 --- !u!222 &8856304482435139542
 CanvasRenderer:
@@ -1969,8 +1971,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d492157b5e02c2d43885346cc9ac1d87, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  txtAP: {fileID: 1695384785167503817}
   body: {fileID: 5664622659658454219}
+  visible: 0
+  txtAP: {fileID: 1695384785167503817}
 --- !u!1 &7785834058862774734
 GameObject:
   m_ObjectHideFlags: 0

@@ -12,17 +12,19 @@ namespace Engine.Logic.Locations.Editor
 
         public override void OnAdditionEditor()
         {
-            var item = target.Target.Item;
+            var itemInfo = target.Target.ItemInfo;
+            var item = ItemFactory.Instance.Get(itemInfo.ID);
 
             GUILayout.Space(30f);
 
             if (item == null)
             {
-                APILayout.WarningBox("Item info by id " + target.Target.ID + " not founded, try check resources.\nИнформация о предмете по ИД " + target.Target.ID + " не найдена, проверьте ресурсы.");
+                APILayout.WarningBox("Item info by id " + itemInfo.ID + " not founded, try check resources.\nИнформация о предмете по ИД " + itemInfo.ID + " не найдена, проверьте ресурсы.");
                 
                 GUILayout.Space(30f);
                 if (GUILayout.Button("Reload item factory"))
                     ItemFactory.Instance.ReloadFactory();
+                
                 return;
             }
             

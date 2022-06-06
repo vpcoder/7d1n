@@ -1,4 +1,5 @@
 ﻿using Engine.Data;
+using Engine.EGUI;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -6,26 +7,25 @@ namespace Engine.Logic.Locations
 {
 
     /// <summary>
-    /// Управление текущими доступными очками действия персонажа
+    ///
+    /// Управление текущими доступными очками действия (ОД) персонажа
+    /// ---
+    /// Managing the current available character action points (AP)
+    /// 
     /// </summary>
-    public class BattleApController : MonoBehaviour
+    public class BattleApController : Panel
     {
 
+        #region Hidden Fields
+        
         [SerializeField] private Text txtAP;
-        [SerializeField] private GameObject body;
 
         private BattleContext context;
 
-        public void Show()
-        {
-            body.SetActive(true);
-        }
+        #endregion
 
-        public void Hide()
-        {
-            body.SetActive(false);
-        }
-
+        #region Properties
+        
         private int AP
         {
             get
@@ -37,6 +37,8 @@ namespace Engine.Logic.Locations
                 return context.CurrentCharacterAP;
             }
         }
+        
+        #endregion
 
         private void Update()
         {

@@ -110,6 +110,10 @@ INSERT INTO `i18n_lang`(`id`,`code`,`name`) VALUES (0, 'ru_ru', 'Русский'
 	    INSERT INTO `i18n_ru_ru`(`key`,`value`) VALUES ('kitchen_table_1_desc', 'За таким столом люди собираются вместе чтобы поесть в компании, он из дерева');
 	    INSERT INTO `i18n_ru_ru`(`key`,`value`) VALUES ('kitchen_chair_1_name', 'Кухонный стул');
 	    INSERT INTO `i18n_ru_ru`(`key`,`value`) VALUES ('kitchen_chair_1_desc', 'На этом стуле сидят за столом, он деревянный');
+	    INSERT INTO `i18n_ru_ru`(`key`,`value`) VALUES ('toaster_1_name', 'Тостер');
+	    INSERT INTO `i18n_ru_ru`(`key`,`value`) VALUES ('toaster_1_desc', 'Он умеет поджаривать ломтики хлеба или батона');
+	    INSERT INTO `i18n_ru_ru`(`key`,`value`) VALUES ('microwave_1_name', 'Микроволновка');
+	    INSERT INTO `i18n_ru_ru`(`key`,`value`) VALUES ('microwave_1_desc', 'Разогревает пищу, не использовать с металлическими предметами!');
 	    
 	# Зал ;
 	    

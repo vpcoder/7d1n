@@ -72,6 +72,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 22c43db63fd20c640bb4ac8240bf1726, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  itemInfo:
+    ID: 100008
+    Count: 1
+    Type: 240
+    Firearms:
+      AmmoCount: 0
+    Craftable:
+      Level: 0
+      Author: 
   itemID: 100008
 --- !u!1 &3564342734692767964
 GameObject:
