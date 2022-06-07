@@ -3,8 +3,8 @@ using Mapbox.Utils;
 using System;
 using UnityEngine;
 using System.Collections.Generic;
-using Mapbox.Unity.MeshGeneration.Data;
 using Mapbox.Unity.MeshGeneration.Factories;
+using Mapbox.Unity.SourceLayers;
 using Mapbox.Unity.Utilities;
 
 namespace Mapbox.Unity.Map

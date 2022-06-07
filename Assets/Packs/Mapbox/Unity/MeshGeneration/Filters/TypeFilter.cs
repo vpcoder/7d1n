@@ -1,3 +1,6 @@
+
+using Mapbox.Unity.SourceLayers;
+
 namespace Mapbox.Unity.MeshGeneration.Filters
 {
 	using UnityEngine;

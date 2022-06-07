@@ -39,10 +39,50 @@ namespace Engine.Logic.Locations.Generator.Environment.Building.Arrangement
         /// </summary>
         public ICollection<IEnvironmentItem<E>> RemainingItems { get; set; }
 
+        /// <summary>
+        ///     Выполняет поиск среди уже расставленных предметов по типу
+        ///     ---
+        ///     Searches among already placed items by type
+        /// </summary>
+        /// <param name="type">
+        ///     Тип искомого предмета
+        ///     ---
+        ///     The type of item you are looking for
+        /// </param>
+        /// <returns>
+        ///     Возвращает коллекцию найденных предметов по типу, которые были расставлены ранее
+        ///     ---
+        ///     Returns a collection of found items by type, which were arranged earlier
+        /// </returns>
         public IList<ArrangementItemContext<E>> GetItems(E type)
         {
             Items.TryGetValue(type, out var items);
             return items;
+        }
+        
+        /// <summary>
+        ///     Выполняет поиск среди уже расставленных предметов по типам
+        ///     ---
+        ///     Searches among already placed items by type
+        /// </summary>
+        /// <param name="types">
+        ///     Типы искомого предмета
+        ///     ---
+        ///     Types of item you are looking for
+        /// </param>
+        /// <returns>
+        ///     Возвращает коллекцию найденных предметов по типам, которые были расставлены ранее
+        ///     ---
+        ///     Returns a collection of found items by type, which were arranged earlier
+        /// </returns>
+        public IList<ArrangementItemContext<E>> GetItems(params E[] types)
+        {
+            var list = new List<ArrangementItemContext<E>>();
+            if (types == null || types.Length == 0)
+                return list;
+            foreach (var type in types)
+                list.AddRange(GetItems(type));
+            return list;
         }
 
     }

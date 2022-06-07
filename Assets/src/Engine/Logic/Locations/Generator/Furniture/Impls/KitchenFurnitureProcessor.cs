@@ -19,6 +19,7 @@ namespace Engine.Logic.Locations.Generator.Furniture
             
             AddItem(items, KitchenItemType.CounterWashing);
             AddItem(items, KitchenItemType.Oven);
+            AddItem(items, KitchenItemType.Extractor);
             
             AddItem(items, KitchenItemType.CounterCorner, random.Next(1, 2));
             AddItem(items, KitchenItemType.Counter, random.Next(1, 2));
@@ -27,6 +28,9 @@ namespace Engine.Logic.Locations.Generator.Furniture
             AddItem(items, KitchenItemType.Table);
             
             AddItem(items, KitchenItemType.Chair, random.Next(1, 4));
+            
+            AddItem(items, KitchenItemType.Toaster);
+            AddItem(items, KitchenItemType.Microwave);
 
             return items;
         }

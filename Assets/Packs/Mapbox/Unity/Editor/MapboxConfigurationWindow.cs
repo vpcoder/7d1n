@@ -278,7 +278,6 @@ namespace Mapbox.Editor
 			//only run after init
 			if (instance == null)
 			{
-				//TODO: loading message?
 				InitWhenLoaded();
 				return;
 			}

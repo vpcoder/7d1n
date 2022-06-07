@@ -125,6 +125,9 @@ namespace Engine.Logic.Locations.Generator.Furniture
 
         protected void AddItem(IList<IFurnitureItem<E>> list, E type, int count = 1)
         {
+            if (count == 0)
+                return;
+            
             list.Add(new FurnitureItem<E>()
             {
                 Type = type,

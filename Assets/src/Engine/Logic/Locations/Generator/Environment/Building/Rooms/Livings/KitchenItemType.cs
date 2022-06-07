@@ -82,6 +82,27 @@ namespace Engine.Logic.Locations.Generator.Environment.Building.Rooms
         /// </summary>
         Microwave,
         
+        /// <summary>
+        ///     Тостер
+        ///     ---
+        ///     
+        /// </summary>
+        Toaster,
+        
+        /// <summary>
+        ///     Навесной ящик
+        ///     ---
+        ///     
+        /// </summary>
+        Cabinet,
+        
+        /// <summary>
+        ///     Вытяжка над плитой
+        ///     ---
+        ///     
+        /// </summary>
+        Extractor,
+        
     }
 
 }

@@ -6,7 +6,7 @@ namespace Mapbox.Unity.Map
 {
 	public class SubLayerBehaviorModifiers : ISubLayerBehaviorModifiers
 	{
-		// TODO: Remove if not required.
+		
 		VectorSubLayerProperties _subLayerProperties;
 		public SubLayerBehaviorModifiers(VectorSubLayerProperties subLayerProperties)
 		{

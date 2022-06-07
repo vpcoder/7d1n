@@ -1,6 +1,7 @@
 using Mapbox.Unity.Map.Interfaces;
 using Mapbox.Unity.Map.Strategies;
 using Mapbox.Unity.Map.TileProviders;
+using Mapbox.Unity.SourceLayers;
 
 namespace Mapbox.Unity.Map
 {

@@ -1,4 +1,6 @@
-﻿namespace Mapbox.Unity.Map
+﻿using Mapbox.Unity.SourceLayers;
+
+namespace Mapbox.Unity.Map
 {
 	using System;
 	using System.Collections.Generic;

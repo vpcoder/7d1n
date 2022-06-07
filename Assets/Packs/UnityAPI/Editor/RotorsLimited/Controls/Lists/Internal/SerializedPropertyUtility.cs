@@ -70,7 +70,7 @@ namespace Rotorz.ReorderableList.Internal {
 					property.boundsValue = default(Bounds);
 					break;
 				case SerializedPropertyType.Gradient:
-					//!TODO: Amend when Unity add a public API for setting the gradient.
+					//Amend when Unity add a public API for setting the gradient.
 					break;
 			}
 
@@ -165,7 +165,7 @@ namespace Rotorz.ReorderableList.Internal {
 					destProperty.boundsValue = sourceProperty.boundsValue;
 					break;
 				case SerializedPropertyType.Gradient:
-					//!TODO: Amend when Unity add a public API for setting the gradient.
+					//Amend when Unity add a public API for setting the gradient.
 					break;
 			}
 		}

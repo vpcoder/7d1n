@@ -40,4 +40,16 @@
         Type = "Microwave"
     	Path = "Locations/Builds/Living/Environment/Kitchen/Microwave_01"
     />
+    <Item
+        Type = "Toaster"
+    	Path = "Locations/Builds/Living/Environment/Kitchen/Toaster_01"
+    />
+    <Item
+        Type = "Cabinet"
+    	Path = "Locations/Builds/Living/Environment/Kitchen/Cabinet_01"
+    />
+    <Item
+        Type = "Extractor"
+    	Path = "Locations/Builds/Living/Environment/Kitchen/Extractor_01"
+    />
 </Data>

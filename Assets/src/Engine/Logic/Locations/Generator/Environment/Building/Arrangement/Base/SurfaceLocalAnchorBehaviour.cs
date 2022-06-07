@@ -39,7 +39,7 @@ namespace Engine.Logic.Locations.Generator.Environment.Building.Arrangement
         ///     ---
         ///     The point of the local coordinate axis from below, to the left, on itself
         /// </summary>
-        public Vector3 AnchorPos => anchorPos;
+        public Vector3 AnchorPos => anchorPos; // TODO: Учитывать вращение в SurfaceLocalAnchorBehaviour
 
         public Vector3 TopSurfaceAnchorPos => transform.position + anchorPos + new Vector3(0f, Bounds.size.y, 0f);
         

@@ -26,7 +26,7 @@ namespace Rotorz.ReorderableList {
 	///         return true;
 	///     }
 	///     public void Execute(IElementAdder<ShoppingList> elementAdder) {
-	///         // TODO: Add favorite items to the shopping list!
+	///         // Add favorite items to the shopping list!
 	///     }
 	/// }
 	/// ]]></code>
@@ -41,7 +41,7 @@ namespace Rotorz.ReorderableList {
 	///         return true;
 	///     }
 	///     function Execute(elementAdder:IElementAdder.<ShoppingList>) {
-	///         // TODO: Add favorite items to the shopping list!
+	///         // Add favorite items to the shopping list!
 	///     }
 	/// }
 	/// ]]></code>

@@ -143,6 +143,32 @@
         	<Part ResID="9"  ResCount="100" Difficulty="1"/>  <!-- Пластик      -->
     	    <Part ResID="11" ResCount="150" Difficulty="2"/>  <!-- Электроника  -->
         </Item>
+	    
+	    <!-- Extractor | Вытяжка -->
+        <Item
+        	ID="100011"
+        	Type="LocationObject"
+        	Name="extractor_1_name"
+        	Description="extractor_1_desc"
+        	StackSize="1"
+        >
+        	<Part ResID="1"  ResCount="350" Difficulty="2"/>  <!-- Металлолом   -->
+        	<Part ResID="9"  ResCount="10"  Difficulty="1"/>  <!-- Пластик      -->
+    	    <Part ResID="11" ResCount="10"  Difficulty="2"/>  <!-- Электроника  -->
+        </Item>
+        
+	    <!-- Cabinet | Настенный ящик -->
+        <Item
+        	ID="100012"
+        	Type="LocationObject"
+        	Name="kitchen_cabinet_1_name"
+        	Description="kitchen_cabinet_1_desc"
+        	StackSize="1"
+        >
+        	<Part ResID="1"  ResCount="150" Difficulty="2"/>  <!-- Металлолом   -->
+        	<Part ResID="9"  ResCount="100" Difficulty="1"/>  <!-- Пластик      -->
+    	    <Part ResID="11" ResCount="150" Difficulty="2"/>  <!-- Электроника  -->
+        </Item>
 	
 	
 	<!-- ========== -->
