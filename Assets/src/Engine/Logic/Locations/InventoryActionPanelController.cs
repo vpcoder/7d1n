@@ -50,8 +50,12 @@ namespace Engine.Logic
                     txtDetail.text = EntityCalculationService.GetWeightFormat(item.Weight * item.Count);
                     txtDescription.text = Localization.Instance.Get(item.Description);
 
-                    if(item.Type == GroupType.Used)
+                    if (item.Type.IsOneOf(GroupType.Used,
+                                                    GroupType.Food,
+                                                    GroupType.MedKit))
+                    {
                         btnUse.gameObject.SetActive(true);
+                    }
                 }
             }
         }

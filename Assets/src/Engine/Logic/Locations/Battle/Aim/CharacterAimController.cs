@@ -4,7 +4,6 @@ using Engine.Logic.Location;
 using Engine.Logic.Locations.Battle.Actions;
 using Engine.Logic.Locations.Generator;
 using UnityEngine;
-using UnityEngine.AI;
 using UnityEngine.EventSystems;
 
 namespace Engine.Logic.Locations.Battle

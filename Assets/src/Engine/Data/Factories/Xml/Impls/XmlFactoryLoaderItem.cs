@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Xml;
+using UnityEditor;
 
 namespace Engine.Data.Factories.Xml
 {
@@ -69,6 +70,8 @@ namespace Engine.Data.Factories.Xml
                     item = edged;
                     break;
                 case GroupType.Used:
+                case GroupType.Food:
+                case GroupType.MedKit:
                     var used = new Used();
                     ReadBaseItem(used);
                     ReadUsed(used);
@@ -127,14 +130,15 @@ namespace Engine.Data.Factories.Xml
             item.Description = Str("Description");
             item.Count       = 0;
             item.StackSize   = Lng("StackSize");
-            item.ToolType    = Enm<ToolType>("Tool");
+            item.ToolType    = EnmSplit<ToolType>("Tool");
 
             List<Part> parts = new List<Part>();
-            foreach (XmlElement part in current.GetElementsByTagName("Part"))
+            foreach (XmlElement part in Current.GetElementsByTagName("Part"))
             {
-                long resourceID    = Lng(part, "ResID");
-                long resourceCount = Lng(part, "ResCount");
-                long difficulty    = Lng(part, "Difficulty");
+                var resourceID           = Lng(part, "ResID");
+                var resourceCount        = Lng(part, "ResCount");
+                var difficulty           = Lng(part, "Difficulty");
+                var neededTools  = EnmSplit<ToolType>(part, "NeededTools");
                 parts.Add
                 (
                     new Part()
@@ -142,6 +146,7 @@ namespace Engine.Data.Factories.Xml
                         ResourceID = resourceID,
                         ResourceCount = resourceCount,
                         Difficulty = difficulty,
+                        NeededTools = neededTools,
                     }
                 );
             }

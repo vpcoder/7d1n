@@ -1,10 +1,30 @@
 ﻿using System.Collections.Generic;
 
-namespace UnityEngine
+namespace System.Linq
 {
 
-    public static class CollectionsAdditions
+    public static class LinqAdditions
     {
+
+        public static void AddRange<T>(this ICollection<T> collection, ICollection<T> values)
+        {
+            if(values == null)
+                return;
+            foreach (var value in values)
+            {
+                if(value == null)
+                    continue;
+                collection.Add(value);
+            }
+        }
+        
+        public static ISet<T> ToSet<T>(this ICollection<T> collection)
+        {
+            var set = new HashSet<T>();
+            foreach (var item in collection)
+                set.Add(item);
+            return set;
+        }
 
         public static void AddInToDictionary<K, T, V>(this IDictionary<K, IDictionary<T, V>> dictionary, K key, T otherKey, V value)
         {

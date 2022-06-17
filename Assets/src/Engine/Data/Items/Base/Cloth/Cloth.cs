@@ -21,7 +21,7 @@ namespace Engine.Data
             return new Cloth()
             {
                 ID = ID,
-                ToolType = ToolType,
+                ToolType = ToolType?.ToSet(),
                 Type = Type,
                 Name = Name,
                 Description = Description,

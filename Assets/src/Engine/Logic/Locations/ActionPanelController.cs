@@ -50,10 +50,8 @@ namespace Engine.Logic.Locations
 
         public void OnScrapClick()
         {
-
-            // TODO: Scrap
-            
-            Hide();
+            ObjectFinder.Find<ScrapPanelController>().Show(selectedItemBehaviour, this);
+            // Hide();
         }
 
         public void OnPickUpClick()

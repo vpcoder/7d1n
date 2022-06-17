@@ -4,7 +4,7 @@
 		<!-- Таракан -->
 		<Item
 			ID="9000"
-			Type="Used"
+			Type="Food"
 			Name="food_raw_roach_name"
 			Description="food_raw_roach_desc"
 			Action="use/food/raw_roach"
@@ -19,7 +19,7 @@
 		<!-- Мальки -->
 		<Item
 			ID="9001"
-			Type="Used"
+			Type="Food"
 			Name="food_raw_fry_fish_name"
 			Description="food_raw_fry_fish_desc"
 			Action="use/food/raw_fry_fish"
@@ -34,7 +34,7 @@
 		<!-- Личинки -->
 		<Item
 			ID="9002"
-			Type="Used"
+			Type="Food"
 			Name="food_raw_larvae_name"
 			Description="food_raw_larvae_desc"
 			Action="use/food/raw_larvae"

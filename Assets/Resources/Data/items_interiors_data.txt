@@ -183,9 +183,9 @@
         	Description="hall_chair_1_desc"
         	StackSize="1"
         >
-        	<Part ResID="0"  ResCount="2000" Difficulty="1"/>  <!-- Дерево       -->
-        	<Part ResID="23" ResCount="200"  Difficulty="1"/>  <!-- Ткань       -->
-        	<Part ResID="1"  ResCount="50"   Difficulty="2"/>  <!-- Металлолом   -->
+        	<Part ResID="0"  ResCount="2000" Difficulty="1" NeededTools="Axe;Hammer;PhillipsScrewdriver;Hammer;Crowbar" />  <!-- Дерево       -->
+        	<Part ResID="23" ResCount="200"  Difficulty="1" NeededTools="Knife;Axe"/>  <!-- Ткань       -->
+        	<Part ResID="1"  ResCount="50"   Difficulty="2" NeededTools="PhillipsScrewdriver;Pliers;Clippers;Hammer;Crowbar"/>  <!-- Металлолом   -->
         </Item>
 	    
 	    <!-- Couch | Диван -->
@@ -196,9 +196,9 @@
         	Description="hall_couch_1_desc"
         	StackSize="1"
         >
-        	<Part ResID="0"  ResCount="2500" Difficulty="1"/>  <!-- Дерево       -->
-        	<Part ResID="23" ResCount="300"  Difficulty="1"/>  <!-- Ткань        -->
-        	<Part ResID="1"  ResCount="50"   Difficulty="2"/>  <!-- Металлолом   -->
+        	<Part ResID="0"  ResCount="2500" Difficulty="1" NeededTools="Axe;Hammer;PhillipsScrewdriver;Hammer;Crowbar" /> <!-- Дерево       -->
+        	<Part ResID="23" ResCount="300"  Difficulty="1" NeededTools="Knife;Axe" /> <!-- Ткань        -->
+        	<Part ResID="1"  ResCount="50"   Difficulty="2" NeededTools="PhillipsScrewdriver;Pliers;Clippers;Hammer;Crowbar" /> <!-- Металлолом   -->
         </Item>
         
 	    <!-- TV cabinet | Стол для телевизора -->

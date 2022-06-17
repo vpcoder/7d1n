@@ -2,12 +2,38 @@
 
 namespace UnityEngine
 {
-
+	
+	/// <summary>
+	/// Класс-расширение **Enums** для Enum объектов C# 
+	/// Авторы: sdon
+	/// Дата: 09.16.2022
+	/// Версия: 1.0.0
+	/// </summary>
+	public static class EnumsAdditions
+	{
+		/// <summary>
+		///		Ищет значение подобное value в списке values, если такое есть вернёт true
+		/// </summary>
+		/// <param name="type">
+		///		Значение подобие которого нужно искать в списке
+		/// </param>
+		/// <param name="values">
+		///		Список в котором нужно искать подходящее значение
+		/// </param>
+		/// <returns>
+		///		true - если нашли подходящее значение в списке values, которое эквивалентно значению value
+		///		false - если values не задан или пустой, а так же, если не удалось найти ни одного подходящего значения в списке values
+		/// </returns>
+		public static bool IsOneOf<T>(this T type, params T[] values) where T : struct
+		{
+			return Enums<T>.IsOneOf(type, values);
+		}
+	}
+	
     /// <summary>
     /// Класс-хандлер **Enums** для Enum объектов C# 
     /// Авторы: sdon
     /// Дата: 19.10.2016
-    /// Обновление: 28.03.2018
     /// Версия: 1.0.1
     /// </summary>
     public static class Enums<T> where T : struct {
@@ -32,8 +58,23 @@ namespace UnityEngine
 
 		#region Functions
 
+		/// <summary>
+		///		Ищет значение подобное value в списке values, если такое есть вернёт true
+		/// </summary>
+		/// <param name="value">
+		///		Значение подобие которого нужно искать в списке
+		/// </param>
+		/// <param name="values">
+		///		Список в котором нужно искать подходящее значение
+		/// </param>
+		/// <returns>
+		///		true - если нашли подходящее значение в списке values, которое эквивалентно значению value
+		///		false - если values не задан или пустой, а так же, если не удалось найти ни одного подходящего значения в списке values
+		/// </returns>
 		public static bool IsOneOf(T value, params T[] values)
 		{
+			if (values == null || values.Length == 0)
+				return false;
 			foreach (var item in values)
 			{
 				if (item.Equals(value))

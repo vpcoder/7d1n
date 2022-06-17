@@ -179,6 +179,25 @@ INSERT INTO `i18n_lang`(`id`,`code`,`name`) VALUES (0, 'ru_ru', 'Русский'
 		INSERT INTO `i18n_ru_ru`(`key`,`value`) VALUES ('food_raw_larvae_name', 'Личинка жука');
 		INSERT INTO `i18n_ru_ru`(`key`,`value`) VALUES ('food_raw_larvae_desc', 'Склизкая и шевелится');
 		
+		
+	# Инструменты ;
+	
+		INSERT INTO `i18n_ru_ru`(`key`,`value`) VALUES ('tools_flatheadscrewdriver', 'Плоская отвёртка');
+		INSERT INTO `i18n_ru_ru`(`key`,`value`) VALUES ('tools_phillipsscrewdriver', 'Крестовая отвёртка');
+		INSERT INTO `i18n_ru_ru`(`key`,`value`) VALUES ('tools_hammer', 'Молоток');
+		INSERT INTO `i18n_ru_ru`(`key`,`value`) VALUES ('tools_saw', 'Пила');
+		INSERT INTO `i18n_ru_ru`(`key`,`value`) VALUES ('tools_line', 'Уголок');
+		INSERT INTO `i18n_ru_ru`(`key`,`value`) VALUES ('tools_shovel', 'Лопата');
+		INSERT INTO `i18n_ru_ru`(`key`,`value`) VALUES ('tools_clippers', 'Кусачки');
+		INSERT INTO `i18n_ru_ru`(`key`,`value`) VALUES ('tools_wrenchtypea', 'Гаечный ключ тип А');
+		INSERT INTO `i18n_ru_ru`(`key`,`value`) VALUES ('tools_wrenchtypeb', 'Гаечный ключ тип Б');
+		INSERT INTO `i18n_ru_ru`(`key`,`value`) VALUES ('tools_wrenchtypec', 'Гаечный ключ тип В');
+		INSERT INTO `i18n_ru_ru`(`key`,`value`) VALUES ('tools_pliers', 'Плоскогубцы');
+		INSERT INTO `i18n_ru_ru`(`key`,`value`) VALUES ('tools_pickaxe', 'Кирка');
+		INSERT INTO `i18n_ru_ru`(`key`,`value`) VALUES ('tools_axe', 'Топор');
+		INSERT INTO `i18n_ru_ru`(`key`,`value`) VALUES ('tools_knife', 'Нож');
+		INSERT INTO `i18n_ru_ru`(`key`,`value`) VALUES ('tools_crowbar', 'Лом');
+		
 
 # UI ;
 
@@ -233,6 +252,8 @@ INSERT INTO `i18n_ru_ru`(`key`,`value`) VALUES ('msg_intellect', 'Интелле
 INSERT INTO `i18n_ru_ru`(`key`,`value`) VALUES ('msg_strength', 'Сила');
 INSERT INTO `i18n_ru_ru`(`key`,`value`) VALUES ('msg_agility', 'Ловкость');
 INSERT INTO `i18n_ru_ru`(`key`,`value`) VALUES ('msg_endurance', 'Выносливость');
+
+INSERT INTO `i18n_ru_ru`(`key`,`value`) VALUES ('msg_tool_not_founded', '<Нет>');
 
 INSERT INTO `i18n_ru_ru`(`key`,`value`) VALUES ('msg_battle_action_description1', 'Вы совершаете');
 INSERT INTO `i18n_ru_ru`(`key`,`value`) VALUES ('msg_battle_action_attack_firearms', 'стрельбу из оружия');

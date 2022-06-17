@@ -18,7 +18,7 @@ namespace Engine.Data
         public List<IItem> Items { get { return null; } set { } }
         public List<long> WeaponsForGeneration { get { return null; } set { } }
         public int WeaponsMaxCountForGeneration { get { return 0; } set { } }
-        public List<Part> ItemsForGeneration { get { return null; } set { } }
+        public List<ResourcePair> ItemsForGeneration { get { return null; } set { } }
         public int ItemsMaxCountForGeneration { get { return 0; } set { } }
         public long ID { get { return Game.Instance.Character.Account.SpriteID; } set { } }
 

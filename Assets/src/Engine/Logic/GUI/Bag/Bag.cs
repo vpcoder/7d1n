@@ -7,7 +7,7 @@ namespace Engine.Logic
 {
 
     /// <summary>
-    /// Простая сумка
+    /// РџСЂРѕСЃС‚Р°СЏ СЃСѓРјРєР°
     /// </summary>
 	public class Bag : AbstractBag
     {
@@ -26,7 +26,7 @@ namespace Engine.Logic
         #pragma warning restore 0649, IDE0044, CS0414
 
         /// <summary>
-        /// Ширина всей видимой области инвентаря
+        /// РЁРёСЂРёРЅР° РІСЃРµР№ РІРёРґРёРјРѕР№ РѕР±Р»Р°СЃС‚Рё РёРЅРІРµРЅС‚Р°СЂСЏ
         /// </summary>
         public override int FrameWidth
         {
@@ -37,7 +37,7 @@ namespace Engine.Logic
         }
 
         /// <summary>
-        /// Высота всей видимой области инвентаря
+        /// Р’С‹СЃРѕС‚Р° РІСЃРµР№ РІРёРґРёРјРѕР№ РѕР±Р»Р°СЃС‚Рё РёРЅРІРµРЅС‚Р°СЂСЏ
         /// </summary>
         public override int FrameHeight
         {
@@ -48,7 +48,7 @@ namespace Engine.Logic
         }
 
         /// <summary>
-        /// Количество ячеек умещающихся в ширину инвентаря
+        /// РљРѕР»РёС‡РµСЃС‚РІРѕ СЏС‡РµРµРє СѓРјРµС‰Р°СЋС‰РёС…СЃСЏ РІ С€РёСЂРёРЅСѓ РёРЅРІРµРЅС‚Р°СЂСЏ
         /// </summary>
         public override int CellCountX
         {
@@ -59,7 +59,7 @@ namespace Engine.Logic
         }
 
         /// <summary>
-        ///  Количество ячеек умещающихся в высоту инвентаря
+        ///  РљРѕР»РёС‡РµСЃС‚РІРѕ СЏС‡РµРµРє СѓРјРµС‰Р°СЋС‰РёС…СЃСЏ РІ РІС‹СЃРѕС‚Сѓ РёРЅРІРµРЅС‚Р°СЂСЏ
         /// </summary>
         public override int CellCountY
         {
@@ -70,7 +70,7 @@ namespace Engine.Logic
         }
 
         /// <summary>
-        /// Отображает UI сумки
+        /// РћС‚РѕР±СЂР°Р¶Р°РµС‚ UI СЃСѓРјРєРё
         /// </summary>
         public override void Show()
         {
@@ -80,7 +80,7 @@ namespace Engine.Logic
         }
 
         /// <summary>
-        /// Скрывает UI сумки
+        /// РЎРєСЂС‹РІР°РµС‚ UI СЃСѓРјРєРё
         /// </summary>
         public override void Hide()
         {
@@ -91,12 +91,12 @@ namespace Engine.Logic
         }
 
         /// <summary>
-        /// Список уже созданных UI компонентов предметов
+        /// РЎРїРёСЃРѕРє СѓР¶Рµ СЃРѕР·РґР°РЅРЅС‹С… UI РєРѕРјРїРѕРЅРµРЅС‚РѕРІ РїСЂРµРґРјРµС‚РѕРІ
         /// </summary>
         private readonly List<AbstractItem> existsItems = new List<AbstractItem>();
 
         /// <summary>
-        /// Очищает список созданных UI компонентов
+        /// РћС‡РёС‰Р°РµС‚ СЃРїРёСЃРѕРє СЃРѕР·РґР°РЅРЅС‹С… UI РєРѕРјРїРѕРЅРµРЅС‚РѕРІ
         /// </summary>
         public void Clear()
         {
@@ -106,8 +106,8 @@ namespace Engine.Logic
         }
 
         /// <summary>
-        /// Формирует контент GUI для сумки
-        /// (Каждому предмету в сумке формируется визуальное представление)
+        /// Р¤РѕСЂРјРёСЂСѓРµС‚ РєРѕРЅС‚РµРЅС‚ GUI РґР»СЏ СЃСѓРјРєРё
+        /// (РљР°Р¶РґРѕРјСѓ РїСЂРµРґРјРµС‚Сѓ РІ СЃСѓРјРєРµ С„РѕСЂРјРёСЂСѓРµС‚СЃСЏ РІРёР·СѓР°Р»СЊРЅРѕРµ РїСЂРµРґСЃС‚Р°РІР»РµРЅРёРµ)
         /// </summary>
         public override void Redraw()
         {
@@ -116,35 +116,35 @@ namespace Engine.Logic
             foreach (var item in Items.ToList())
                 CreateItem(item, flatIndex++);
 
-            // Вычисляем высоту контента, чтобы его можно было скроллить
+            // Р’С‹С‡РёСЃР»СЏРµРј РІС‹СЃРѕС‚Сѓ РєРѕРЅС‚РµРЅС‚Р°, С‡С‚РѕР±С‹ РµРіРѕ РјРѕР¶РЅРѕ Р±С‹Р»Рѕ СЃРєСЂРѕР»Р»РёС‚СЊ
             var countX = Mathf.Max(1, CellCountX);
             var deltaSizeY = ((Items.Count / countX) + 1) * cellSizeY;
             contentContainer.sizeDelta = new Vector2(contentContainer.sizeDelta.x, deltaSizeY);
         }
 
         /// <summary>
-        /// Создаёт UI компонент предмета
+        /// РЎРѕР·РґР°С‘С‚ UI РєРѕРјРїРѕРЅРµРЅС‚ РїСЂРµРґРјРµС‚Р°
         /// </summary>
-        /// <param name="item">Предмет который надо создать</param>
-        /// <param name="flatIndex">Плоский индекс предмета в сумке</param>
+        /// <param name="item">РџСЂРµРґРјРµС‚ РєРѕС‚РѕСЂС‹Р№ РЅР°РґРѕ СЃРѕР·РґР°С‚СЊ</param>
+        /// <param name="flatIndex">РџР»РѕСЃРєРёР№ РёРЅРґРµРєСЃ РїСЂРµРґРјРµС‚Р° РІ СЃСѓРјРєРµ</param>
         private void CreateItem(IItem item, int flatIndex)
         {
-            // Создаём новый компонент предмета
+            // РЎРѕР·РґР°С‘Рј РЅРѕРІС‹Р№ РєРѕРјРїРѕРЅРµРЅС‚ РїСЂРµРґРјРµС‚Р°
             AbstractItem itemComponent = GameObject.Instantiate<AbstractItem>(itemPrefab, contentContainer);
             itemComponent.Bag = this;
             itemComponent.Item = item;
 
             int countX = Mathf.Max(1, CellCountX);
 
-            // Рассчёт положения предмета в сумке по плоскому индексу
+            // Р Р°СЃСЃС‡С‘С‚ РїРѕР»РѕР¶РµРЅРёСЏ РїСЂРµРґРјРµС‚Р° РІ СЃСѓРјРєРµ РїРѕ РїР»РѕСЃРєРѕРјСѓ РёРЅРґРµРєСЃСѓ
             float posX = (flatIndex % countX) * cellSizeX;
-            float posY = (flatIndex / countX) * cellSizeY; // countX - это не опечатка
+            float posY = (flatIndex / countX) * cellSizeY; // countX - СЌС‚Рѕ РЅРµ РѕРїРµС‡Р°С‚РєР°
 
-            // Смещение
+            // РЎРјРµС‰РµРЅРёРµ
             float offsetX = 0;
             float offsetY = 0;
 
-            // Располагаем предмет в сумке
+            // Р Р°СЃРїРѕР»Р°РіР°РµРј РїСЂРµРґРјРµС‚ РІ СЃСѓРјРєРµ
             itemComponent.SetBounds(cellSizeX, cellSizeY, posX, posY, offsetX, offsetY);
 
             existsItems.Add(itemComponent);

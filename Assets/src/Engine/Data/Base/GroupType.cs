@@ -1,4 +1,7 @@
 ﻿
+using System.Linq;
+using UnityEngine;
+
 namespace Engine.Data
 {
 
@@ -10,7 +13,9 @@ namespace Engine.Data
 
         Item            = 0x00,
         Resource        = 0x01,
-        Used            = 0x02, // Еда, аптечки, расходники
+        Used            = 0x02, // расходники
+        MedKit          = 0x03, // аптечки
+        Food            = 0x04, // еда
 
         ClothHead       = 0x10,
         ClothBody       = 0x11,
@@ -27,6 +32,6 @@ namespace Engine.Data
         LocationObject  = 0xf0,
 
     };
-	
+
 }
 

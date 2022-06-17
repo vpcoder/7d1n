@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System.Collections.Generic;
+using UnityEngine;
 
 namespace Engine.Data
 {
@@ -18,7 +19,7 @@ namespace Engine.Data
         ///     ---
         ///     Type of tool
         /// </summary>
-        ToolType ToolType { get; set; }
+        ISet<ToolType> ToolType { get; set; }
 
         ///<summary>
         ///     Группа предмета

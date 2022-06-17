@@ -14,7 +14,9 @@ namespace Engine.Logic
         Weapons   = 0x03,
         Tools     = 0x04,
         Medics    = 0x05,
-        Builds    = 0x06,
+        Foods     = 0x06,
+        Used      = 0x07,
+        Builds    = 0x08,
     };
 
     public static class ItemFilterTypeAdditional
@@ -22,7 +24,7 @@ namespace Engine.Logic
 
         public static ItemFilterType GroupTypeToFilter(this GroupType type, IItem item)
         {
-            if (item.ToolType != ToolType.None)
+            if (Sets.IsNotEmpty(item.ToolType))
                 return ItemFilterType.Tools;
 
             switch(type)
@@ -42,6 +44,13 @@ namespace Engine.Logic
                 case GroupType.WeaponFirearms:
                 case GroupType.Ammo:
                     return ItemFilterType.Weapons;
+                
+                case GroupType.Food:
+                    return ItemFilterType.Foods;
+                case GroupType.MedKit:
+                    return ItemFilterType.Medics;
+                case GroupType.Used:
+                    return ItemFilterType.Used;
 
                 case GroupType.LocationObject:
                     return ItemFilterType.Builds;

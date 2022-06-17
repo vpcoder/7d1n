@@ -64,7 +64,7 @@ namespace Engine.Data
             enemy.Protection = this.enemy.Protection;
             enemy.Health = this.enemy.Health;
 
-            var parts = new List<Part>();
+            var parts = new List<ResourcePair>();
             foreach (var itemData in this.enemy.ItemsForGeneration.Split(';'))
             {
                 if(string.IsNullOrWhiteSpace(itemData))
@@ -78,7 +78,7 @@ namespace Engine.Data
                 }
                 var id = long.Parse(item[0]);
                 var count = long.Parse(item[1]);
-                parts.Add(new Part() { ResourceID = long.Parse(item[0]), ResourceCount = long.Parse(item[1]), Difficulty = 0 });
+                parts.Add(new ResourcePair() { ResourceID = long.Parse(item[0]), ResourceCount = long.Parse(item[1])});
             }
             enemy.ItemsForGeneration = parts;
 

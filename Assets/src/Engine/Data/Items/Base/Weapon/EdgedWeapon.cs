@@ -77,7 +77,7 @@ namespace Engine.Data
             return new EdgedWeapon()
             {
                 ID = ID,
-                ToolType = ToolType,
+                ToolType = ToolType?.ToSet(),
                 WeaponType = WeaponType,
                 Type = Type,
                 Name = Name,

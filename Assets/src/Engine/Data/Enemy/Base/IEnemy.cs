@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 
 namespace Engine.Data
 {
@@ -59,7 +58,7 @@ namespace Engine.Data
         /// <summary>
         /// Генерируемые предметы находящиеся в сумках у врага
         /// </summary>
-        List<Part> ItemsForGeneration { get; set; }
+        List<ResourcePair> ItemsForGeneration { get; set; }
 
         /// <summary>
         /// Максимальное число генерируемых предметов

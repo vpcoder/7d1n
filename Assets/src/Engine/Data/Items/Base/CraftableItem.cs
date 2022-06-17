@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace Engine.Data
@@ -19,7 +20,7 @@ namespace Engine.Data
             return new CraftableItem()
             {
                 ID = ID,
-                ToolType = ToolType,
+                ToolType = ToolType?.ToSet(),
                 Type = Type,
                 Name = Name,
                 Description = Description,

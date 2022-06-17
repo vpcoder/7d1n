@@ -114,6 +114,10 @@ namespace Engine.Logic.Load
             character.Inventory.Add(DataDictionary.Resources.RES_RAW_SILVER, 1);
             character.Inventory.Add(DataDictionary.Resources.RES_RAW_GOLD, 1);
             character.Inventory.Add(DataDictionary.Resources.RES_RAW_TITANIUM, 1);
+            
+            character.Inventory.Add(DataDictionary.Foods.FOOD_RAW_ROACH, 2);
+            character.Inventory.Add(DataDictionary.Foods.FOOD_RAW_LARVAE, 3);
+            character.Inventory.Add(DataDictionary.Foods.FOOD_RAW_FRY_FISH, 1);
 
             var pm = (IFirearmsWeapon)character.Inventory.GetFirstById(DataDictionary.Weapons.WEAPON_PISTOL_PM);
             pm.AmmoCount = 4;

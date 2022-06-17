@@ -3,6 +3,7 @@ using Engine.Data.Stories;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using UnityEngine;
 
 namespace Engine.Data
 {
@@ -37,6 +38,93 @@ namespace Engine.Data
             }
         }
 
+        /// <summary>
+        ///     В инвентаре есть хотябы один из перечисленных инструментов
+        ///     ---
+        ///     At least one of these tools is in the inventory
+        /// </summary>
+        /// <param name="tools">
+        ///     Набор инструментов которые ищем в инвентаре
+        ///     ---
+        ///     A set of tools that we are looking for in the inventory
+        /// </param>
+        /// <returns>
+        ///     true - если в инвентаре нашёлся хотябы один указанный инструмент
+        ///     false - если в инвентаре нет ни одного указанного инструмента
+        ///     ---
+        ///     true - if at least one specified tool is found in the inventory
+        ///     false - if no specified tool is in the inventory
+        /// </returns>
+        public bool HasAnyTools(ISet<ToolType> tools)
+        {
+            if (Sets.IsEmpty(tools))
+                return true;
+            
+            if (Lists.IsEmpty(Items))
+                return false;
+            
+            foreach (var item in Items)
+            {
+                if (Sets.HasIntersect(item.ToolType, tools))
+                    return true;
+            }
+            return false;
+        }
+
+        /// <summary>
+        ///     Выполняет поиск инструментов tools в инвентаре
+        ///     ---
+        ///     Searches for tools in the inventory
+        /// </summary>
+        /// <param name="tools">
+        ///     Инструменты, которые мы пытаемся найти в инвентаре
+        ///     ---
+        ///     The tools we try to find in the inventory
+        /// </param>
+        /// <returns>
+        ///     Множество найденных инструментов, которые соответствуют искомым tools
+        ///     ---
+        ///     The set of found tools that match the tools you are looking for
+        /// </returns>
+        public ISet<ToolType> HasTools(ISet<ToolType> tools)
+        {
+            var foundedTools = new HashSet<ToolType>();
+            if (Sets.IsEmpty(tools) || Lists.IsEmpty(Items))
+                return foundedTools;
+            foreach (var item in Items)
+                foundedTools.AddRange(Sets.Intersect(item.ToolType, tools));
+            return foundedTools;
+        }
+
+        /// <summary>
+        ///     Выполняет поиск первого попавшегося предмета в инвентаре, который может выполнять роль указанного инструмента
+        ///     ---
+        ///     Searches for the first found item in the inventory, which can serve as a specified tool
+        /// </summary>
+        /// <param name="toolType">
+        ///     Тип инструмента, под который нужно искать предмет в инвентаре
+        ///     ---
+        ///     The type of tool for which you want to search for an item in the inventory
+        /// </param>
+        /// <returns>
+        ///     Экземпляр предмета в инвентаре, который может быть использован в качестве инструмента указанного типа.
+        ///     Если ничего подходящего не нашлось, вернёт null
+        ///     ---
+        ///     An item in the inventory that can be used as a tool of the specified type
+        ///     If nothing suitable is found, he will return null
+        /// </returns>
+        public IItem GetFirstByToolType(ToolType toolType)
+        {
+            foreach (var item in Items)
+            {
+                if (Sets.IsEmpty(item.ToolType))
+                    continue;
+                if (item.ToolType.Contains(toolType))
+                    return item;
+            }
+            return null;
+        }
+        
         #region Ctor
 
         public Inventory()

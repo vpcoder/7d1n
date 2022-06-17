@@ -2,6 +2,7 @@
 using Engine.Data.Factories;
 using Engine.Logic.Locations;
 using UnityEngine;
+using UnityEngine.Assertions;
 
 namespace Engine.Logic
 {
@@ -44,7 +45,7 @@ namespace Engine.Logic
             var panel = ObjectFinder.Find<InventoryActionPanelController>();
             var item = panel.Item;
 
-            if(item.Type == GroupType.Used)
+            if(item.Type.IsOneOf(GroupType.Used, GroupType.Food, GroupType.MedKit))
             {
                 var used = item as IUsed;
                 if(used.UseAction.DoAction())

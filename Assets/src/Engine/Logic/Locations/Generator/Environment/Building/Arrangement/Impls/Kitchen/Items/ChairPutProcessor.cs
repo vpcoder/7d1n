@@ -59,19 +59,19 @@ namespace Engine.Logic.Locations.Generator.Environment.Building.Arrangement.Impl
                     return false; // Нас не интерисуют заполненные мебелью сегменты и сегменты у двери, так же не интерисуют тайлы которые находятся напротив двери
 
                 if (linkItem.Tile.LeftOfThis == tile &&
-                    Enums<TileSegmentType>.IsOneOf(linkItem.SegmentType, TileSegmentType.S00, TileSegmentType.S01))
+                    linkItem.SegmentType.IsOneOf(TileSegmentType.S00, TileSegmentType.S01))
                     return true;
                 
                 if (linkItem.Tile.RightOfThis == tile &&
-                    Enums<TileSegmentType>.IsOneOf(linkItem.SegmentType, TileSegmentType.S10, TileSegmentType.S11))
+                    linkItem.SegmentType.IsOneOf(TileSegmentType.S10, TileSegmentType.S11))
                     return true;
                 
                 if (linkItem.Tile.TopOfThis == tile &&
-                    Enums<TileSegmentType>.IsOneOf(linkItem.SegmentType, TileSegmentType.S01, TileSegmentType.S11))
+                    linkItem.SegmentType.IsOneOf(TileSegmentType.S01, TileSegmentType.S11))
                     return true;
                 
                 if (linkItem.Tile.BottomOfThis == tile &&
-                    Enums<TileSegmentType>.IsOneOf(linkItem.SegmentType, TileSegmentType.S00, TileSegmentType.S10))
+                    linkItem.SegmentType.IsOneOf(TileSegmentType.S00, TileSegmentType.S10))
                     return true;
                 
                 // Остальные места нам не подходят

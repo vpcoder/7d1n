@@ -8,16 +8,41 @@ namespace Engine.Data.Factories.Xml
 {
 
     /// <summary>
+    /// 
     /// Базовый класс загрузчика в формате XML
+    /// ---
+    /// Loader base class in XML format
+    /// 
     /// </summary>
-    /// <typeparam name="T">Тип хранимых объектов в фабрике</typeparam>
+    /// <typeparam name="T">
+    ///     Тип хранимых объектов в фабрике
+    ///     ---
+    ///     The type of stored objects in the factory
+    /// </typeparam>
     public abstract class XmlFactoryLoaderBase<T> : FactoryLoaderBase<T> where T : class, IIdentity
     {
 
-        public string[] FileNames { get; set; }
+        #region Const
+        
+        private const char DELIM_FIRST  = ';';
+        private const char DELIM_SECOND = ',';
+        
+        #endregion
+        
+        #region Hidden Fields
+        
+        protected string[] FileNames { get; set; }
 
-        protected XmlElement current;
+        private XmlElement current;
+        
+        #endregion
 
+        #region Properties
+        
+        protected XmlElement Current => current;
+        
+        #endregion
+        
         public override ICollection<T> Load()
         {
             var data = new HashSet<T>();
@@ -80,28 +105,35 @@ namespace Engine.Data.Factories.Xml
         protected List<string> Splt(string name)
         {
             var data = Str(name);
-            if (data == null || data.Length == 0)
-                return new List<string>();
-
-            return data.Split(';').ToList();
+            return string.IsNullOrEmpty(data) ? new List<string>() :
+                                                data.Split(DELIM_FIRST).ToList();
         }
 
         protected List<List<string>> DblSplt(string name)
         {
             var result = new List<List<string>>();
             var data = Str(name);
-            if (data == null || data.Length == 0)
+            if (string.IsNullOrEmpty(data))
                 return result;
-
-            foreach(var line in data.Split(';'))
+            foreach(var line in data.Split(DELIM_FIRST))
             {
-                if (line == null || line.Length == 0)
+                if (string.IsNullOrEmpty(line))
                     continue;
-
-                result.Add(new List<string>(line.Split(',')));
+                result.Add(new List<string>(line.Split(DELIM_SECOND)));
             }
-
             return result;
+        }
+
+        protected ISet<V> EnmSplit<V>(string name) where V : struct
+        {
+            return EnmSplit<V>(current, name);
+        }
+        
+        protected ISet<V> EnmSplit<V>(XmlElement element, string name) where V : struct
+        {
+            var data = Str(element, name);
+            return string.IsNullOrEmpty(data) ? null :
+                new HashSet<V>(data.Split(DELIM_FIRST).Select(item => Enums<V>.Parse(item)));
         }
 
         protected V Enm<V>(string name) where V : struct

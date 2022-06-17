@@ -1,5 +1,6 @@
 ﻿using Engine.Data.Factories;
 using System;
+using System.Collections.Generic;
 using UnityEngine;
 
 namespace Engine.Data
@@ -37,7 +38,7 @@ namespace Engine.Data
         ///     ---
         ///     Type of tool
         ///</summary>
-        public virtual ToolType ToolType { get; set; }
+        public virtual ISet<ToolType> ToolType { get; set; }
 
         ///<summary>
         ///     Локализованное название предмета

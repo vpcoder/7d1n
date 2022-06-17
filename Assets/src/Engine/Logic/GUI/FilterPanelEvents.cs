@@ -13,6 +13,7 @@ namespace Engine.Logic
         [SerializeField] private FilterButtonAction buttonCloths;
         [SerializeField] private FilterButtonAction buttonWeapons;
         [SerializeField] private FilterButtonAction buttonMedics;
+        [SerializeField] private FilterButtonAction buttonFoods;
         [SerializeField] private FilterButtonAction buttonBuilds;
 
         private FilterButtonAction selected;
@@ -45,6 +46,12 @@ namespace Engine.Logic
         {
             Select(buttonMedics);
             SetFilter(ItemFilterType.Medics);
+        }
+        
+        public void SetFilterFood()
+        {
+            Select(buttonFoods);
+            SetFilter(ItemFilterType.Foods);
         }
 
         public void SetFilterBuilds()
