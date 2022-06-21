@@ -20,15 +20,23 @@ namespace Engine.Data
     public class Inventory : ICharacterStoredObjectSerializable<InventoryStoryObject>
     {
 
-        public event Action Update;
+        public event Action Save;
 
+        #region Properties
+        
         /// <summary>
-        /// Предметы в сумках персонажа
+        ///     Предметы в сумках персонажа.
+        ///     Не менять содержимое коллекции напрямую! Использовать только методы Add, Remove и прочие, находящиеся здесь в инвентаре!
+        ///     ---
+        ///     Items in character bags.
+        ///     Do not change the contents of the collection directly! Use only the Add, Remove, and other methods found here in the inventory!
         /// </summary>
         public List<IItem> Items { get; } = new List<IItem>();
 
         /// <summary>
-        /// Вес всех предметов в сумках персонажа
+        ///     Общий вес всех предметов в сумках персонажа
+        ///     ---
+        ///     Total weight of all items in the character's bags
         /// </summary>
         public long Weight
         {
@@ -38,6 +46,44 @@ namespace Engine.Data
             }
         }
 
+        #endregion
+        
+        #region Ctor
+
+        public Inventory()
+        {
+            Save += OnSave;
+        }
+
+        #endregion
+
+        #region Serialization
+
+        public InventoryStoryObject CreateData()
+        {
+            var data = new InventoryStoryObject
+            {
+                IDValue = Game.Instance.Runtime.PlayerID,
+                Items = Items.Select(ItemSerializator.Convert).ToList()
+            };
+            return data;
+        }
+
+        public void LoadFromData(InventoryStoryObject data)
+        {
+            Items.Clear();
+            Items.AddRange(data.Items.Select(ItemSerializator.Convert));
+        }
+
+        #endregion
+
+        private void OnSave()
+        {
+            CharacterStory.Instance.InventoryStory.Save(CreateData());
+            CharacterStory.Instance.EquipmentStory.Save(Game.Instance.Character.Equipment.CreateData());
+        }
+
+        
         /// <summary>
         ///     В инвентаре есть хотябы один из перечисленных инструментов
         ///     ---
@@ -124,41 +170,6 @@ namespace Engine.Data
             }
             return null;
         }
-        
-        #region Ctor
-
-        public Inventory()
-        {
-            Update += OnUpdate;
-        }
-
-        #endregion
-
-        #region Serialization
-
-        public InventoryStoryObject CreateData()
-        {
-            var data = new InventoryStoryObject
-            {
-                IDValue = Game.Instance.Runtime.PlayerID,
-                Items = Items.Select(ItemSerializator.Convert).ToList()
-            };
-            return data;
-        }
-
-        public void LoadFromData(InventoryStoryObject data)
-        {
-            Items.Clear();
-            Items.AddRange(data.Items.Select(ItemSerializator.Convert));
-        }
-
-        #endregion
-
-        private void OnUpdate()
-        {
-            CharacterStory.Instance.InventoryStory.Save(CreateData());
-            CharacterStory.Instance.EquipmentStory.Save(Game.Instance.Character.Equipment.CreateData());
-        }
 
         /// <summary>
         /// Ищет индекс предмета в сумке
@@ -243,7 +254,7 @@ namespace Engine.Data
 
         public bool AddByAddress(IItem addItem)
         {
-            return DoInUpdate(() =>
+            return DoAndSaveToDatabase(() =>
             {
                 if (addItem.StackSize == 1) // Предмет без стека (поштучный)
                 {
@@ -262,11 +273,9 @@ namespace Engine.Data
                             item.Count += count;
                             return true;
                         }
-                        else
-                        {
-                            count -= freeCount;
-                            item.Count += freeCount; // Заполняем стек до конца
-                        }
+                        
+                        count -= freeCount;
+                        item.Count += freeCount; // Заполняем стек до конца
 
                         if (count == 0) // Разобрали все предметы?
                             return true;
@@ -292,7 +301,7 @@ namespace Engine.Data
 
         public bool Remove(long itemId, long count = 1)
         {
-            return DoInUpdate(() =>
+            return DoAndSaveToDatabase(() =>
             {
                 foreach (var item in Items.ToList())
                 {
@@ -308,11 +317,10 @@ namespace Engine.Data
                             }
                             return true;
                         }
-                        else
-                        {
-                            long delta = count - itemCount;
-                            count -= delta;
-                        }
+                        
+                        long delta = count - itemCount;
+                        count -= delta;
+                        
                         if (count == 0)
                         {
                             return true;
@@ -325,7 +333,7 @@ namespace Engine.Data
 
         public bool RemoveByAddress(IItem item)
         {
-            return DoInUpdate(() => Items.Remove(item));
+            return DoAndSaveToDatabase(() => Items.Remove(item));
         }
         
         /// <summary>
@@ -339,10 +347,10 @@ namespace Engine.Data
             if (remove == null)
                 return false;
 
-            return DoInUpdate(() => Items.Remove(remove));
+            return DoAndSaveToDatabase(() => Items.Remove(remove));
         }
 
-        private bool DoInUpdate(Func<bool> action)
+        private bool DoAndSaveToDatabase(Func<bool> action)
         {
             bool result = false;
 
@@ -353,7 +361,7 @@ namespace Engine.Data
             finally
             {
                 if(result)
-                    Update?.Invoke();
+                    Save?.Invoke();
             }
 
             return result;

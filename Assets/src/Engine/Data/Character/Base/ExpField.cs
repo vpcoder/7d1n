@@ -4,7 +4,13 @@ namespace Engine.Data
 {
 
 	/// <summary>
-	/// Поле опыта
+	///
+	/// Поле опыта.
+	/// Содержит общую информацию об абстрактном опыте.
+	/// ---
+	/// The field of experience.
+	/// Contains general information about the abstract experience.
+	/// 
 	/// </summary>
 	[Serializable]
 	public class ExpField
@@ -35,7 +41,9 @@ namespace Engine.Data
 		#region Properties
 		
 		/// <summary>
-		/// Текущее количество опыта
+		/// 	Текущее количество опыта
+		/// 	---
+		/// 	Current amount of experience
 		/// </summary>
 		public long Experience {
 			get { return this.experience; }
@@ -43,7 +51,9 @@ namespace Engine.Data
 		}
 		
 		/// <summary>
-		/// Максимальное количество опыта на текущем уровне
+		/// 	Максимальное количество опыта на текущем уровне
+		/// 	---
+		/// 	Maximum amount of experience at the current level
 		/// </summary>
 		public long MaxExperience {
 			get { return this.maxExperience; }
@@ -51,7 +61,9 @@ namespace Engine.Data
 		}
 		
 		/// <summary>
-		/// Текущий уровень
+		/// 	Текущий уровень
+		/// 	---
+		///		Current level
 		/// </summary>
 		public long Level {
 			get { return this.level; }
@@ -59,7 +71,9 @@ namespace Engine.Data
 		}
 		
 		/// <summary>
-		/// Количество свободных очков опыта
+		/// 	Количество свободных очков опыта
+		/// 	---
+		/// 	Number of free experience points
 		/// </summary>
 		public long Points {
 			get { return this.points; }

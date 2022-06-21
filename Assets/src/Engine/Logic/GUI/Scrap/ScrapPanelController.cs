@@ -152,7 +152,6 @@ namespace Engine.Logic.Locations
                 if (!item.IsCanScrap())
                     return false;
             }
-            
             return true;
         }
 
@@ -163,9 +162,20 @@ namespace Engine.Logic.Locations
         /// </summary>
         private void DoScrap()
         {
-            
-            
-            
+            if (!CanScrap())
+                return;
+            foreach (var item in items)
+            {
+                var part = item.Part;
+                var character = Game.Instance.Character;
+                var count = ScrapCalculationService.CalcResourceCount(part); // Вычисляем полученные части
+                if (count == 0)
+                    continue;
+                var exps = character.Exps;
+                ExpCalculationService.AddExp(part.Difficulty, exps.ScrapExperience, exps.MainExperience); // Увеличиваем опыт разборки, в зависимости от количества частей и сложности их извлечения
+                character.Inventory.Add(part.ResourceID, count);
+            }
+            Destroy(selectedItemBehaviour.gameObject);
         }
         
         #endregion

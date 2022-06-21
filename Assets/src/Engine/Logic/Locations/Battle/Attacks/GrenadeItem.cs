@@ -78,7 +78,7 @@ namespace Engine.Logic.Locations
         {
             GrenadeEffectFactory.Instance.CreatePrefabInstance(weapon.ExplodeEffectType, transform.position);
             AudioController.Instance.CreateTimedFragment(transform.position, MixerType.Sounds, weapon.ExplodeSoundType);
-            GameObject.Destroy(gameObject);
+            Destroy(gameObject);
         }
 
         /// <summary>

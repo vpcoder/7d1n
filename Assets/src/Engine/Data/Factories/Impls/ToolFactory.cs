@@ -43,8 +43,6 @@ namespace Engine.Data.Factories
 
         public string GetName(ToolType toolType)
         {
-            if (toolType == ToolType.None)
-                return "";
             var key = "tools_" + toolType.ToString().ToLower();
             return Localization.Instance.Get(key);
         }

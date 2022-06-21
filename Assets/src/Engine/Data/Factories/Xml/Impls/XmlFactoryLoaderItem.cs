@@ -1,14 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Xml;
-using UnityEditor;
 
 namespace Engine.Data.Factories.Xml
 {
 
     /// <summary>
+    /// 
     /// Загрузчик фабрики предметов
     /// ---
+    /// Item Factory Loader
     /// 
     /// </summary>
     public class XmlFactoryLoaderItem : XmlFactoryLoaderBase<IItem>
@@ -90,36 +91,33 @@ namespace Engine.Data.Factories.Xml
             return item;
         }
 
-        private void ReadWeightValues(string weight, out long baseWeight, out long mul)
+        private void ReadWeightValues(string weight, out long baseWeight, out WeightUnitType unitType)
         {
-            if (weight.EndsWith("kg"))
-            {
-                mul = 1000000; // 1000 * 1000
-                baseWeight = long.Parse(weight.Substring(0, weight.Length - 2).Trim());
-                return;
-            }
             if (weight.EndsWith("mlg"))
             {
-                mul = 1;
+                unitType = WeightUnitType.MILIGRAMS;
                 baseWeight = long.Parse(weight.Substring(0, weight.Length - 3).Trim());
                 return;
             }
             if (weight.EndsWith("g"))
             {
-                mul = 1000;
+                unitType = WeightUnitType.GRAMS;
                 baseWeight = long.Parse(weight.Substring(0, weight.Length - 1).Trim());
                 return;
             }
-
+            if (weight.EndsWith("kg"))
+            {
+                unitType = WeightUnitType.KILOGRAMS;
+                baseWeight = long.Parse(weight.Substring(0, weight.Length - 2).Trim());
+                return;
+            }
             throw new NotSupportedException("weight value not supported '" + weight + "'!");
         }
 
         private long ReadWeight(string weight)
         {
-            long baseWeight;
-            long mulWeight;
-            ReadWeightValues(weight.ToLower(), out baseWeight, out mulWeight);
-            return baseWeight * mulWeight;
+            ReadWeightValues(weight.ToLower(), out var baseWeight, out var unitType);
+            return WeightCalculationService.GetMass(baseWeight, unitType);
         }
 
         private void ReadBaseItem(IItem item)

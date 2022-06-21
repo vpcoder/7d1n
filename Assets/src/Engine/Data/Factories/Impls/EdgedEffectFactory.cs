@@ -15,7 +15,7 @@ namespace Engine.Data.Factories
         public static EdgedEffectFactory Instance { get { return instance.Value; } }
         private EdgedEffectFactory() { }
 
-        public override string Directory => "Edgeds";
+        public override string Directory => "Data/Effects/Edgeds";
 
     }
 

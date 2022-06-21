@@ -10,6 +10,8 @@ namespace Engine.Logic
 
         [SerializeField] private List<SkillsTab> tabs;
 
+        private SkillItemBehaviour selectedSkillItem;
+
         private void Switch(SkillsTabType type)
         {
             foreach(var tab in tabs)
@@ -27,6 +29,34 @@ namespace Engine.Logic
             Switch(SkillsTabType.BattleTab);
         }
 
+        public void DoSelectSkillItem(SkillItemBehaviour skillItem)
+        {
+            if (skillItem == null || skillItem == selectedSkillItem)
+            {
+                HideSkillItemInfo();
+                return;
+            }
+            
+            if(selectedSkillItem != null)
+                selectedSkillItem.DoUnselect();
+            selectedSkillItem = skillItem;
+            ShowSkillItemInfo();
+        }
+
+        public void ShowSkillItemInfo()
+        {
+            selectedSkillItem.DoSelect();
+            ObjectFinder.Find<SkillInfoPanelController>().Show(selectedSkillItem);
+        }
+        
+        public void HideSkillItemInfo()
+        {
+            if(selectedSkillItem != null)
+                selectedSkillItem.DoUnselect();
+            selectedSkillItem = null;
+            ObjectFinder.Find<SkillInfoPanelController>().Hide();
+        }
+        
         public void OnBattleTabClick()
         {
             Switch(SkillsTabType.BattleTab);

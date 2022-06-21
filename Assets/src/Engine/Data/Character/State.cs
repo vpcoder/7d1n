@@ -36,7 +36,8 @@ namespace Engine.Data
 		
 		public int  Infection   { get; set; } = 0;
 		
-		public long MaxWeight   { get; set; } = 45000000; // Максимально переносимый вес 45кг
+		
+		public long MaxWeight   { get; set; } = WeightCalculationService.GetMass(45, WeightUnitType.KILOGRAMS); // Максимально переносимый вес 45кг
 
         public int MaxAP { get; set; } =
 #if UNITY_EDITOR && DEBUG

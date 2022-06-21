@@ -122,7 +122,7 @@ namespace Engine
             if (mixers.TryGetValue(type, out AudioMixerGroup master))
                 return master;
 
-            var mixer = Resources.Load<AudioMixer>("Data/Effects/" + type.ToString());
+            var mixer = Resources.Load<AudioMixer>(type.ToString());
             master = mixer.FindMatchingGroups("Master")[0];
 
             float level;

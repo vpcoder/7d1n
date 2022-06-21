@@ -13,6 +13,17 @@ INSERT INTO `i18n_lang`(`id`,`code`,`name`) VALUES (0, 'ru_ru', 'Русский'
 
 # ----------------------- ;
 
+# Навыки ;
+
+    INSERT INTO `i18n_ru_ru`(`key`,`value`) VALUES ('scrap_difficulty_1_name', 'Сложность разбора');
+    INSERT INTO `i18n_ru_ru`(`key`,`value`) VALUES ('scrap_difficulty_1_desc', '+1 к сложности разбора, позволяет разбирать более сложные объекты');
+    INSERT INTO `i18n_ru_ru`(`key`,`value`) VALUES ('scrap_difficulty_2_name', 'Сложность разбора');
+    INSERT INTO `i18n_ru_ru`(`key`,`value`) VALUES ('scrap_difficulty_2_desc', '+1 к сложности разбора, позволяет разбирать более сложные объекты');
+    INSERT INTO `i18n_ru_ru`(`key`,`value`) VALUES ('scrap_difficulty_3_name', 'Сложность разбора');
+    INSERT INTO `i18n_ru_ru`(`key`,`value`) VALUES ('scrap_difficulty_3_desc', '+1 к сложности разбора, позволяет разбирать более сложные объекты');
+    INSERT INTO `i18n_ru_ru`(`key`,`value`) VALUES ('scrap_difficulty_4_name', 'Сложность разбора');
+    INSERT INTO `i18n_ru_ru`(`key`,`value`) VALUES ('scrap_difficulty_4_desc', '+1 к сложности разбора, позволяет разбирать более сложные объекты');
+
 # Ресурсы ;
 
     INSERT INTO `i18n_ru_ru`(`key`,`value`) VALUES ('res_wood_name', 'Дерево');

@@ -30,7 +30,7 @@ namespace Engine.Logic.Locations.Editor
             
             GUILayout.Label("name: " + item.Name + ", " + Localization.Instance.Get(item.Name));
             GUILayout.Label("desctiption: " + item.Description  + ", " + Localization.Instance.Get(item.Description));
-            GUILayout.Label("weight: " + EntityCalculationService .GetWeightFormat(item.Weight));
+            GUILayout.Label("weight: " + WeightCalculationService.GetWeightFormat(item.Weight));
             Icon = item.Sprite?.texture;
             
             GUILayout.Space(30f);

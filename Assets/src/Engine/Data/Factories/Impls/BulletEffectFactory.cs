@@ -14,7 +14,7 @@ namespace Engine.Data.Factories
         public static BulletEffectFactory Instance { get { return instance.Value; } }
         private BulletEffectFactory() { }
 
-        public override string Directory => "Bullets";
+        public override string Directory => "Data/Effects/Bullets";
 
     }
 

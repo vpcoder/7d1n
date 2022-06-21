@@ -5,7 +5,13 @@ namespace Engine.Data.Factories
 {
 
     /// <summary>
+    /// 
     /// Фабрика звуков
+    /// Позволяет получать короткие звуковые клипы для воспроизведения, кеширует ранее полученные клипы.
+    /// ---
+    /// Sound Factory.
+    /// Allows you to get short sound clips for playback, caches previously obtained clips.
+    /// 
     /// </summary>
     public class SoundFactory : PrefabFactory<AudioClip>
     {

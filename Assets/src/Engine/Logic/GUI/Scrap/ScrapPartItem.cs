@@ -31,7 +31,9 @@ namespace Engine.Logic.Scrap
         private List<ScrapPartToolItem> toolsItems = new List<ScrapPartToolItem>();
         
         #endregion
-        
+
+        public Part Part => part;
+
         public void Init(Part part, ScrapPanelController parent)
         {
             this.part   = part;
@@ -49,9 +51,6 @@ namespace Engine.Logic.Scrap
 
         private void AddItem(ToolType tool)
         {
-            if (tool == ToolType.None)
-                return;
-            
             var index = toolsContentRect.childCount;
             var size = ((RectTransform)toolPrefab.transform).sizeDelta;
             
@@ -70,7 +69,7 @@ namespace Engine.Logic.Scrap
         {
             var item = ItemFactory.Instance.Get(part.ResourceID);
             imgIcon.sprite = item.Sprite;
-            txtWeight.text = EntityCalculationService.GetWeightFormat(item.Weight);
+            txtWeight.text = WeightCalculationService.GetWeightFormat(item.Weight);
             txtCount.text = part.ResourceCount.ToString();
             txtTitle.text = Localization.Instance.Get(item.Name);
 

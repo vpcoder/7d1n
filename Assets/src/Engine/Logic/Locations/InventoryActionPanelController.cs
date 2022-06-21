@@ -47,7 +47,7 @@ namespace Engine.Logic
 
                     icon.sprite = item.Sprite;
                     txtName.text = Localization.Instance.Get(item.Name);
-                    txtDetail.text = EntityCalculationService.GetWeightFormat(item.Weight * item.Count);
+                    txtDetail.text = WeightCalculationService.GetWeightFormat(item.Weight * item.Count);
                     txtDescription.text = Localization.Instance.Get(item.Description);
 
                     if (item.Type.IsOneOf(GroupType.Used,

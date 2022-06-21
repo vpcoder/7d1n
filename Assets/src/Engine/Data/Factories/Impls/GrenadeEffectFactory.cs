@@ -15,7 +15,7 @@ namespace Engine.Data.Factories
         public static GrenadeEffectFactory Instance { get { return instance.Value; } }
         private GrenadeEffectFactory() { }
 
-        public override string Directory => "Grenades";
+        public override string Directory => "Data/Effects/Grenades";
 
     }
 

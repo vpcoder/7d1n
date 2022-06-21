@@ -17,11 +17,16 @@ namespace Engine.Data
 	public class Skills : ICharacterStoredObjectSerializable<SkillsStoryObject>
     {
 
-        public HashSet<string> SkillsData { get; set; } = new HashSet<string>(); // навыки персонажа
+        public HashSet<string> SkillsData { get; set; } = new HashSet<string>(); // Навыки персонажа
         
-        public bool HasSkill(string id)
+        public bool HasSkill(string skillId)
         {
-            return SkillsData.Contains(id);
+            return SkillsData.Contains(skillId);
+        }
+
+        public bool AddSkill(string skillId)
+        {
+            return SkillsData.Add(skillId);
         }
 
         #region Serialization

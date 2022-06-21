@@ -16,12 +16,21 @@ namespace Engine.Data
         public ExpField FightExperience;
     }
 
+    public enum ExperienceType : int
+    {
+        Main,
+        Loot,
+        Scrap,
+        Craft,
+        Fight,
+    };
+    
 	public class Exps : ICharacterStoredObjectSerializable<ExpDataStoryObject>
     {
         public ExpField MainExperience   { get; set; } = new ExpField(0,  70, 0, 0); // Общий опыт выживания
 
 		public ExpField LootExperience   { get; set; } = new ExpField(0, 100, 0, 0); // Опыт поиска
-        public ExpField ScrapExperience  { get; set; } = new ExpField(0, 100, 0, 0); // Опыт разборщика
+        public ExpField ScrapExperience  { get; set; } = new ExpField(0, 100, 0, 2); // Опыт разборщика
         public ExpField CraftExperience  { get; set; } = new ExpField(0, 100, 0, 0); // Опыт сборщика
         public ExpField FightExperience  { get; set; } = new ExpField(0, 100, 0, 0); // Опыт битвы
 
