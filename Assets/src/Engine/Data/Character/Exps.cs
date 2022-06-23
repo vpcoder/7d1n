@@ -34,6 +34,20 @@ namespace Engine.Data
         public ExpField CraftExperience  { get; set; } = new ExpField(0, 100, 0, 0); // Опыт сборщика
         public ExpField FightExperience  { get; set; } = new ExpField(0, 100, 0, 0); // Опыт битвы
 
+        public ExpField GetByExperienceType(ExperienceType type)
+        {
+            switch (type)
+            {
+                case ExperienceType.Craft: return CraftExperience;
+                case ExperienceType.Fight: return FightExperience;
+                case ExperienceType.Loot:  return LootExperience;
+                case ExperienceType.Main:  return MainExperience;
+                case ExperienceType.Scrap: return ScrapExperience;
+                default:
+                    throw new NotSupportedException("exp type '" + type + "' isn't supported!");
+            }
+        }
+        
         #region Serialization
 
         public ExpDataStoryObject CreateData()

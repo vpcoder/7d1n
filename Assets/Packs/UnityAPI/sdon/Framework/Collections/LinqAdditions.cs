@@ -20,6 +20,11 @@ namespace System.Linq
         
         public static ISet<T> ToSet<T>(this ICollection<T> collection)
         {
+            return ToHashSet(collection);
+        }
+        
+        public static HashSet<T> ToHashSet<T>(this ICollection<T> collection)
+        {
             var set = new HashSet<T>();
             foreach (var item in collection)
                 set.Add(item);

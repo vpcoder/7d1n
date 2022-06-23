@@ -15,6 +15,7 @@ namespace Engine.Logic
 
         #pragma warning disable 0649, IDE0044, CS0414
 
+        [SerializeField] private Vector2 incellOffset = new Vector2(4, 4);
         [SerializeField] private int cellSizeX;
         [SerializeField] private int cellSizeY;
 
@@ -130,19 +131,21 @@ namespace Engine.Logic
         private void CreateItem(IItem item, int flatIndex)
         {
             // Создаём новый компонент предмета
-            AbstractItem itemComponent = GameObject.Instantiate<AbstractItem>(itemPrefab, contentContainer);
+            var itemComponent = Instantiate(itemPrefab, contentContainer);
             itemComponent.Bag = this;
             itemComponent.Item = item;
 
             int countX = Mathf.Max(1, CellCountX);
-
+            var indexX = (flatIndex % countX);
+            var indexY = (flatIndex / countX); // countX - это не опечатка
+            
             // Рассчёт положения предмета в сумке по плоскому индексу
-            float posX = (flatIndex % countX) * cellSizeX;
-            float posY = (flatIndex / countX) * cellSizeY; // countX - это не опечатка
+            var posX = indexX * cellSizeX;
+            var posY = indexY * cellSizeY;
 
             // Смещение
-            float offsetX = 0;
-            float offsetY = 0;
+            var offsetX = indexX * incellOffset.x;
+            var offsetY = indexY * incellOffset.y;
 
             // Располагаем предмет в сумке
             itemComponent.SetBounds(cellSizeX, cellSizeY, posX, posY, offsetX, offsetY);

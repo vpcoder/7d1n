@@ -12,6 +12,8 @@
 	    	Name="sink_1_name"
 	    	Description="sink_1_desc"
 	    	StackSize="1"
+	    	Weight="40kg"
+            StaticWeight="true"
 	    >
 	    	<Part ResID="0" ResCount="4000" Difficulty="1"/> <!-- Дерево       -->
 	    	<Part ResID="1" ResCount="2500" Difficulty="2"/> <!-- Металлолом   -->
@@ -25,6 +27,8 @@
         	Name="counter_corner_1_name"
         	Description="counter_corner_1_desc"
         	StackSize="1"
+	    	Weight="25kg"
+            StaticWeight="true"
         >
         	<Part ResID="0" ResCount="5000" Difficulty="1"/> <!-- Дерево       -->
         	<Part ResID="9" ResCount="5"    Difficulty="2"/> <!-- Пластик      -->
@@ -37,6 +41,8 @@
         	Name="counter_empty_1_name"
         	Description="counter_empty_1_desc"
         	StackSize="1"
+	    	Weight="20kg"
+            StaticWeight="true"
         >
         	<Part ResID="0" ResCount="5000" Difficulty="1"/> <!-- Дерево       -->
         	<Part ResID="9" ResCount="5"    Difficulty="2"/> <!-- Пластик      -->
@@ -49,6 +55,8 @@
         	Name="counter_shelf_1_name"
         	Description="counter_shelf_1_desc"
         	StackSize="1"
+	    	Weight="35kg"
+            StaticWeight="true"
         >
         	<Part ResID="0" ResCount="5000" Difficulty="1"/> <!-- Дерево       -->
         	<Part ResID="9" ResCount="5"    Difficulty="2"/> <!-- Пластик      -->
@@ -61,6 +69,8 @@
         	Name="counter_washing_1_name"
         	Description="counter_washing_1_desc"
         	StackSize="1"
+	    	Weight="60kg"
+            StaticWeight="true"
         >
         	<Part ResID="0"  ResCount="1000" Difficulty="1"/> <!-- Дерево       -->
     	    <Part ResID="1"  ResCount="1000" Difficulty="2"/> <!-- Металлолом   -->
@@ -76,6 +86,8 @@
         	Name="fridge_1_name"
         	Description="fridge_1_desc"
         	StackSize="1"
+	    	Weight="60kg"
+            StaticWeight="true"
         >
         	<Part ResID="9"  ResCount="1500" Difficulty="1"/> <!-- Пластик      -->
     	    <Part ResID="1"  ResCount="2000" Difficulty="2"/> <!-- Металлолом   -->
@@ -90,6 +102,8 @@
         	Name="oven_1_name"
         	Description="oven_1_desc"
         	StackSize="1"
+	    	Weight="70kg"
+            StaticWeight="true"
         >
     	    <Part ResID="1"  ResCount="3000" Difficulty="2"/> <!-- Металлолом   -->
         	<Part ResID="9"  ResCount="100"  Difficulty="2"/> <!-- Пластик      -->
@@ -103,6 +117,8 @@
         	Name="kitchen_table_1_name"
         	Description="kitchen_table_1_desc"
         	StackSize="1"
+	    	Weight="15kg"
+            StaticWeight="true"
         >
         	<Part ResID="0" ResCount="3000" Difficulty="1"/> <!-- Дерево       -->
         </Item>
@@ -114,6 +130,8 @@
         	Name="kitchen_chair_1_name"
         	Description="kitchen_chair_1_desc"
         	StackSize="1"
+	    	Weight="2kg"
+            StaticWeight="true"
         >
         	<Part ResID="0" ResCount="1000" Difficulty="1"/> <!-- Дерево       -->
         	<Part ResID="1" ResCount="50" Difficulty="2"/>   <!-- Металлолом   -->
@@ -126,6 +144,8 @@
         	Name="toaster_1_name"
         	Description="toaster_1_desc"
         	StackSize="1"
+	    	Weight="500g"
+            StaticWeight="true"
         >
         	<Part ResID="1"  ResCount="150" Difficulty="2"/>  <!-- Металлолом   -->
     	    <Part ResID="11" ResCount="50"  Difficulty="3"/>  <!-- Электроника  -->
@@ -138,6 +158,8 @@
         	Name="microwave_1_name"
         	Description="microwave_1_desc"
         	StackSize="1"
+	    	Weight="1kg"
+            StaticWeight="true"
         >
         	<Part ResID="1"  ResCount="150" Difficulty="2"/>  <!-- Металлолом   -->
         	<Part ResID="9"  ResCount="100" Difficulty="1"/>  <!-- Пластик      -->
@@ -151,6 +173,8 @@
         	Name="extractor_1_name"
         	Description="extractor_1_desc"
         	StackSize="1"
+	    	Weight="5kg"
+            StaticWeight="true"
         >
         	<Part ResID="1"  ResCount="350" Difficulty="2"/>  <!-- Металлолом   -->
         	<Part ResID="9"  ResCount="10"  Difficulty="1"/>  <!-- Пластик      -->

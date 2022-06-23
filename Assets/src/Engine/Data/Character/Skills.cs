@@ -1,5 +1,7 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
+using Engine.Data.Stories;
 
 namespace Engine.Data
 {
@@ -10,7 +12,8 @@ namespace Engine.Data
         public long ID { get { return IDValue; } set { } }
         public long IDValue;
 
-        public HashSet<string> SkillsData;
+        // List, потому что HashSet не сериализуемый
+        public List<string> SkillsData;
     }
 
     
@@ -26,7 +29,10 @@ namespace Engine.Data
 
         public bool AddSkill(string skillId)
         {
-            return SkillsData.Add(skillId);
+            var result = SkillsData.Add(skillId);
+            if(result)
+                CharacterStory.Instance.SkillsStory.Save(CreateData());
+            return result;
         }
 
         #region Serialization
@@ -36,14 +42,14 @@ namespace Engine.Data
             var data = new SkillsStoryObject
             {
                 IDValue = Game.Instance.Runtime.PlayerID,
-                SkillsData = SkillsData
+                SkillsData = SkillsData.ToList()
             };
             return data;
         }
 
         public void LoadFromData(SkillsStoryObject data)
         {
-            this.SkillsData = data.SkillsData;
+            SkillsData = data.SkillsData.ToHashSet();
         }
 
         #endregion

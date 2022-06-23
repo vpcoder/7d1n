@@ -72,7 +72,8 @@ namespace Engine.Data
         public void LoadFromData(InventoryStoryObject data)
         {
             Items.Clear();
-            Items.AddRange(data.Items.Select(ItemSerializator.Convert));
+            if(data.Items != null)
+                Items.AddRange(data.Items.Select(ItemSerializator.Convert));
         }
 
         #endregion

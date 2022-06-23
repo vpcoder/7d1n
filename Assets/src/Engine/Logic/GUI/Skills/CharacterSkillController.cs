@@ -1,32 +1,79 @@
-﻿using Engine.EGUI;
-using System.Collections.Generic;
+﻿using System;
+using System.Text;
+using Engine.Data;
+using Engine.EGUI;
 using UnityEngine;
+using UnityEngine.UI;
 
 namespace Engine.Logic
 {
-
     public class CharacterSkillController : Panel
     {
+        [SerializeField] private RectTransform scrapSkillsMap;
+        [SerializeField] private RectTransform craftSkillsMap;
+        [SerializeField] private RectTransform lootSkillsMap;
+        [SerializeField] private RectTransform battleSkillsMap;
+        [SerializeField] private RectTransform mainSkillsMap;
 
-        [SerializeField] private List<SkillsTab> tabs;
+        [SerializeField] private RectTransform skillMapContent;
+        [SerializeField] private Text txtSkillsInfo;
 
+        private StringBuilder builder = new StringBuilder();
+        private ExperienceType currentSkillMap;
         private SkillItemBehaviour selectedSkillItem;
 
-        private void Switch(SkillsTabType type)
+        public ExperienceType CurrentSkillMap => currentSkillMap;
+
+        private RectTransform GetPrefabByMapType(ExperienceType skillMapType)
         {
-            foreach(var tab in tabs)
+            switch (skillMapType)
             {
-                if (tab.Type == type)
-                    tab.Show();
-                else
-                    tab.Hide();
+                case ExperienceType.Scrap: return scrapSkillsMap;
+                case ExperienceType.Fight: return battleSkillsMap;
+                case ExperienceType.Craft: return craftSkillsMap;
+                case ExperienceType.Loot: return lootSkillsMap;
+                case ExperienceType.Main: return mainSkillsMap;
+                default: throw new NotSupportedException();
             }
         }
 
+        private void Switch(ExperienceType type)
+        {
+            currentSkillMap = type;
+            skillMapContent.DestroyAllChilds();
+            var map = Instantiate(GetPrefabByMapType(type), skillMapContent);
+            skillMapContent.sizeDelta = map.sizeDelta;
+            skillMapContent.position = Vector3.zero;
+            UpdateAvailableSkillPoints();
+            ObjectFinder.Find<SkillInfoPanelController>().Hide();
+        }
+
+        public void UpdateAvailableSkillPoints()
+        {
+            var field = Game.Instance.Character.Exps.GetByExperienceType(currentSkillMap);
+
+            builder.Append(Localization.Instance.Get("ui/skills/current_level"));
+            builder.Append("<color=\"#0f0\">");
+            builder.Append(field.Level);
+            builder.Append("</color>\n");
+            builder.Append(Localization.Instance.Get("ui/skills/current_exp"));
+            builder.Append(field.Experience);
+            builder.Append("/");
+            builder.Append(field.MaxExperience);
+            builder.Append("\n");
+            builder.Append(Localization.Instance.Get("ui/skills/available_points"));
+            builder.Append("<color=\"#0f0\">");
+            builder.Append(field.Points);
+            builder.Append("</color>\n");
+
+            txtSkillsInfo.text = builder.ToString();
+            builder.Clear();
+        }
+        
         public override void Show()
         {
             base.Show();
-            Switch(SkillsTabType.BattleTab);
+            Switch(ExperienceType.Main);
         }
 
         public void DoSelectSkillItem(SkillItemBehaviour skillItem)
@@ -36,8 +83,8 @@ namespace Engine.Logic
                 HideSkillItemInfo();
                 return;
             }
-            
-            if(selectedSkillItem != null)
+
+            if (selectedSkillItem != null)
                 selectedSkillItem.DoUnselect();
             selectedSkillItem = skillItem;
             ShowSkillItemInfo();
@@ -48,30 +95,38 @@ namespace Engine.Logic
             selectedSkillItem.DoSelect();
             ObjectFinder.Find<SkillInfoPanelController>().Show(selectedSkillItem);
         }
-        
+
         public void HideSkillItemInfo()
         {
-            if(selectedSkillItem != null)
+            if (selectedSkillItem != null)
                 selectedSkillItem.DoUnselect();
             selectedSkillItem = null;
             ObjectFinder.Find<SkillInfoPanelController>().Hide();
         }
-        
+
         public void OnBattleTabClick()
         {
-            Switch(SkillsTabType.BattleTab);
+            Switch(ExperienceType.Fight);
         }
 
-        public void OnSearshTabClick()
+        public void OnLootTabClick()
         {
-            Switch(SkillsTabType.SearshTab);
+            Switch(ExperienceType.Loot);
         }
 
         public void OnCraftTabClick()
         {
-            Switch(SkillsTabType.CraftTab);
+            Switch(ExperienceType.Craft);
         }
 
-    }
+        public void OnScrapTabClick()
+        {
+            Switch(ExperienceType.Scrap);
+        }
 
+        public void OnMainTabClick()
+        {
+            Switch(ExperienceType.Main);
+        }
+    }
 }

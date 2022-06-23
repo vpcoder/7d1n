@@ -126,15 +126,15 @@ namespace Engine
         public static string GetWeightFormat(long weightMiligrams)
         {
             if (weightMiligrams < 1000L)
-                return weightMiligrams + " " + Localization.Instance.Get("msg_weight_mlg");
+                return weightMiligrams + Localization.Instance.Get("msg_weight_mlg");
 
             if (weightMiligrams < 1000000L)
             {
                 var valueGrams = Math.Truncate(weightMiligrams / 10d) / 100d;
-                return string.Format("{0:N2}%", valueGrams) + " " + Localization.Instance.Get("msg_weight_g");
+                return string.Format("{0:N2}", valueGrams) + Localization.Instance.Get("msg_weight_g");
             }
             var valueKilograms = Math.Truncate(weightMiligrams / 10000d) / 100d;
-            return string.Format("{0:N2}%", valueKilograms) + " " + Localization.Instance.Get("msg_weight_kg");
+            return string.Format("{0:N2}", valueKilograms) + Localization.Instance.Get("msg_weight_kg");
         }
         
     }

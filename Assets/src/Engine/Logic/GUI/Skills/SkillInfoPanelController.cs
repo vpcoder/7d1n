@@ -33,7 +33,7 @@ namespace Engine.Logic
 
         public void OnBuySkillClick()
         {
-            var field = GetField();
+            var field = Game.Instance.Character.Exps.GetByExperienceType(skillItem.ExperienceType);
             if (field.points < 1 || Game.Instance.Character.Skills.HasSkill(skillItem.SkillID))
             {
                 AudioController.Instance.PlaySound("ui/cant_add_skill");
@@ -44,25 +44,11 @@ namespace Engine.Logic
             field.points--;
             Game.Instance.Character.Skills.AddSkill(skillItem.SkillID);
             skillItem.UpdateInfo();
-
+            
+            ObjectFinder.Find<CharacterSkillController>().UpdateAvailableSkillPoints();
             Hide();
         }
 
-        private ExpField GetField()
-        {
-            var exps = Game.Instance.Character.Exps;
-            switch (skillItem.ExperienceType)
-            {
-                case ExperienceType.Craft: return exps.CraftExperience;
-                case ExperienceType.Fight: return exps.FightExperience;
-                case ExperienceType.Loot:  return exps.LootExperience;
-                case ExperienceType.Main:  return exps.MainExperience;
-                case ExperienceType.Scrap: return exps.ScrapExperience;
-                default:
-                    throw new NotSupportedException("exp type '" + skillItem.ExperienceType + "' isn't supported!");
-            }
-        }
-        
     }
     
 }
