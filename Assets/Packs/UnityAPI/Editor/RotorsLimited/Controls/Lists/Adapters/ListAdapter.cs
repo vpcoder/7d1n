@@ -8,23 +8,23 @@ namespace UnityEditor.Sdon.Controls {
 
 		private List<T> data;
 
-			public ListAdapter() : base() {
-				this.data = new List<T>();
-			}
+		public ListAdapter() {
+			this.data = new List<T>();
+		}
 
-			public ListAdapter(List<T> data) : base() {
-				this.data=data;
-			}
-
+		public ListAdapter(List<T> data) {
+			this.data = data;
+		}
+		
+		public List<T> Data => data;
+		
 		public void SetData(List<T> data) {
-			this.data=data;
+			this.data = data;
 		}
 
-		public int Count {
-			get {
-				return data.Count;
-			}
-		}
+		public int Count => data.Count;
+		public bool IsEmpty => Count == 0;
+		public bool IsNotEmpty => !IsEmpty;
 
 		#region Abstract
 
@@ -69,7 +69,7 @@ namespace UnityEditor.Sdon.Controls {
 		}
 
 		public void DrawItem(Rect position, int index) {
-			DrawItem(position,data[index]);
+			DrawItem(position, data[index]);
 		}
 
 		public void DrawItemBackground(Rect position, int index) {

@@ -7,24 +7,33 @@ namespace Engine.Logic
 {
 
     /// <summary>
+    /// 
     /// Простая сумка
+    /// Логика простого инвентаря, внутри которого могут отображаться предметы,
+    /// и производиться минимальный набор действий (фильтрация и отлов нажатий на предметы)
+    /// ---
+    /// A simple bag
+    /// The logic of a simple inventory, within which items can be displayed,
+    /// and performs a minimal set of actions (filtering and item clicks catching)
+    /// 
     /// </summary>
 	public class Bag : AbstractBag
     {
-
-
-        #pragma warning disable 0649, IDE0044, CS0414
-
+        
+        /// <summary>
+        ///     Расстояние между иконками предметов
+        ///     ---
+        ///     Distance between item icons
+        /// </summary>
         [SerializeField] private Vector2 incellOffset = new Vector2(4, 4);
+        
         [SerializeField] private int cellSizeX;
         [SerializeField] private int cellSizeY;
 
         [SerializeField] private RectTransform contentContainer;
         [SerializeField] private RectTransform viewportContainer;
 
-        [SerializeField] private AbstractItem itemPrefab;
-
-        #pragma warning restore 0649, IDE0044, CS0414
+        [SerializeField] private InventoryItemBehaviour itemBehaviourPrefab;
 
         /// <summary>
         /// Ширина всей видимой области инвентаря
@@ -51,31 +60,19 @@ namespace Engine.Logic
         /// <summary>
         /// Количество ячеек умещающихся в ширину инвентаря
         /// </summary>
-        public override int CellCountX
-        {
-            get
-            {
-                return FrameWidth / cellSizeX;
-            }
-        }
+        public override int CellCountX => (int)(FrameWidth / (cellSizeX + incellOffset.x));
 
         /// <summary>
         ///  Количество ячеек умещающихся в высоту инвентаря
         /// </summary>
-        public override int CellCountY
-        {
-            get
-            {
-                return FrameHeight / cellSizeY;
-            }
-        }
+        public override int CellCountY => (int)(FrameHeight / (cellSizeY + incellOffset.y));
 
         /// <summary>
         /// Отображает UI сумки
         /// </summary>
         public override void Show()
         {
-            if (Visible == true)
+            if (Visible)
                 return;
             base.Show();
         }
@@ -94,15 +91,16 @@ namespace Engine.Logic
         /// <summary>
         /// Список уже созданных UI компонентов предметов
         /// </summary>
-        private readonly List<AbstractItem> existsItems = new List<AbstractItem>();
+        private readonly List<InventoryItemBehaviour> existsItems = new List<InventoryItemBehaviour>();
 
         /// <summary>
         /// Очищает список созданных UI компонентов
         /// </summary>
         public void Clear()
         {
+            _lastSelectedItemBehaviour = null;
             foreach (var item in existsItems)
-                GameObject.Destroy(item.gameObject);
+                Destroy(item.gameObject);
             existsItems.Clear();
         }
 
@@ -119,7 +117,8 @@ namespace Engine.Logic
 
             // Вычисляем высоту контента, чтобы его можно было скроллить
             var countX = Mathf.Max(1, CellCountX);
-            var deltaSizeY = ((Items.Count / countX) + 1) * cellSizeY;
+            var countY = (Items.Count / countX) + 1;
+            var deltaSizeY = countY * cellSizeY + countY * incellOffset.y;
             contentContainer.sizeDelta = new Vector2(contentContainer.sizeDelta.x, deltaSizeY);
         }
 
@@ -131,15 +130,17 @@ namespace Engine.Logic
         private void CreateItem(IItem item, int flatIndex)
         {
             // Создаём новый компонент предмета
-            var itemComponent = Instantiate(itemPrefab, contentContainer);
+            var itemComponent = Instantiate(itemBehaviourPrefab, contentContainer);
             itemComponent.Bag = this;
             itemComponent.Item = item;
 
             int countX = Mathf.Max(1, CellCountX);
+            
+            // Конвертируем одномерный индекс в двумерный
             var indexX = (flatIndex % countX);
             var indexY = (flatIndex / countX); // countX - это не опечатка
             
-            // Рассчёт положения предмета в сумке по плоскому индексу
+            // Рассчёт положения предмета в сумке по индексам
             var posX = indexX * cellSizeX;
             var posY = indexY * cellSizeY;
 
@@ -155,16 +156,22 @@ namespace Engine.Logic
 
         public override void ClickItem(IItem item)
         {
-
+            // В простейшей реализации - тут ничего не делаем, кому надо переопределит этот метод
         }
 
-        public override void SetSelected(AbstractItem selected)
+        public override void SetSelected(InventoryItemBehaviour selected)
         {
-            foreach (var item in existsItems)
-                if (item != selected)
-                    item.OnUnselected();
+            if (_lastSelectedItemBehaviour == selected)
+                return;
+            if(_lastSelectedItemBehaviour != null)
+                _lastSelectedItemBehaviour.OnUnselected();
+            _lastSelectedItemBehaviour = selected;
         }
 
+        public override InventoryItemBehaviour Selected => _lastSelectedItemBehaviour;
+        
+        private InventoryItemBehaviour _lastSelectedItemBehaviour;
+        
     }
 
 }

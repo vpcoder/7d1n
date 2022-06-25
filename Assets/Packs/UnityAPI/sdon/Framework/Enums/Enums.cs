@@ -189,6 +189,8 @@ namespace UnityEngine
 			return (T)Enum.ToObject(typeof(T), value);
 		}
 
+		public static string[] Names => names;
+		
 		/// <summary>
 		/// Возвращает логическое значение - содержится ли в данном перечислении элемент name или нет?
 		/// </summary>

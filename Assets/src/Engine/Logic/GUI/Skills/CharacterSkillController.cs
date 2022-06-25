@@ -9,6 +9,9 @@ namespace Engine.Logic
 {
     public class CharacterSkillController : Panel
     {
+        
+        #region Hidden Fields
+        
         [SerializeField] private RectTransform scrapSkillsMap;
         [SerializeField] private RectTransform craftSkillsMap;
         [SerializeField] private RectTransform lootSkillsMap;
@@ -18,12 +21,18 @@ namespace Engine.Logic
         [SerializeField] private RectTransform skillMapContent;
         [SerializeField] private Text txtSkillsInfo;
 
-        private StringBuilder builder = new StringBuilder();
+        private readonly StringBuilder builder = new StringBuilder(1024);
         private ExperienceType currentSkillMap;
         private SkillItemBehaviour selectedSkillItem;
 
+        #endregion
+        
+        #region Properties
+        
         public ExperienceType CurrentSkillMap => currentSkillMap;
 
+        #endregion
+        
         private RectTransform GetPrefabByMapType(ExperienceType skillMapType)
         {
             switch (skillMapType)

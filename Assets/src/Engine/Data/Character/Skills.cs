@@ -20,16 +20,16 @@ namespace Engine.Data
 	public class Skills : ICharacterStoredObjectSerializable<SkillsStoryObject>
     {
 
-        public HashSet<string> SkillsData { get; set; } = new HashSet<string>(); // Навыки персонажа
+        private ISet<string> skills { get; set; } = new HashSet<string>(); // Навыки персонажа
         
         public bool HasSkill(string skillId)
         {
-            return SkillsData.Contains(skillId);
+            return skills.Contains(skillId);
         }
 
         public bool AddSkill(string skillId)
         {
-            var result = SkillsData.Add(skillId);
+            var result = skills.Add(skillId);
             if(result)
                 CharacterStory.Instance.SkillsStory.Save(CreateData());
             return result;
@@ -42,14 +42,14 @@ namespace Engine.Data
             var data = new SkillsStoryObject
             {
                 IDValue = Game.Instance.Runtime.PlayerID,
-                SkillsData = SkillsData.ToList()
+                SkillsData = skills.ToList()
             };
             return data;
         }
 
         public void LoadFromData(SkillsStoryObject data)
         {
-            SkillsData = data.SkillsData.ToHashSet();
+            skills = data.SkillsData.ToSet();
         }
 
         #endregion

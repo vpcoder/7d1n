@@ -15,12 +15,14 @@ namespace Rotorz.ReorderableList.Internal {
 	public static class GUIHelper {
 
 		static GUIHelper() {
-			var tyGUIClip = Type.GetType("UnityEngine.GUIClip,UnityEngine");
-			if (tyGUIClip != null) {
-				var piVisibleRect = tyGUIClip.GetProperty("visibleRect", BindingFlags.Static | BindingFlags.Public);
-				if (piVisibleRect != null)
-					VisibleRect = (Func<Rect>)Delegate.CreateDelegate(typeof(Func<Rect>), piVisibleRect.GetGetMethod());
-			}
+			//var tyGUIClip = Type.GetType("UnityEngine.GUIClip,UnityEngine");
+			//if (tyGUIClip != null) {
+			//	var piVisibleRect = tyGUIClip.GetProperty("visibleRect", BindingFlags.Static | BindingFlags.Public);
+			//	if (piVisibleRect != null)
+			//		VisibleRect = (Func<Rect>)Delegate.CreateDelegate(typeof(Func<Rect>), piVisibleRect.GetGetMethod());
+			//}
+			
+			VisibleRect = DefaultRect; // FIXME: HACK
 			
 			var miFocusTextInControl = typeof(EditorGUI).GetMethod("FocusTextInControl", BindingFlags.Static | BindingFlags.Public);
 			if (miFocusTextInControl == null)
@@ -37,6 +39,17 @@ namespace Rotorz.ReorderableList.Internal {
 			s_SeparatorStyle.stretchWidth = true;
 		}
 
+		public static Rect DefaultRect()
+		{
+			return new Rect()
+			{
+				x = 0,
+				y = 0,
+				width = 1980,
+				height = 1980,
+			};
+		}
+		
 		/// <summary>
 		/// Gets visible rectangle within GUI.
 		/// </summary>

@@ -1,0 +1,7 @@
+<Data>
+  <Item ID="2000" Type="Ammo" Name="ammo_9x18_name" Description="ammo_9x18_desc" StackSize="40">
+    <Part ResID="4" ResCount="4" Difficulty="3" NeededTools="Pliers" />
+    <Part ResID="3" ResCount="9" Difficulty="3" />
+    <Part ResID="25" ResCount="5" Difficulty="3" />
+  </Item>
+</Data>

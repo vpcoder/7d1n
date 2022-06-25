@@ -135,6 +135,14 @@ namespace Engine
             return message;
         }
 
+        public string GetUnsafe(string key)
+        {
+            if (dictionary == null)
+                ReloadDictionary();
+            dictionary.TryGetValue(key, out var message);
+            return message;
+        }
+
         /// <summary>
         ///     Выполняет загрузку ключей по выбранному языку из БД в кеш локализации
         ///     ---

@@ -28,7 +28,7 @@ namespace Engine.Data
         /// <summary>
         /// Урон от метания
         /// </summary>
-        public long ThrowDamage { get; set; }
+        public int ThrowDamage { get; set; }
 
         /// <summary>
         /// Дистанция метания

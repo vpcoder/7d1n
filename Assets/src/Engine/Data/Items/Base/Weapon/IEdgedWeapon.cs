@@ -31,7 +31,7 @@ namespace Engine.Data
         ///     ---
         ///     Damage inflicted by throwing
         /// </summary>
-        long ThrowDamage { get; set; }
+        int ThrowDamage { get; set; }
 
         /// <summary>
         ///     Дистанция метания в игровых метрах

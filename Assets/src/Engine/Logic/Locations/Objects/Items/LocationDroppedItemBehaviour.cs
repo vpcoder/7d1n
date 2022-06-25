@@ -1,5 +1,6 @@
 ﻿using Engine.Data;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 namespace Engine.Logic.Locations.Objects
@@ -234,6 +235,62 @@ namespace Engine.Logic.Locations.Objects
         }
 
         #endregion
+        
+        #if UNITY_EDITOR
+        
+        [ContextMenu("Move Mesh to Body")]
+        private void DoMoveMeshToBody()
+        {
+            var bodyName = "Body";
+            var body = transform.Childs().Where(item => item.name == bodyName).FirstOrDefault();
+            if (body == null)
+            {
+                body = new GameObject(bodyName).transform;
+                body.SetParent(transform);
+            }
+
+            this.body = body.gameObject;
+
+            if (transform.GetComponent<BoxCollider>() == null)
+                gameObject.AddComponent<BoxCollider>();
+
+            var meshCollider = transform.GetComponent<MeshCollider>();
+            if(meshCollider != null)
+                DestroyImmediate(meshCollider);
+            
+            var meshFilter = transform.GetComponent<MeshFilter>();
+            var meshRenderer = transform.GetComponent<MeshRenderer>();
+
+            if (meshFilter != null)
+            {
+                var bodyMeshFilter = body.GetComponent<MeshFilter>();
+                if (bodyMeshFilter == null)
+                    bodyMeshFilter = body.gameObject.AddComponent<MeshFilter>();
+                bodyMeshFilter.sharedMesh = meshFilter.sharedMesh;
+                DestroyImmediate(meshFilter);
+            }
+            
+            if (meshRenderer != null)
+            {
+                var bodyMeshRenderer = body.GetComponent<MeshRenderer>();
+                if (bodyMeshRenderer == null)
+                    bodyMeshRenderer = body.gameObject.AddComponent<MeshRenderer>();
+                bodyMeshRenderer.sharedMaterials = meshRenderer.sharedMaterials;
+                bodyMeshRenderer.shadowCastingMode = meshRenderer.shadowCastingMode;
+                bodyMeshRenderer.receiveShadows = meshRenderer.receiveShadows;
+                bodyMeshRenderer.lightProbeUsage = meshRenderer.lightProbeUsage;
+                bodyMeshRenderer.lightProbeProxyVolumeOverride = meshRenderer.lightProbeProxyVolumeOverride;
+                bodyMeshRenderer.additionalVertexStreams = meshRenderer.additionalVertexStreams;
+                bodyMeshRenderer.enlightenVertexStream = meshRenderer.enlightenVertexStream;
+                bodyMeshRenderer.receiveGI = meshRenderer.receiveGI;
+                bodyMeshRenderer.scaleInLightmap = meshRenderer.scaleInLightmap;
+                bodyMeshRenderer.stitchLightmapSeams = meshRenderer.stitchLightmapSeams;
+                bodyMeshRenderer.motionVectorGenerationMode = meshRenderer.motionVectorGenerationMode;
+                DestroyImmediate(meshRenderer);
+            }
+        }
+        
+        #endif
 
     }
 

@@ -328,11 +328,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   body: {fileID: 6108628406594487530}
   visible: 0
+  incellOffset: {x: 4, y: 4}
   cellSizeX: 128
   cellSizeY: 128
   contentContainer: {fileID: 6108628406537755913}
   viewportContainer: {fileID: 6108628405527228409}
-  itemPrefab: {fileID: 2050216145691689128, guid: 436f34d2101a0464fbd803cc9705c06a,
+  itemBehaviourPrefab: {fileID: 2050216145691689128, guid: 436f34d2101a0464fbd803cc9705c06a,
     type: 3}
 --- !u!1 &3345399944562057386
 GameObject:
@@ -458,11 +459,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   body: {fileID: 3983438198600207751}
   visible: 1
+  incellOffset: {x: 4, y: 4}
   cellSizeX: 92
   cellSizeY: 92
   contentContainer: {fileID: 2389089434237414353}
   viewportContainer: {fileID: 1625258962868253072}
-  itemPrefab: {fileID: 2050216145691689128, guid: 436f34d2101a0464fbd803cc9705c06a,
+  itemBehaviourPrefab: {fileID: 2050216145691689128, guid: 436f34d2101a0464fbd803cc9705c06a,
     type: 3}
 --- !u!1 &3983438198600207751
 GameObject:

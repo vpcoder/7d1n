@@ -1,0 +1,40 @@
+﻿<Data>
+
+	<!-- Голые руки игрока СИСТЕМНОЕ -->
+	<Item
+		ID="990"
+		Type="WeaponEdged"
+		WeaponType="Hands"
+		Name="weapon_system_hands_name"
+		Description="weapon_system_hands_desc"
+		Damage="8"
+		MaxDistance="1"
+		AimRadius="1"
+		UseAP="2"
+	/>
+
+	<!-- Голые руки зомби СИСТЕМНОЕ -->
+	<Item
+		ID="991"
+		Type="WeaponEdged"
+		WeaponType="Hands"
+		Name="weapon_system_zombie_hands_name"
+		Damage="10"
+		MaxDistance="1"
+		AimRadius="1"
+		UseAP="1"
+	/>
+
+	<!-- Зубы зомби СИСТЕМНОЕ -->
+	<Item
+		ID="992"
+		Type="WeaponEdged"
+		WeaponType="Custom"
+		Name="weapon_system_tooths_name"
+		Damage="15"
+		MaxDistance="1"
+		AimRadius="1"
+		UseAP="2"
+	/>
+
+</Data>

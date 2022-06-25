@@ -50,6 +50,11 @@ namespace Engine.Data.Factories.Xml
             foreach (var file in FileNames)
             {
                 var asset = Resources.Load<TextAsset>(file);
+                if (asset == null)
+                {
+                    Debug.LogError("assets: " + file + " is null!");
+                    continue;
+                }
                 var document = new XmlDocument();
                 document.LoadXml(asset.text);
                 foreach (XmlElement element in document.GetElementsByTagName("Item"))

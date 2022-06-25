@@ -7,7 +7,7 @@ namespace Engine.Logic
 {
 
     /// <summary>
-    /// Абстрактная сумка
+    /// РђР±СЃС‚СЂР°РєС‚РЅР°СЏ СЃСѓРјРєР°
     /// </summary>
 	public abstract class AbstractBag : Panel, IBag
     {
@@ -28,34 +28,35 @@ namespace Engine.Logic
         #endregion
 
         /// <summary>
-        /// Ширина всей видимой области инвентаря
+        /// РЁРёСЂРёРЅР° РІСЃРµР№ РІРёРґРёРјРѕР№ РѕР±Р»Р°СЃС‚Рё РёРЅРІРµРЅС‚Р°СЂСЏ
         /// </summary>
         public abstract int FrameWidth { get; }
 
         /// <summary>
-        /// Высота всей видимой области инвентаря
+        /// Р’С‹СЃРѕС‚Р° РІСЃРµР№ РІРёРґРёРјРѕР№ РѕР±Р»Р°СЃС‚Рё РёРЅРІРµРЅС‚Р°СЂСЏ
         /// </summary>
         public abstract int FrameHeight { get; }
 
         /// <summary>
-        /// Количество ячеек умещающихся в ширину инвентаря
+        /// РљРѕР»РёС‡РµСЃС‚РІРѕ СЏС‡РµРµРє СѓРјРµС‰Р°СЋС‰РёС…СЃСЏ РІ С€РёСЂРёРЅСѓ РёРЅРІРµРЅС‚Р°СЂСЏ
         /// </summary>
         public abstract int CellCountX { get; }
 
         /// <summary>
-        ///  Количество ячеек умещающихся в высоту инвентаря
+        ///  РљРѕР»РёС‡РµСЃС‚РІРѕ СЏС‡РµРµРє СѓРјРµС‰Р°СЋС‰РёС…СЃСЏ РІ РІС‹СЃРѕС‚Сѓ РёРЅРІРµРЅС‚Р°СЂСЏ
         /// </summary>
         public abstract int CellCountY { get; }
 
         /// <summary>
-        /// Перестраивает гуи сумки
+        /// РџРµСЂРµСЃС‚СЂР°РёРІР°РµС‚ РіСѓРё СЃСѓРјРєРё
         /// </summary>
         public abstract void Redraw();
 
         public abstract void ClickItem(IItem item);
 
-        public abstract void SetSelected(AbstractItem item);
-		
-	}
+        public abstract void SetSelected(InventoryItemBehaviour itemBehaviour);
+        public abstract InventoryItemBehaviour Selected { get; }
+
+    }
 	
 }

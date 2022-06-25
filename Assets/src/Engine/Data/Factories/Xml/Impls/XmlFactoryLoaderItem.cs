@@ -22,8 +22,13 @@ namespace Engine.Data.Factories.Xml
                 "Data/items_interiors_data",
                 "Data/items_tools_data",
                 "Data/items_cloths_data",
-                "Data/items_weapons_data",
+                "Data/items_system_weapons_data",
+                "Data/items_weapon_edged_data",
+                "Data/items_weapon_firearms_data",
+                "Data/items_weapon_grenade_data",
+                "Data/items_ammo_data",
                 "Data/items_foods_data",
+                "Data/items_medkit_data",
             };
         }
 
@@ -216,7 +221,7 @@ namespace Engine.Data.Factories.Xml
         {
             weapon.CanThrow          = Bol("CanThrow");
             weapon.ThrowAP           = Int("ThrowAP");
-            weapon.ThrowDamage       = Lng("ThrowDamage");
+            weapon.ThrowDamage       = Int("ThrowDamage");
             weapon.ThrowDistance     = Flt("ThrowDistance");
             weapon.ThrowAimRadius    = Flt("ThrowAimRadius");
 
