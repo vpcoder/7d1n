@@ -9,18 +9,18 @@ namespace Engine.Logic
     public class ItemSelectorView : Bag
     {
 
-        public CharacterClothCell Selected { get; set; }
+        public CharacterClothCell SelectedEquipCell { get; set; }
 
         public override IList<IItem> Items
         {
             get
             {
-                if(Selected.IsWeapon)
+                if(SelectedEquipCell.IsWeapon)
                     return base.Items.Where(item => item.Type == GroupType.WeaponEdged
                     || item.Type == GroupType.WeaponFirearms 
                     || item.Type == GroupType.WeaponGrenade).ToList();
 
-                return base.Items.Where(item => item.Type == Selected.Type).ToList();
+                return base.Items.Where(item => item.Type == SelectedEquipCell.Type).ToList();
             }
             set
             {
@@ -31,27 +31,27 @@ namespace Engine.Logic
         public override void Show()
         {
             base.Show();
-            this.Items = Game.Instance.Character.Inventory.Items;
+            Items = Game.Instance.Character.Inventory.Items;
             Redraw();
         }
 
         public override void ClickItem(IItem item)
         {
-            Selected.DoEquip(item);
-            Selected.HideButtons();
+            SelectedEquipCell.DoEquip(item);
+            SelectedEquipCell.HideButtons();
             Hide();
         }
 
         public void OnCancelClick()
         {
-            Selected.HideButtons();
+            SelectedEquipCell.HideButtons();
             Hide();
         }
 
         public void OnDropClick()
         {
-            Selected.DoEquip(null);
-            Selected.HideButtons();
+            SelectedEquipCell.DoEquip(null);
+            SelectedEquipCell.HideButtons();
             Hide();
         }
 

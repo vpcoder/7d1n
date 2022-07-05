@@ -167,7 +167,7 @@ namespace Engine.Logic
         public void OnClick()
         {
             var viewer = ObjectFinder.Find<ItemSelectorView>();
-            viewer.Selected = this;
+            viewer.SelectedEquipCell = this;
             viewer.Show();
 
             IItem item = null;

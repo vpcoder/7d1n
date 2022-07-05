@@ -16,11 +16,15 @@ namespace GitIntegration.Items
         private Vector2 iconIncellSize = new Vector2(40f, 20f);
         private Vector2 currentScrollPos;
 
+        public delegate bool FilterDelegate(ItemRow item);
+
+        public FilterDelegate Filter = item => item.Type == GroupType.Resource;
+        
         private List<ItemRow> ItemsWithFilter
         {
             get
             {
-                return ItemsEditorFactory.Instance.Items.Where(item => (item.Type == GroupType.Resource) && item.Name.ToLower().Contains(txtNameFilter.ToLower())).ToList();
+                return ItemsEditorFactory.Instance.Items.Where(item => Filter(item) && item.Name.ToLower().Contains(txtNameFilter.ToLower())).ToList();
             }
         }
 

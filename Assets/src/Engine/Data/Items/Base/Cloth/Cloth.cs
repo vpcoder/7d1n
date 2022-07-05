@@ -27,6 +27,7 @@ namespace Engine.Data
                 Description = Description,
                 Count = Count,
                 StackSize = StackSize,
+                StaticWeight = StaticWeight,
                 Weight = Weight,
                 Parts = Parts?.ToList(),
                 Level = Level,

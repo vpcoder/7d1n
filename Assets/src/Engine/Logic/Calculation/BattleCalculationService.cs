@@ -56,8 +56,8 @@ namespace Engine
         /// </param>
         public static void DoEdgedThrowAttack(IAttackObject source, IEdgedWeapon edged, Vector3 weaponPos)
         {
-            var throwPrefab = EdgedEffectFactory.Instance.Get(edged.ThrowEffectType);
-            var bullet = GameObject.Instantiate<GameObject>(throwPrefab);
+            var throwPrefab = EdgedEffectFactory.Instance.Get(edged.ThrowBulletObject);
+            var bullet = GameObject.Instantiate(throwPrefab);
             var edgedItem = bullet.GetComponent<ThrowItem>();
 
             var targetPos = source.TargetAttackPos;

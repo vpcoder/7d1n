@@ -52,28 +52,28 @@ namespace Engine.Data
         ///     ---
         ///     What the projectile looks like when thrown
         /// </summary>
-        string ThrowEffectType { get; set; }
+        string ThrowBulletObject { get; set; }
 
         /// <summary>
         ///     Звук метания
         ///     ---
         ///     Throwing sound
         /// </summary>
-        string ThrowSoundType { get; set; }
+        string ThrowSound { get; set; }
 
         /// <summary>
         ///     Звук попадания в тело
         ///     ---
         ///     The sound of hitting the body
         /// </summary>
-        string ThrowInSoundType { get; set; }
+        string ThrowHitSound { get; set; }
 
         /// <summary>
         ///     Звук промаха, попадания в стену или объект
         ///     ---
         ///     Sound of missing, hitting a wall or object
         /// </summary>
-        string ThrowOutSoundType { get; set; }
+        string ThrowMissSound { get; set; }
 
     }
 

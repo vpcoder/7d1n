@@ -6,31 +6,47 @@ namespace Engine.Data
 {
 
     ///<summary>
-    /// Базовый класс предмета/объекта
+    ///
+    /// Предмет/объект
+    /// ---
+    /// Item/object
+    /// 
     ///</summary>
     [Serializable]
     public class Item : Entity, IItem
     {
 
         ///<summary>
-        /// Части из которых состоит предмет
+        ///     Части из которых состоит предмет
+        ///     ---
+        ///     The parts that make up the item
         ///</summary>
         public List<Part> Parts { get; set; } = new List<Part>();
 
         ///<summary>
-        /// Количество этого предмета
+        ///     Количество этого предмета в текущей пачке
+        ///     ---
+        ///     The amount of this item in the current pack
         ///</summary>
         public long Count { get; set; }
 
         ///<summary>
-        /// Максимальное количество прежметов в пачке
+        ///     Максимальное количество предметов в пачке
+        ///     ---
+        ///     Maximum number of items in one pack
         ///</summary>
         public long StackSize { get; set; } = 1;
 
         /// <summary>
-        /// Копирует текущую сущность в новый экземпляр
+        ///     Копирует текущую сущность в новый экземпляр
+        ///     ---
+        ///     Copies the current entity into a new instance
         /// </summary>
-        /// <returns>Копия сущности</returns>
+        /// <returns>
+        ///     Копия сущности
+        ///     ---
+        ///     Entity Copy
+        /// </returns>
         public override IIdentity Copy()
         {
             return new Item()
@@ -42,6 +58,7 @@ namespace Engine.Data
                 Description = Description,
                 Count = Count,
                 StackSize = StackSize,
+                StaticWeight = StaticWeight,
                 Weight = Weight,
                 Parts = Parts?.ToList(),
             };

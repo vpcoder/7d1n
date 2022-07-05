@@ -50,7 +50,8 @@ namespace Engine.Data.Factories
         {
             var item = Create(id);
             item.Count = count;
-            item.Weight = item.GetWeight();
+            if(!item.StaticWeight)
+                item.Weight = item.GetWeight();
             return item;
         }
 

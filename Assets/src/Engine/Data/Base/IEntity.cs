@@ -57,6 +57,14 @@ namespace Engine.Data
         GameObject Prefab { get; }
 
         /// <summary>
+        ///     Если true - вес не рассчитывается, а берётся из свойства (*data.xml) в описании предмета
+        ///     ---
+        ///     If true - the weight is not calculated, but taken from the property (*data.xml) in the item description
+        /// </summary>
+       
+        bool StaticWeight { get; set; }
+        
+        /// <summary>
         ///     Вес сущности.
         ///     Рассчитывается рекурсивно, если сущность состоить из нескольких частей, её вес будет равен сумме весов частей.
         ///     ---

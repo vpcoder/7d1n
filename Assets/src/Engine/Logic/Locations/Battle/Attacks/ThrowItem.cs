@@ -62,6 +62,10 @@ namespace Engine.Logic.Locations
         private IEdgedWeapon weapon;
         private bool isInited = false;
         private float timestamp;
+        private Vector3 forward;
+        private float pathLength;
+        private float distance;
+        private GameObject damagedObject;
 
         #endregion
 
@@ -74,12 +78,14 @@ namespace Engine.Logic.Locations
 
             float delta = (Time.time - timestamp);
             var prevDistance = Vector3.Distance(this.transform.position, targetPos);
-            this.transform.position += (this.transform.forward * speed) * delta;
+            var offset = speed * delta;
+            pathLength += offset;
+            this.transform.position += forward * offset;
             var distance = Vector3.Distance(this.transform.position, targetPos);
 
             timestamp = Time.time;
 
-            if (distance > prevDistance || distance <= reactDistance)
+            if (pathLength > this.distance || distance <= reactDistance)
             {
                 DoDamage();
                 DoDestory();
@@ -105,12 +111,16 @@ namespace Engine.Logic.Locations
         {
             this.transform.position = startPos;
             this.transform.LookAt(targetPos);
-            this.targetPos = targetPos;
+            this.pathLength = 0f;
             this.startPos = startPos;
+            this.distance = Mathf.Min(maxDistance, ThrowCalculationService.GetThrowDistance(weapon));
+            this.forward = (targetPos - startPos).normalized;
+            this.targetPos = forward * distance;
             this.weapon = weapon;
             this.source = source;
             this.isInited = true;
-            timestamp = Time.time;
+            this.timestamp = Time.time;
+            this.damagedObject = FindDamagedObject();
         }
 
         /// <summary>
@@ -127,16 +137,17 @@ namespace Engine.Logic.Locations
         /// </summary>
         /// <returns></returns>
         private GameObject FindDamagedObject() {
-            var hits = Physics.RaycastAll(startPos, (targetPos - startPos).normalized, maxDistance);
+            var hits = Physics.RaycastAll(startPos, forward, maxDistance);
             if (hits == null || hits.Length == 0)
                 return null;
-
+            
             var hit = hits.Where(item => item.collider.gameObject != source.AttackCharacterObject).FirstOrDefault();
             if (hit.collider?.gameObject == null)
                 return null;
 
             GameObject first = hit.collider.gameObject;
-            targetPos = hit.point;
+            this.targetPos = hit.point;
+            this.distance = Vector3.Distance(targetPos, startPos);
 
             return first;
         }
@@ -146,12 +157,10 @@ namespace Engine.Logic.Locations
         /// </summary>
         private void DoDamage()
         {
-            var damagedObjects = FindDamagedObject();
-
-            if (damagedObjects == null)
+            if (damagedObject == null)
                 return; // Ни во что не врезались
 
-            IDamagedObject enemy = damagedObjects.transform.GetComponent<IDamagedObject>();
+            IDamagedObject enemy = damagedObject.transform.GetComponent<IDamagedObject>();
 
             if (enemy == null)
                 return; // Не дамажный объект, пролетаем насквозь

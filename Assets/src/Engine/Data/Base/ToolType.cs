@@ -33,11 +33,18 @@ namespace Engine.Data
         Hammer,
         
         /// <summary>
-        ///     Пила
+        ///     Ножовка по дереву
         ///     ---
         ///     Saw
         /// </summary>
         Saw,
+        
+        /// <summary>
+        ///     Ножовка по металлу
+        ///     ---
+        ///     
+        /// </summary>
+        Hacksaw,
         
         /// <summary>
         ///     Линейка-угол
@@ -115,6 +122,13 @@ namespace Engine.Data
         ///     Crowbar
         /// </summary>
         Crowbar,
+        
+        /// <summary>
+        ///     Кувалда
+        ///     ---
+        ///     Sledgehammer
+        /// </summary>
+        Sledgehammer,
     }
 
 }

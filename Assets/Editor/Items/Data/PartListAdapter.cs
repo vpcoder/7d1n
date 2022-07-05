@@ -12,7 +12,7 @@ namespace GitIntegration.Items.Data
     public class PartListAdapter : ListAdapter<Part>
     {
 
-        private Dictionary<Part, Vector2> scrolls = new Dictionary<Part, Vector2>();
+        private Dictionary<Part, ToolAdapter> tools = new Dictionary<Part, ToolAdapter>();
 
         public override Part ConstructItem()
         {
@@ -25,8 +25,8 @@ namespace GitIntegration.Items.Data
         
         public override void DrawItem(Rect position, Part part)
         {
-            if(!scrolls.ContainsKey(part))
-                scrolls.Add(part, Vector2.zero);
+            if(!tools.ContainsKey(part))
+                tools.Add(part, new ToolAdapter(part));
             
             var item = ItemFactory.Instance.Get(part.ResourceID);
             
@@ -112,69 +112,15 @@ namespace GitIntegration.Items.Data
             position.x += blockWidth + 8;
             position.width -= blockWidth + 20;
 
-            scrolls[part] = GUI.BeginScrollView(new Rect()
+            tools[part].DrawTools(new Rect()
             {
                 x = position.x,
                 y = position.y,
                 width = position.width + 2,
                 height = position.height,
-            }, scrolls[part], new Rect()
-            {
-                x = position.x,
-                y = position.y,
-                width = position.width + 2,
-                height = (Enums<ToolType>.Count / 5) * (position.width / 5),
             });
-
-            DrawTools(part, position);
-            
-            GUI.EndScrollView();
         }
 
-        private void DrawTools(Part part, Rect rect)
-        {
-            ISet<ToolType> tools = part.NeededTools;
-            if (tools == null)
-            {
-                part.NeededTools = new HashSet<ToolType>();
-                tools = part.NeededTools;
-            }
-            
-            int index = 0;
-            foreach (var tool in Enums<ToolType>.GetValuesArray())
-            {
-                var indexX = index % 5;
-                var indexY = index / 5;
-                DrawTool(tool, tools.Contains(tool), rect, new Vector2Int(indexX, indexY), part);
-                index++;
-            }
-        }
-
-        private void DrawTool(ToolType tool, bool enabled, Rect rect, Vector2Int pos, Part part)
-        {
-            var sprite = ToolFactory.Instance.Get(tool);
-            var size = (rect.width - 13) / 5;
-
-            var oldColor = GUI.backgroundColor;
-            GUI.backgroundColor = enabled ? Color.green : Color.red;
-            
-            if (GUI.Button(new Rect()
-                {
-                    x = rect.x + pos.x * size + 2,
-                    y = rect.y + pos.y * size,
-                    width = size,
-                    height = size,
-                }, sprite.texture))
-            {
-                if (enabled)
-                    part.NeededTools.Remove(tool);
-                else
-                    part.NeededTools.Add(tool);
-            }
-            
-            GUI.backgroundColor = oldColor;
-        }
-        
     }
     
 }

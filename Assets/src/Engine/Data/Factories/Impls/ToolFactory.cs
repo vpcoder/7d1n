@@ -43,7 +43,7 @@ namespace Engine.Data.Factories
 
         public string GetName(ToolType toolType)
         {
-            var key = "tools_" + toolType.ToString().ToLower();
+            var key = "tools/" + toolType.ToString().ToLower();
             return Localization.Instance.Get(key);
         }
     }

@@ -134,6 +134,9 @@ namespace Engine.Data.Factories.Xml
             item.Count       = 0;
             item.StackSize   = Lng("StackSize");
             item.ToolType    = EnmSplit<ToolType>("Tool");
+            item.StaticWeight = Bol("StaticWeight");
+            if(item.StaticWeight)
+                item.Weight   = ReadWeight(Str("Weight"));
 
             List<Part> parts = new List<Part>();
             foreach (XmlElement part in Current.GetElementsByTagName("Part"))
@@ -159,8 +162,6 @@ namespace Engine.Data.Factories.Xml
         private void ReadUsed(IUsed used)
         {
             used.UseAction    = UsedItemActionsFactory.Instance.Get(Str("Action"));
-            used.Weight       = ReadWeight(Str("Weight"));
-            used.StaticWeight = Bol("StaticWeight"); 
             used.UseSoundType = Str("UseSoundType"); 
         }
 
@@ -225,11 +226,11 @@ namespace Engine.Data.Factories.Xml
             weapon.ThrowDistance     = Flt("ThrowDistance");
             weapon.ThrowAimRadius    = Flt("ThrowAimRadius");
 
-            weapon.ThrowEffectType   = Str("ThrowEffectType");
-            weapon.ThrowSoundType    = Str("ThrowSoundType");
+            weapon.ThrowBulletObject = Str("ThrowBulletObject");
+            weapon.ThrowSound        = Str("ThrowSound");
 
-            weapon.ThrowInSoundType  = Str("ThrowInSoundType");
-            weapon.ThrowOutSoundType = Str("ThrowOutSoundType");
+            weapon.ThrowHitSound     = Str("ThrowHitSound");
+            weapon.ThrowMissSound    = Str("ThrowMissSound");
         }
 
     }

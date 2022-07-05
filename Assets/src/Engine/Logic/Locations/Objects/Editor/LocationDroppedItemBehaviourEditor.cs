@@ -1,5 +1,6 @@
 using Engine.Data.Factories;
 using Engine.Logic.Locations.Objects;
+using GitIntegration.Items;
 using UnityEditor;
 using UnityEngine;
 
@@ -24,6 +25,15 @@ namespace Engine.Logic.Locations.Editor
                 if (GUILayout.Button("Reload item factory"))
                     ItemFactory.Instance.ReloadFactory();
                 return;
+            }
+
+            if (GUILayout.Button("select"))
+            {
+                var window = EditorWindow.GetWindow<ResourceSelectEditorWindow>();
+                window.Selected = target.Target.ItemInfo.ID;
+                window.Filter = row => true; 
+                window.ShowModal();
+                target.Target.ItemInfo.ID = window.Selected;
             }
             
             GUILayout.Label("name: " + item.Name + ", " + Localization.Instance.Get(item.Name));

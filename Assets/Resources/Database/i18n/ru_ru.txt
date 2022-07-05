@@ -189,23 +189,64 @@ INSERT INTO `i18n_lang`(`id`,`code`,`name`) VALUES (0, 'ru_ru', 'Русский'
 		INSERT INTO `i18n_ru_ru`(`key`,`value`) VALUES ('food_raw_larvae_desc', 'Склизкая и шевелится');
 		
 		
+	# Предметы - инструменты ;
+	
+		INSERT INTO `i18n_ru_ru`(`key`,`value`) VALUES ('tool/hacksaw_name', 'Ножовка по металлу');
+		INSERT INTO `i18n_ru_ru`(`key`,`value`) VALUES ('tool/hacksaw_desc', 'Небольшая пила, плохо справляется с деревом, зато может помочь перепилить арматуру или большую берцовую кость. Инструмент крайне медленный, если вам срочно понадобилось распилить рельсу придётся запастить терпением и матюками...');
+		INSERT INTO `i18n_ru_ru`(`key`,`value`) VALUES ('tool/hammer_name', 'Простой молоток');
+		INSERT INTO `i18n_ru_ru`(`key`,`value`) VALUES ('tool/hammer_desc', 'Обычный молоток, им можно бить с обоих сторон. Гвозди, двери, головы зомбей и даже шурупы - ему всё ни по чём!');
+		INSERT INTO `i18n_ru_ru`(`key`,`value`) VALUES ('tool/multihammer_name', 'Молоток с гвоздодёром');
+		INSERT INTO `i18n_ru_ru`(`key`,`value`) VALUES ('tool/multihammer_desc', 'С одной стороны молоток, с другой стороны гвоздодёр, универсальный мультиинструмент! Осталось только крикрутить бумеранг изолентой, и добавить прицел...');
+		INSERT INTO `i18n_ru_ru`(`key`,`value`) VALUES ('tool/pruning_saw_name', 'Садовая пила');
+		INSERT INTO `i18n_ru_ru`(`key`,`value`) VALUES ('tool/pruning_saw_desc', 'Грозный инструмент против кустарников, хорошо сидит в руке. ');
+		INSERT INTO `i18n_ru_ru`(`key`,`value`) VALUES ('tool/flatheadscrewdriver_name', 'Плоская отвёртка тип А');
+		INSERT INTO `i18n_ru_ru`(`key`,`value`) VALUES ('tool/flatheadscrewdriver_desc', 'Обычная отвёртка. Незаменимый инструмент. Бытует мнение, что плоской отвёрткой можно вкручивать таблетки в задницу, если под рукой нет кружки воды чтобы запить.');
+		INSERT INTO `i18n_ru_ru`(`key`,`value`) VALUES ('tool/phillipsscrewdriver_name', 'Крестовая отвёртка тип Б');
+		INSERT INTO `i18n_ru_ru`(`key`,`value`) VALUES ('tool/phillipsscrewdriver_desc', 'Обычная отвёртка. Убедитесь что у вас есть такая. Если вы отчаяный, её даже можно метать во врагов, пока не воткнётся.');
+		INSERT INTO `i18n_ru_ru`(`key`,`value`) VALUES ('tool/chisel_name', 'Зубило');
+		INSERT INTO `i18n_ru_ru`(`key`,`value`) VALUES ('tool/chisel_desc', 'Широкое зубило, хорошо работает по дереву, если бить сверху, им можно так же перекусывать мелкие детали, а если бить зомби в глаз, возможно удасться достать до мозга, ну или потерять там это зубило...');
+		INSERT INTO `i18n_ru_ru`(`key`,`value`) VALUES ('tool/crowbar_name', 'Лом');
+		INSERT INTO `i18n_ru_ru`(`key`,`value`) VALUES ('tool/crowbar_desc', 'Если вам нужно что то вскрыть, или сбежать из Чёрной Мезы, этот инструмент - то что нужно! Этим ломом можно вскрывать двери, ящики, контейнеры, полки и даже хитрые жопы, которые позарились на ваш лут.');
+		INSERT INTO `i18n_ru_ru`(`key`,`value`) VALUES ('tool/sledgehammer_name', 'Кувалда');
+		INSERT INTO `i18n_ru_ru`(`key`,`value`) VALUES ('tool/sledgehammer_desc', 'Довольно увесистая, такой можно сносить стены. Любая голова для этого инструмента превращается в арбуз, таким образом можно как бы невзначай избавиться от Петровича, если попросить подержать гвоздь...');
+		INSERT INTO `i18n_ru_ru`(`key`,`value`) VALUES ('tool/saw_name', 'Ножовка по дереву');
+		INSERT INTO `i18n_ru_ru`(`key`,`value`) VALUES ('tool/saw_desc', 'Пила с широкими острыми зубьями. С помощью прямых рук ей можно распиливать брёвна, шпалы и асистентов фокусников, причём последних не обязательно предупреждать...');
+		INSERT INTO `i18n_ru_ru`(`key`,`value`) VALUES ('tool/pipe_wrench_name', 'Большой разводной ключ тип А');
+		INSERT INTO `i18n_ru_ru`(`key`,`value`) VALUES ('tool/pipe_wrench_desc', 'Ключ к большим гайкам, ключ к трубам, ключ к успеху в качестве оружия воинов Одина. Этим агрегатом одинаково удобно крутить гайки и ломать пальцы злодеям. Если бы мы были в скайриме, то персонаж получил бы +100 к убеждению.');
+		INSERT INTO `i18n_ru_ru`(`key`,`value`) VALUES ('tool/pliers_name', 'Плоскогубцы');
+		INSERT INTO `i18n_ru_ru`(`key`,`value`) VALUES ('tool/pliers_desc', 'Швейцарский нож - говно, по сравнению с этим золотым самородком. Вкрутить шуруп, забить гвоздь, подстричь ногти на ногах, перекусить проволоку и даже сжать соски в тиски - список того что можно делать этим инструментом практически бесконечен!');
+		INSERT INTO `i18n_ru_ru`(`key`,`value`) VALUES ('tool/leveler_name', 'Строительный уровень');
+		INSERT INTO `i18n_ru_ru`(`key`,`value`) VALUES ('tool/leveler_desc', 'Незаменимая в хозяйстве металлическая линейка! Если вам осточертели 15 сантиметровые школьные линейки, и хочется подержать в руках настоящий инструмент брутального мужика (я про линейку если что) - это то что вам так не хватало! Длина измерения до 50 сантиметров, углы 45, 90, 180 градусов, погрешность в 1мм, три великолепных жидкостных уровня. Тебе всё ещё мало? Бери это дерьмо!');
+		INSERT INTO `i18n_ru_ru`(`key`,`value`) VALUES ('tool/ruler_name', 'Строительный уголок');
+		INSERT INTO `i18n_ru_ru`(`key`,`value`) VALUES ('tool/ruler_desc', 'Это металлическая линейка позволяющая выполнять малоточные расчёты до 1мм, а ещё ей можно мерить углы в 90 градусов. Не смотря на то что чем то напоминает форму бумеранга, назад она не возвращается, можешь не пробовать.');
+		INSERT INTO `i18n_ru_ru`(`key`,`value`) VALUES ('tool/wrench1_name', 'Малый разводной гаечный ключ тип Б');
+		INSERT INTO `i18n_ru_ru`(`key`,`value`) VALUES ('tool/wrench1_desc', 'Ключ позволяет открутить средние и малые гайки, к которым возможно подлезть. Довольно крепкий, хоть и не тяжёлый, так же им можно открывать кокосы и крошить орехи. Я упоминал обычные кокосы и орехи, остальное - твоя больная фантазия, за которую я не несу ответственности.');
+		INSERT INTO `i18n_ru_ru`(`key`,`value`) VALUES ('tool/wrench2_name', 'Средний трубчатый ключ тип В');
+		INSERT INTO `i18n_ru_ru`(`key`,`value`) VALUES ('tool/wrench2_desc', 'Строение ключа позволяет добраться до самых труднодоступных гаек и болтов невообразимой формы в виде 13 и 7 гранников. Если бы Россомаха жил на Земле, он выращивал бы на своих руках именно эти трубчатые ключи, это так же круто как те лезвия, более того удобно в хозяйстве. Хотя, такой незаменимый инструмент могли бы спилить ночью пока он спит и сдать в металлолом, возможно поэтому на Земле и не осталось живых Россомах из людей Х...');
+        
+		INSERT INTO `i18n_ru_ru`(`key`,`value`) VALUES ('tool/clippers_name', 'Кусачки');
+		INSERT INTO `i18n_ru_ru`(`key`,`value`) VALUES ('tool/clippers_desc', '');
+		
+		
 	# Инструменты ;
 	
-		INSERT INTO `i18n_ru_ru`(`key`,`value`) VALUES ('tools_flatheadscrewdriver', 'Плоская отвёртка');
-		INSERT INTO `i18n_ru_ru`(`key`,`value`) VALUES ('tools_phillipsscrewdriver', 'Крестовая отвёртка');
-		INSERT INTO `i18n_ru_ru`(`key`,`value`) VALUES ('tools_hammer', 'Молоток');
-		INSERT INTO `i18n_ru_ru`(`key`,`value`) VALUES ('tools_saw', 'Пила');
-		INSERT INTO `i18n_ru_ru`(`key`,`value`) VALUES ('tools_line', 'Уголок');
-		INSERT INTO `i18n_ru_ru`(`key`,`value`) VALUES ('tools_shovel', 'Лопата');
-		INSERT INTO `i18n_ru_ru`(`key`,`value`) VALUES ('tools_clippers', 'Кусачки');
-		INSERT INTO `i18n_ru_ru`(`key`,`value`) VALUES ('tools_wrenchtypea', 'Гаечный ключ тип А');
-		INSERT INTO `i18n_ru_ru`(`key`,`value`) VALUES ('tools_wrenchtypeb', 'Гаечный ключ тип Б');
-		INSERT INTO `i18n_ru_ru`(`key`,`value`) VALUES ('tools_wrenchtypec', 'Гаечный ключ тип В');
-		INSERT INTO `i18n_ru_ru`(`key`,`value`) VALUES ('tools_pliers', 'Плоскогубцы');
-		INSERT INTO `i18n_ru_ru`(`key`,`value`) VALUES ('tools_pickaxe', 'Кирка');
-		INSERT INTO `i18n_ru_ru`(`key`,`value`) VALUES ('tools_axe', 'Топор');
-		INSERT INTO `i18n_ru_ru`(`key`,`value`) VALUES ('tools_knife', 'Нож');
-		INSERT INTO `i18n_ru_ru`(`key`,`value`) VALUES ('tools_crowbar', 'Лом');
+		INSERT INTO `i18n_ru_ru`(`key`,`value`) VALUES ('tools/flatheadscrewdriver', 'Плоская отвёртка тип А');
+		INSERT INTO `i18n_ru_ru`(`key`,`value`) VALUES ('tools/phillipsscrewdriver', 'Крестовая отвёртка тип Б');
+		INSERT INTO `i18n_ru_ru`(`key`,`value`) VALUES ('tools/hammer', 'Молоток');
+		INSERT INTO `i18n_ru_ru`(`key`,`value`) VALUES ('tools/saw', 'Ножовка по дереву');
+		INSERT INTO `i18n_ru_ru`(`key`,`value`) VALUES ('tools/hacksaw', 'Ножовка по металлу');
+		INSERT INTO `i18n_ru_ru`(`key`,`value`) VALUES ('tools/line', 'Уголок');
+		INSERT INTO `i18n_ru_ru`(`key`,`value`) VALUES ('tools/shovel', 'Лопата');
+		INSERT INTO `i18n_ru_ru`(`key`,`value`) VALUES ('tools/clippers', 'Кусачки');
+		INSERT INTO `i18n_ru_ru`(`key`,`value`) VALUES ('tools/wrenchtypea', 'Гаечный ключ тип А');
+		INSERT INTO `i18n_ru_ru`(`key`,`value`) VALUES ('tools/wrenchtypeb', 'Гаечный ключ тип Б');
+		INSERT INTO `i18n_ru_ru`(`key`,`value`) VALUES ('tools/wrenchtypec', 'Гаечный ключ тип В');
+		INSERT INTO `i18n_ru_ru`(`key`,`value`) VALUES ('tools/pliers', 'Плоскогубцы');
+		INSERT INTO `i18n_ru_ru`(`key`,`value`) VALUES ('tools/pickaxe', 'Кирка');
+		INSERT INTO `i18n_ru_ru`(`key`,`value`) VALUES ('tools/axe', 'Топор');
+		INSERT INTO `i18n_ru_ru`(`key`,`value`) VALUES ('tools/knife', 'Нож');
+		INSERT INTO `i18n_ru_ru`(`key`,`value`) VALUES ('tools/crowbar', 'Лом');
+		INSERT INTO `i18n_ru_ru`(`key`,`value`) VALUES ('tools/sledgehammer', 'Кувалда');
 		
 
 # UI ;

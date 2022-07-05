@@ -45,22 +45,22 @@ namespace Engine.Data
         /// <summary>
         /// Как выглядит снаряд при метании
         /// </summary>
-        public string ThrowEffectType { get; set; }
+        public string ThrowBulletObject { get; set; }
 
         /// <summary>
         /// Звук метания
         /// </summary>
-        public string ThrowSoundType { get; set; }
+        public string ThrowSound { get; set; }
 
         /// <summary>
         /// Звук попадания
         /// </summary>
-        public string ThrowInSoundType { get; set; }
+        public string ThrowHitSound { get; set; }
 
         /// <summary>
         /// Звук промаха
         /// </summary>
-        public string ThrowOutSoundType { get; set; }
+        public string ThrowMissSound { get; set; }
 
         /// <summary>
         ///     Копирует текущую сущность в новый экземпляр
@@ -84,6 +84,7 @@ namespace Engine.Data
                 Description = Description,
                 Count = Count,
                 StackSize = StackSize,
+                StaticWeight = StaticWeight,
                 Weight = Weight,
                 Parts = Parts?.ToList(),
                 Level = Level,
@@ -99,11 +100,11 @@ namespace Engine.Data
                 ThrowDamage = ThrowDamage,
                 ThrowDistance = ThrowDistance,
                 ThrowAimRadius = ThrowAimRadius,
-                ThrowEffectType = ThrowEffectType,
+                ThrowBulletObject = ThrowBulletObject,
 
-                ThrowSoundType = ThrowSoundType,
-                ThrowInSoundType = ThrowInSoundType,
-                ThrowOutSoundType = ThrowOutSoundType,
+                ThrowSound = ThrowSound,
+                ThrowHitSound = ThrowHitSound,
+                ThrowMissSound = ThrowMissSound,
             };
         }
     }

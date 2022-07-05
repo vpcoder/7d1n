@@ -25,13 +25,6 @@ namespace Engine.Data
         IUseItemAction UseAction { get; set; }
 
         /// <summary>
-        ///     Если true - вес не рассчитывается, а берётся из свойства (*data.xml) в описании предмета
-        ///     ---
-        ///     If true - the weight is not calculated, but taken from the property (*data.xml) in the item description
-        /// </summary>
-        bool StaticWeight { get; set; }
-
-        /// <summary>
         ///     Звук использования предмета
         ///     ---
         ///     The sound of using an item

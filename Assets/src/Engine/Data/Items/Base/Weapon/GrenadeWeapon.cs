@@ -37,9 +37,15 @@ namespace Engine.Data
         public string ExplodeSoundType { get; set; }
 
         /// <summary>
-        /// Копирует текущую сущность в новый экземпляр
+        ///     Копирует текущую сущность в новый экземпляр
+        ///     ---
+        ///     Copies the current entity into a new instance
         /// </summary>
-        /// <returns>Копия сущности</returns>
+        /// <returns>
+        ///     Копия сущности
+        ///     ---
+        ///     Entity Copy
+        /// </returns>
         public override IIdentity Copy()
         {
             return new GrenadeWeapon()
@@ -52,6 +58,7 @@ namespace Engine.Data
                 Description = Description,
                 Count = Count,
                 StackSize = StackSize,
+                StaticWeight = StaticWeight,
                 Weight = Weight,
                 Parts = Parts?.ToList(),
                 Level = Level,

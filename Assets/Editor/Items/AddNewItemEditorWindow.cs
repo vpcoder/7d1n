@@ -26,6 +26,7 @@ namespace GitIntegration.Items
         private bool isStaticWeight;
         private string txtWeightValue;
         private PartListAdapter parts = new PartListAdapter();
+        private ToolAdapter tool = new ToolAdapter();
 
         // Параметры оружия
         private WeaponType weaponType;
@@ -40,10 +41,10 @@ namespace GitIntegration.Items
         private int throwDamage;
         private float throwDistance;
         private float throwAimRadius;
-        private string throwEffectType;
-        private string throwSoundType;
-        private string throwInSoundType;
-        private string throwOutSoundType;
+        private string throwBulletObject;
+        private string throwSound;
+        private string throwHitSound;
+        private string throwMissSound;
         
         private void OnGUI()
         {
@@ -109,7 +110,6 @@ namespace GitIntegration.Items
             element.SetAttribute("Name", txtName + "_name");
             element.SetAttribute("Description", txtName + "_desc");
             element.SetAttribute("Type", groupType.ToString());
-            element.SetAttribute("StackSize", stackSize.ToString());
 
             if (isStaticWeight && groupType != GroupType.Resource)
             {
@@ -120,10 +120,16 @@ namespace GitIntegration.Items
             {
                 element.SetAttribute("Weight", txtWeightValue);
             }
+
+            if (tool.IsNotEmpty)
+            {
+                var tools = string.Join(";", tool.Tools.Select(tool => tool.ToString()));
+                element.SetAttribute("Tool", tools);
+            }
             
             element.SetAttribute("StackSize", GroupsWithoutStacks.Contains(groupType) ? "1" : stackSize.ToString());
 
-            if (!parts.IsEmpty)
+            if (!parts.IsEmpty && groupType != GroupType.Resource)
             {
                 foreach (var part in parts.Data)
                 {
@@ -159,7 +165,10 @@ namespace GitIntegration.Items
                 element.SetAttribute("ThrowDamage", throwDamage.ToString());
                 element.SetAttribute("ThrowDistance", throwDistance.ToString());
                 element.SetAttribute("ThrowAimRadius", throwAimRadius.ToString());
-                element.SetAttribute("ThrowEffectType", throwEffectType);
+                element.SetAttribute("ThrowBulletObject", throwBulletObject);
+                element.SetAttribute("ThrowSound", throwSound);
+                element.SetAttribute("ThrowHitSound", throwHitSound);
+                element.SetAttribute("ThrowMissSound", throwMissSound);
             }
         }
 
@@ -215,10 +224,22 @@ namespace GitIntegration.Items
 
             GUILayout.EndVertical();
             GUILayout.EndHorizontal();
-            
-            GUILayout.Space(90);
-            ReorderableListGUI.Title("Части | Parts");
-            ReorderableListGUI.ListField(parts);
+
+            if (groupType != GroupType.Resource)
+            {
+                GUILayout.Space(90);
+                ReorderableListGUI.Title("Части | Parts");
+                ReorderableListGUI.ListField(parts);
+                
+                GUILayout.Space(16);
+                
+                GUILayout.Label("Свойства инструмента | Tool properties:");
+                var pos = GUILayoutUtility.GetLastRect();
+                pos.y += pos.height;
+                pos.height = 96;
+                tool.DrawTools(pos);
+                GUILayout.Space(96);
+            }
             
             GUILayout.Space(16);
         }
@@ -295,22 +316,22 @@ namespace GitIntegration.Items
                 
                 GUILayout.BeginHorizontal();
                 GUILayout.Label("Снаряд метания | Throw bullet:");
-                throwEffectType = EditorGUILayout.TextField(throwEffectType);
+                throwBulletObject = EditorGUILayout.TextField(throwBulletObject);
                 GUILayout.EndHorizontal();
                 
                 GUILayout.BeginHorizontal();
                 GUILayout.Label("Звук метания | Throwing sound:");
-                throwSoundType = EditorGUILayout.TextField(throwSoundType);
+                throwSound = EditorGUILayout.TextField(throwSound);
                 GUILayout.EndHorizontal();
                 
                 GUILayout.BeginHorizontal();
                 GUILayout.Label("Звук попадания | The sound of a hit:");
-                throwInSoundType = EditorGUILayout.TextField(throwInSoundType);
+                throwHitSound = EditorGUILayout.TextField(throwHitSound);
                 GUILayout.EndHorizontal();
                 
                 GUILayout.BeginHorizontal();
                 GUILayout.Label("Звук промаха | The sound of a miss:");
-                throwOutSoundType = EditorGUILayout.TextField(throwOutSoundType);
+                throwMissSound = EditorGUILayout.TextField(throwMissSound);
                 GUILayout.EndHorizontal();
             }
             

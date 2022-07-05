@@ -54,15 +54,11 @@ namespace Engine
             return value * mul;
         }
         
-        
         public static long GetWeight(this IEntity entity)
         {
-            if(entity is IResource)
-                return GetWeight((IResource)entity);
-
-            if (entity is IUsed)
-                return GetWeight((IUsed)entity);
-
+            if (entity.StaticWeight)
+                return entity.Weight;
+            
             if (entity is IItem)
                 return GetWeight((IItem)entity);
 
@@ -71,30 +67,10 @@ namespace Engine
 
         public static long GetWeight(this IItem item)
         {
-            if (item is IResource)
-                return GetWeight((IResource)item);
-
-            if (item is IUsed)
-                return GetWeight((IUsed)item);
-
+            if (item.StaticWeight)
+                return item.Weight;
+            
             var parts = item.Parts;
-            if (Lists.IsEmpty(parts))
-                return 0L;
-
-            return parts.Select(o => GetWeight(o.ResourceID) * o.ResourceCount).Sum();
-        }
-
-        public static long GetWeight(this IResource res)
-        {
-            return res.Weight;
-        }
-
-        public static long GetWeight(this IUsed used)
-        {
-            if(used.StaticWeight)
-                return used.Weight;
-
-            var parts = used.Parts;
             if (Lists.IsEmpty(parts))
                 return 0L;
 

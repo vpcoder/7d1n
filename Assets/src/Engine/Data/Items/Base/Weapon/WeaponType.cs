@@ -10,8 +10,10 @@ namespace Engine.Data
     /// <summary>
     /// 
     /// Типы оружия, пистолеты, винтовки, биты, и т.д.
+    /// Определяет тип анимации для данного оружия, когда оно находится в руках персонажей
     /// ---
     /// Types of weapons, pistols, rifles, bats, etc.
+    /// Determines the type of animation for this weapon when it is in the hands of characters
     /// 
     /// </summary>
     public enum WeaponType : int
