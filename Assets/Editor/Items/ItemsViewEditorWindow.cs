@@ -66,7 +66,7 @@ namespace GitIntegration.Items
                 ItemsEditorFactory.Instance.ReloadData();
 
             var items = ItemsWithFilter;
-            var height = (items.Count / MaxCountX) * (iconSize.y + iconIncellSize.y);
+            var height = (((float)items.Count / MaxCountX) + 1) * (iconSize.y + iconIncellSize.y);
             
             GUILayout.BeginHorizontal();
             GUILayout.Label("найдено предметов | items count: " + items.Count);

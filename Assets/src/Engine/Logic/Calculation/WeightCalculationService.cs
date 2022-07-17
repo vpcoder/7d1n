@@ -67,7 +67,7 @@ namespace Engine
 
         public static long GetWeight(this IItem item)
         {
-            if (item.StaticWeight)
+            if (item.StaticWeight || item is IResource)
                 return item.Weight;
             
             var parts = item.Parts;

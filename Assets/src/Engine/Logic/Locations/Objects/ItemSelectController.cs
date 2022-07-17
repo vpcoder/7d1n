@@ -75,14 +75,14 @@ namespace Engine.Logic.Locations
         }
 
         /// <summary>
-        /// Определяет, насколько персонаж далеко от нажимаего объекта, может персонаж не достаёт до объекта...
+        /// Определяет, насколько персонаж далеко от нажимаемого объекта, может персонаж не достаёт до объекта...
         /// </summary>
         /// <returns>true - если персонаж достаточно близко, иначе - false</returns>
         private bool CheckDistance()
         {
             var character = ObjectFinder.Find<LocationCharacter>();
             var distance = Vector3.Distance(transform.position, character.transform.position);
-            return distance <= character.PickUpDistance;
+            return distance <= character.PickUpDistance * 3f;
         }
 
     }

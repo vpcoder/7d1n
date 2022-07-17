@@ -16,7 +16,7 @@
     	ReloadAP="4"
     	Penetration="0"
     
-    	AmmoEffectType="pm_bullet"
+    	AmmoEffectType="small_bullet"
     	ShootEffectType="pm_shoot"
     	ShootSoundType="firearms/pm_shoot"
     	ReloadSoundType="firearms/pm_reload"

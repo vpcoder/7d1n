@@ -13,11 +13,13 @@ namespace Engine.Logic
         [SerializeField] private CharacterBag inventory;
         [SerializeField] private CharacterEquipController equip;
         [SerializeField] private CharacterSkillController skills;
+        [SerializeField] private CraftController craft;
         [SerializeField] private SettingsMenuController menu;
 
         [SerializeField] private Image imgInventory;
         [SerializeField] private Image imgEquip;
         [SerializeField] private Image imgSkills;
+        [SerializeField] private Image imgCraft;
         [SerializeField] private Image imgMenu;
 
         private IDictionary<IPanel, Image> panels;
@@ -28,6 +30,7 @@ namespace Engine.Logic
             panels.Add(inventory, imgInventory);
             panels.Add(skills, imgSkills);
             panels.Add(equip, imgEquip);
+            panels.Add(craft, imgCraft);
             panels.Add(menu, imgMenu);
         }
 
@@ -64,6 +67,11 @@ namespace Engine.Logic
         public void SwitchSkills()
         {
             Switch(skills);
+        }
+        
+        public void SwitchCraft()
+        {
+            Switch(craft);
         }
 
         public void SwitchEquip()

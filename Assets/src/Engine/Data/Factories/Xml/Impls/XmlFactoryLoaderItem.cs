@@ -104,16 +104,16 @@ namespace Engine.Data.Factories.Xml
                 baseWeight = long.Parse(weight.Substring(0, weight.Length - 3).Trim());
                 return;
             }
-            if (weight.EndsWith("g"))
-            {
-                unitType = WeightUnitType.GRAMS;
-                baseWeight = long.Parse(weight.Substring(0, weight.Length - 1).Trim());
-                return;
-            }
             if (weight.EndsWith("kg"))
             {
                 unitType = WeightUnitType.KILOGRAMS;
                 baseWeight = long.Parse(weight.Substring(0, weight.Length - 2).Trim());
+                return;
+            }
+            if (weight.EndsWith("g"))
+            {
+                unitType = WeightUnitType.GRAMS;
+                baseWeight = long.Parse(weight.Substring(0, weight.Length - 1).Trim());
                 return;
             }
             throw new NotSupportedException("weight value not supported '" + weight + "'!");
@@ -135,8 +135,8 @@ namespace Engine.Data.Factories.Xml
             item.StackSize   = Lng("StackSize");
             item.ToolType    = EnmSplit<ToolType>("Tool");
             item.StaticWeight = Bol("StaticWeight");
-            if(item.StaticWeight)
-                item.Weight   = ReadWeight(Str("Weight"));
+            if (item.StaticWeight)
+                item.Weight = ReadWeight(Str("Weight"));
 
             List<Part> parts = new List<Part>();
             foreach (XmlElement part in Current.GetElementsByTagName("Part"))
@@ -175,8 +175,8 @@ namespace Engine.Data.Factories.Xml
             resource.ID          = Lng("ID");
             resource.StackSize   = Lng("StackSize");
 
-            var weight      = Str("Weight");
-            resource.Weight      = ReadWeight(weight);
+            var weight       = Str("Weight");
+            resource.Weight       = ReadWeight(weight);
 
             resource.Name        = Str("Name");
             resource.Description = Str("Description");

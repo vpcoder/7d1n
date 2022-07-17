@@ -9,8 +9,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4271938851287314}
-  - component: {fileID: 3154587662764656579}
   - component: {fileID: 5265580566042465320}
+  - component: {fileID: 3154587662764656579}
   m_Layer: 0
   m_Name: Extractor_01
   m_TagString: Untagged
@@ -33,6 +33,19 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!65 &5265580566042465320
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1235455999305034}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 1, y: 1.0734538, z: 0.8427222}
+  m_Center: {x: 0, y: 0.5367269, z: 0.4213611}
 --- !u!114 &3154587662764656579
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -54,19 +67,6 @@ MonoBehaviour:
     Craftable:
       Level: 0
       Author: 
---- !u!65 &5265580566042465320
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1235455999305034}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 1, y: 1.0734538, z: 0.8427222}
-  m_Center: {x: 0, y: 0.5367269, z: 0.4213611}
 --- !u!1 &9090006674224977448
 GameObject:
   m_ObjectHideFlags: 0

@@ -43,7 +43,7 @@ namespace Engine.Logic
             if (runtime.Mode == Mode.Switch)
                 runtime.Mode = Mode.Game;
 
-            sceneLoader?.PostLoad(loadContext);
+            //sceneLoader?.PostLoad(loadContext);
             
             Destroy(this);
         }
