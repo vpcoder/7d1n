@@ -1,0 +1,76 @@
+<Data>
+  <Item ID="5000" Name="tool/hacksaw_name" Description="tool/hacksaw_desc" Type="WeaponEdged" StaticWeight="true" Weight="200g" StackSize="1" WeaponType="Knife" Damage="4" MaxDistance="1" AimRadius="1" UseAP="3" CanThrow="True" ThrowAP="3" ThrowDamage="1" ThrowDistance="5" ThrowAimRadius="2" ThrowBulletObject="5000" Tool="Hacksaw" ThrowSound="" ThrowHitSound="" ThrowMissSound="">
+    <Part ResID="1" ResCount="150" Difficulty="1" NeededTools="Pliers;FlatheadScrewdriver" />
+    <Part ResID="9" ResCount="50" Difficulty="1" NeededTools="Pliers;FlatheadScrewdriver" />
+  </Item>
+  <Item ID="5001" Name="tool/hammer_name" Description="tool/hammer_desc" Type="WeaponEdged" StaticWeight="true" Weight="350g" Tool="Hammer" StackSize="1" WeaponType="Knife" Damage="8" MaxDistance="1" AimRadius="1" UseAP="4" CanThrow="True" ThrowAP="3" ThrowDamage="7" ThrowDistance="12" ThrowAimRadius="2" ThrowBulletObject="5001" ThrowSound="" ThrowHitSound="" ThrowMissSound="">
+    <Part ResID="1" ResCount="150" Difficulty="3" NeededTools="Axe;Pliers;Knife" />
+    <Part ResID="9" ResCount="50" Difficulty="2" NeededTools="Pliers;Axe;Knife" />
+    <Part ResID="24" ResCount="25" Difficulty="2" NeededTools="Knife;Axe" />
+  </Item>
+  <Item ID="5002" Name="tool/multihammer_name" Description="tool/multihammer_desc" Type="WeaponEdged" StaticWeight="true" Weight="350g" Tool="Hammer;Crowbar" StackSize="1" WeaponType="Knife" Damage="8" MaxDistance="1" AimRadius="1" UseAP="4" CanThrow="True" ThrowAP="3" ThrowDamage="7" ThrowDistance="12" ThrowAimRadius="2" ThrowBulletObject="5002" ThrowSound="" ThrowHitSound="" ThrowMissSound="">
+    <Part ResID="1" ResCount="170" Difficulty="3" NeededTools="Hacksaw" />
+    <Part ResID="9" ResCount="20" Difficulty="2" NeededTools="Pliers;Axe;Knife" />
+    <Part ResID="24" ResCount="15" Difficulty="2" NeededTools="Knife;Axe" />
+  </Item>
+  <Item ID="5003" Name="tool/pruning_saw_name" Description="tool/pruning_saw_desc" Type="WeaponEdged" StaticWeight="true" Weight="150g" Tool="Saw" StackSize="1" WeaponType="Knife" Damage="5" MaxDistance="1" AimRadius="1" UseAP="4" CanThrow="True" ThrowAP="3" ThrowDamage="2" ThrowDistance="3" ThrowAimRadius="2" ThrowBulletObject="5003" ThrowSound="" ThrowHitSound="" ThrowMissSound="">
+    <Part ResID="1" ResCount="100" Difficulty="2" NeededTools="Pliers;Clippers" />
+    <Part ResID="0" ResCount="50" Difficulty="1" NeededTools="Clippers;Pliers" />
+  </Item>
+  <Item ID="5004" Name="tool/flatheadscrewdriver_name" Description="tool/flatheadscrewdriver_desc" Type="WeaponEdged" StaticWeight="true" Weight="80g" Tool="FlatheadScrewdriver" StackSize="1" WeaponType="Knife" Damage="2" MaxDistance="1" AimRadius="1" UseAP="3" CanThrow="True" ThrowAP="2" ThrowDamage="1" ThrowDistance="3" ThrowAimRadius="2" ThrowBulletObject="5004" ThrowSound="" ThrowHitSound="" ThrowMissSound="">
+    <Part ResID="1" ResCount="30" Difficulty="2" NeededTools="Pliers;Clippers" />
+    <Part ResID="9" ResCount="40" Difficulty="1" NeededTools="Clippers;Pliers" />
+    <Part ResID="24" ResCount="10" Difficulty="1" NeededTools="Pliers;Knife" />
+  </Item>
+  <Item ID="5005" Name="tool/phillipsscrewdriver_name" Description="tool/phillipsscrewdriver_desc" Type="WeaponEdged" StaticWeight="true" Weight="80g" Tool="PhillipsScrewdriver" StackSize="1" WeaponType="Knife" Damage="2" MaxDistance="1" AimRadius="1" UseAP="3" CanThrow="True" ThrowAP="2" ThrowDamage="1" ThrowDistance="3" ThrowAimRadius="2" ThrowBulletObject="5005" ThrowSound="" ThrowHitSound="" ThrowMissSound="">
+    <Part ResID="1" ResCount="30" Difficulty="2" NeededTools="Pliers;Clippers" />
+    <Part ResID="9" ResCount="40" Difficulty="1" NeededTools="Clippers;Pliers" />
+    <Part ResID="24" ResCount="10" Difficulty="1" NeededTools="Pliers;Knife" />
+  </Item>
+  <Item ID="5006" Name="tool/chisel_name" Description="tool/chisel_desc" Type="WeaponEdged" StaticWeight="true" Weight="120g" Tool="Clippers" StackSize="1" WeaponType="Knife" Damage="3" MaxDistance="1" AimRadius="1" UseAP="3" CanThrow="True" ThrowAP="2" ThrowDamage="2" ThrowDistance="3" ThrowAimRadius="2" ThrowBulletObject="5006" ThrowSound="" ThrowHitSound="" ThrowMissSound="">
+    <Part ResID="1" ResCount="60" Difficulty="2" NeededTools="Pliers" />
+    <Part ResID="0" ResCount="40" Difficulty="1" NeededTools="Pliers" />
+  </Item>
+  <Item ID="5007" Name="tool/crowbar_name" Description="tool/crowbar_desc" Type="WeaponEdged" StaticWeight="true" Weight="1500g" Tool="Crowbar" StackSize="1" WeaponType="TwoHanded" Damage="15" MaxDistance="1" AimRadius="1" UseAP="5" CanThrow="True" ThrowAP="5" ThrowDamage="5" ThrowDistance="2" ThrowAimRadius="2" ThrowBulletObject="5007" ThrowSound="" ThrowHitSound="" ThrowMissSound="">
+    <Part ResID="1" ResCount="1000" Difficulty="2" NeededTools="Hacksaw" />
+  </Item>
+    <Item ID="5008" Name="tool/sledgehammer_name" Description="tool/sledgehammer_desc" Type="WeaponEdged" StaticWeight="true" Weight="4kg" Tool="Sledgehammer" StackSize="1" WeaponType="TwoHanded" Damage="20" MaxDistance="1" AimRadius="1" UseAP="5" CanThrow="True" ThrowAP="5" ThrowDamage="10" ThrowDistance="4" ThrowAimRadius="1" ThrowBulletObject="5008" ThrowSound="" ThrowHitSound="" ThrowMissSound="">
+      <Part ResID="0" ResCount="100" Difficulty="1" NeededTools="Saw" />
+      <Part ResID="1" ResCount="2000" Difficulty="2" NeededTools="Hacksaw" />
+    </Item>
+  <Item ID="5009" Name="tool/saw_name" Description="tool/saw_desc" Type="WeaponEdged" StaticWeight="true" Weight="300g" Tool="Saw" StackSize="1" WeaponType="Knife" Damage="8" MaxDistance="1" AimRadius="1" UseAP="4" CanThrow="True" ThrowAP="4" ThrowDamage="2" ThrowDistance="5" ThrowAimRadius="1" ThrowBulletObject="5009" ThrowSound="" ThrowHitSound="" ThrowMissSound="">
+    <Part ResID="24" ResCount="40" Difficulty="1" NeededTools="Knife" />
+    <Part ResID="9" ResCount="100" Difficulty="1" NeededTools="PhillipsScrewdriver" />
+    <Part ResID="1" ResCount="400" Difficulty="2" NeededTools="Hacksaw" />
+  </Item>
+  <Item ID="5010" Name="tool/wrench1_name" Description="tool/wrench1_desc" Type="WeaponEdged" StaticWeight="true" Weight="300g" Tool="WrenchTypeB" StackSize="1" WeaponType="Knife" Damage="4" MaxDistance="1" AimRadius="1" UseAP="4" CanThrow="True" ThrowAP="4" ThrowDamage="1" ThrowDistance="10" ThrowAimRadius="1" ThrowBulletObject="5010" ThrowSound="" ThrowHitSound="" ThrowMissSound="">
+    <Part ResID="1" ResCount="250" Difficulty="2" NeededTools="Hacksaw" />
+  </Item>
+  <Item ID="5011" Name="tool/pipe_wrench_name" Description="tool/pipe_wrench_desc" Type="WeaponEdged" StaticWeight="true" Weight="750g" Tool="WrenchTypeA" StackSize="1" WeaponType="Knife" Damage="6" MaxDistance="1" AimRadius="1" UseAP="4" CanThrow="True" ThrowAP="4" ThrowDamage="4" ThrowDistance="7" ThrowAimRadius="1" ThrowBulletObject="5011" ThrowSound="" ThrowHitSound="" ThrowMissSound="">
+    <Part ResID="1" ResCount="500" Difficulty="2" NeededTools="Hacksaw" />
+    <Part ResID="9" ResCount="150" Difficulty="1" NeededTools="Pliers" />
+  </Item>
+  <Item ID="5012" Name="tool/wrench2_name" Description="tool/wrench2_desc" Type="WeaponEdged" StaticWeight="true" Weight="250g" Tool="WrenchTypeC" StackSize="1" WeaponType="Knife" Damage="2" MaxDistance="1" AimRadius="1" UseAP="4" CanThrow="True" ThrowAP="4" ThrowDamage="1" ThrowDistance="12" ThrowAimRadius="1" ThrowBulletObject="5012" ThrowSound="" ThrowHitSound="" ThrowMissSound="">
+    <Part ResID="1" ResCount="150" Difficulty="2" NeededTools="Hacksaw" />
+  </Item>
+  <Item ID="5013" Name="tool/pliers_name" Description="tool/pliers_desc" Type="Item" StaticWeight="true" Weight="350g" Tool="Pliers" StackSize="1">
+    <Part ResID="1" ResCount="150" Difficulty="2" NeededTools="Hacksaw" />
+    <Part ResID="9" ResCount="50" Difficulty="0" />
+  </Item>
+  <Item ID="5014" Name="tool/leveler_name" Description="tool/leveler_desc" Type="Item" StaticWeight="true" Weight="150g" Tool="Line" StackSize="1">
+    <Part ResID="1" ResCount="100" Difficulty="2" NeededTools="Hacksaw" />
+    <Part ResID="9" ResCount="20" Difficulty="1" NeededTools="Pliers" />
+  </Item>
+  <Item ID="5015" Name="tool/ruler_name" Description="tool/ruler_desc" Type="Item" StaticWeight="true" Weight="150g" Tool="Line" StackSize="1">
+    <Part ResID="1" ResCount="120" Difficulty="2" NeededTools="Hacksaw" />
+  </Item>
+  <Item ID="5016" Name="tool/clippers_name" Description="tool/clippers_desc" Type="Item" StaticWeight="true" Weight="80g" Tool="Clippers" StackSize="1">
+    <Part ResID="1" ResCount="40" Difficulty="2" NeededTools="Hacksaw" />
+    <Part ResID="24" ResCount="20" Difficulty="0" NeededTools="Knife" />
+  </Item>
+  <Item ID="5017" Name="tool/pickaxe_name" Description="tool/pickaxe_desc" Type="WeaponEdged" StaticWeight="true" Weight="3kg" Tool="Pickaxe" StackSize="1" WeaponType="TwoHanded" Damage="14" MaxDistance="1" AimRadius="1" UseAP="5" CanThrow="True" ThrowAP="5" ThrowDamage="6" ThrowDistance="5" ThrowAimRadius="1" ThrowBulletObject="5017" ThrowSound="" ThrowHitSound="" ThrowMissSound="">
+    <Part ResID="1" ResCount="2000" Difficulty="2" NeededTools="Hacksaw" />
+    <Part ResID="24" ResCount="100" Difficulty="1" NeededTools="Knife" />
+    <Part ResID="9" ResCount="300" Difficulty="1" NeededTools="Saw" />
+  </Item>
+</Data>

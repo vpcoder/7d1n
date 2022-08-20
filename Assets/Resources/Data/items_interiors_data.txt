@@ -1,0 +1,103 @@
+<Data>
+  <Item ID="100000" Type="LocationObject" Name="sink_1_name" Description="sink_1_desc" StackSize="1" Weight="40kg" StaticWeight="true">
+    <Part ResID="0" ResCount="4000" Difficulty="1" />
+    <Part ResID="1" ResCount="2500" Difficulty="2" />
+    <Part ResID="9" ResCount="5" Difficulty="2" />
+  </Item>
+  <Item ID="100001" Type="LocationObject" Name="counter_corner_1_name" Description="counter_corner_1_desc" StackSize="1" Weight="25kg" StaticWeight="true">
+    <Part ResID="0" ResCount="5000" Difficulty="1" />
+    <Part ResID="9" ResCount="5" Difficulty="2" />
+  </Item>
+  <Item ID="100002" Type="LocationObject" Name="counter_empty_1_name" Description="counter_empty_1_desc" StackSize="1" Weight="20kg" StaticWeight="true">
+    <Part ResID="0" ResCount="5000" Difficulty="1" />
+    <Part ResID="9" ResCount="5" Difficulty="2" />
+  </Item>
+  <Item ID="100003" Type="LocationObject" Name="counter_shelf_1_name" Description="counter_shelf_1_desc" StackSize="1" Weight="35kg" StaticWeight="true">
+    <Part ResID="0" ResCount="5000" Difficulty="1" />
+    <Part ResID="9" ResCount="5" Difficulty="2" />
+  </Item>
+  <Item ID="100004" Type="LocationObject" Name="counter_washing_1_name" Description="counter_washing_1_desc" StackSize="1" Weight="60kg" StaticWeight="true">
+    <Part ResID="0" ResCount="1000" Difficulty="1" />
+    <Part ResID="1" ResCount="1000" Difficulty="2" />
+    <Part ResID="9" ResCount="500" Difficulty="2" />
+    <Part ResID="4" ResCount="200" Difficulty="3" />
+    <Part ResID="11" ResCount="100" Difficulty="4" />
+  </Item>
+  <Item ID="100005" Type="LocationObject" Name="fridge_1_name" Description="fridge_1_desc" StackSize="1" Weight="60kg" StaticWeight="true">
+    <Part ResID="9" ResCount="1500" Difficulty="1" />
+    <Part ResID="1" ResCount="2000" Difficulty="2" />
+    <Part ResID="4" ResCount="100" Difficulty="3" />
+    <Part ResID="11" ResCount="50" Difficulty="4" />
+  </Item>
+  <Item ID="100006" Type="LocationObject" Name="oven_1_name" Description="oven_1_desc" StackSize="1" Weight="70kg" StaticWeight="true">
+    <Part ResID="1" ResCount="3000" Difficulty="2" />
+    <Part ResID="9" ResCount="100" Difficulty="2" />
+    <Part ResID="11" ResCount="10" Difficulty="4" />
+  </Item>
+  <Item ID="100007" Type="LocationObject" Name="kitchen_table_1_name" Description="kitchen_table_1_desc" StackSize="1" Weight="15kg" StaticWeight="true">
+    <Part ResID="0" ResCount="3000" Difficulty="1" />
+  </Item>
+  <Item ID="100008" Type="LocationObject" Name="kitchen_chair_1_name" Description="kitchen_chair_1_desc" StackSize="1" Weight="2kg" StaticWeight="true">
+    <Part ResID="0" ResCount="1000" Difficulty="1" />
+    <Part ResID="1" ResCount="50" Difficulty="2" />
+  </Item>
+  <Item ID="100009" Type="LocationObject" Name="toaster_1_name" Description="toaster_1_desc" StackSize="1" Weight="500g" StaticWeight="true">
+    <Part ResID="1" ResCount="150" Difficulty="2" />
+    <Part ResID="11" ResCount="50" Difficulty="3" />
+  </Item>
+  <Item ID="100010" Type="LocationObject" Name="microwave_1_name" Description="microwave_1_desc" StackSize="1" Weight="1kg" StaticWeight="true">
+    <Part ResID="1" ResCount="150" Difficulty="2" />
+    <Part ResID="9" ResCount="100" Difficulty="1" />
+    <Part ResID="11" ResCount="150" Difficulty="2" />
+  </Item>
+  <Item ID="100011" Type="LocationObject" Name="extractor_1_name" Description="extractor_1_desc" StackSize="1" Weight="5kg" StaticWeight="true">
+    <Part ResID="1" ResCount="350" Difficulty="2" />
+    <Part ResID="9" ResCount="10" Difficulty="1" />
+    <Part ResID="11" ResCount="10" Difficulty="2" />
+  </Item>
+  <Item ID="100012" Type="LocationObject" Name="kitchen_cabinet_1_name" Description="kitchen_cabinet_1_desc" StackSize="1">
+    <Part ResID="1" ResCount="150" Difficulty="2" />
+    <Part ResID="9" ResCount="100" Difficulty="1" />
+    <Part ResID="11" ResCount="150" Difficulty="2" />
+  </Item>
+  <Item ID="100100" Type="LocationObject" Name="hall_chair_1_name" Description="hall_chair_1_desc" StackSize="1">
+    <Part ResID="0" ResCount="2000" Difficulty="1" NeededTools="Axe;Hammer;PhillipsScrewdriver;Hammer;Crowbar" />
+    <Part ResID="23" ResCount="200" Difficulty="1" NeededTools="Knife;Axe" />
+    <Part ResID="1" ResCount="50" Difficulty="2" NeededTools="PhillipsScrewdriver;Pliers;Clippers;Hammer;Crowbar" />
+  </Item>
+  <Item ID="100101" Type="LocationObject" Name="hall_couch_1_name" Description="hall_couch_1_desc" StackSize="1" StaticWeight="true" Weight="10kg">
+    <Part ResID="0" ResCount="2500" Difficulty="1" NeededTools="Axe;Hammer;PhillipsScrewdriver;Crowbar" />
+    <Part ResID="23" ResCount="300" Difficulty="1" NeededTools="Knife;Axe" />
+    <Part ResID="1" ResCount="50" Difficulty="2" NeededTools="PhillipsScrewdriver;Pliers;Clippers;Hammer;Crowbar" />
+  </Item>
+  <Item ID="100102" Type="LocationObject" Name="hall_tv_cabinet_1_name" Description="hall_tv_cabinet_1_desc" StackSize="1">
+    <Part ResID="0" ResCount="3500" Difficulty="1" />
+    <Part ResID="1" ResCount="50" Difficulty="2" />
+    <Part ResID="9" ResCount="100" Difficulty="2" />
+  </Item>
+  <Item ID="100103" Type="LocationObject" Name="tvset_1_name" Description="tvset_1_desc" StackSize="1">
+    <Part ResID="1" ResCount="50" Difficulty="2" />
+    <Part ResID="9" ResCount="500" Difficulty="2" />
+    <Part ResID="11" ResCount="300" Difficulty="3" />
+    <Part ResID="4" ResCount="5" Difficulty="3" />
+  </Item>
+  <Item ID="100200" Type="LocationObject" Name="bath_sink_1_name" Description="bath_sink_1_desc" StackSize="1">
+    <Part ResID="13" ResCount="1000" Difficulty="2" />
+    <Part ResID="1" ResCount="200" Difficulty="2" />
+  </Item>
+  <Item ID="100201" Type="LocationObject" Name="bath_washer_1_name" Description="bath_washer_1_desc" StackSize="1">
+    <Part ResID="24" ResCount="50" Difficulty="1" />
+    <Part ResID="1" ResCount="500" Difficulty="2" />
+    <Part ResID="9" ResCount="500" Difficulty="2" />
+    <Part ResID="11" ResCount="300" Difficulty="3" />
+    <Part ResID="4" ResCount="200" Difficulty="3" />
+  </Item>
+  <Item ID="100202" Type="LocationObject" Name="bath_1_name" Description="bath_1_desc" StackSize="1">
+    <Part ResID="13" ResCount="1000" Difficulty="2" />
+    <Part ResID="1" ResCount="200" Difficulty="2" />
+  </Item>
+  <Item ID="101000" Type="LocationObject" Name="door_1_name" Description="door_1_desc" StackSize="1">
+    <Part ResID="0" ResCount="2500" Difficulty="1" />
+    <Part ResID="1" ResCount="50" Difficulty="2" />
+  </Item>
+</Data>

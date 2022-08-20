@@ -1,0 +1,242 @@
+﻿<#@ template debug="true" hostspecific="true" language="C#" #>
+<#@ assembly name="System.Core" #>
+<#@ import namespace="System.Collections.Generic" #>
+<#@ assembly name="System.Xml" #>
+<#@ assembly name="EnvDTE" #>
+<#
+	ids.Clear();
+#>
+// AUTOGENERATION - Не редактировать!
+
+namespace Engine.Data
+{
+
+    /// <summary>
+    /// Словарь объектов
+    /// </summary>
+    public partial class DataDictionary
+    {
+
+		/// <summary>
+		/// Ресурсы
+		/// </summary>
+        public static class Resources
+        {
+<#
+			foreach(var item in GetItems("Assets/Resources/Data/items_resources_data.txt")) {
+#>
+			public const long <#=item.Name#> = <#=item.ID#>L;
+<#
+			}
+#>
+		}
+
+	}
+
+}
+<#
+SaveOutput("../Assets/src/Engine/Data/Dictionaries/Items/ResourcesDictionaryPart.cs");
+#>
+// AUTOGENERATION - Не редактировать!
+
+namespace Engine.Data
+{
+
+    /// <summary>
+    /// Словарь объектов
+    /// </summary>
+    public partial class DataDictionary
+    {
+
+		/// <summary>
+		/// Интерьер
+		/// </summary>
+        public static class Interiors
+        {
+<#
+			foreach(var item in GetItems("Assets/Resources/Data/items_interiors_data.txt")) {
+#>
+			public const long <#=item.Name#> = <#=item.ID#>L;
+<#
+			}
+#>
+		}
+
+	}
+
+}
+<#
+SaveOutput("../Assets/src/Engine/Data/Dictionaries/Items/InteriorsDictionaryPart.cs");
+#>
+// AUTOGENERATION - Не редактировать!
+
+namespace Engine.Data
+{
+
+    /// <summary>
+    /// Словарь объектов
+    /// </summary>
+    public partial class DataDictionary
+    {
+
+		/// <summary>
+		/// Одежда
+		/// </summary>
+        public static class Cloths
+        {
+<#
+			foreach(var item in GetItems("Assets/Resources/Data/items_cloths_data.txt")) {
+#>
+			public const long <#=item.Name#> = <#=item.ID#>L;
+<#
+			}
+#>
+		}
+
+	}
+
+}
+<#
+SaveOutput("../Assets/src/Engine/Data/Dictionaries/Items/ClothsDictionaryPart.cs");
+#>
+// AUTOGENERATION - Не редактировать!
+
+namespace Engine.Data
+{
+
+    /// <summary>
+    /// Словарь объектов
+    /// </summary>
+    public partial class DataDictionary
+    {
+
+		/// <summary>
+		/// Инструменты
+		/// </summary>
+        public static class Tools
+        {
+<#
+			foreach(var item in GetItems("Assets/Resources/Data/items_tools_data.txt")) {
+#>
+			public const long <#=item.Name#> = <#=item.ID#>L;
+<#
+			}
+#>
+		}
+
+	}
+
+}
+<#
+SaveOutput("../Assets/src/Engine/Data/Dictionaries/Items/ToolsDictionaryPart.cs");
+#>
+// AUTOGENERATION - Не редактировать!
+
+namespace Engine.Data
+{
+
+    /// <summary>
+    /// Словарь объектов
+    /// </summary>
+    public partial class DataDictionary
+    {
+
+		/// <summary>
+		/// Оружия
+		/// </summary>
+        public static class Weapons
+        {
+<#
+			foreach(var item in GetItems("Assets/Resources/Data/items_weapons_data.txt")) {
+#>
+			public const long <#=item.Name#> = <#=item.ID#>L;
+<#
+			}
+#>
+		}
+
+	}
+
+}
+<#
+SaveOutput("../Assets/src/Engine/Data/Dictionaries/Items/WeaponsDictionaryPart.cs");
+#>
+// AUTOGENERATION - Не редактировать!
+
+namespace Engine.Data
+{
+
+    /// <summary>
+    /// Словарь объектов
+    /// </summary>
+    public partial class DataDictionary
+    {
+
+		/// <summary>
+		/// Еда
+		/// </summary>
+        public static class Foods
+        {
+<#
+			foreach(var item in GetItems("Assets/Resources/Data/items_foods_data.txt")) {
+#>
+			public const long <#=item.Name#> = <#=item.ID#>L;
+<#
+			}
+#>
+		}
+
+	}
+
+}
+<#
+SaveOutput("../Assets/src/Engine/Data/Dictionaries/Items/FoodsDictionaryPart.cs");
+#>
+<#+
+
+	private static IDictionary<long, string> ids = new Dictionary<long, string>();
+
+	private string getFileName(string file) {
+		var serviceProvider = this.Host as IServiceProvider;
+		var dte = serviceProvider.GetService(typeof(EnvDTE.DTE)) as EnvDTE.DTE;
+		var solutionDirectory = System.IO.Path.GetDirectoryName(dte.Solution.FullName);
+		return System.IO.Path.Combine(solutionDirectory, file);
+	}
+
+	private void SaveOutput(string outputFileName) {
+		string templateDirectory = System.IO.Path.GetDirectoryName(Host.TemplateFile);
+		string outputFilePath = System.IO.Path.Combine(templateDirectory, outputFileName);
+		System.IO.File.WriteAllText(outputFilePath, this.GenerationEnvironment.ToString()); 
+		this.GenerationEnvironment.Clear();
+	}
+
+	private IList<Item> GetItems(string fileName) {
+		var items = new List<Item>();
+		var doc = new System.Xml.XmlDocument();
+        doc.Load(getFileName(fileName));
+        foreach(System.Xml.XmlElement element in doc.GetElementsByTagName("Item"))
+        {
+            var id = element.GetAttribute("ID");
+            var name = element.GetAttribute("Name");
+            items.Add(new Item(){ ID = id, Name = getName(name) });
+
+			var longID = long.Parse(id);
+			if(ids.ContainsKey(longID)) {
+				throw new Exception("Нарушение уникальности '" + fileName + "' идентификации предметов id='" + id + "' в ранее добавленном файле '" + ids[longID] + "'!");
+            }
+			ids.Add(longID, fileName);
+        }
+		return items;
+    }
+
+	private string getName(string name) {
+		var end = name.IndexOf("_name");
+		return name.Substring(0, end).ToUpper();
+	}
+
+	class Item {
+		public string ID;
+		public string Name;
+	}
+
+#>

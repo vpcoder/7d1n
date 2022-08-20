@@ -1,0 +1,37 @@
+<Data>
+	<Item ID= "0" Type="Resource" Name="res/wood_name"          Description="res/wood_desc"           StackSize="1000"  Weight="1g"    />
+	<Item ID= "1" Type="Resource" Name="res/scrap_name"         Description="res/scrap_desc"          StackSize="1000"  Weight="1g"    />
+	<Item ID= "2" Type="Resource" Name="res/iron_name"          Description="res/iron_desc"           StackSize="1000"  Weight="1g"    />
+	<Item ID= "3" Type="Resource" Name="res/lead_name"          Description="res/lead_desc"           StackSize="1000"  Weight="1g"    />
+	<Item ID= "4" Type="Resource" Name="res/cooper_name"        Description="res/cooper_desc"         StackSize="1000"  Weight="1g"    />
+	<Item ID= "5" Type="Resource" Name="res/aluminum_name"      Description="res/aluminum_desc"       StackSize="1000"  Weight="1g"    />
+	<Item ID= "6" Type="Resource" Name="res/silver_name"        Description="res/silver_desc"         StackSize="1000"  Weight="1g"    />
+	<Item ID= "7" Type="Resource" Name="res/gold_name"          Description="res/gold_desc"           StackSize="1000"  Weight="1g"    />
+	<Item ID= "8" Type="Resource" Name="res/titanium_name"      Description="res/titanium_desc"       StackSize="1000"  Weight="1g"    />
+	<Item ID= "9" Type="Resource" Name="res/plastic_name"       Description="res/plastic_desc"        StackSize="1000"  Weight="1g"    />
+	<Item ID="10" Type="Resource" Name="res/paper_name"         Description="res/paper_desc"          StackSize="1000"  Weight="1g"    />
+	<Item ID="11" Type="Resource" Name="res/electric_name"      Description="res/electric_desc"       StackSize="1000"  Weight="10mlg" />
+	<Item ID="12" Type="Resource" Name="res/stone_name"         Description="res/stone_desc"          StackSize="1000"  Weight="1g"    />
+	<Item ID="13" Type="Resource" Name="res/ceramics_name"      Description="res/ceramics_desc"       StackSize="1000"  Weight="1g"    />
+	<Item ID="14" Type="Resource" Name="res/sand_name"          Description="res/sand_desc"           StackSize="1000"  Weight="1g"    />
+	<Item ID="15" Type="Resource" Name="res/salt_name"          Description="res/salt_desc"           StackSize="1000"  Weight="1g"    />
+	<Item ID="16" Type="Resource" Name="res/coal_name"          Description="res/coal_desc"           StackSize="1000"  Weight="1g"    />
+	<Item ID="17" Type="Resource" Name="res/water_name"         Description="res/water_desc"          StackSize="1000"  Weight="1g"    />
+	<Item ID="18" Type="Resource" Name="res/acid_name"          Description="res/acid_desc"           StackSize="1000"  Weight="1g"    />
+	<Item ID="19" Type="Resource" Name="res/lye_name"           Description="res/lye_desc"            StackSize="1000"  Weight="1g"    />
+	<Item ID="20" Type="Resource" Name="res/brimstone_name"     Description="res/brimstone_desc"      StackSize="1000"  Weight="1g"    />
+	<Item ID="21" Type="Resource" Name="res/saltpetre_name"     Description="res/saltpetre_desc"      StackSize="1000"  Weight="1g"    />
+	<Item ID="22" Type="Resource" Name="res/fuel_name"          Description="res/fuel_desc"           StackSize="1000"  Weight="1g"    />
+	<Item ID="23" Type="Resource" Name="res/fiber_name"         Description="res/fiber_desc"          StackSize="1000"  Weight="1g"    />
+	<Item ID="24" Type="Resource" Name="res/rubber_name"        Description="res/rubber_desc"         StackSize="1000"  Weight="1g"    />
+	<Item ID="25" Type="Resource" Name="res/powder_name"        Description="res/powder_desc"         StackSize="1000"  Weight="1g"    />
+	<Item ID="26" Type="Resource" Name="res/explosive_name"     Description="res/explosive_desc"      StackSize="1000"  Weight="1g"    />
+	<Item ID="27" Type="Resource" Name="res/dirty_water_name"   Description="res/dirty_water_desc"    StackSize="1000"  Weight="1g"    />
+	<Item ID="28" Type="Resource" Name="res/raw_iron_name"      Description="res/raw_iron_desc"       StackSize="1000"  Weight="1g"    />
+	<Item ID="29" Type="Resource" Name="res/raw_lead_name"      Description="res/raw_lead_desc"       StackSize="1000"  Weight="1g"    />
+	<Item ID="30" Type="Resource" Name="res/raw_cooper_name"    Description="res/raw_cooper_desc"     StackSize="1000"  Weight="1g"    />
+	<Item ID="31" Type="Resource" Name="res/raw_aluminum_name"  Description="res/raw_aluminum_desc"   StackSize="1000"  Weight="1g"    />
+	<Item ID="32" Type="Resource" Name="res/raw_silver_name"    Description="res/raw_silver_desc"     StackSize="1000"  Weight="1g"    />
+	<Item ID="33" Type="Resource" Name="res/raw_gold_name"      Description="res/raw_gold_desc"       StackSize="1000"  Weight="1g"    />
+	<Item ID="34" Type="Resource" Name="res/raw_titanium_name"  Description="res/raw_titanium_desc"   StackSize="1000"  Weight="1g"    />
+</Data>

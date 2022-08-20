@@ -1,0 +1,49 @@
+<Data>
+    <Item
+		ID="4000"
+		Type="WeaponGrenade"
+		WeaponType="Grenade"
+		Name="weapon_grenade_f1_name"
+		Description="weapon_grenade_f1_desc"
+		StackSize="1"
+
+		Damage="90"
+		Radius="1,5"
+		MaxDistance="5"
+		AimRadius="5"
+		UseAP="4"
+
+		GrenadeEffectType="f1"
+		ExplodeEffectType="f1_explode"
+		ThrowSoundType="grenades/throw"
+		ExplodeSoundType="grenades/f1_explode"
+	>
+		<Part ResID="2"  ResCount="60" Difficulty="1"/>
+		<Part ResID="9"  ResCount="20" Difficulty="1"/>
+		<Part ResID="25" ResCount="20" Difficulty="1"/>
+	</Item>
+
+	<Item
+		ID="4001"
+		Type="WeaponGrenade"
+		WeaponType="Grenade"
+		Name="weapon_grenade_rgd5_name"
+		Description="weapon_grenade_rgd5_desc"
+		StackSize="1"
+
+		Damage="70"
+		Radius="1"
+		MaxDistance="5"
+		AimRadius="5"
+		UseAP="4"
+
+		GrenadeEffectType="rgd5"
+		ExplodeEffectType="rgd5_explode"
+		ThrowSoundType="grenades/throw"
+		ExplodeSoundType="grenades/rgd5_explode"
+	>
+		<Part ResID="2" ResCount="60" Difficulty="1"/>
+		<Part ResID="9" ResCount="20" Difficulty="1"/>
+		<Part ResID="25" ResCount="20" Difficulty="1"/>
+	</Item>
+</Data>

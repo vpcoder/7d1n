@@ -1,0 +1,19 @@
+<Data>
+
+	<Element
+	
+		ID="1"
+		Type="Blank"
+
+		Floor="Locations/Builds/Living/1/Floor"
+		Door="Locations/Builds/Living/1/Door"
+		InsideWall="Locations/Builds/Living/1/Wall"
+		OutsideWall="Locations/Builds/Living/1/WallOutside"
+		InsideWallWithDoor="Locations/Builds/Living/1/WallDoor"
+		OutsideWallWithDoor="Locations/Builds/Living/1/WallOutsideDoor"
+		InsideWallWithWindow="Locations/Builds/Living/1/Window"
+		OutsideWallWithWindow="Locations/Builds/Living/1/WindowOutside"
+
+	/>
+
+</Data>

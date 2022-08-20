@@ -1,0 +1,55 @@
+﻿<Data>
+
+    <Item
+        Type = "Sink"
+		Path = "Locations/Builds/Living/Environment/Kitchen/CounterSink_01"
+    />
+    <Item
+        Type = "Counter"
+		Path = "Locations/Builds/Living/Environment/Kitchen/Counter_01"
+    />
+    <Item
+        Type = "CounterWashing"
+    	Path = "Locations/Builds/Living/Environment/Kitchen/CounterWashing_01"
+    />
+    <Item
+        Type = "Fridge"
+    	Path = "Locations/Builds/Living/Environment/Kitchen/Fridge_01"
+    />
+    <Item
+        Type = "Oven"
+    	Path = "Locations/Builds/Living/Environment/Kitchen/Oven_01"
+    />
+    <Item
+        Type = "EmptyCounter"
+    	Path = "Locations/Builds/Living/Environment/Kitchen/Counter_02"
+    />
+    <Item
+        Type = "CounterCorner"
+		Path = "Locations/Builds/Living/Environment/Kitchen/CounterCorner_01"
+    />
+    <Item
+        Type = "Table"
+		Path = "Locations/Builds/Living/Environment/Kitchen/Table_01"
+    />
+    <Item
+        Type = "Chair"
+    	Path = "Locations/Builds/Living/Environment/Kitchen/Chair_01"
+    />
+    <Item
+        Type = "Microwave"
+    	Path = "Locations/Builds/Living/Environment/Kitchen/Microwave_01"
+    />
+    <Item
+        Type = "Toaster"
+    	Path = "Locations/Builds/Living/Environment/Kitchen/Toaster_01"
+    />
+    <Item
+        Type = "Cabinet"
+    	Path = "Locations/Builds/Living/Environment/Kitchen/Cabinet_01"
+    />
+    <Item
+        Type = "Extractor"
+    	Path = "Locations/Builds/Living/Environment/Kitchen/Extractor_01"
+    />
+</Data>

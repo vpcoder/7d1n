@@ -1,0 +1,28 @@
+<Data>
+    <Item
+    	ID="1000"
+    	Type="WeaponFirearms"
+    	WeaponType="Pistol"
+    	Name="weapon_pistol_pm_name"
+    	Description="weapon_pistol_pm_desc"
+    	StackSize="1"
+    	
+    	Damage="40"
+    	MaxDistance="100"
+    	AimRadius="6"
+    	UseAP="3"
+    	AmmoID="2000"
+    	AmmoStackSize="8"
+    	ReloadAP="4"
+    	Penetration="0"
+    
+    	AmmoEffectType="small_bullet"
+    	ShootEffectType="pm_shoot"
+    	ShootSoundType="firearms/pm_shoot"
+    	ReloadSoundType="firearms/pm_reload"
+    	JammingSoundType="firearms/pm_jamming"
+    >
+    	<Part ResID="2" ResCount="300" Difficulty="1"/>
+    	<Part ResID="9" ResCount="20"  Difficulty="1"/>
+    </Item>
+</Data>

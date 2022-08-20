@@ -1,0 +1,5 @@
+﻿<Data>
+	<Item ID="9000" Type="Food" Name="food_raw_roach_name"    Description="food_raw_roach_desc"    Action="use/food/raw_roach"    StackSize="20"  Weight="2000mlg" StaticWeight="true" UseSoundType="food/raw_roach"    />
+	<Item ID="9001" Type="Food" Name="food_raw_fry_fish_name" Description="food_raw_fry_fish_desc" Action="use/food/raw_fry_fish" StackSize="20"  Weight="7000mlg" StaticWeight="true" UseSoundType="food/raw_fry_fish" />
+	<Item ID="9002" Type="Food" Name="food_raw_larvae_name"   Description="food_raw_larvae_desc"   Action="use/food/raw_larvae"   StackSize="20"  Weight="5000mlg" StaticWeight="true" UseSoundType="food/raw_larvae"   />
+</Data>

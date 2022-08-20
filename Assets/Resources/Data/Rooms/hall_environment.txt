@@ -1,0 +1,20 @@
+﻿<Data>
+
+    <Item
+        Type = "TVCabinet"
+		Path = "Locations/Builds/Living/Environment/Hall/TVCabinet_01"
+    />
+    <Item
+        Type = "TVSet"
+    	Path = "Locations/Builds/Living/Environment/Hall/TVSet_01"
+    />
+    <Item
+        Type = "Couch"
+    	Path = "Locations/Builds/Living/Environment/Hall/Couch_01"
+    />
+    <Item
+        Type = "Chair"
+    	Path = "Locations/Builds/Living/Environment/Hall/Chair_01"
+    /> 
+
+</Data>
