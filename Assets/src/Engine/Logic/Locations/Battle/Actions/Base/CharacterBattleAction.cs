@@ -16,6 +16,7 @@ namespace Engine.Logic.Locations.Battle.Actions
         Use,
         Attack,
         EndThrowAttack,
+        EndMeleeAttack,
     };
 
 }

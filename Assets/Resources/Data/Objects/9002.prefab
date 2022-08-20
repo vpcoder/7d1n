@@ -61,7 +61,7 @@ MonoBehaviour:
   itemInfo:
     ID: 9002
     Count: 1
-    Type: 4
+    Type: 5
     Firearms:
       AmmoCount: 0
     Craftable:

@@ -31,23 +31,23 @@ namespace Engine
         #region Hidden Fields
 
         /// <summary>
-        /// Загрузчик словарей выбранного языка
-        /// ---
-        /// Reader of dictionaries of the selected language
+        ///     Загрузчик словарей выбранного языка
+        ///     ---
+        ///     Reader of dictionaries of the selected language
         /// </summary>
         private LocalizationReader reader = new LocalizationReader();
 
         /// <summary>
-        /// Словарь текущего выбранного языка в виде "Ключ" -> "Локализованная строка"
-        /// ---
-        /// Dictionary of the currently selected language in the form of "Key" -> "Localized string"
+        ///     Словарь текущего выбранного языка в виде "Ключ" -> "Локализованная строка"
+        ///     ---
+        ///     Dictionary of the currently selected language in the form of "Key" -> "Localized string"
         /// </summary>
         private IDictionary<string, string> dictionary = null;
 
         /// <summary>
-        /// Список доступных языков
-        /// ---
-        /// List of available languages
+        ///     Список доступных языков
+        ///     ---
+        ///     List of available languages
         /// </summary>
         private ICollection<Lang> langs;
 
@@ -56,9 +56,9 @@ namespace Engine
         #region Properties
 
         /// <summary>
-        /// Читает и возвращает список доступных языков из БД. Свойство кешировано.
-        /// ---
-        /// Reads and returns the list of available languages from the database. The property is cached.
+        ///     Читает и возвращает список доступных языков из БД. Свойство кешировано.
+        ///     ---
+        ///     Reads and returns the list of available languages from the database. The property is cached.
         /// </summary>
         public ICollection<Lang> Langs
         {
@@ -73,9 +73,9 @@ namespace Engine
         }
 
         /// <summary>
-        /// Читает и возвращает текущий выбранный язык в настройках хранящихся в БД
-        /// ---
-        /// Reads and returns the currently selected language in the settings stored in the database
+        ///     Читает и возвращает текущий выбранный язык в настройках хранящихся в БД
+        ///     ---
+        ///     Reads and returns the currently selected language in the settings stored in the database
         /// </summary>
         public Lang CurrentLang
         {

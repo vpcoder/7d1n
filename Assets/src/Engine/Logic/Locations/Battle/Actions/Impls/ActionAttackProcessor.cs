@@ -126,9 +126,9 @@ namespace Engine.Logic.Locations.Battle.Actions
 
         private static void DoAttackEdgedWeaponAction(BattleActionAttackContext context, BattleActionsController controller, HandsController handsController, LocationCharacter character)
         {
-            if (context.Action == HandActionType.AttackEdged && context.Target != null) // Атакуем ножом вблизи
+            if (context.Action == HandActionType.AttackEdged) // Атакуем ножом вблизи
             {
-                BattleCalculationService.DoEdgedAttack(character, context.Target);
+                // Запускаем анимацию, непосредственная атака пойдёт после её завершения
                 ObjectFinder.Find<LocationCharacter>().Animator.SetInteger(AnimationKey.AttackTypeKey, (int)AttackType.EdgedAttack);
                 Game.Instance.Runtime.BattleContext.CurrentCharacterAP -= controller.NeedAP; // Тратим ОД
                 controller.Hide();
@@ -154,7 +154,6 @@ namespace Engine.Logic.Locations.Battle.Actions
             if (context.AttackMarker != null)
                 GameObject.Destroy(context.AttackMarker);
             context.AttackMarker = null;
-            context.Target = null;
 
             var handsActionsController = ObjectFinder.Find<HandsActionsController>();
             handsActionsController.DoUnselectActions();
