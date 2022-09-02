@@ -2,6 +2,7 @@
 using Engine.DB.I18n;
 using System.Collections.Generic;
 using System.Linq;
+using Engine.I18n;
 using UnityEngine;
 
 namespace Engine
@@ -49,7 +50,7 @@ namespace Engine
         ///     ---
         ///     List of available languages
         /// </summary>
-        private ICollection<Lang> langs;
+        private ICollection<ILangItem> langs;
 
         #endregion
 
@@ -62,7 +63,7 @@ namespace Engine
         ///     ---
         ///     Reads and returns the list of available languages from the database. The property is cached.
         /// </summary>
-        public ICollection<Lang> Langs
+        public ICollection<ILangItem> Langs
         {
             get
             {
@@ -81,7 +82,7 @@ namespace Engine
         ///     It tries to detect the language of the system and use it to read the game language.
         ///     If no iso code is detected during the language detection process, the default language is used
         /// </summary>
-        public Lang TryGetSystemLangOrDefault
+        public ILangItem TryGetSystemLangOrDefault
         {
             get
             {
@@ -97,7 +98,7 @@ namespace Engine
         ///     ---
         ///     Reads and returns the currently selected language in the settings stored in the database
         /// </summary>
-        public Lang CurrentLang
+        public ILangItem CurrentLang
         {
             get
             {
@@ -127,7 +128,7 @@ namespace Engine
         ///     ---
         ///     Dictionary found by iso code, or the default dictionary if no suitable one could be found
         /// </returns>
-        private Lang GetByIsoCode(string isoCode)
+        private ILangItem GetByIsoCode(string isoCode)
         {
             return Langs.FirstOrDefault(o => o.Code == isoCode);
         }

@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using Engine.I18n;
 
 namespace Engine.DB.I18n
 {
@@ -28,7 +29,7 @@ namespace Engine.DB.I18n
         ///     ---
         ///     Key->Translate Map
         /// </returns>
-        IDictionary<string, string> GetKeys(Lang lang);
+        IDictionary<string, string> GetKeys(ILangItem lang);
 
         /// <summary>
         ///     Метод должен загрузить коллекцию доступных словарей (каждый словарь описывает локализацию конкретного языка)
@@ -40,7 +41,7 @@ namespace Engine.DB.I18n
         ///     ---
         ///     Collection of loaded dictionaries
         /// </returns>
-        ICollection<Lang> GetAllLangs();
+        ICollection<ILangItem> GetAllLangs();
 
     }
     

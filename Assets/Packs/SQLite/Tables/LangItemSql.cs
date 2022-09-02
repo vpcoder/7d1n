@@ -1,4 +1,5 @@
 ﻿using System;
+using Engine.I18n;
 
 namespace Engine.DB.I18n
 {
@@ -14,7 +15,7 @@ namespace Engine.DB.I18n
     /// </summary>
     [Serializable]
     [Table("i18n_lang")] // Известный язык из базы (русский, английский и т.д.)
-    public class Lang : Dto
+    public class LangItemSql : Dto, ILangItem
     {
 
         /// <summary>

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using Engine.I18n;
 using UnityEngine;
 
 namespace Engine.DB.I18n
@@ -30,7 +31,7 @@ namespace Engine.DB.I18n
         ///     ---
         ///     Key->Translate Map
         /// </returns>
-        public IDictionary<string, string> GetKeys(Lang lang)
+        public IDictionary<string, string> GetKeys(ILangItem lang)
         {
             IDictionary<string, string> values = new Dictionary<string, string>();
 
@@ -77,13 +78,13 @@ namespace Engine.DB.I18n
         ///     ---
         ///     Collection of loaded dictionaries
         /// </returns>
-        public ICollection<Lang> GetAllLangs()
+        public ICollection<ILangItem> GetAllLangs()
         {
-            IList<Lang> langs = null;
+            IList<ILangItem> langs = null;
 
             Db.Instance.Do(connection =>
             {
-                langs = connection.QueryAll<Lang>();
+                langs = new List<ILangItem>(connection.QueryAll<LangItemSql>());
             });
 
             return langs;
