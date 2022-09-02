@@ -22,7 +22,7 @@ namespace Engine
         public bool SoundsEnabled { get; set; }
 
         [Column("language")]
-        public int Language { get; set; }
+        public string Language { get; set; }
 
         [Column("player_id")]
         public long PlayerID { get; set; }

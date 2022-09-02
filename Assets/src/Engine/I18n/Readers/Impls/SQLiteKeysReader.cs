@@ -6,11 +6,30 @@ namespace Engine.DB.I18n
 {
 
     /// <summary>
+    ///
+    /// Загрузчик словарей из SQLite
+    /// ---
+    /// Loader of dictionaries from SQLite
     /// 
     /// </summary>
-    public class LocalizationReader
+    public class SQLiteKeysReader : ILocalizationKeysReader
     {
 
+        /// <summary>
+        ///     Метод должен предоставить мапу фраз-переводов по переданному словарю
+        ///     ---
+        ///     The method should provide a mapping of phrase-translations from the passed vocabulary
+        /// </summary>
+        /// <param name="lang">
+        ///     Словарь по которому необходимо получить мапу доступных фраз-переводов
+        ///     ---
+        ///     Dictionary by which you want to get a map of available phrase translations
+        /// </param>
+        /// <returns>
+        ///     Мапу вида Ключ->Перевод
+        ///     ---
+        ///     Key->Translate Map
+        /// </returns>
         public IDictionary<string, string> GetKeys(Lang lang)
         {
             IDictionary<string, string> values = new Dictionary<string, string>();
@@ -48,6 +67,16 @@ namespace Engine.DB.I18n
             return keys;
         }
 
+        /// <summary>
+        ///     Метод должен загрузить коллекцию доступных словарей (каждый словарь описывает локализацию конкретного языка)
+        ///     ---
+        ///     The method should load a collection of available dictionaries (each dictionary describes the localization of a particular language)
+        /// </summary>
+        /// <returns>
+        ///     Коллекцию загруженных словарей
+        ///     ---
+        ///     Collection of loaded dictionaries
+        /// </returns>
         public ICollection<Lang> GetAllLangs()
         {
             IList<Lang> langs = null;

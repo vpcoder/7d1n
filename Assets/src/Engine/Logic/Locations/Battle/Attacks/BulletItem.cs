@@ -19,100 +19,100 @@ namespace Engine.Logic.Locations
         #region Hidden Fields
 
         /// <summary>
-        /// Скорость полёта снаряда
-        /// ---
-        /// Projectile flight speed
+        ///     Скорость полёта снаряда
+        ///     ---
+        ///     Projectile flight speed
         /// </summary>
         [SerializeField] private float speed = 25f;
 
         /// <summary>
-        /// Дистанция на которой происходит нанесение урона от снаряда к цели в игровых метрах
-        /// ---
-        /// The distance at which damage occurs from the projectile to the target in game meters
+        ///     Дистанция на которой происходит нанесение урона от снаряда к цели в игровых метрах
+        ///     ---
+        ///     The distance at which damage occurs from the projectile to the target in game meters
         /// </summary>
         [SerializeField] private float reactDistance = 0.1f;
 
         /// <summary>
-        /// Максимальная дистанция полёта снаряда в игровых метрах
-        /// ---
-        /// Maximum projectile flight distance in game meters
+        ///     Максимальная дистанция полёта снаряда в игровых метрах
+        ///     ---
+        ///     Maximum projectile flight distance in game meters
         /// </summary>
         [SerializeField] private float maxDistance = 20f;
 
         /// <summary>
-        /// Персонаж, который стреляет данным снарядом
-        /// ---
-        /// The character who fires this projectile
+        ///     Персонаж, который стреляет данным снарядом
+        ///     ---
+        ///     The character who fires this projectile
         /// </summary>
         private IAttackObject source;
 
         /// <summary>
-        /// Точка от которой снаряд начинает свой полёт
-        /// ---
-        /// The point from which the projectile begins its flight
+        ///     Точка от которой снаряд начинает свой полёт
+        ///     ---
+        ///     The point from which the projectile begins its flight
         /// </summary>
         private Vector3 targetPos;
 
         /// <summary>
-        /// Тока в которой снаряд заканчивает свой полёт
-        /// ---
-        /// The one in which the projectile ends its flight
+        ///     Тока в которой снаряд заканчивает свой полёт
+        ///     ---
+        ///     The one in which the projectile ends its flight
         /// </summary>
         private Vector3 startPos;
 
         /// <summary>
-        /// Направление в котором движется снаряд
-        /// ---
-        /// The direction in which the projectile moves
+        ///     Направление в котором движется снаряд
+        ///     ---
+        ///     The direction in which the projectile moves
         /// </summary>
         private Vector3 direction;
 
         /// <summary>
-        /// Оружие, из которого был произведёт выстрел
-        /// ---
-        /// The weapon from which the shot was fired
+        ///     Оружие, из которого был произведёт выстрел
+        ///     ---
+        ///     The weapon from which the shot was fired
         /// </summary>
         private IFirearmsWeapon weapon;
 
         /// <summary>
-        /// Снаряд инициирован и готов к тому чтобы начать движение
-        /// ---
-        /// The projectile is initiated and ready to start moving
+        ///     Снаряд инициирован и готов к тому чтобы начать движение
+        ///     ---
+        ///     The projectile is initiated and ready to start moving
         /// </summary>
         private bool isInited = false;
 
         /// <summary>
-        /// Время относительно которого движется снаряд
-        /// ---
-        /// Time relative to which the projectile moves
+        ///     Время относительно которого движется снаряд
+        ///     ---
+        ///     Time relative to which the projectile moves
         /// </summary>
         private float timestamp;
 
         /// <summary>
-        /// Список объектов через которые прошёл снаряд (которым он нанёс урон)
-        /// ---
-        /// List of objects through which the projectile passed (which it damaged)
+        ///     Список объектов через которые прошёл снаряд (которым он нанёс урон)
+        ///     ---
+        ///     List of objects through which the projectile passed (which it damaged)
         /// </summary>
         private IList<IDamagedObject> damagedObjects;
 
         /// <summary>
-        /// Следующий объект на пути снаряда, если такого нет - null
-        /// ---
-        /// The next object in the path of the projectile, if there is no such object - null
+        ///     Следующий объект на пути снаряда, если такого нет - null
+        ///     ---
+        ///     The next object in the path of the projectile, if there is no such object - null
         /// </summary>
         private IDamagedObject next;
 
         /// <summary>
-        /// Последняя дистанция до следующего объекта
-        /// ---
-        /// The last distance to the next object
+        ///     Последняя дистанция до следующего объекта
+        ///     ---
+        ///     The last distance to the next object
         /// </summary>
         private float nextDistance;
 
         /// <summary>
-        /// Спровоцировано ли застревание снаряда в объекте?
-        /// ---
-        /// Was the projectile stuck in the object provoked?
+        ///     Спровоцировано ли застревание снаряда в объекте?
+        ///     ---
+        ///     Was the projectile stuck in the object provoked?
         /// </summary>
         private bool stopPenetration;
 
@@ -121,9 +121,9 @@ namespace Engine.Logic.Locations
         #region Unity Events
 
         /// <summary>
-        /// Выполняет перемещение снаряда в пространстве до цели
-        /// ---
-        /// Moves the projectile in space up to the target
+        ///     Выполняет перемещение снаряда в пространстве до цели
+        ///     ---
+        ///     Moves the projectile in space up to the target
         /// </summary>
         private void Update()
         {
@@ -132,7 +132,7 @@ namespace Engine.Logic.Locations
 
             float deltaTime = (Time.time - timestamp);
             var beforeDistance = Vector3.Distance(this.transform.position, targetPos);
-            transform.position += direction * speed * deltaTime;
+            transform.position += direction * (speed * deltaTime);
             var afterDistance = Vector3.Distance(this.transform.position, targetPos);
 
             timestamp = Time.time;
@@ -184,11 +184,11 @@ namespace Engine.Logic.Locations
         #region Methods
 
         /// <summary>
-        /// Выполняет поиск следующего, наиболее близкого объекта на пути снаряда.
-        /// Если на пути снаряда больше нет объектов, вернёт null
-        /// ---
-        /// Searches for the next closest object in the path of the projectile.
-        /// If there are no more objects in the path of the projectile, returns null
+        ///     Выполняет поиск следующего, наиболее близкого объекта на пути снаряда.
+        ///     Если на пути снаряда больше нет объектов, вернёт null
+        ///     ---
+        ///     Searches for the next closest object in the path of the projectile.
+        ///     If there are no more objects in the path of the projectile, returns null
         /// </summary>
         private IDamagedObject UpdateNext()
         {
@@ -288,9 +288,9 @@ namespace Engine.Logic.Locations
         }
 
         /// <summary>
-        /// Наносит урон всем объектам на пути снаряда, если такие объекты существуют
-        /// ---
-        /// Deals damage to all objects in the path of the projectile if such objects exist
+        ///     Наносит урон всем объектам на пути снаряда, если такие объекты существуют
+        ///     ---
+        ///     Deals damage to all objects in the path of the projectile if such objects exist
         /// </summary>
         private void DoDamage(IDamagedObject damagedObject)
         {

@@ -1,6 +1,4 @@
 ﻿using Engine.Data;
-using Engine.Logic.Locations;
-using System;
 using System.Collections.Generic;
 using System.Text;
 using UnityEngine;
@@ -53,36 +51,22 @@ namespace Engine.Logic
         }
 
         /// <summary>
-        /// Поднятие параметра
+        ///     Вкачивание параметра игроком
+        ///     ---
+        ///     Inflating a parameter by a player
         /// </summary>
-        /// <param name="type">Какой параметр повышают</param>
+        /// <param name="type">
+        ///     Какой параметр повышают
+        ///     ---
+        ///     What parameter do they raise
+        /// </param>
         public void OnStateFieldClick(StateFieldType type)
         {
             if (Game.Instance.Character.Exps.MainExperience.Points <= 0)
                 return;
 
-            switch (type)
-            {
-                case StateFieldType.Agility:
-                    Game.Instance.Character.Parameters.Agility++;
-                    if(Game.Instance.Character.Parameters.Agility % 100 == 0)
-                        Game.Instance.Character.State.MaxAP++;
-                    break;
-                case StateFieldType.Endurance:
-                    Game.Instance.Character.Parameters.Endurance++;
-                    Game.Instance.Character.State.MaxHealth++;
-                    Game.Instance.Character.State.Health++;
-                    break;
-                case StateFieldType.Intellect:
-                    Game.Instance.Character.Parameters.Intellect++;
-                    break;
-                case StateFieldType.Strength:
-                    Game.Instance.Character.Parameters.Strength++;
-                    Game.Instance.Character.State.MaxWeight++;
-                    break;
-                default:
-                    throw new NotSupportedException();
-            }
+            // Добавляем 1 параметр
+            CharacterParametersCalculationService.AddParameter(type, 1);
 
             Game.Instance.Character.Exps.MainExperience.Points--;
             UpdateInfo();

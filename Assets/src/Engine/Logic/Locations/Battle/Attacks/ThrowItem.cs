@@ -77,7 +77,7 @@ namespace Engine.Logic.Locations
                 return;
 
             float delta = (Time.time - timestamp);
-            var prevDistance = Vector3.Distance(this.transform.position, targetPos);
+            //var prevDistance = Vector3.Distance(this.transform.position, targetPos);
             var offset = speed * delta;
             pathLength += offset;
             this.transform.position += forward * offset;

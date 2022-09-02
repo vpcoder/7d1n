@@ -40,9 +40,14 @@ namespace Engine.Logic.Locations
         
         #endregion
 
-        private void Update()
+        private void UpdateInfo()
         {
             txtAP.text = Localization.Instance.Get("msg_ap") + ": " + AP;
+        }
+        
+        private void Update()
+        {
+            UpdateInfo();
         }
 
     }

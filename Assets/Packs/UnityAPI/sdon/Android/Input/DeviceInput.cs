@@ -11,31 +11,7 @@ namespace UnityEngine
 
         private static int UI_LAYOUT = LayerMask.NameToLayer("UI");
 		private static int currentTouchIndex = 0;
-
-        public static bool IsUiTouch()
-        {
-            bool uiFlag = false;
-            //if ((TouchCount == 1 && GetTouchPhase == TouchPhase.Began) || GetTouchPhase == TouchPhase.Ended)
-            //{
-            //   TouchPad
-            //    var data = new PointerEventData(EventSystem.current);
-            //    data.position = UITouchPosition;
-            //    List<RaycastResult> results = new List<RaycastResult>();
-            //    ObjectFinder.Find<GraphicRaycaster>().Raycast(data, results);
-            //
-            //    if (results.Count > 0)
-            //    {
-            //        Debug.Log(string.Join("\r\n->", results.Select(o => o.gameObject.transform.name)));
-            //        //uiFlag = hits.Where(hit => hit.collider?.gameObject.GetComponent<IPointerClickHandler>() != null).Any();
-            //    }
-            //}
-            if(uiFlag)
-            {
-                Debug.Log("tap on UI");
-            }
-            return uiFlag;
-        }
-
+		
 		public static int CurrentTouchIndex
 		{
 			get

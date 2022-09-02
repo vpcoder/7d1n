@@ -20,7 +20,7 @@ namespace Engine.Data
     {
         Custom       = 0x00,
         Hands        = 0x01,
-        Knife        = 0x02,
+        OneHanded    = 0x02,
         TwoHanded    = 0x03,
         Grenade      = 0x04,
         Pistol       = 0x05,

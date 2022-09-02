@@ -51,7 +51,7 @@ namespace Engine.Logic.Locations.Battle.Actions
 
             switch (edged.WeaponType)
             {
-                case WeaponType.Knife:
+                case WeaponType.OneHanded:
                     DoOneHandedAction(edged, context, character);
                     break;
                 case WeaponType.TwoHanded:
@@ -62,14 +62,14 @@ namespace Engine.Logic.Locations.Battle.Actions
 
         private static void DoOneHandedAction(IEdgedWeapon edgedWeapon, BattleActionAttackContext context, LocationCharacter character)
         {
-            
+            // TODO: сферакаст + поиск одной ближайшей цели
             
             // BattleCalculationService.DoEdgedThrowAttack(character, edgedWeapon, context.WeaponPointPos);
         }
 
         private static void DoTwoHandedAction(IEdgedWeapon edgedWeapon, BattleActionAttackContext context, LocationCharacter character)
         {
-            
+            // TODO: сферакаст + поиск ближайших целей, атака может поразить несколько целей
             
             // BattleCalculationService.DoEdgedThrowAttack(character, edgedWeapon, context.WeaponPointPos);
         }

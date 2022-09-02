@@ -1,5 +1,5 @@
 <Data>
-  <Item ID="3000" Type="WeaponEdged" WeaponType="Knife" Name="weapon_knife_kitchen_name" Description="weapon_knife_kitchen_desc" StackSize="1" Damage="10" MaxDistance="1" AimRadius="1" UseAP="5" CanThrow="True" ThrowAP="5" ThrowDamage="8" ThrowDistance="14" ThrowAimRadius="7" ThrowEffectType="knife" Tool="Knife" ThrowBulletObject="3000" ThrowSound="" ThrowHitSound="" ThrowMissSound="">
+  <Item ID="3000" Type="WeaponEdged" WeaponType="OneHanded" Name="weapon_knife_kitchen_name" Description="weapon_knife_kitchen_desc" StackSize="1" Damage="10" MaxDistance="1" AimRadius="1" UseAP="5" CanThrow="True" ThrowAP="5" ThrowDamage="8" ThrowDistance="14" ThrowAimRadius="7" ThrowEffectType="knife" Tool="Knife" ThrowBulletObject="3000" ThrowSound="" ThrowHitSound="" ThrowMissSound="">
     <Part ResID="2" ResCount="60" Difficulty="1" NeededTools="Pliers" />
     <Part ResID="9" ResCount="20" Difficulty="1" NeededTools="Pliers" />
   </Item>

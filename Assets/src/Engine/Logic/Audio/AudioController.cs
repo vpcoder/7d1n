@@ -7,6 +7,13 @@ using UnityEngine.Audio;
 namespace Engine
 {
 
+    /// <summary>
+    /// 
+    /// Аудиоконтроллер, позволяющий воспроизводить звуки и музыку в мире
+    /// ---
+    /// Audio controller that allows you to play sounds and music in the world
+    /// 
+    /// </summary>
     public class AudioController
     {
 
@@ -16,16 +23,37 @@ namespace Engine
         private AudioController() { }
         #endregion
 
+        #region Hidden Fields
+        
+        /// <summary>
+        ///     Общий проигрывать для звуков
+        ///     ---
+        ///     General playback for sounds
+        /// </summary>
         private AudioSource sounds;
+        
+        /// <summary>
+        ///     Общий проигрыватель для музыки
+        ///     ---
+        ///     Shared music player
+        /// </summary>
         private AudioSource musics;
 
+        /// <summary>
+        ///     Словаь миксеров, с отстроенными параметрами воспроизведения
+        ///     ---
+        ///     Word mixers, with tuned playback parameters
+        /// </summary>
         private readonly IDictionary<MixerType, AudioMixerGroup> mixers = new Dictionary<MixerType, AudioMixerGroup>();
 
+        #endregion
+        
         public void PlaySound(AudioSource source, AudioClip sound)
         {
             if (sound == null)
                 Debug.LogError("null");
 
+            source.outputAudioMixerGroup = GetMixer(MixerType.Sounds);
             source.clip = sound;
             source.Play();
         }
@@ -117,6 +145,30 @@ namespace Engine
             return GameObject.Find("Audio") ?? new GameObject("Audio");
         }
 
+        /// <summary>
+        ///     Получение миксера по его типу.
+        ///     Миксеры инициализируются настройками звука, из меню настроек, которое конфигурированно игроком.
+        ///     В первую очередь миксер ищется в кеше, если его там нет, инициализируется и кешируется.
+        ///     ---
+        ///     Getting a mixer by its type.
+        ///     Mixers are initialized with sound settings, from the settings menu, which is configured by the player
+        ///     The mixer is first searched for in the cache; if it is not there, it is initialized and cached.
+        /// </summary>
+        /// <param name="type">
+        ///     Тип миксера, который необходимо получить
+        ///     ---
+        ///     Type of mixer to be obtained
+        /// </param>
+        /// <returns>
+        ///     Инициализированный экземпляр миксера.
+        ///     ---
+        ///     Initialized mixer instance.
+        /// </returns>
+        /// <exception cref="NotSupportedException">
+        ///     Данный тип миксера не поддерживается
+        ///     ---
+        ///     This type of mixer is not supported
+        /// </exception>
         public AudioMixerGroup GetMixer(MixerType type)
         {
             if (mixers.TryGetValue(type, out AudioMixerGroup master))

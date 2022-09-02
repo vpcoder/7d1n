@@ -12,7 +12,7 @@ CREATE TABLE `meta` (
 # Основные настройки игры ;
 CREATE TABLE `settings` (
 	`id`				INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT UNIQUE,
-	`language`			INTEGER NOT NULL,
+	`language`			TEXT NOT NULL,
 	`musics_enabled`	INTEGER NOT NULL,
 	`sounds_enabled`	INTEGER NOT NULL,
 	`musics_volume`		INTEGER NOT NULL,
@@ -31,7 +31,7 @@ INSERT INTO `settings` (
 	`player_id`
 ) VALUES (
 	0,
-	0,
+	'ru_ru',
 	1,
 	100,
 	1,
@@ -47,13 +47,6 @@ CREATE TABLE `location_cell` (
 	`biom_pos_x`	INTEGER NOT NULL,
 	`biom_pos_y`	INTEGER NOT NULL,
 	`data`			TEXT NOT NULL
-);
-
-# Сгенерированные ранее локации ;
-CREATE TABLE `build_location` (
-	`id`	INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT UNIQUE,
-	`timestamp`	TEXT NOT NULL,
-	`data`	TEXT NOT NULL
 );
 
 # Таблица доступных языков ;

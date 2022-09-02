@@ -466,7 +466,7 @@ AnimatorState:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: KnifeWalk
+  m_Name: OneHandWalk
   m_Speed: 1
   m_CycleOffset: 0
   m_Transitions:
@@ -611,7 +611,7 @@ AnimatorState:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: KnifeThrow
+  m_Name: OneHandThrow
   m_Speed: 1
   m_CycleOffset: 0
   m_Transitions:
@@ -1121,7 +1121,7 @@ AnimatorState:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: KnifeAttackEnd
+  m_Name: OneHandAttackEnd
   m_Speed: 1
   m_CycleOffset: 0
   m_Transitions:
@@ -1135,7 +1135,7 @@ AnimatorState:
   m_MirrorParameterActive: 0
   m_CycleOffsetParameterActive: 0
   m_TimeParameterActive: 0
-  m_Motion: {fileID: 7400000, guid: 61ae32accc4d9d94a83ad21e6b072307, type: 2}
+  m_Motion: {fileID: 7400000, guid: a6f9e79bcd3ecff4b90b896e8e14af96, type: 2}
   m_Tag: 
   m_SpeedParameter: 
   m_MirrorParameter: 
@@ -1292,7 +1292,7 @@ AnimatorState:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Knife
+  m_Name: OneHand
   m_Speed: 1
   m_CycleOffset: 0
   m_Transitions:
@@ -1319,7 +1319,7 @@ AnimatorState:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: KnifeSprint
+  m_Name: OneHandSprint
   m_Speed: 1
   m_CycleOffset: 0
   m_Transitions:
@@ -1583,7 +1583,7 @@ AnimatorState:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: KnifeThrowEnd
+  m_Name: OneHandThrowEnd
   m_Speed: 1
   m_CycleOffset: 0
   m_Transitions:
@@ -1672,7 +1672,7 @@ AnimatorState:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: KnifeRun
+  m_Name: OneHandRun
   m_Speed: 1
   m_CycleOffset: 0
   m_Transitions:
@@ -1919,7 +1919,7 @@ AnimatorState:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: KnifeAttack
+  m_Name: OneHandAttack
   m_Speed: 1
   m_CycleOffset: 0
   m_Transitions:
@@ -2549,7 +2549,7 @@ AnimatorState:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: KnifeIdle
+  m_Name: OneHandIdle
   m_Speed: 1
   m_CycleOffset: 0
   m_Transitions:
