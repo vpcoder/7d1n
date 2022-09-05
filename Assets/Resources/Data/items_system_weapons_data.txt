@@ -11,6 +11,7 @@
 		MaxDistance="1"
 		AimRadius="1"
 		UseAP="2"
+		DamageRadius="1"
 	/>
 
 	<!-- Голые руки зомби СИСТЕМНОЕ -->
@@ -23,6 +24,7 @@
 		MaxDistance="1"
 		AimRadius="1"
 		UseAP="1"
+		DamageRadius="1"
 	/>
 
 	<!-- Зубы зомби СИСТЕМНОЕ -->
@@ -35,6 +37,7 @@
 		MaxDistance="1"
 		AimRadius="1"
 		UseAP="2"
+		DamageRadius="1"
 	/>
 
 </Data>

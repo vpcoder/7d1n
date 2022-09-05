@@ -2,7 +2,6 @@
 using Engine.Data.Factories;
 using System.Collections.Generic;
 using UnityEngine;
-using System;
 using System.Linq;
 using UnityEngine.AI;
 using Engine.Logic.Locations.Objects;
@@ -86,13 +85,14 @@ namespace Engine.Logic.Locations
 
             if (weapon == null || weapon.ID == DataDictionary.Weapons.WEAPON_SYSTEM_HANDS)
             {
+                this.WeaponObject = weaponPoint?.gameObject;
                 Animator.SetInteger(AnimationKey.WeaponEquipKey, (int)WeaponType.Hands);
                 return;
             }
 
             if (weaponPoint != null)
             {
-                var weaponBody = GameObject.Instantiate<GameObject>(weapon.Prefab, weaponPoint);
+                var weaponBody = GameObject.Instantiate(weapon.Prefab, weaponPoint);
                 var weaponBehaviour = weaponBody.GetComponent<IWeaponBehaviour>();
                 weaponBody.transform.localPosition = weaponBehaviour.PositionOffset;
                 weaponBody.transform.localRotation = Quaternion.Euler(weaponBehaviour.RotationOffset);
@@ -114,7 +114,7 @@ namespace Engine.Logic.Locations
         protected virtual void UpdateBody()
         {
             this.body.transform.DestroyAllChilds();
-            var body = GameObject.Instantiate<GameObject>(NpcFactory.Instance.GetBody(id), this.body.transform);
+            var body = GameObject.Instantiate(NpcFactory.Instance.GetBody(id), this.body.transform);
             this.EnemyBody = body.GetComponent<EnemyBody>();
             this.animator.avatar = EnemyBody.Avatar;
             this.animator.runtimeAnimatorController = EnemyBody.Controller;

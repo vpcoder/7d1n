@@ -230,6 +230,11 @@ namespace Engine
             return Random.Range(0f, 100f) <= penetrationPercent;
         }
 
+        public static float GetMeleeDamageDistance(IAttackObject source, IEdgedWeapon edgedWeapon)
+        {
+            return edgedWeapon.DamageRadius;
+        }
+
     }
 
 }

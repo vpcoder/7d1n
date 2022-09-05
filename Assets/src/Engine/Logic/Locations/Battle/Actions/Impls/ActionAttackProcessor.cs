@@ -40,7 +40,10 @@ namespace Engine.Logic.Locations.Battle.Actions
                 switch (context.Weapon.Type)
                 {
                     case GroupType.WeaponEdged:
-                        DoAttackEdgedWeaponAction(context, controller, handsController, character);
+                        if (DataDictionary.Items.IsSystemHands(context.Weapon.ID)) // Голые руки?
+                            DoAttackHandsAction(context, controller, handsController, character);
+                        else
+                            DoAttackEdgedWeaponAction(context, controller, handsController, character);
                         break;
                     case GroupType.WeaponFirearms:
                         DoAttackFirearmsWeaponAction(context, controller, handsController, character);
@@ -129,7 +132,7 @@ namespace Engine.Logic.Locations.Battle.Actions
             if (context.Action == HandActionType.AttackEdged) // Атакуем ножом вблизи
             {
                 // Запускаем анимацию, непосредственная атака пойдёт после её завершения
-                ObjectFinder.Find<LocationCharacter>().Animator.SetInteger(AnimationKey.AttackTypeKey, (int)AttackType.EdgedAttack);
+                character.Animator.SetInteger(AnimationKey.AttackTypeKey, (int)AttackType.EdgedAttack);
                 Game.Instance.Runtime.BattleContext.CurrentCharacterAP -= controller.NeedAP; // Тратим ОД
                 controller.Hide();
             }
@@ -138,10 +141,18 @@ namespace Engine.Logic.Locations.Battle.Actions
             {
                 character.TargetAttackPos = context.AttackMarker.transform.position;
                 // Запускаем анимацию, непосредственная атака пойдёт после её завершения
-                ObjectFinder.Find<LocationCharacter>().Animator.SetInteger(AnimationKey.AttackTypeKey, (int)AttackType.EdgedThrow);
+                character.Animator.SetInteger(AnimationKey.AttackTypeKey, (int)AttackType.EdgedThrow);
                 Game.Instance.Runtime.BattleContext.CurrentCharacterAP -= controller.NeedAP; // Тратим ОД
                 controller.Hide();
             }
+        }
+
+        private static void DoAttackHandsAction(BattleActionAttackContext context, BattleActionsController controller, HandsController handsController, LocationCharacter character)
+        {
+            // Запускаем анимацию, непосредственная атака пойдёт после её завершения
+            character.Animator.SetInteger(AnimationKey.AttackTypeKey, (int) AttackType.HandsAttack);
+            Game.Instance.Runtime.BattleContext.CurrentCharacterAP -= controller.NeedAP; // Тратим ОД
+            controller.Hide();
         }
 
         #endregion

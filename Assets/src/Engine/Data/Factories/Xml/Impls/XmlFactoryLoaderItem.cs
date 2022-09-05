@@ -249,6 +249,7 @@ namespace Engine.Data.Factories.Xml
         private void ReadEdgedWeapon(IEdgedWeapon weapon)
         {
             weapon.CanThrow          = Bol("CanThrow");
+            weapon.DamageRadius      = Flt("DamageRadius");
             weapon.ThrowAP           = Int("ThrowAP");
             weapon.ThrowDamage       = Int("ThrowDamage");
             weapon.ThrowDistance     = Flt("ThrowDistance");

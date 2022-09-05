@@ -57,6 +57,11 @@ namespace Engine.Logic.Locations
             }
         }
 
+        public void DoUnselectActions()
+        {
+            actionController.HideActions();
+        }
+
         public void DoResetSelectedCell(HandCellItem selected)
         {
             if (selected != null)
@@ -84,7 +89,7 @@ namespace Engine.Logic.Locations
             selected.DoSelect();
             Selected = selected;
 
-            actionController.HideActions();
+            DoUnselectActions();
 
             // if (Game.Instance.Runtime.Mode != Mode.Battle)
             //    return;

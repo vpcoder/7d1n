@@ -43,7 +43,7 @@ namespace Engine.Logic.Locations.Battle.Actions
 
         #region Attack Type Methods
 
-        private static void DoEndEdgedWeaponAction(HandsController handsController, BattleActionAttackContext context, LocationCharacter character)
+        private void DoEndEdgedWeaponAction(HandsController handsController, BattleActionAttackContext context, LocationCharacter character)
         {
             var edged = context.Weapon as IEdgedWeapon;
             if (edged == null)
@@ -51,6 +51,7 @@ namespace Engine.Logic.Locations.Battle.Actions
 
             switch (edged.WeaponType)
             {
+                case WeaponType.Hands:
                 case WeaponType.OneHanded:
                     DoOneHandedAction(edged, context, character);
                     break;
@@ -60,18 +61,86 @@ namespace Engine.Logic.Locations.Battle.Actions
             }
         }
 
-        private static void DoOneHandedAction(IEdgedWeapon edgedWeapon, BattleActionAttackContext context, LocationCharacter character)
+        /// <summary>
+        ///     Атака одноручным оружием, цепляем первую ближайшую цель - в преоритете живой противник,
+        ///     если по такому никак не попасть смотрим на неживые цели, объекты окружения
+        ///     ---
+        ///     Attack with a one-handed weapon, aim the first closest target - the living enemy takes priority,
+        ///     if there is no way to hit it, look at undead targets, objects of the environment
+        /// </summary>
+        /// <param name="edgedWeapon">
+        ///     Оружие, которым выполняется атака
+        ///     ---
+        ///     Weapon used in the attack
+        /// </param>
+        /// <param name="context">
+        ///     Контекст атаки
+        ///     ---
+        ///     Context of the attack
+        /// </param>
+        /// <param name="character">
+        ///     Персонаж, который выполняет атаку
+        ///     ---
+        ///     The character who performs the attack
+        /// </param>
+        private void DoOneHandedAction(IEdgedWeapon edgedWeapon, BattleActionAttackContext context, LocationCharacter character)
         {
-            // TODO: сферакаст + поиск одной ближайшей цели
+            var meleeDistance = BattleCalculationService.GetMeleeDamageDistance(character, edgedWeapon);
+            var colliders = Physics.OverlapSphere(context.WeaponPointPos, meleeDistance);
+            IDamagedObject target = TryFindFirstTarget<NpcDamagedBase>(colliders, character); // Сначала целимся на живых NPC
+            if (target == null)
+                target = TryFindFirstTarget<IDamagedObject>(colliders, character); // NPC под руку не попались, смотрим на дамажные неживые цели
             
-            // BattleCalculationService.DoEdgedThrowAttack(character, edgedWeapon, context.WeaponPointPos);
+            if(target != null) // Махали не в пустую! Во что-то попали...
+                BattleCalculationService.DoEdgedAttack(character, target);
         }
 
-        private static void DoTwoHandedAction(IEdgedWeapon edgedWeapon, BattleActionAttackContext context, LocationCharacter character)
+        /// <summary>
+        ///     Атака двуручным оружием, цепляем все цели в радиусе атаки
+        ///     ---
+        ///     Attack with a two-handed weapon, snagging all targets in attack radius
+        /// </summary>
+        /// <param name="edgedWeapon">
+        ///     Оружие, которым выполняется атака
+        ///     ---
+        ///     Weapon used in the attack
+        /// </param>
+        /// <param name="context">
+        ///     Контекст атаки
+        ///     ---
+        ///     Context of the attack
+        /// </param>
+        /// <param name="character">
+        ///     Персонаж, который выполняет атаку
+        ///     ---
+        ///     The character who performs the attack
+        /// </param>
+        private void DoTwoHandedAction(IEdgedWeapon edgedWeapon, BattleActionAttackContext context, LocationCharacter character)
         {
-            // TODO: сферакаст + поиск ближайших целей, атака может поразить несколько целей
-            
-            // BattleCalculationService.DoEdgedThrowAttack(character, edgedWeapon, context.WeaponPointPos);
+            var meleeDistance = BattleCalculationService.GetMeleeDamageDistance(character, edgedWeapon);
+            var colliders = Physics.OverlapSphere(context.WeaponPointPos, meleeDistance);
+            foreach (var collider in colliders)
+            {
+                if(collider.gameObject == character.gameObject)
+                    continue;
+                IDamagedObject target = collider.gameObject.GetComponent<IDamagedObject>();
+                if (target != null)
+                    BattleCalculationService.DoEdgedAttack(character, target);
+            }
+        }
+        
+        private T TryFindFirstTarget<T>(Collider[] colliders, LocationCharacter character) where T : class, IDamagedObject
+        {
+            T target = null;
+            foreach (var collider in colliders)
+            {
+                if(collider.gameObject == character.gameObject)
+                    continue;
+                target = collider.gameObject.GetComponent<T>();
+                if (target != null)
+                    break;
+            }
+            return target;
         }
 
         #endregion

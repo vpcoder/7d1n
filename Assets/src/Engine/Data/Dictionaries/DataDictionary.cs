@@ -19,6 +19,11 @@ namespace Engine.Data
                 Weapons.WEAPON_SYSTEM_ZOMBIE_HANDS
             };
 
+            public static bool IsSystemHands(long id)
+            {
+                return id == Weapons.WEAPON_SYSTEM_ZOMBIE_HANDS || id == Weapons.WEAPON_SYSTEM_HANDS;
+            }
+
         }
 
     }

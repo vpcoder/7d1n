@@ -16,22 +16,39 @@ namespace Engine.Data
     {
 
         /// <summary>
-        /// Можно метать
+        ///     Радиус нанесения урона
+        ///     В указанной сфере от оружия будет рассчитываться достало ли оно по цели или нет
+        ///     ---
+        ///     The damage radius
+        ///     In the specified area from the weapon will be calculated whether it has reached the target or not
+        /// </summary>
+        public float DamageRadius { get; set; }
+        
+        /// <summary>
+        ///     Можно метать во врага
+        ///     ---
+        ///     You can throw it at the enemy
         /// </summary>
         public bool CanThrow { get; set; }
 
         /// <summary>
-        /// Сколько стоит ОД для метания
+        ///     Сколько стоит ОД для метания
+        ///     ---
+        ///     How much is the AP for throwing
         /// </summary>
         public int ThrowAP { get; set; }
 
         /// <summary>
-        /// Урон от метания
+        ///     Наносимый урон от метания
+        ///     ---
+        ///     Damage inflicted by throwing
         /// </summary>
         public int ThrowDamage { get; set; }
 
         /// <summary>
-        /// Дистанция метания
+        ///     Дистанция метания в игровых метрах
+        ///     ---
+        ///     Throwing distance in game meters
         /// </summary>
         public float ThrowDistance { get; set; }
 
@@ -43,22 +60,30 @@ namespace Engine.Data
         public float ThrowAimRadius { get; set; }
 
         /// <summary>
-        /// Как выглядит снаряд при метании
+        ///     Как выглядит снаряд при метании
+        ///     ---
+        ///     What the projectile looks like when thrown
         /// </summary>
         public string ThrowBulletObject { get; set; }
 
         /// <summary>
-        /// Звук метания
+        ///     Звук метания
+        ///     ---
+        ///     Throwing sound
         /// </summary>
         public string ThrowSound { get; set; }
 
         /// <summary>
-        /// Звук попадания
+        ///     Звук попадания в тело
+        ///     ---
+        ///     The sound of hitting the body
         /// </summary>
         public string ThrowHitSound { get; set; }
 
         /// <summary>
-        /// Звук промаха
+        ///     Звук промаха, попадания в стену или объект
+        ///     ---
+        ///     Sound of missing, hitting a wall or object
         /// </summary>
         public string ThrowMissSound { get; set; }
 
@@ -91,6 +116,7 @@ namespace Engine.Data
                 Author = Author,
 
                 MaxDistance = MaxDistance,
+                DamageRadius = DamageRadius,
                 AimRadius = AimRadius,
                 Damage = Damage,
                 UseAP = UseAP,

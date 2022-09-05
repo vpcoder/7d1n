@@ -13,6 +13,15 @@ namespace Engine.Data
     {
 
         /// <summary>
+        ///     Радиус нанесения урона
+        ///     В указанной сфере от оружия будет рассчитываться достало ли оно по цели или нет
+        ///     ---
+        ///     The damage radius
+        ///     In the specified area from the weapon will be calculated whether it has reached the target or not
+        /// </summary>
+        float DamageRadius { get; set; }
+
+        /// <summary>
         ///     Можно метать во врага
         ///     ---
         ///     You can throw it at the enemy

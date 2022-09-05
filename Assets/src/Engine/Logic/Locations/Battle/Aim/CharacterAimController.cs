@@ -1,6 +1,7 @@
 ﻿using Engine.Data;
 using Engine.EGUI;
 using Engine.Logic.Location;
+using Engine.Logic.Locations.Animation;
 using Engine.Logic.Locations.Battle.Actions;
 using Engine.Logic.Locations.Generator;
 using UnityEngine;
@@ -99,6 +100,8 @@ namespace Engine.Logic.Locations.Battle
             controller.AttackContext.Weapon = weapon;
             controller.Action = CharacterBattleAction.Attack;
 
+            var character = ObjectFinder.Find<LocationCharacter>();
+
             int ap = 0;
             float aimRadius = weapon.AimRadius;
 
@@ -124,6 +127,8 @@ namespace Engine.Logic.Locations.Battle
                     aimRadius = edged.ThrowAimRadius;
                     break;
             }
+            
+            character.Animator.SetInteger(AnimationKey.WeaponEquipKey, (int)weapon.WeaponType);
 
             controller.NeedAP = ap;
             controller.UpdateState();

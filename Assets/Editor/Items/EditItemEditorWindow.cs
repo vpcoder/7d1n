@@ -30,6 +30,7 @@ namespace GitIntegration.Items
         // Параметры оружия
         private WeaponType weaponType;
         private int damage;
+        private float damageRadius;
         private float maxDistance;
         private float aimRadius;
         private int useAP;
@@ -82,6 +83,7 @@ namespace GitIntegration.Items
             var edged = item as EdgedWeapon;
             if (edged != null)
             {
+                damageRadius = edged.DamageRadius;
                 canThrow = edged.CanThrow;
                 throwAP = edged.ThrowAP;
                 throwDamage = edged.ThrowDamage;
@@ -199,6 +201,7 @@ namespace GitIntegration.Items
         
         private void SaveEdgedWeaponInfo(XmlElement element, XmlDocument doc)
         {
+            element.SetAttribute("DamageRadius", damageRadius.ToString());
             element.SetAttribute("CanThrow", canThrow.ToString());
             if (canThrow)
             {
@@ -325,6 +328,11 @@ namespace GitIntegration.Items
             edgedWeaponGroupVisible = EditorGUILayout.Foldout(edgedWeaponGroupVisible, "Параметры оружия ближнего боя | Melee weapons parameters");
             if (!edgedWeaponGroupVisible)
                 return;
+            
+            GUILayout.BeginHorizontal();
+            GUILayout.Label("Радиус атаки | Damage Radius:");
+            damageRadius = EditorGUILayout.FloatField(damageRadius);
+            GUILayout.EndHorizontal();
             
             GUILayout.Space(16);
             GUILayout.BeginHorizontal();
