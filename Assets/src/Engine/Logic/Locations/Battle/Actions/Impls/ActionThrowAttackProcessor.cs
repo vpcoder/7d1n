@@ -1,5 +1,4 @@
 ﻿using Engine.Data;
-using Engine.Logic.Locations.Animation;
 using UnityEngine;
 
 namespace Engine.Logic.Locations.Battle.Actions
@@ -7,9 +6,9 @@ namespace Engine.Logic.Locations.Battle.Actions
 
     /// <summary>
     /// 
-    /// Процессор, выполняющий действие завершение атаки
+    /// Процессор, выполняющий действие завершение атаки метания
     /// ---
-    /// Processor performing the attack completion action
+    /// Processor performing the action of completing a throwing attack
     /// 
     /// </summary>
     public class ActionThrowActionProcessor : BattleActionProcessor<BattleActionAttackContext>
@@ -18,9 +17,9 @@ namespace Engine.Logic.Locations.Battle.Actions
         #region Properties
 
         /// <summary>
-        ///     Завершение атаки
+        ///     Завершение атаки метания
         ///     ---
-        ///     Ending the attack
+        ///     Completing a Throwing Attack
         /// </summary>
         public override CharacterBattleAction Action => CharacterBattleAction.EndThrowAttack;
 
@@ -47,6 +46,26 @@ namespace Engine.Logic.Locations.Battle.Actions
 
         #region Attack Type Methods
 
+        /// <summary>
+        ///     Инициирует процесс метания гранаты из руки в указанную точку
+        ///     ---
+        ///     Initiates the process of throwing the grenade from the hand to the specified point
+        /// </summary>
+        /// <param name="handsController">
+        ///     Контроллер рук, в котором находятся выбранные оружия
+        ///     ---
+        ///     The hand controller, which contains the selected weapons
+        /// </param>
+        /// <param name="context">
+        ///     Контекст атаки
+        ///     ---
+        ///     Context of the attack
+        /// </param>
+        /// <param name="character">
+        ///     Персонаж, выполняющий атаку
+        ///     ---
+        ///     Character performing the attack
+        /// </param>
         private static void DoThrowGrenadeWeaponAction(HandsController handsController, BattleActionAttackContext context, LocationCharacter character)
         {
             var grenade = context.Weapon as IGrenadeWeapon;
@@ -58,10 +77,31 @@ namespace Engine.Logic.Locations.Battle.Actions
             Game.Instance.Character.Inventory.RemoveByAddress(grenade); // Удаляем то что выкинули
             Game.Instance.Character.Equipment.TryRemoveItem(grenade); // Убираем из экипировки
             handsController.TryRemoveItem(grenade); // Убираем из рук
-            handsController.Selected?.UpdateCellInfo();
+            if(handsController.Selected != null)
+                handsController.Selected.UpdateCellInfo();
             character.EquipWeapon(null);
         }
 
+        /// <summary>
+        ///     Инициирует процесс метания метательного холодного оружия
+        ///     ---
+        ///     Initiates the process of throwing a throwing melee weapon
+        /// </summary>
+        /// <param name="handsController">
+        ///     Контроллер рук, в котором находятся выбранные оружия
+        ///     ---
+        ///     The hand controller, which contains the selected weapons
+        /// </param>
+        /// <param name="context">
+        ///     Контекст атаки
+        ///     ---
+        ///     Context of the attack
+        /// </param>
+        /// <param name="character">
+        ///     Персонаж, выполняющий атаку
+        ///     ---
+        ///     Character performing the attack
+        /// </param>
         private static void DoThrowEdgedWeaponAction(HandsController handsController, BattleActionAttackContext context, LocationCharacter character)
         {
             var edged = context.Weapon as IEdgedWeapon;
@@ -73,7 +113,8 @@ namespace Engine.Logic.Locations.Battle.Actions
             Game.Instance.Character.Inventory.RemoveByAddress(edged); // Удаляем то что выкинули
             Game.Instance.Character.Equipment.TryRemoveItem(edged); // Убираем из экипировки
             handsController.TryRemoveItem(edged); // Убираем из рук
-            handsController.Selected?.UpdateCellInfo();
+            if(handsController.Selected != null)
+                handsController.Selected.UpdateCellInfo();
             character.EquipWeapon(null);
         }
 

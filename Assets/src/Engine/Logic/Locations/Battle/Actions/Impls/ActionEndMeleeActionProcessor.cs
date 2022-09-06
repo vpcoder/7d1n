@@ -27,15 +27,13 @@ namespace Engine.Logic.Locations.Battle.Actions
 
         public override void DoProcessAction(BattleActionAttackContext context)
         {
-            var handsController = ObjectFinder.Find<HandsController>();
             var character = ObjectFinder.Find<LocationCharacter>();
-
             if (character.Weapon != null)
             {
                 switch (character.Weapon.Type)
                 {
                     case GroupType.WeaponEdged:
-                        DoEndEdgedWeaponAction(handsController, context, character);
+                        DoEndEdgedWeaponAction(context, character);
                         break;
                 }
             }
@@ -43,7 +41,7 @@ namespace Engine.Logic.Locations.Battle.Actions
 
         #region Attack Type Methods
 
-        private void DoEndEdgedWeaponAction(HandsController handsController, BattleActionAttackContext context, LocationCharacter character)
+        private void DoEndEdgedWeaponAction(BattleActionAttackContext context, LocationCharacter character)
         {
             var edged = context.Weapon as IEdgedWeapon;
             if (edged == null)
@@ -85,8 +83,7 @@ namespace Engine.Logic.Locations.Battle.Actions
         /// </param>
         private void DoOneHandedAction(IEdgedWeapon edgedWeapon, BattleActionAttackContext context, LocationCharacter character)
         {
-            var meleeDistance = BattleCalculationService.GetMeleeDamageDistance(character, edgedWeapon);
-            var colliders = Physics.OverlapSphere(context.WeaponPointPos, meleeDistance);
+            var colliders = GetCollidersInToSphere(edgedWeapon, context, character);
             IDamagedObject target = TryFindFirstTarget<NpcDamagedBase>(colliders, character); // Сначала целимся на живых NPC
             if (target == null)
                 target = TryFindFirstTarget<IDamagedObject>(colliders, character); // NPC под руку не попались, смотрим на дамажные неживые цели
@@ -117,8 +114,7 @@ namespace Engine.Logic.Locations.Battle.Actions
         /// </param>
         private void DoTwoHandedAction(IEdgedWeapon edgedWeapon, BattleActionAttackContext context, LocationCharacter character)
         {
-            var meleeDistance = BattleCalculationService.GetMeleeDamageDistance(character, edgedWeapon);
-            var colliders = Physics.OverlapSphere(context.WeaponPointPos, meleeDistance);
+            var colliders = GetCollidersInToSphere(edgedWeapon, context, character);
             foreach (var collider in colliders)
             {
                 if(collider.gameObject == character.gameObject)
@@ -127,6 +123,17 @@ namespace Engine.Logic.Locations.Battle.Actions
                 if (target != null)
                     BattleCalculationService.DoEdgedAttack(character, target);
             }
+        }
+
+        private Collider[] GetCollidersInToSphere(IEdgedWeapon edgedWeapon, BattleActionAttackContext context, LocationCharacter character)
+        {
+            var meleeDistance = BattleCalculationService.GetMeleeDamageDistance(character, edgedWeapon);
+            var halfMeleeDistance = meleeDistance * 0.5f;
+            var attackSpherePos = (Vector3.Distance(context.WeaponPointPos, character.TargetAttackPos) <= halfMeleeDistance)
+                ? character.TargetAttackPos
+                : context.WeaponPointPos;
+            var colliders = Physics.OverlapSphere(attackSpherePos, meleeDistance);
+            return colliders;
         }
         
         private T TryFindFirstTarget<T>(Collider[] colliders, LocationCharacter character) where T : class, IDamagedObject

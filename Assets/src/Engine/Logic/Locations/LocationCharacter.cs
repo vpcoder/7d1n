@@ -11,44 +11,64 @@ namespace Engine.Logic.Locations
 {
 
     /// <summary>
+    ///
     /// Персонаж игрока на локации
+    /// ---
+    /// Player character on location
+    /// 
     /// </summary>
     public class LocationCharacter : EnemyNpcBehaviour
     {
 
-#pragma warning disable IDE0044, IDE0051, IDE0059
-
+        #region Hidden Fields
+        
         [SerializeField] private float pickUpDistance = 1f;
         [SerializeField] private float speed = 3f;
         [SerializeField] private MoveContext moveContext;
-
+        
         private NavMeshPath navMeshPath;
-
-        /// <summary>
-        /// Текущий путь, по которому надо пройти
-        /// (может быть пустым или не заполненным, что значит что персонаж стоит на месте)
-        /// </summary>
         private List<Vector3> path;
-
         private LocationCameraController cameraController;
         
+        #endregion
+        
+        
+        #region Properties
+        
         /// <summary>
-        /// Расстояние на которую персонаж может вытянуть руку - поднять предмет, использовать объект и т.д.
+        ///     Текущий путь, по которому надо пройти
+        ///     (может быть пустым или не заполненным, что значит что персонаж стоит на месте)
+        ///     ---
+        ///     The current path to follow
+        ///     (can be empty or unfilled, which means that the character is standing still)
+        /// </summary>
+        public List<Vector3> Path => path;
+        
+        /// <summary>
+        ///     Расстояние на которое персонаж может вытянуть руку - поднять предмет, использовать объект, взаимодейстовать с окружением и т.д.
+        ///     ---
+        ///     The distance to which a character can extend his arm to lift an object, use an object, interact with the environment, etc.
         /// </summary>
         public float PickUpDistance => pickUpDistance;
 
         /// <summary>
-        /// Положение персонажа в мире
+        ///     Глобальное положение персонажа в мире
+        ///     ---
+        ///     Global position of the character in the world
         /// </summary>
         public Vector3 Position => transform.position;
 
         /// <summary>
-        /// Точка из которой персонаж начал движение
+        ///     Точка из которой персонаж начал движение
+        ///     ---
+        ///     The point from which the character began to move
         /// </summary>
         public Vector3 StartPosition => moveContext.StartPosition;
 
         /// <summary>
-        /// Точка, в которую идёт персонаж в текущий момент
+        ///     Точка, в которую идёт персонаж в текущий момент
+        ///     ---
+        ///     The point at which the character is currently going
         /// </summary>
         public Vector3 NextPosition
         {
@@ -59,11 +79,19 @@ namespace Engine.Logic.Locations
                 UpdatePoint();
             }
         }
+        
+        #endregion
 
         /// <summary>
-        /// Добавление опыта персонажу
+        ///     Добавление боевого опыта персонажу
+        ///     ---
+        ///     Adding combat experience to a character
         /// </summary>
-        /// <param name="value">Количество добавляемого опыта</param>
+        /// <param name="value">
+        ///     Количество добавляемого опыта
+        ///     ---
+        ///     Amount of experience to be added
+        /// </param>
         public override void AddBattleExp(long value)
         {
             // Рассчитываем полученный опыт
@@ -71,7 +99,9 @@ namespace Engine.Logic.Locations
         }
 
         /// <summary>
-        /// Нашего персонажа завалили
+        ///     Нашего персонажа завалили
+        ///     ---
+        ///     Our character was died.
         /// </summary>
         public override void Died()
         {
@@ -125,7 +155,9 @@ namespace Engine.Logic.Locations
         }
 
         /// <summary>
-        /// Срабатывает в момент достижения конца одного из участков пути персонажа
+        ///     Срабатывает в момент достижения конца одного из участков пути персонажа
+        ///     ---
+        ///     Triggers at the moment you reach the end of one part of the character's path
         /// </summary>
         private void UpdatePoint()
         {
@@ -145,7 +177,9 @@ namespace Engine.Logic.Locations
         }
 
         /// <summary>
-        /// Срабатывает в момент остановки движения
+        ///     Срабатывает в момент остановки движения
+        ///     ---
+        ///     Triggers when move stops
         /// </summary>
         private void StopMove()
         {

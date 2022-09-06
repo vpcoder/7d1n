@@ -10,16 +10,38 @@ using UnityEngine.EventSystems;
 namespace Engine.Logic.Locations.Battle
 {
 
+    /// <summary>
+    ///
+    /// Контроллер управляющий маркером прицеливания
+    /// Позволяет наводиться на маркер прицеливания для совершения атаки
+    /// ---
+    /// The controller that controls the aiming marker
+    /// Allows aiming at the aiming marker to execute an attack
+    /// 
+    /// </summary>
     public class CharacterAimController : Panel,
                                           IDragHandler,
                                           IPointerDownHandler
     {
 
+        #region Hidden Fields
+        
         /// <summary>
-        /// Префаб маркера атаки
+        ///     Префаб маркера атаки
+        ///     ---
+        ///     Prefab of the attack marker
         /// </summary>
         [SerializeField] private GameObject attackMarkerPrefab;
 
+        #endregion
+        
+        #region Properties
+        
+        /// <summary>
+        ///     Радиус зоны прицеливания
+        ///     ---
+        ///     Radius of aiming zone
+        /// </summary>
         public float Radius
         {
             get
@@ -34,10 +56,17 @@ namespace Engine.Logic.Locations.Battle
             }
         }
 
+        #endregion
+        
         public void Show(float radius)
         {
-            base.Show();
             Radius = radius;
+            if (radius <= 0)
+            {
+                Hide();
+                return;
+            }
+            base.Show();
         }
 
         public override void Hide()
@@ -89,7 +118,7 @@ namespace Engine.Logic.Locations.Battle
         }
 
         /// <summary>
-        /// Игрок нажал на действие, следующее нажатие игрока может быть установкой маркера атаки, если будет поднят checkFlag
+        ///     Игрок нажал на действие, следующее нажатие игрока может быть установкой маркера атаки, если будет поднят checkFlag
         /// </summary>
         /// <param name="action">Действие которое будет совершаться</param>
         /// <param name="weapon">Оружие, которым совершается действие</param>
@@ -116,6 +145,7 @@ namespace Engine.Logic.Locations.Battle
                 case HandActionType.ReloadFirearms:
                     var firearms = (IFirearmsWeapon)weapon;
                     ap = firearms.ReloadAP;
+                    aimRadius = 0;
                     break;
                 case HandActionType.ThrowGrenade:
                     var grenade = (IGrenadeWeapon)weapon;
@@ -159,7 +189,7 @@ namespace Engine.Logic.Locations.Battle
             var controller = ObjectFinder.Find<BattleActionsController>();
 
             if (controller.AttackContext.AttackMarker == null)
-                controller.AttackContext.AttackMarker = GameObject.Instantiate<GameObject>(attackMarkerPrefab);
+                controller.AttackContext.AttackMarker = GameObject.Instantiate(attackMarkerPrefab);
 
             controller.AttackContext.AttackMarker.transform.position = floorHitPoint;
             controller.AttackContext.AttackMarker.transform.rotation = character.transform.rotation;

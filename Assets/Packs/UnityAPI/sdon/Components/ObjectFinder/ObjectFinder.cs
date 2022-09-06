@@ -7,9 +7,6 @@ namespace UnityEngine
     public class ObjectFinder
     {
 
-        private static object locker = new object();
-        private static IDictionary<Type, object> instances = new Dictionary<Type, object>();
-
         public static Transform Get(string tag)
         {
             return GameObject.FindWithTag(tag).transform;
@@ -27,7 +24,7 @@ namespace UnityEngine
 
         public static void Clear()
         {
-            instances.Clear();
+            
         }
 
     }

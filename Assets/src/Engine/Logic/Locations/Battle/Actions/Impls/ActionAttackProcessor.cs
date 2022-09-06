@@ -26,6 +26,16 @@ namespace Engine.Logic.Locations.Battle.Actions
 
         #endregion
 
+        /// <summary>
+        ///     Задача процессора - определить тип атаки, и для этого типа сделать соответствующие действия атаки
+        ///     ---
+        ///     The task of the processor is to determine the type of attack, and for this type to make appropriate attack actions
+        /// </summary>
+        /// <param name="context">
+        ///     Контекст атаки
+        ///     ---
+        ///     Context of the attack
+        /// </param>
         public override void DoProcessAction(BattleActionAttackContext context)
         {
             var controller = Controller;
@@ -37,12 +47,13 @@ namespace Engine.Logic.Locations.Battle.Actions
             {
                 context.WeaponPointPos = character.WeaponObject?.transform.position ?? Vector3.zero;
                 character.Weapon = context.Weapon;
+                character.TargetAttackPos = context.AttackMarker?.transform.position ?? Vector3.zero;
                 switch (context.Weapon.Type)
                 {
                     case GroupType.WeaponEdged:
                         if (DataDictionary.Items.IsSystemHands(context.Weapon.ID)) // Голые руки?
                             DoAttackHandsAction(context, controller, handsController, character);
-                        else
+                        else // В руках что-то есть
                             DoAttackEdgedWeaponAction(context, controller, handsController, character);
                         break;
                     case GroupType.WeaponFirearms:
@@ -67,7 +78,6 @@ namespace Engine.Logic.Locations.Battle.Actions
         {
             if (context.Action == HandActionType.ThrowGrenade)
             {
-                character.TargetAttackPos = context.AttackMarker.transform.position;
                 // Запускаем анимацию, непосредственная атака пойдёт после её завершения
                 ObjectFinder.Find<LocationCharacter>().Animator.SetInteger(AnimationKey.AttackTypeKey, (int)AttackType.GrenadeThrow);
                 Game.Instance.Runtime.BattleContext.CurrentCharacterAP -= controller.NeedAP; // Тратим ОД
@@ -115,8 +125,6 @@ namespace Engine.Logic.Locations.Battle.Actions
                 return;
             }
 
-            character.TargetAttackPos = context.AttackMarker.transform.position;
-
             BattleCalculationService.DoFirearmsAttack(character);
             firearms.AmmoCount--;
             handsController.Selected?.UpdateCellInfo();
@@ -139,7 +147,6 @@ namespace Engine.Logic.Locations.Battle.Actions
 
             if (context.Action == HandActionType.ThrowEdged) // Кидаем нож
             {
-                character.TargetAttackPos = context.AttackMarker.transform.position;
                 // Запускаем анимацию, непосредственная атака пойдёт после её завершения
                 character.Animator.SetInteger(AnimationKey.AttackTypeKey, (int)AttackType.EdgedThrow);
                 Game.Instance.Runtime.BattleContext.CurrentCharacterAP -= controller.NeedAP; // Тратим ОД

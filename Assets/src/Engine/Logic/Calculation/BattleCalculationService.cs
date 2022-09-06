@@ -79,7 +79,7 @@ namespace Engine
         public static void DoGrenadeAttack(IAttackObject source, IGrenadeWeapon grenade, Vector3 weaponPos)
         {
             var grenadePrefab = GrenadeEffectFactory.Instance.Get(grenade.GrenadeEffectType);
-            var bullet = GameObject.Instantiate<GameObject>(grenadePrefab);
+            var bullet = GameObject.Instantiate(grenadePrefab);
             var grenadeItem = bullet.GetComponent<GrenadeItem>();
             grenadeItem.Init(source, source.AttackCharacterObject.transform.position, source.TargetAttackPos, grenade);
         }

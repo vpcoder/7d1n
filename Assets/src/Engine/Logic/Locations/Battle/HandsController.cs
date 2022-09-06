@@ -77,6 +77,8 @@ namespace Engine.Logic.Locations
 
         public void DoSelectHand(HandCellItem selected)
         {
+            ObjectFinder.Find<CharacterAimController>().Hide();
+
             foreach (var hand in hands)
                 if (hand != selected)
                     hand.DoUnselect();
@@ -120,7 +122,8 @@ namespace Engine.Logic.Locations
 
         public void DoSelectHandAction(HandActionType action)
         {
-            ObjectFinder.Find<CharacterAimController>().DoHandsActionClick(action, Selected?.Weapon);
+            var weapon = Selected == null ? null : Selected.Weapon;
+            ObjectFinder.Find<CharacterAimController>().DoHandsActionClick(action, weapon);
         }
 
     }

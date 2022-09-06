@@ -175,10 +175,12 @@ namespace Engine.Logic.Locations
             if (battleActions.AttackContext.AttackMarker != null)
                 return;
 
+            var character = ObjectFinder.Find<LocationCharacter>();
+            if (Lists.IsNotEmpty(character.Path))
+                return; // Персонаж уже идёт по ранее рассчитанному пути, не рассчитываем новый, пока он не завершит старый путь
+            
             var point = DeviceInput.TouchPosition;
             var ray = Camera.main.ScreenPointToRay(point);
-
-            var character = ObjectFinder.Find<LocationCharacter>();
 
             if (Physics.Raycast(ray, out RaycastHit hit, 100f))
             {

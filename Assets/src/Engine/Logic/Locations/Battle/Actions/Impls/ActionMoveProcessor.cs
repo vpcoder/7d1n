@@ -1,9 +1,4 @@
 ﻿using Engine.Data;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using UnityEngine;
 
 namespace Engine.Logic.Locations.Battle.Actions
@@ -32,11 +27,17 @@ namespace Engine.Logic.Locations.Battle.Actions
 
         public override void DoProcessAction(BattleActionMoveContext context)
         {
+            var character = ObjectFinder.Find<LocationCharacter>();
             var controller = Controller;
 
+            if (Lists.IsNotEmpty(character.Path))
+            {
+                DoRollbackAction(context);
+                return; // Персонаж уже выполняет перемещение, не можем ничего делать, пока он не завершит операцию
+            }
+            
             Game.Instance.Runtime.BattleContext.CurrentCharacterAP -= controller.NeedAP; // Тратим ОД
-
-            var character = ObjectFinder.Find<LocationCharacter>();
+            
             character.SetPath(context.Points); // Перемещаемся
 
             ObjectFinder.Find<CharacterMoveVisializerController>().HidePath(); // Сбрасываем путь

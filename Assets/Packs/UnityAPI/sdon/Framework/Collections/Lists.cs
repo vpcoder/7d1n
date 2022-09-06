@@ -17,6 +17,11 @@ namespace UnityEngine
         {
             return list == null || list.Count == 0;
         }
+
+        public static bool IsNotEmpty<T>(ICollection<T> list)
+        {
+            return !IsEmpty(list);
+        }
         
         public static bool DropFirst<T>(IList<T> list) {
             if(IsEmpty(list)){
