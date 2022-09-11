@@ -1,20 +1,14 @@
 ﻿using System;
+using Engine.Data;
 
 namespace Engine.Logic.Locations
 {
 
-    public enum NpcStateMind : byte
-    {
-        Sleep,
-        Normal,
-        Agression,
-    };
-
     [Serializable]
     public class NpcStatus
     {
-        public NpcStateMind State = NpcStateMind.Normal;
-        public bool IsDead = false;
+        public NpcStateType State = NpcStateType.Normal;
+        public bool IsDead;
     }
 
 }

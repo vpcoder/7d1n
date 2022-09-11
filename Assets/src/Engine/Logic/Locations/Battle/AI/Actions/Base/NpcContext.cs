@@ -17,17 +17,17 @@ namespace Engine.Logic.Locations
     {
 
         /// <summary>
-        /// Текущее состояние существа
-        /// ---
-        /// 
+        ///     Текущее состояние существа
+        ///     ---
+        ///     Current state of the creature
         /// </summary>
         [SerializeField]
         public NpcStatus Status = new NpcStatus();
 
         /// <summary>
-        /// Список действий, которые NPC планирует совершить в текущем ходу
-        /// ---
-        /// A list of actions the NPC plans to take in the current turn
+        ///     Список действий, которые NPC планирует совершить в текущем ходу
+        ///     ---
+        ///     A list of actions the NPC plans to take in the current turn
         /// </summary>
         [SerializeField]
         public List<NpcBaseActionContext> Actions = new List<NpcBaseActionContext>();

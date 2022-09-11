@@ -24,9 +24,9 @@ namespace Engine.Logic.Locations
     {
 
         /// <summary>
-        /// Тип текущего действия
-        /// ---
-        /// Type of current action
+        ///     Тип текущего действия
+        ///     ---
+        ///     Type of current action
         /// </summary>
         [SerializeField] public NpcActionType Action;
 

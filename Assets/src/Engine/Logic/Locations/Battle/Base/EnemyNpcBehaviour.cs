@@ -14,7 +14,7 @@ namespace Engine.Logic.Locations
     /// 
     /// Любой NPC в игре, в том числе персонаж игрока, и его товарищи
     /// ---
-    /// 
+    /// Any NPC in the game, including the player character, and his comrades
     /// 
     /// </summary>
     public class EnemyNpcBehaviour : MonoBehaviour,
