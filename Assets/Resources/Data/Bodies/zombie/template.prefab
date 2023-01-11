@@ -804,7 +804,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &6643486114342771020
 Transform:
   m_ObjectHideFlags: 0
@@ -2993,7 +2993,7 @@ GameObject:
   - component: {fileID: 6641731064813308032}
   - component: {fileID: 6638950843054828032}
   m_Layer: 0
-  m_Name: zombie_business_female
+  m_Name: template
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3080,7 +3080,7 @@ MonoBehaviour:
   avatar: {fileID: 9000000, guid: ffdfcb810f2918b4f8fe9f917f07bc78, type: 3}
   weaponPoint: {fileID: 6638950841290351433}
   enemy:
-    ID: 100
+    ID: 103
     AP: 6
     Exp: 5
     EnemyGroup: 2
@@ -7464,7 +7464,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &6643612358305006926
 Transform:
   m_ObjectHideFlags: 0

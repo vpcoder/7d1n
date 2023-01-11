@@ -31,7 +31,7 @@ namespace Engine.Logic.Locations
         /// </summary>
         [SerializeField]
         public List<NpcBaseActionContext> Actions = new List<NpcBaseActionContext>();
-
+        
     }
 
 }

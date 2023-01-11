@@ -19,28 +19,11 @@ namespace Engine.Logic.Load
         
         public override IEnumerator LoadProcess()
         {
+            // Инициализатор загрузчика
             StartLoad();
 
-            // Выполняем загрузку локации
-            // ObjectFinder.Find<LocationLoader>().LoadLocation(Game.Instance.Runtime.Location);
-            
-            // FIXME: тестовые данные
-            Game.Instance.Runtime.Location.ID = Random.Range(0, 10000);
-            Game.Instance.Runtime.GenerationInfo = LocationGenerateContex.Generate(Game.Instance.Runtime.Location); // Тестовые сведения о здании и этаже
-
-            var enemyPointsList = new List<EnemyPointInfo>();
-            SetDescription(Localization.Instance.Get("ui_location_load_rooms"));
-            // Собираем все комнаты в сцене
-            var rooms = FindObjectsOfType<RoomHierarchyBehaviour>();
-            var markers = new List<IMarker>();
-            foreach (var room in rooms) // Генерим помещения по комнатам
-            {
-                markers.AddRange(room.GetMarkers());
-                LocationGenerateContex.GenerateRoomByMarkers(room.GetMarkers(), room.RoomType);
-                enemyPointsList.AddRange(Game.Instance.Runtime.GenerationInfo.EnemyInfo.EnemyStartPoints);
-            }
-            // Генерация всей сцены (стены, пол и прочее)
-            LocationGenerateContex.GenerateGlobalScene(markers);
+            // Выполняем загрузку локации из хранилища локаций или генерируем новую
+            ObjectFinder.Find<LocationLoader>().LoadLocation(this, Game.Instance.Runtime.Location);
 
             SetTitle(Localization.Instance.Get("ui_loading"));
             yield return new WaitForSeconds(MIN_WAIT);
@@ -53,10 +36,10 @@ namespace Engine.Logic.Load
             // Загружаем сцену
             LoadFactory.Instance.Get(SceneName.Location).PostLoad(new LoadContext()
             {
-                EnemyListInfo = enemyPointsList
+                EnemyListInfo = Game.Instance.Runtime.GenerationInfo.EnemyInfo.EnemyStartPoints
             });
 
-            // Конец загрузки
+            // Конец загрузки (деструктор загрузчика)
             CompleteLoad();
         }
 
@@ -65,9 +48,6 @@ namespace Engine.Logic.Load
         public override void OnCompleteLoad()
         {
             character.SetActive(true);
-
-            ObjectFinder.Find<BattleManager>().EnterToBattle();
-
             Destroy(gameObject);
         }
 

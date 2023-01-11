@@ -70,12 +70,12 @@ GameObject:
   m_Component:
   - component: {fileID: 8328240344640419899}
   - component: {fileID: 8328240344640419898}
-  - component: {fileID: 8328240344640419896}
   - component: {fileID: -5910929422793397809}
   - component: {fileID: 8328240344640419897}
   - component: {fileID: 8328240344640419893}
+  - component: {fileID: 123723173485408706}
   m_Layer: 0
-  m_Name: zombie_business_female
+  m_Name: human_base
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -89,7 +89,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8328240344640419902}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -6.013, y: 0, z: 8.662}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 8328240342814540719}
@@ -116,24 +116,6 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
---- !u!114 &8328240344640419896
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8328240344640419902}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0c22ff20548fb3b4c9a994faf56428f5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  animator: {fileID: 8328240344640419898}
-  agent: {fileID: 8328240344640419897}
-  body: {fileID: 8328240342814540716}
-  attackAudioSource: {fileID: 8328240344640419893}
-  id: 100
-  lookDirectionTransform: {fileID: 8328240342965617584}
 --- !u!114 &-5910929422793397809
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -266,3 +248,21 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &123723173485408706
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8328240344640419902}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 607cb42d69d644c5826ebfc8b647bfba, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  animator: {fileID: 8328240344640419898}
+  agent: {fileID: 8328240344640419897}
+  body: {fileID: 8328240342814540716}
+  attackAudioSource: {fileID: 8328240344640419893}
+  lookDirectionTransform: {fileID: 8328240342965617584}
+  id: 100

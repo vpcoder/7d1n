@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using Engine.Data;
 using Engine.Data.Factories;
 using Engine.Data.Stories;
@@ -110,6 +111,9 @@ namespace src.Engine.Scenes.Loader.Impls
             character.Equipment.Use1 = pm;
             ObjectFinder.Find<HandsController>().GetCell(0).Weapon = pm;
 
+            var battleManager = ObjectFinder.Find<BattleManager>();
+            var enemies = new List<EnemyNpcBehaviour>();
+            
             for (int i = 0; i < 5; i++)
             {
                 if (enemyPointsList.Count == 0)
@@ -117,7 +121,7 @@ namespace src.Engine.Scenes.Loader.Impls
 
                 var randomPoint = enemyPointsList[Random.Range(0, enemyPointsList.Count)];
                 
-                var behaviour = NpcFactory.Instance.GetBehaviour(100L);
+                var behaviour = NpcFactory.Instance.GetBehaviour(Random.Range(100, 101 + 1));
                 var pos = randomPoint.Position;
 
                 var rot = Random.rotation.eulerAngles;
@@ -125,9 +129,14 @@ namespace src.Engine.Scenes.Loader.Impls
                 rot.z = 0;
 
                 var npc = GameObject.Instantiate(behaviour, pos, Quaternion.Euler(rot));
-
+                var npcBehaviour = npc.GetComponent<EnemyNpcBehaviour>();
+                npcBehaviour.NpcContext.Status.State = NpcStateType.Fighting;
                 enemyPointsList.Remove(randomPoint);
+                enemies.Add(npcBehaviour);
             }
+            
+            battleManager.EnterToBattle();
+            Game.Instance.Runtime.BattleContext.Order.Add(EnemyGroup.PlayerGroup);
         }
     }
     

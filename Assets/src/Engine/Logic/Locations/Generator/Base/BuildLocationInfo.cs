@@ -57,6 +57,13 @@ namespace Engine.Logic.Locations.Generator
         /// </summary>
         public BuildEnemyInfo EnemyInfo { get; set; }
 
+        /// <summary>
+        ///     Контекст сгенерированной локации
+        ///     ---
+        ///     Context of the generated location
+        /// </summary>
+        public BuildLocationGlobalInfo GlobalInfo { get; set; }
+
     }
 
 }

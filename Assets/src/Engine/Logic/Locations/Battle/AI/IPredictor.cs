@@ -15,11 +15,13 @@ namespace Engine.Logic.Locations
     {
 
         /// <summary>
-        ///     Состояние, для которого подходит указанный тип предиктора
+        ///     Название предиктора
+        ///		Уникальное в рамках всех предикторов!
         ///     ---
-        ///     The state for which the specified type of predictor is appropriate
+        ///     Predictor name
+        ///		Unique within all predictors!
         /// </summary>
-        public NpcStateType State { get; }
+        public string Name { get; }
 
         /// <summary>
         ///     Метод должен сформировать список действий для NPC

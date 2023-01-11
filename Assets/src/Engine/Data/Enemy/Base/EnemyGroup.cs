@@ -6,30 +6,82 @@ namespace Engine.Data
     {
 
         /// <summary>
-        /// Реальные люди, игрок и его команда
+        ///     Реальные люди, игрок и его команда
+        ///     ---
+        ///     Real people, a player and his team
         /// </summary>
         PlayerGroup = 0x00,
 
         /// <summary>
-        /// Реальные люди, другая группа игроков
+        ///     Реальные люди, другая группа игроков
+        ///     ---
+        ///     Real people, another group of players
         /// </summary>
         AnotherPlayerGroup = 0x01,
-
+        
         /// <summary>
-        /// НПС, зомби
+        ///     Дикие животные
+        ///     ---
+        ///     Wild Animals
         /// </summary>
-        ZombieGroup = 0x02,
-
+        WildAnimalsGroup = 0x02,
+        
         /// <summary>
-        /// НПС, обычно союзник
+        ///     Зомби
+        ///     ---
+        ///     Zombies
         /// </summary>
-        AlliedGroup = 0x03,
-
+        ZombieGroup = 0x03,
+        
         /// <summary>
-        /// НПС, обычно враждебные
+        ///     Усопшие
+        ///     ---
+        ///     
         /// </summary>
-        HostilesGroup = 0x04,
-
+        DeceasedGroup = 0x04,
+        
+        /// <summary>
+        ///     Мародеры
+        ///     ---
+        ///     
+        /// </summary>
+        MaraudersGroup = 0x05,
+        
+        /// <summary>
+        ///     Скифы
+        ///     ---
+        ///     
+        /// </summary>
+        ScythiansGroup = 0x06,
+        
+        /// <summary>
+        ///     Новый свет
+        ///     ---
+        ///     
+        /// </summary>
+        NewLightGroup = 0x07,
+        
+        /// <summary>
+        ///     Технократы
+        ///     ---
+        ///     
+        /// </summary>
+        TechnocratsGroup = 0x08,
+        
+        /// <summary>
+        ///     Спринтеры
+        ///     ---
+        ///     
+        /// </summary>
+        SprintersGroup = 0x09,
+        
+        /// <summary>
+        ///     Реконструкторы
+        ///     ---
+        ///     
+        /// </summary>
+        ReconstructionistsGroup = 0x0A,
+        
     };
 
 }

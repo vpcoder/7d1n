@@ -53,7 +53,9 @@ namespace Engine.Logic.Locations
         }
 
         /// <summary>
-        /// Вводит врага в битву
+        ///     Вводит врага в битву
+        ///     ---
+        ///     
         /// </summary>
         /// <param name="enemies">Враги</param>
         public void AddEnemiesToBattle(params EnemyNpcBehaviour[] enemies)
@@ -63,7 +65,9 @@ namespace Engine.Logic.Locations
         }
 
         /// <summary>
-        /// Выводит врага из битвы
+        ///     Выводит врага из битвы
+        ///     ---
+        ///     
         /// </summary>
         /// <param name="enemies">Враги</param>
         public void RemoveEnemiesFromBattle(params EnemyNpcBehaviour[] enemies)
@@ -89,30 +93,27 @@ namespace Engine.Logic.Locations
         /// </summary>
         public void EnterToBattle()
         {
-            Debug.Log("start battle");
+            Debug.Log("starting battle...");
 
             Game.Instance.Runtime.Mode = Mode.Battle;
             Game.Instance.Runtime.BattleFlag = true;
 
-            var character = ObjectFinder.Find<LocationCharacter>();
-
-            Debug.Log("find enemies...");
-
+            Debug.Log("finding enemies...");
             foreach (var entry in NpcAISceneManager.Instance.GroupToNpcList)
-            {
                 enemies.AddRange(entry.Value);
-            }
-
-            Debug.Log("create order...");
-
+            Debug.Log("founded " + enemies.Count + " npc bodies");
+            
+            Debug.Log("creating order...");
             NpcAISceneManager.Instance.SetupOrder(); // Формируем очереди ходов
-
+            Debug.Log("created " + Game.Instance.Runtime.BattleContext.Order.Count + " order groups");
+            
             var apController = ObjectFinder.Find<BattleApController>();
             apController.Show();
 
             if (Game.Instance.Runtime.BattleContext.OrderIndex == EnemyGroup.PlayerGroup)
                 StartPlayerStep();
-            
+
+            Debug.Log("battle started");
         }
 
         /// <summary>
@@ -195,7 +196,7 @@ namespace Engine.Logic.Locations
 
             if (Game.Instance.Runtime.BattleContext.OrderIndex != EnemyGroup.PlayerGroup && Game.Instance.Runtime.BattleContext.OrderIndex != EnemyGroup.AnotherPlayerGroup)
 			{
-                NpcAIPredictor.Instance.CreateStrategy();
+                NpcAIPredictor.Instance.CreateStrategyForAllNpc();
 			}       
         }
 

@@ -127,7 +127,7 @@ namespace Engine.Logic.Locations.Generator
             RoomBuilderFactory.Instance.BuildRoomObjects(context);
         }
 
-        public static void GenerateGlobalScene(ICollection<IMarker> markersInToScene)
+        public static BuildLocationGlobalInfo GenerateGlobalScene(ICollection<IMarker> markersInToScene)
         {
             var buildInfo = Game.Instance.Runtime.GenerationInfo;
             
@@ -144,6 +144,8 @@ namespace Engine.Logic.Locations.Generator
             context.BuildingElement = elementFactory.Get(buildType, buildingVariationID);
 
             RoomBuilderFactory.Instance.BuildGlobalScene(context);
+
+            return context;
         }
 
         #endregion

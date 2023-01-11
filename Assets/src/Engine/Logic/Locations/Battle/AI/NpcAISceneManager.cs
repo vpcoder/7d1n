@@ -36,9 +36,15 @@ namespace Engine.Logic.Locations
         }
 
         /// <summary>
-        /// Перед битвой определяет всех участников битвы, и формирует очередь групп-ходов
+        ///     Перед битвой определяет всех участников битвы, и формирует очередь групп-ходов
+        ///     ---
+        ///     Before the battle determines all the participants of the battle, and forms a queue of group moves
         /// </summary>
-        /// <returns>Группы ходов в нужной очередности</returns>
+        /// <returns>
+        ///     Группы ходов в нужной очередности
+        ///     ---
+        ///     Groups of moves in the right order
+        /// </returns>
         public List<EnemyGroup> CreateOrderList()
         {
             Debug.Log("battle create order...");
@@ -56,12 +62,14 @@ namespace Engine.Logic.Locations
             }
 
             order.AddRange(enemyInitiative.Keys);
-
+            
             return order;
         }
 
         /// <summary>
-        /// Обновляет текущую очередь ходов, исключая группы, которых уже в бою нет
+        ///     Обновляет текущую очередь ходов, исключая группы, которых уже в бою нет
+        ///     ---
+        ///     Updates the current turn queue, excluding groups that are no longer in combat
         /// </summary>
         public void UpdateOrderList()
         {
@@ -88,7 +96,9 @@ namespace Engine.Logic.Locations
         }
 
         /// <summary>
-        /// Инициализирует очередь перед началом битвы
+        ///     Инициализирует очередь ходов перед началом битвы
+        ///     ---
+        ///     Initializes the turn queue before the battle begins
         /// </summary>
         public void SetupOrder()
         {

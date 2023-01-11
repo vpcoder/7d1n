@@ -6,8 +6,13 @@
 		  Sprite="surviver" />
 	
 	<Item ID="100"
-		  Body="zombie_business_female"
-		  Behaviour="zombie_business_female"
+		  Body="zombie/business_female"
+		  Behaviour="zombie/human_base"
 		  Sprite="zombie_business_female" />
+		  
+	<Item ID="101"
+		  Body="zombie/businessman_male"
+		  Behaviour="zombie/human_base"
+		  Sprite="zombie_businessman_male" />
 
 </Data>

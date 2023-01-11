@@ -1,4 +1,5 @@
-﻿using Engine.Data;
+﻿using System;
+using Engine.Data;
 using Engine.Data.Factories;
 using System.Collections.Generic;
 using UnityEngine;
@@ -17,10 +18,10 @@ namespace Engine.Logic.Locations
     /// Any NPC in the game, including the player character, and his comrades
     /// 
     /// </summary>
-    public class EnemyNpcBehaviour : MonoBehaviour,
-                                     IAttackObject,
-                                     IMonoBehaviourOverrideStartEvent,
-                                     IMonoBehaviourOverrideUpdateEvent
+    public abstract class EnemyNpcBehaviour : MonoBehaviour,
+                                              IAttackObject,
+                                              IMonoBehaviourOverrideStartEvent,
+                                              IMonoBehaviourOverrideUpdateEvent
     {
 
         [SerializeField] protected Animator animator;
@@ -49,6 +50,14 @@ namespace Engine.Logic.Locations
         public virtual Vector3 TargetAttackPos { get; set; }
         public virtual GameObject AttackCharacterObject { get { return this.gameObject; } }
         public AudioSource AttackAudioSource { get { return this.attackAudioSource; } }
+        
+        /// <summary>
+        ///     Словарь предикторов по состоянию НПС
+        ///     ---
+        ///     
+        /// </summary>
+        protected IDictionary<NpcStateType, IPredictor> PredictorByState { get; set; }
+        
 
         /// <summary>
         /// Параметры врага
@@ -75,6 +84,50 @@ namespace Engine.Logic.Locations
 
         #endregion
 
+        public void StartNPC()
+        {
+            DoNextAction(); // Начинаем первое действие
+            IsEndStep = false; // Стартуем логику разбора очереди действий
+        }
+
+        public void StopNPC()
+        {
+            IsEndStep = true; // Останавливаем логику разбора очереди действий
+            
+            var manager = ObjectFinder.Find<BattleManager>();
+            manager.EnemyStepCompleted(this); // Помечаем в менеджере что NPC завершил ход
+        }
+
+        /// <summary>
+        ///     Выполняет поиск предиктора по состоянию
+        ///     ---
+        ///     Performs predictor search by state
+        /// </summary>
+        /// <returns>
+        ///     Предиктор, формирующий стратегию поведения при указанном состоянии
+        ///     ---
+        ///     Predictor that forms the strategy of behavior under the specified condition
+        /// </returns>
+        /// <exception cref="NotSupportedException">
+        ///     Не удалось найти предиктора по состоянию
+        ///     ---
+        ///     It was not possible to find a predictor by state
+        /// </exception>
+        public IPredictor TryFindPredictor()
+        {
+            if (!PredictorByState.TryGetValue(NpcContext.Status.State, out var predictor))
+                throw new NotSupportedException("npc state '" + NpcContext.Status.State + "' isn't supported!");
+            return predictor;
+        }
+
+        public void LoadPredictors(IDictionary<NpcStateType, string> stateToPredictorName)
+        {
+            PredictorByState?.Clear();
+            PredictorByState = new Dictionary<NpcStateType, IPredictor>();
+            foreach (var entry in stateToPredictorName)
+                PredictorByState[entry.Key] = NpcAIPredictor.Instance.Get(entry.Value);
+        }
+        
         public void EquipWeapon(IWeapon weapon)
         {
             var weaponPoint = EnemyBody?.WeaponPoint;
@@ -114,11 +167,12 @@ namespace Engine.Logic.Locations
         protected virtual void UpdateBody()
         {
             this.body.transform.DestroyAllChilds();
-            var body = GameObject.Instantiate(NpcFactory.Instance.GetBody(id), this.body.transform);
-            this.EnemyBody = body.GetComponent<EnemyBody>();
+            var bodyBehaviour = GameObject.Instantiate(NpcFactory.Instance.GetBody(id), this.body.transform);
+            this.EnemyBody = bodyBehaviour.GetComponent<EnemyBody>();
             this.animator.avatar = EnemyBody.Avatar;
             this.animator.runtimeAnimatorController = EnemyBody.Controller;
 
+            //TODO: FIXME: Костыль, нужно переделать на сеть коллидеров, обернув конечности в box collider
             var collider = this.gameObject.AddComponent<MeshCollider>();
             collider.sharedMesh = EnemyBody.MeshRenderer.sharedMesh;
         }
@@ -159,7 +213,7 @@ namespace Engine.Logic.Locations
 
             if (CurrentAction == null) // Нет действий, заканчиваем ход
             {
-                DoEndStep();
+                StopNPC();
                 return;
             }
 
@@ -181,7 +235,7 @@ namespace Engine.Logic.Locations
                 DoNextAction(); // Конец действия
         }
 
-        public void DoNextAction()
+        private void DoNextAction()
         {
             if(CurrentIterationAction != null)
                 CurrentIterationAction.End(this, CurrentAction, timestamp);
@@ -190,7 +244,7 @@ namespace Engine.Logic.Locations
             {
                 CurrentAction = null;
                 CurrentIterationAction = null;
-                DoEndStep();
+                StopNPC();
                 return;
             }
 
@@ -202,13 +256,6 @@ namespace Engine.Logic.Locations
 
             timestamp = Time.time;
             NpcContext.Actions.RemoveAt(0);
-        }
-
-        private void DoEndStep()
-        {
-            IsEndStep = true;
-            var manager = ObjectFinder.Find<BattleManager>();
-            manager.EnemyStepCompleted(this);
         }
 
         public virtual void Died()
@@ -225,7 +272,7 @@ namespace Engine.Logic.Locations
             dropController.Drop(transform.position, true, Enemy.Items); // Выкидываем предметы
             dropController.Drop(transform.position, true, Enemy.Weapons?.Where(weapon => !DataDictionary.Items.SYSTEM_ITEMS.Contains(weapon.ID)).ToArray());
 
-            DoEndStep();
+            StopNPC();
 
             Animator.SetInteger(AnimationKey.DeadKey, 1);
         }
