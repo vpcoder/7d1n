@@ -4,14 +4,7 @@ using UnityEngine;
 
 namespace Engine.Scenes
 {
-
-    public enum SceneName
-    {
-        Menu,
-        Map,
-        Location,
-    };
-
+    
     public class SceneManager
     {
 
@@ -23,7 +16,7 @@ namespace Engine.Scenes
 
             Debug.Log("load scene '" + runtime.Scene.ToString() + "'...");
 
-            if (runtime.Scene == SceneName.Location) // Текущая сцена - локация?
+            if (runtime.Scene == SceneName.Build) // Текущая сцена - локация?
                 ObjectFinder.Find<LocationSaver>().SaveLocation(Game.Instance.Runtime.Location); // Сохраняем состояние сцены в хранилище
 
             runtime.Mode = Mode.Switch;

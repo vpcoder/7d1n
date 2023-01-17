@@ -1,7 +1,9 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using Engine.Scenes;
 using Engine.Scenes.Loader;
+using src.Engine.Scenes.Loader.Impls;
 using UnityEngine;
 
 namespace src.Engine.Scenes.Loader
@@ -33,23 +35,58 @@ namespace src.Engine.Scenes.Loader
 
         private LoadFactory()
         {
-            foreach(var loader in AssembliesHandler.CreateImplementations<ISceneLoader>())
-                loaders.Add(loader.Scene, loader);
+            foreach (var loader in AssembliesHandler.CreateImplementations<ISceneLoader>())
+                loaders.Add(loader.GetType(), loader);
+            
+            var tmp = new Dictionary<SceneName, List<Type>>();
+            InitLoadLists(tmp);
+            
+            foreach (var entry in tmp)
+            {
+                var sceneName = entry.Key;
+                var listLoaders = entry.Value.Select(type => loaders[type]).ToList();
+                sceneLoaders.Add(sceneName, listLoaders);
+            }
+        }
+
+        private void InitLoadLists(IDictionary<SceneName, List<Type>> tmp)
+        {
+            tmp.AddInToList(SceneName.Menu,
+                typeof(MenuSceneLoader)
+            );
+            tmp.AddInToList(SceneName.Map,
+                typeof(MapSceneLoader)
+            );
+            tmp.AddInToList(SceneName.Build,
+                typeof(SceneGuiLoader)
+            );
+            
+            tmp.AddInToList(SceneName.TutorialStart,
+                typeof(SceneGuiLoader),
+                typeof(TutorialSceneLoader)
+            );
         }
 
         
         #endregion
 
         #region Hidden Fields
-        
+
+        /// <summary>
+        ///     Все известные загрузчики
+        ///     ---
+        ///     All known loaders
+        /// </summary>
+        private IDictionary<Type, ISceneLoader> loaders = new Dictionary<Type, ISceneLoader>();
+
         /// <summary>
         ///     Словарь загрузчиков.
-        ///     Имя сцены -> Загрузчик
+        ///     Имя сцены -> Загрузчики
         ///     ---
         ///     Loader Dictionary.
-        ///     Scene Name -> Loader
+        ///     Scene Name -> Loaders
         /// </summary>
-        private IDictionary<SceneName, ISceneLoader> loaders = new Dictionary<SceneName, ISceneLoader>();
+        private IDictionary<SceneName, IList<ISceneLoader>> sceneLoaders = new Dictionary<SceneName, IList<ISceneLoader>>();
 
         #endregion
         
@@ -70,12 +107,30 @@ namespace src.Engine.Scenes.Loader
         ///     ---
         ///     If no loader is found for the scene, it returns null
         /// </returns>
-        public ISceneLoader Get(SceneName scene)
+        public ICollection<ISceneLoader> Get(SceneName scene)
         {
-            loaders.TryGetValue(scene, out var loader);
-            return loader;
+            sceneLoaders.TryGetValue(scene, out var loaders);
+            return loaders;
         }
 
+        public void Load(SceneName scene, LoadContext context)
+        {
+            foreach (var loader in Get(scene))
+                loader.Load(context);
+        }
+        
+        public void PreLoad(SceneName scene, LoadContext context)
+        {
+            foreach (var loader in Get(scene))
+                loader.PreLoad(context);
+        }
+        
+        public void PostLoad(SceneName scene, LoadContext context)
+        {
+            foreach (var loader in Get(scene))
+                loader.PostLoad(context);
+        }
+        
         #endregion
         
     }

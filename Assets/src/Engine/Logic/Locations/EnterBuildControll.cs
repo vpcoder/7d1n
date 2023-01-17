@@ -47,11 +47,11 @@ namespace Engine.Logic
             }
 
             var load = ObjectFinder.Find<SceneToNextSceneLoadProcessor>();
-            load.ShowLoad(LoadBackgroundType.Build);
+            load.ShowLoad(SceneName.Build);
             load.SetDescription(Localization.Instance.Get("ui_map_load_location"));
 
             SaveContextToMemory();
-            SceneManager.Instance.Switch(SceneName.Location);
+            SceneManager.Instance.Switch(SceneName.Build);
         }
 
         private void SaveContextToMemory()

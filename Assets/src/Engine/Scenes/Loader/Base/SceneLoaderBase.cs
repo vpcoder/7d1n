@@ -13,17 +13,6 @@ namespace Engine.Scenes.Loader
     /// </summary>
     public abstract class SceneLoaderBase : ISceneLoader
     {
-        
-        #region Properties
-        
-        /// <summary>
-        ///     Название сцены, для которой будет выполнена специфическая логика загрузки
-        ///     ---
-        ///     Name of the scene for which the specific loading logic will be executed
-        /// </summary>
-        public abstract SceneName Scene { get; }
-        
-        #endregion
 
         #region Abstract Methods
 

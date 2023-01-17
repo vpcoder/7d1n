@@ -1,7 +1,7 @@
 using Engine.Data;
 using Engine.Data.Stories;
+using Engine.Logic.Locations;
 using Engine.Map;
-using Engine.Scenes;
 using Engine.Scenes.Loader;
 using UnityEngine;
 
@@ -10,9 +10,7 @@ namespace src.Engine.Scenes.Loader.Impls
     
     public class MapSceneLoader : SceneLoaderBase
     {
-        
-        public override SceneName Scene => SceneName.Map;
-        
+
         protected override void OnLoad(LoadContext context)
         {
             Debug.Log("save character data...");
@@ -25,6 +23,8 @@ namespace src.Engine.Scenes.Loader.Impls
             var panel = Object.Instantiate(context.TopPanel, canvas.transform);
             panel.transform.name = "TopPanel";
             panel.transform.SetAsFirstSibling();
+            
+            Object.Destroy(ObjectFinder.Find<BattleManager>().gameObject);
 
             var game = Game.Instance;
             var runtime = game.Runtime;

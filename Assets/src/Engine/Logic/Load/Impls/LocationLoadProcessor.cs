@@ -1,11 +1,6 @@
 ﻿using Engine.Data;
-using Engine.Data.Factories;
 using Engine.Logic.Locations;
 using System.Collections;
-using System.Collections.Generic;
-using Engine.Logic.Locations.Generator;
-using Engine.Logic.Locations.Generator.Environment.Building;
-using Engine.Logic.Locations.Generator.Markers;
 using Engine.Scenes;
 using Engine.Scenes.Loader;
 using src.Engine.Scenes.Loader;
@@ -34,7 +29,7 @@ namespace Engine.Logic.Load
             ObjectFinder.Find<NavMeshGenerator>().CreateNavMesh();
             
             // Загружаем сцену
-            LoadFactory.Instance.Get(SceneName.Location).PostLoad(new LoadContext()
+            LoadFactory.Instance.PostLoad(SceneName.Build, new LoadContext()
             {
                 EnemyListInfo = Game.Instance.Runtime.GenerationInfo.EnemyInfo.EnemyStartPoints
             });

@@ -10,10 +10,8 @@ using UnityEngine;
 namespace src.Engine.Scenes.Loader.Impls
 {
     
-    public class LocationSceneLoader : SceneLoaderBase
+    public class SceneGuiLoader : SceneLoaderBase
     {
-        
-        public override SceneName Scene => SceneName.Location;
         
         protected override void OnLoad(LoadContext context)
         {
@@ -21,7 +19,6 @@ namespace src.Engine.Scenes.Loader.Impls
             CharacterStory.Instance.SaveAll(Game.Instance.Character);
             
             Debug.Log("load location ui...");
-
             var canvas = ObjectFinder.Get<Canvas>("Canvas");
 
             var panel = Object.Instantiate(context.TopPanel, canvas.transform);

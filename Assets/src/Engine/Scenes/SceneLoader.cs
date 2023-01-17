@@ -25,8 +25,7 @@ namespace Engine.Logic
             
             var game = Game.Instance;
             var runtime = game.Runtime;
-            var sceneLoader = LoadFactory.Instance.Get(runtime.Scene);
-
+            
             var loadContext = new LoadContext()
             {
                 TopPanel = topPanelPrefab,
@@ -34,17 +33,15 @@ namespace Engine.Logic
                 LocationGUI = locationGUIPrefab,
             };
             
-            sceneLoader?.PreLoad(loadContext);
+            LoadFactory.Instance.PreLoad(runtime.Scene, loadContext);
 
             SetupCanvasSettings();
 
-            sceneLoader?.Load(loadContext);
+            LoadFactory.Instance.Load(runtime.Scene, loadContext);
             
             if (runtime.Mode == Mode.Switch)
                 runtime.Mode = Mode.Game;
 
-            //sceneLoader?.PostLoad(loadContext);
-            
             Destroy(this);
         }
         

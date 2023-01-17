@@ -10,18 +10,7 @@ namespace Engine.Scenes.Loader
     /// </summary>
     public interface ISceneLoader
     {
-        
-        #region Properties
-        
-        /// <summary>
-        ///     Название сцены, для которой будет выполнена специфическая логика загрузки
-        ///     ---
-        ///     Name of the scene for which the specific loading logic will be executed
-        /// </summary>
-        SceneName Scene { get; }
 
-        #endregion
-        
         #region Methods
         
         /// <summary>

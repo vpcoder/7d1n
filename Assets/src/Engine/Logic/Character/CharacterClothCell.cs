@@ -254,7 +254,7 @@ namespace Engine.Logic
             {
                 case HandCellType.LeftHand:
                     Game.Instance.Character.Equipment.Use1 = weapon;
-                    if (Game.Instance.Runtime.Scene == Scenes.SceneName.Location)
+                    if (Game.Instance.Runtime.Scene == Scenes.SceneName.Build)
                         ObjectFinder.Find<HandsController>().GetCell(0).Weapon = weapon;
 
                     if (Game.Instance.Character.Equipment.Use2 == weapon) // Нельзя брать одно и то же оружие дважды в обе руки
@@ -266,7 +266,7 @@ namespace Engine.Logic
                     break;
                 case HandCellType.RightHand:
                     Game.Instance.Character.Equipment.Use2 = weapon;
-                    if (Game.Instance.Runtime.Scene == Scenes.SceneName.Location)
+                    if (Game.Instance.Runtime.Scene == Scenes.SceneName.Build)
                         ObjectFinder.Find<HandsController>().GetCell(1).Weapon = weapon;
 
                     if (Game.Instance.Character.Equipment.Use1 == weapon) // Нельзя брать одно и то же оружие дважды в обе руки

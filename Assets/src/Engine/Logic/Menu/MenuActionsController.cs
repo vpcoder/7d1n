@@ -47,7 +47,7 @@ namespace Engine.Logic
         public void OnStartClick()
         {
             var load = ObjectFinder.Find<SceneToNextSceneLoadProcessor>();
-            load.ShowLoad(LoadBackgroundType.Map);
+            load.ShowLoad(SceneName.TutorialStart);
 
             buttonsPanel.SetActive(false);
 
@@ -55,7 +55,7 @@ namespace Engine.Logic
             CharacterStory.Instance.LoadAll(Game.Instance.Character);
 
             load.SetDescription(Localization.Instance.Get("ui_menu_load_mapscene"));
-            SceneManager.Instance.Switch(SceneName.Map);
+            SceneManager.Instance.Switch(SceneName.TutorialStart);
         }
 
         public void OnSettingsClick()

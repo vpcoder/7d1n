@@ -12,12 +12,6 @@ namespace Engine.Logic.Locations
     public class BattleManager : MonoBehaviour
     {
 
-        private void Start()
-        {
-            if (Game.Instance.Runtime.Scene != Scenes.SceneName.Location)
-                Destroy(this);
-        }
-
         [SerializeField] private GameObject damageHintPrefab;
         [SerializeField] private List<EnemyNpcBehaviour> enemies;
 
