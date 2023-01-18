@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using Engine.Logic.Dialog;
+﻿using Engine.Logic.Dialog;
 
 namespace UnityEngine
 {
@@ -25,6 +23,7 @@ namespace UnityEngine
 
         public static Canvas Canvas => Get<Canvas>("Canvas");
         public static DialogBox DialogBox => Get<DialogBox>("DialogBox");
+        public static GameObject TopPanel => GameObject.FindWithTag("TopPanel");
         
         public static void Clear()
         {

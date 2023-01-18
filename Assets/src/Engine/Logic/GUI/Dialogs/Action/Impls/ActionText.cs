@@ -15,8 +15,9 @@ namespace Engine.Logic.Dialog.Action.Impls
         {
             var dialogBox = runtime.DialogBox;
             dialogBox.SetText(Text);
-            dialogBox.SetFirstAvatar(AvatarFactory.Instance.Get(FirstAvatar));
-            dialogBox.SetSecondAvatar(AvatarFactory.Instance.Get(SecondAvatar));
+
+            dialogBox.SetFirstAvatar(FirstAvatar == null ? null : AvatarFactory.Instance.Get(FirstAvatar));
+            dialogBox.SetSecondAvatar(SecondAvatar == null ? null : AvatarFactory.Instance.Get(SecondAvatar));
         }
         
     }

@@ -198,11 +198,17 @@ namespace Engine.Logic.Locations.Battle
 
         public void OnPointerDown(PointerEventData eventData)
         {
+            if(Game.Instance.Runtime.Mode != Mode.Game &&
+               Game.Instance.Runtime.Mode != Mode.Battle)
+                return;
             UpdateEvent();
         }
 
         public void OnDrag(PointerEventData eventData)
         {
+            if(Game.Instance.Runtime.Mode != Mode.Game &&
+               Game.Instance.Runtime.Mode != Mode.Battle)
+                return;
             UpdateEvent();
         }
 

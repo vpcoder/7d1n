@@ -124,6 +124,10 @@ namespace Engine.Logic.Map
 
         public void OnDrag(PointerEventData eventData)
         {
+	        if(Game.Instance.Runtime.Mode != Mode.Game &&
+	           Game.Instance.Runtime.Mode != Mode.Battle)
+		        return;
+	        
             if (Game.Instance.Runtime.ActionMode != ActionMode.Rotation)
                 return;
 

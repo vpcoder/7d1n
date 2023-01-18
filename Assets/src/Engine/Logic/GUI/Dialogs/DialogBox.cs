@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using Engine.Data;
 using Engine.Logic.Base;
 using Engine.Logic.Dialog.Action;
 using Engine.Logic.Dialog.Action.Impls;
@@ -71,6 +72,7 @@ namespace Engine.Logic.Dialog
             firstAvatar.sprite = emptyAvatar;
             secondAvatar.sprite = emptyAvatar;
             Locker = null;
+            Game.Instance.Runtime.Mode = Mode.Game;
         }
 
         public void SetDialogQueueAndRun([NotNull] IEnumerable<IActionCommand> dialogQueue, int startIndex, object locker)
@@ -83,6 +85,7 @@ namespace Engine.Logic.Dialog
             }
 
             Locker = locker;
+            Game.Instance.Runtime.Mode = Mode.Dialog;
 
             Show();
             runtime.SetDialogQueueAndRun(this, dialogQueue, startIndex);

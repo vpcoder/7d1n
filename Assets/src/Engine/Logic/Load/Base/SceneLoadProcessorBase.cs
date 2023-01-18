@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using Engine.EGUI;
+using src.Engine.Scenes.Loader;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -46,6 +47,7 @@ namespace Engine.Logic.Load
             Hide();
             isLoadingProcess = false;
             OnCompleteLoad();
+            LoadFactory.Instance.DoComplete();
         }
 
         public abstract void OnStartLoad();

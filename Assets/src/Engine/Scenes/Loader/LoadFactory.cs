@@ -24,7 +24,7 @@ namespace src.Engine.Scenes.Loader
         #region Singleton
         
         private static Lazy<LoadFactory> instance = new Lazy<LoadFactory>(() => new LoadFactory());
-
+        
         public static LoadFactory Instance
         {
             get
@@ -70,6 +70,8 @@ namespace src.Engine.Scenes.Loader
         
         #endregion
 
+        public event Action Complete;
+        
         #region Hidden Fields
 
         /// <summary>
@@ -129,6 +131,17 @@ namespace src.Engine.Scenes.Loader
         {
             foreach (var loader in Get(scene))
                 loader.PostLoad(context);
+        }
+
+        public void DoComplete()
+        {
+            if(Complete == null)
+                return;
+            
+            Complete.Invoke();
+            
+            foreach (var link in Complete.GetInvocationList())
+                Complete -= (Action)link;
         }
         
         #endregion

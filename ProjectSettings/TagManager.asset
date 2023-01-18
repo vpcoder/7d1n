@@ -9,6 +9,8 @@ TagManager:
   - LocationPath
   - SceneView
   - LoadBody
+  - DialogBox
+  - TopPanel
   layers:
   - Default
   - TransparentFX

@@ -25,9 +25,9 @@ namespace src.Engine.Scenes.Loader.Impls
             panel.transform.name = "TopPanel";
             panel.transform.SetAsFirstSibling();
 
-            var gui = Object.Instantiate(context.LocationGUI, canvas.transform);
-            gui.transform.name = "GUI";
-            gui.transform.SetAsFirstSibling();
+            //var gui = Object.Instantiate(context.LocationGUI, canvas.transform);
+            //gui.transform.name = "GUI";
+            //gui.transform.SetAsFirstSibling();
 
             ObjectFinder.Get("SceneView").SetAsFirstSibling();
         }

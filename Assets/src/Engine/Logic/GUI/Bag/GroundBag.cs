@@ -17,7 +17,7 @@ namespace Engine.Logic
         /// </summary>
         public void ScanGround()
         {
-            if (Game.Instance.Runtime.Scene != Scenes.SceneName.Build)
+            if (Game.Instance.Runtime.Scene == Scenes.SceneName.Map)
                 return;
 
             var character = ObjectFinder.Find<LocationCharacter>();

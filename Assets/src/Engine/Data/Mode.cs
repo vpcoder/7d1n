@@ -15,6 +15,8 @@ namespace Engine.Data
         /// </summary>
         GUI,
 
+        Dialog,
+        
         /// <summary>
         /// Обычный игровой режим
         /// </summary>

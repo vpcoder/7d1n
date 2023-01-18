@@ -21,7 +21,7 @@ namespace Engine.Logic.Locations
 
         private void Start()
         {
-            if (Game.Instance.Runtime.Scene != Scenes.SceneName.Build)
+            if (Game.Instance.Runtime.Scene == Scenes.SceneName.Map)
                 Hide();
         }
 
