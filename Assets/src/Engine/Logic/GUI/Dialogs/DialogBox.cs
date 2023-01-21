@@ -28,6 +28,8 @@ namespace Engine.Logic.Dialog
 
         public object Locker { get; set; }
 
+        public DialogRuntime Runtime => runtime;
+
         public void SelectVariant(SelectVariant variant)
         {
             if (answerBox != null)

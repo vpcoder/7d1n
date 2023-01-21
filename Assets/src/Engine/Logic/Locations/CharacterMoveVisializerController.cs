@@ -170,13 +170,15 @@ namespace Engine.Logic.Locations
                 return;
 
             var battleManager = ObjectFinder.Find<BattleManager>();
-            var battleActions = battleManager.BattleActions;
+            if(battleManager == null)
+                return;
 
+            var battleActions = battleManager.BattleActions;
             if (battleActions.AttackContext.AttackMarker != null)
                 return;
 
             var character = ObjectFinder.Find<LocationCharacter>();
-            if (Lists.IsNotEmpty(character.Path))
+            if (character == null || Lists.IsNotEmpty(character.Path))
                 return; // Персонаж уже идёт по ранее рассчитанному пути, не рассчитываем новый, пока он не завершит старый путь
             
             var point = DeviceInput.TouchPosition;

@@ -14,6 +14,47 @@ namespace UnityEngine {
 
 		public delegate void AsyncCallback();
 
+		public static TransformPair GetState(this Transform transform)
+		{
+			return new TransformPair()
+			{
+				position = transform.position,
+				rotation =  transform.rotation,
+			};
+		}
+		
+		public static TransformPair GetState(this GameObject obj)
+		{
+			return GetState(obj.transform);
+		}
+
+		public static TransformPair GetState(this Camera obj)
+		{
+			return GetState(obj.transform);
+		}
+
+		public static void SetState(this Transform transform, TransformPair state)
+		{
+			transform.position = state.position;
+			transform.rotation = state.rotation;
+		}
+		
+		public static void SetState(this Transform transform, Transform another)
+		{
+			transform.position = another.position;
+			transform.rotation = another.rotation;
+		}
+		
+		public static void SetState(this GameObject obj, Transform another)
+		{
+			SetState(obj.transform, another);
+		}
+		
+		public static void SetState(this Camera obj, Transform another)
+		{
+			SetState(obj.transform, another);
+		}
+		
 		/// <summary>
 		/// Асинхронно удаляет все дочерние элементы внутри Transform
 		/// </summary>

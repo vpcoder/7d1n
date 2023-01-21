@@ -13,6 +13,9 @@ namespace Engine.Logic.Dialog
         private int goToActionIndex;
         private bool isLastGoTo;
 
+        public event System.Action EndEvent;
+        public event System.Action StartEvent;
+        
         public DialogBox DialogBox { get; private set; }
 
         public IActionCommand CurrentAction => GetByIndex(index);
@@ -53,6 +56,13 @@ namespace Engine.Logic.Dialog
         public void SetDialogQueueAndRun(DialogBox dialogBox, [NotNull] IEnumerable<IActionCommand> dialogQueue,
             int startIndex = 0)
         {
+            if (StartEvent != null)
+            {
+                StartEvent.Invoke();
+                foreach (var link in StartEvent.GetInvocationList())
+                    StartEvent -= (System.Action)link;
+            }
+
 #if UNITY_EDITOR && DEBUG && DIALOG_DEBUG
             Debug.Log("setup dialog queue in runtime...");
 #endif
@@ -181,6 +191,13 @@ namespace Engine.Logic.Dialog
 
             if (DialogBox != null)
                 DialogBox.Hide();
+            
+            if (EndEvent != null)
+            {
+                EndEvent.Invoke();
+                foreach (var link in EndEvent.GetInvocationList())
+                    EndEvent -= (System.Action)link;
+            }
         }
     }
 }

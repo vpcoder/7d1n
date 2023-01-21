@@ -1,6 +1,11 @@
 ﻿<Data>
 
 	<Item ID="0"
+		  Body="character"
+		  Behaviour="character"
+		  Sprite="character" />
+		  
+	<Item ID="1"
 		  Body="surviver"
 		  Behaviour="surviver"
 		  Sprite="surviver" />

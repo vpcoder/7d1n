@@ -1,4 +1,5 @@
 ﻿using Engine.Logic.Dialog;
+using UnityEngine.UI;
 
 namespace UnityEngine
 {
@@ -24,6 +25,8 @@ namespace UnityEngine
         public static Canvas Canvas => Get<Canvas>("Canvas");
         public static DialogBox DialogBox => Get<DialogBox>("DialogBox");
         public static GameObject TopPanel => GameObject.FindWithTag("TopPanel");
+        public static GameObject SceneView => GameObject.FindWithTag("SceneView");
+        public static Image SceneViewImage => SceneView.GetComponent<Image>();
         
         public static void Clear()
         {

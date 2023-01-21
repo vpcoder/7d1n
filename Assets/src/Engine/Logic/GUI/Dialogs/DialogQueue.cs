@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using Engine.Logic.Dialog.Action;
 using Engine.Logic.Dialog.Action.Impls;
 
@@ -60,6 +59,11 @@ namespace Engine.Logic.Dialog
             Queue.Add(action);
             return action;
         }
+        
+        public ActionEmpty Point(string id)
+        {
+            return (ActionEmpty)Empty().SetID(id);
+        }
 
         public ActionMusic Music(string music)
         {
@@ -71,7 +75,7 @@ namespace Engine.Logic.Dialog
             return action;
         }
         
-        public ActionDelay Delay(float waitTime, string showText = null)
+        public ActionDelay Delay(float waitTime, string showText)
         {
             var action = new ActionDelay()
             {
@@ -122,6 +126,16 @@ namespace Engine.Logic.Dialog
                 Condition = condition,
                 TrueGoTo = trueGoTo,
                 FalseGoTo = falseGoTo,
+            };
+            Queue.Add(action);
+            return action;
+        }
+        
+        public ActionGoTo GoTo(string goTo)
+        {
+            var action = new ActionGoTo()
+            {
+                GoTo = goTo
             };
             Queue.Add(action);
             return action;

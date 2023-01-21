@@ -54,10 +54,15 @@ namespace Engine.Data.Factories
         /// </returns>
         public T Get(string id)
         {
+            return GetRaw(Directory + "/" + id);
+        }
+        
+        public T GetRaw(string id)
+        {
             T result = null;
             if (!data.TryGetValue(id, out result))
             {
-                result = Resources.Load<T>(Directory + "/" + id);
+                result = Resources.Load<T>(id);
                 if (result == null)
                 {
                     Debug.LogError("prefab '" + GetType().Name + "' with id '" + id + "' - not founded!");
