@@ -11,357 +11,266 @@ CREATE TABLE `i18n_ru_ru` (
 
 INSERT INTO `i18n_lang`(`id`,`code`,`name`) VALUES (0, 'ru_ru', 'Русский');
 
+property "lang", "i18n_ru_ru";
+
 # ----------------------- ;
 
 # Навыки ;
 
-    INSERT INTO `i18n_ru_ru`(`key`,`value`) VALUES ('skill/scrap_difficulty_1_name', 'Сложность разбора');
-    INSERT INTO `i18n_ru_ru`(`key`,`value`) VALUES ('skill/scrap_difficulty_1_desc', '+1 к сложности разбора, позволяет разбирать более сложные объекты');
-    INSERT INTO `i18n_ru_ru`(`key`,`value`) VALUES ('skill/scrap_difficulty_2_name', 'Сложность разбора');
-    INSERT INTO `i18n_ru_ru`(`key`,`value`) VALUES ('skill/scrap_difficulty_2_desc', '+1 к сложности разбора, позволяет разбирать более сложные объекты');
-    INSERT INTO `i18n_ru_ru`(`key`,`value`) VALUES ('skill/scrap_difficulty_3_name', 'Сложность разбора');
-    INSERT INTO `i18n_ru_ru`(`key`,`value`) VALUES ('skill/scrap_difficulty_3_desc', '+1 к сложности разбора, позволяет разбирать более сложные объекты');
-    INSERT INTO `i18n_ru_ru`(`key`,`value`) VALUES ('skill/scrap_difficulty_4_name', 'Сложность разбора');
-    INSERT INTO `i18n_ru_ru`(`key`,`value`) VALUES ('skill/scrap_difficulty_4_desc', '+1 к сложности разбора, позволяет разбирать более сложные объекты');
+    message_object "skill/scrap_difficulty_1", "Сложность разбора", "+1 к сложности разбора, позволяет разбирать более сложные объекты";
+    message_object "skill/scrap_difficulty_2", "Сложность разбора", "+1 к сложности разбора, позволяет разбирать более сложные объекты";
+    message_object "skill/scrap_difficulty_3", "Сложность разбора", "+1 к сложности разбора, позволяет разбирать более сложные объекты";
+    message_object "skill/scrap_difficulty_4", "Сложность разбора", "+1 к сложности разбора, позволяет разбирать более сложные объекты";
 
 # Ресурсы ;
 
-    INSERT INTO `i18n_ru_ru`(`key`,`value`) VALUES ('res/wood_name', 'Дерево');
-    INSERT INTO `i18n_ru_ru`(`key`,`value`) VALUES ('res/wood_desc', 'Фрагменты необработанной древесины');
-    INSERT INTO `i18n_ru_ru`(`key`,`value`) VALUES ('res/scrap_name', 'Металлолом');
-    INSERT INTO `i18n_ru_ru`(`key`,`value`) VALUES ('res/scrap_desc', 'Фрагменты необработанных металлических деталей');
-    INSERT INTO `i18n_ru_ru`(`key`,`value`) VALUES ('res/iron_name', 'Железо');
-    INSERT INTO `i18n_ru_ru`(`key`,`value`) VALUES ('res/iron_desc', 'Очищенное от примисей железо');
-    INSERT INTO `i18n_ru_ru`(`key`,`value`) VALUES ('res/lead_name', 'Свинец');
-    INSERT INTO `i18n_ru_ru`(`key`,`value`) VALUES ('res/lead_desc', 'Очищенный от примисей свинец');
-    INSERT INTO `i18n_ru_ru`(`key`,`value`) VALUES ('res/cooper_name', 'Медь');
-    INSERT INTO `i18n_ru_ru`(`key`,`value`) VALUES ('res/cooper_desc', 'Очищенная от примисей медь');
-    INSERT INTO `i18n_ru_ru`(`key`,`value`) VALUES ('res/aluminum_name', 'Алюминий');
-    INSERT INTO `i18n_ru_ru`(`key`,`value`) VALUES ('res/aluminum_desc', 'Очищенный от примесей алюминий');
-    INSERT INTO `i18n_ru_ru`(`key`,`value`) VALUES ('res/silver_name', 'Серебро');
-    INSERT INTO `i18n_ru_ru`(`key`,`value`) VALUES ('res/silver_desc', 'Очищенное от примесей серебро');
-    INSERT INTO `i18n_ru_ru`(`key`,`value`) VALUES ('res/gold_name', 'Золото');
-    INSERT INTO `i18n_ru_ru`(`key`,`value`) VALUES ('res/gold_desc', 'Очищенное от примесей золото');
-    INSERT INTO `i18n_ru_ru`(`key`,`value`) VALUES ('res/titanium_name', 'Титан');
-    INSERT INTO `i18n_ru_ru`(`key`,`value`) VALUES ('res/titanium_desc', 'Очищенный от примесей титан');
-    INSERT INTO `i18n_ru_ru`(`key`,`value`) VALUES ('res/plastic_name', 'Пластик');
-    INSERT INTO `i18n_ru_ru`(`key`,`value`) VALUES ('res/plastic_desc', 'Фрагменты необработанного пластика');
-    INSERT INTO `i18n_ru_ru`(`key`,`value`) VALUES ('res/paper_name', 'Бумага');
-    INSERT INTO `i18n_ru_ru`(`key`,`value`) VALUES ('res/paper_desc', 'Фрагменты необработанной бумаги');
-    INSERT INTO `i18n_ru_ru`(`key`,`value`) VALUES ('res/electric_name', 'Электроматериалы');
-    INSERT INTO `i18n_ru_ru`(`key`,`value`) VALUES ('res/electric_desc', 'Транзисторы, резисторы, конденсаторы, диоды');
-    INSERT INTO `i18n_ru_ru`(`key`,`value`) VALUES ('res/stone_name', 'Камень');
-    INSERT INTO `i18n_ru_ru`(`key`,`value`) VALUES ('res/stone_desc', 'Куски необработанных камней');
-    INSERT INTO `i18n_ru_ru`(`key`,`value`) VALUES ('res/salt_name', 'Соль');
-    INSERT INTO `i18n_ru_ru`(`key`,`value`) VALUES ('res/salt_desc', 'Химическая соль');
-    INSERT INTO `i18n_ru_ru`(`key`,`value`) VALUES ('res/coal_name', 'Уголь');
-    INSERT INTO `i18n_ru_ru`(`key`,`value`) VALUES ('res/coal_desc', 'Куски каменного угля');
-    INSERT INTO `i18n_ru_ru`(`key`,`value`) VALUES ('res/water_name', 'Чистая вода');
-    INSERT INTO `i18n_ru_ru`(`key`,`value`) VALUES ('res/water_desc', 'Капли чистой воды, собранные в ёмкость');
-    INSERT INTO `i18n_ru_ru`(`key`,`value`) VALUES ('res/acid_name', 'Чистая кислота');
-    INSERT INTO `i18n_ru_ru`(`key`,`value`) VALUES ('res/acid_desc', 'Капли чистой кислоты, собранные в ёмкость');
-    INSERT INTO `i18n_ru_ru`(`key`,`value`) VALUES ('res/lye_name', 'Чистая щёлочь');
-    INSERT INTO `i18n_ru_ru`(`key`,`value`) VALUES ('res/lye_desc', 'Капли чистой щёлочи, собранные в ёмкость');
-    INSERT INTO `i18n_ru_ru`(`key`,`value`) VALUES ('res/fuel_name', 'Топливо');
-    INSERT INTO `i18n_ru_ru`(`key`,`value`) VALUES ('res/fuel_desc', 'Капли топлива, собранные в ёмкость');
-    INSERT INTO `i18n_ru_ru`(`key`,`value`) VALUES ('res/fiber_name', 'Волокно');
-    INSERT INTO `i18n_ru_ru`(`key`,`value`) VALUES ('res/fiber_desc', 'Тканевое волокно из кусочков ткани');
-    INSERT INTO `i18n_ru_ru`(`key`,`value`) VALUES ('res/rubber_name', 'Резина');
-    INSERT INTO `i18n_ru_ru`(`key`,`value`) VALUES ('res/rubber_desc', 'Фрагменты резины');
-    INSERT INTO `i18n_ru_ru`(`key`,`value`) VALUES ('res/powder_name', 'Порох');
-    INSERT INTO `i18n_ru_ru`(`key`,`value`) VALUES ('res/powder_desc', 'Щепотка пороха');
-    INSERT INTO `i18n_ru_ru`(`key`,`value`) VALUES ('res/explosive_name', 'Взрывчатка');
-    INSERT INTO `i18n_ru_ru`(`key`,`value`) VALUES ('res/explosive_desc', 'Слепленные комки взрывчатки');
-    INSERT INTO `i18n_ru_ru`(`key`,`value`) VALUES ('res/ceramics_name', 'Керамика');
-    INSERT INTO `i18n_ru_ru`(`key`,`value`) VALUES ('res/ceramics_desc', 'Кусочки керамики');
-    INSERT INTO `i18n_ru_ru`(`key`,`value`) VALUES ('res/sand_name', 'Песок');
-    INSERT INTO `i18n_ru_ru`(`key`,`value`) VALUES ('res/sand_desc', 'Чистый песок, ничего лишнего');
-    INSERT INTO `i18n_ru_ru`(`key`,`value`) VALUES ('res/brimstone_name', 'Сера');
-    INSERT INTO `i18n_ru_ru`(`key`,`value`) VALUES ('res/brimstone_desc', 'Чистая сера');
-    INSERT INTO `i18n_ru_ru`(`key`,`value`) VALUES ('res/saltpetre_name', 'Селитра');
-    INSERT INTO `i18n_ru_ru`(`key`,`value`) VALUES ('res/saltpetre_desc', 'Гранулированная селитра');
-    INSERT INTO `i18n_ru_ru`(`key`,`value`) VALUES ('res/dirty_water_name', 'Грязная вода');
-    INSERT INTO `i18n_ru_ru`(`key`,`value`) VALUES ('res/dirty_water_desc', 'Эта вода заражена, лучше её не пить');
-    INSERT INTO `i18n_ru_ru`(`key`,`value`) VALUES ('res/raw_iron_name', 'Железная руда');
-    INSERT INTO `i18n_ru_ru`(`key`,`value`) VALUES ('res/raw_iron_desc', 'Богатая железом порода');
-    INSERT INTO `i18n_ru_ru`(`key`,`value`) VALUES ('res/raw_lead_name', 'Свинцовая руда');
-    INSERT INTO `i18n_ru_ru`(`key`,`value`) VALUES ('res/raw_lead_desc', 'Богатая свинцом порода');
-    INSERT INTO `i18n_ru_ru`(`key`,`value`) VALUES ('res/raw_cooper_name', 'Медная руда');
-    INSERT INTO `i18n_ru_ru`(`key`,`value`) VALUES ('res/raw_cooper_desc', 'Богатая медью порода');
-    INSERT INTO `i18n_ru_ru`(`key`,`value`) VALUES ('res/raw_aluminum_name', 'Алюминиевая руда');
-    INSERT INTO `i18n_ru_ru`(`key`,`value`) VALUES ('res/raw_aluminum_desc', 'Богатая алюминием порода');
-    INSERT INTO `i18n_ru_ru`(`key`,`value`) VALUES ('res/raw_silver_name', 'Серебрянная руда');
-    INSERT INTO `i18n_ru_ru`(`key`,`value`) VALUES ('res/raw_silver_desc', 'Богатая серебром порода');
-    INSERT INTO `i18n_ru_ru`(`key`,`value`) VALUES ('res/raw_gold_name', 'Золотая руда');
-    INSERT INTO `i18n_ru_ru`(`key`,`value`) VALUES ('res/raw_gold_desc', 'Богатая золотом порода');
-    INSERT INTO `i18n_ru_ru`(`key`,`value`) VALUES ('res/raw_titanium_name', 'Титановая руда');
-    INSERT INTO `i18n_ru_ru`(`key`,`value`) VALUES ('res/raw_titanium_desc', 'Богатая титаном порода');
+    message_object "res/wood", "Дерево", "Фрагменты необработанной древесины";
+    message_object "res/scrap", "Металлолом", "Фрагменты необработанных металлических деталей";
+    message_object "res/iron", "Железо", "Очищенное от примисей железо";
+    message_object "res/lead", "Свинец", "Очищенный от примисей свинец";
+    message_object "res/cooper", "Медь", "Очищенная от примисей медь";
+    message_object "res/aluminum", "Алюминий", "Очищенный от примесей алюминий";
+    message_object "res/silver", "Серебро", "Очищенное от примесей серебро";
+    message_object "res/gold", "Золото", "Очищенное от примесей золото";
+    message_object "res/titanium", "Титан", "Очищенный от примесей титан";
+    message_object "res/plastic", "Пластик", "Фрагменты необработанного пластика";
+    message_object "res/paper", "Бумага", "Фрагменты необработанной бумаги";
+    message_object "res/electric", "Электроматериалы", "Транзисторы, резисторы, конденсаторы, диоды";
+    message_object "res/stone", "Камень", "Куски необработанных камней";
+    message_object "res/salt", "Соль", "Химическая соль";
+    message_object "res/coal", "Уголь", "Куски каменного угля";
+    message_object "res/water", "Чистая вода", "Капли чистой воды, собранные в ёмкость";
+    message_object "res/acid", "Чистая кислота", "Капли чистой кислоты, собранные в ёмкость";
+    message_object "res/lye", "Чистая щёлочь", "Капли чистой щёлочи, собранные в ёмкость";
+    message_object "res/fuel", "Топливо", "Капли топлива, собранные в ёмкость";
+    message_object "res/fiber", "Волокно", "Тканевое волокно из кусочков ткани";
+    message_object "res/rubber", "Резина", "Фрагменты резины";
+    message_object "res/powder", "Порох", "Щепотка пороха";
+    message_object "res/explosive", "Взрывчатка", "Слепленные комки взрывчатки";
+    message_object "res/ceramics", "Керамика", "Кусочки керамики";
+    message_object "res/sand", "Песок", "Чистый песок, ничего лишнего";
+    message_object "res/brimstone", "Сера", "Чистая сера";
+    message_object "res/saltpetre", "Селитра", "Гранулированная селитра";
+    message_object "res/dirty_water", "Грязная вода", "Эта вода заражена, лучше её не пить";
+    message_object "res/raw_iron", "Железная руда", "Богатая железом порода";
+    message_object "res/raw_lead", "Свинцовая руда", "Богатая свинцом порода";
+    message_object "res/raw_cooper", "Медная руда", "Богатая медью порода";
+    message_object "res/raw_aluminum", "Алюминиевая руда", "Богатая алюминием порода";
+    message_object "res/raw_silver", "Серебрянная руда", "Богатая серебром порода";
+    message_object "res/raw_gold", "Золотая руда", "Богатая золотом порода";
+    message_object "res/raw_titanium", "Титановая руда", "Богатая титаном порода";
 
 # Объекты ;
 
     # Кухня ;
 
-	    INSERT INTO `i18n_ru_ru`(`key`,`value`) VALUES ('sink_1_name', 'Раковина');
-	    INSERT INTO `i18n_ru_ru`(`key`,`value`) VALUES ('sink_1_desc', 'Старая раковина, в ней мыли посуду и использовали в хозяйстве. Есть мнение что раковина гораздо лучше писуара');
-	    INSERT INTO `i18n_ru_ru`(`key`,`value`) VALUES ('counter_corner_1_name', 'Угловая столешница');
-	    INSERT INTO `i18n_ru_ru`(`key`,`value`) VALUES ('counter_corner_1_desc', 'Часть кухни, в ней есть металлические детали');
-	    INSERT INTO `i18n_ru_ru`(`key`,`value`) VALUES ('counter_empty_1_name', 'Пустая столешница');
-	    INSERT INTO `i18n_ru_ru`(`key`,`value`) VALUES ('counter_empty_1_desc', 'Часть кухни, в ней только дерево');
-	    INSERT INTO `i18n_ru_ru`(`key`,`value`) VALUES ('counter_shelf_1_name', 'Столешница с полками');
-	    INSERT INTO `i18n_ru_ru`(`key`,`value`) VALUES ('counter_shelf_1_desc', 'Часть кухни, в ней только дерево');
-	    INSERT INTO `i18n_ru_ru`(`key`,`value`) VALUES ('counter_washing_1_name', 'Столешница с посудомойкой');
-	    INSERT INTO `i18n_ru_ru`(`key`,`value`) VALUES ('counter_washing_1_desc', 'Часть кухни, в ней есть электроника');
-	    INSERT INTO `i18n_ru_ru`(`key`,`value`) VALUES ('fridge_1_name', 'Холодильник');
-	    INSERT INTO `i18n_ru_ru`(`key`,`value`) VALUES ('fridge_1_desc', 'Охлаждает продукты для хранения, в нём должны быть электронные части');
-	    INSERT INTO `i18n_ru_ru`(`key`,`value`) VALUES ('oven_1_name', 'Электроплитка');
-	    INSERT INTO `i18n_ru_ru`(`key`,`value`) VALUES ('oven_1_desc', 'Разогревает пищу, в ней куча металла, так же упоминается в некоторых самоучителях для использования в качестве оружия пыток');
-	    INSERT INTO `i18n_ru_ru`(`key`,`value`) VALUES ('kitchen_table_1_name', 'Кухонный стол');
-	    INSERT INTO `i18n_ru_ru`(`key`,`value`) VALUES ('kitchen_table_1_desc', 'За таким столом люди собираются вместе чтобы поесть в компании, он из дерева, так же как и стул, при повороте, образует четыре сидячих места');
-	    INSERT INTO `i18n_ru_ru`(`key`,`value`) VALUES ('kitchen_chair_1_name', 'Кухонный стул');
-	    INSERT INTO `i18n_ru_ru`(`key`,`value`) VALUES ('kitchen_chair_1_desc', 'На этом стуле сидят за столом, он деревянный, если перевернуть - места хватит на четверых');
-	    INSERT INTO `i18n_ru_ru`(`key`,`value`) VALUES ('toaster_1_name', 'Тостер');
-	    INSERT INTO `i18n_ru_ru`(`key`,`value`) VALUES ('toaster_1_desc', 'Он умеет поджаривать ломтики хлеба или батона, особо ушлые могут пожарить в нём яичницу или даже вскипятить чай');
-	    INSERT INTO `i18n_ru_ru`(`key`,`value`) VALUES ('microwave_1_name', 'Микроволновка');
-	    INSERT INTO `i18n_ru_ru`(`key`,`value`) VALUES ('microwave_1_desc', 'Разогревает пищу. Производители не рекомендуют использовать с металлическими предметами, а так же сушить в ней домашних животных. К сожалению она слишком мала чтобы использовать её для тоталного уничтожения зомбей...');
-	    INSERT INTO `i18n_ru_ru`(`key`,`value`) VALUES ('extractor_1_name', 'Вытяжка');
-	    INSERT INTO `i18n_ru_ru`(`key`,`value`) VALUES ('extractor_1_desc', 'Вытягивает дым, пар и другие продукты горения и нагревания образующиеся в процессе приготовления пищи');
-	    INSERT INTO `i18n_ru_ru`(`key`,`value`) VALUES ('kitchen_cabinet_1_name', 'Настенный ящик');
-	    INSERT INTO `i18n_ru_ru`(`key`,`value`) VALUES ('kitchen_cabinet_1_desc', 'Обычно в нём хранятся специи, крупы, кастрюли и прочие вещи, связанные с готовкой');
+	    message_object "sink_1", "Раковина", "Старая раковина, в ней мыли посуду и использовали в хозяйстве. Есть мнение что раковина гораздо лучше писуара";
+	    message_object "counter_corner_1", "Угловая столешница", "Часть кухни, в ней есть металлические детали";
+	    message_object "counter_empty_1", "Пустая столешница", "Часть кухни, в ней только дерево";
+	    message_object "counter_shelf_1", "Столешница с полками", "Часть кухни, в ней только дерево";
+	    message_object "counter_washing_1", "Столешница с посудомойкой", "Часть кухни, в ней есть электроника";
+	    message_object "fridge_1", "Холодильник", "Охлаждает продукты для хранения, в нём должны быть электронные части";
+	    message_object "oven_1", "Электроплитка", "Разогревает пищу, в ней куча металла, так же упоминается в некоторых самоучителях для использования в качестве оружия пыток";
+	    message_object "kitchen_table_1", "Кухонный стол", "За таким столом люди собираются вместе чтобы поесть в компании, он из дерева, так же как и стул, при повороте, образует четыре сидячих места";
+	    message_object "kitchen_chair_1", "Кухонный стул", "На этом стуле сидят за столом, он деревянный, если перевернуть - места хватит на четверых";
+	    message_object "toaster_1", "Тостер", "Он умеет поджаривать ломтики хлеба или батона, особо ушлые могут пожарить в нём яичницу или даже вскипятить чай";
+	    message_object "microwave_1", "Микроволновка", "Разогревает пищу. Производители не рекомендуют использовать с металлическими предметами, а так же сушить в ней домашних животных. К сожалению она слишком мала чтобы использовать её для тоталного уничтожения зомбей...";
+	    message_object "extractor_1", "Вытяжка", "Вытягивает дым, пар и другие продукты горения и нагревания образующиеся в процессе приготовления пищи";
+	    message_object "kitchen_cabinet_1", "Настенный ящик", "Обычно в нём хранятся специи, крупы, кастрюли и прочие вещи, связанные с готовкой";
 	    
 	# Зал ;
 	    
-	    INSERT INTO `i18n_ru_ru`(`key`,`value`) VALUES ('hall_chair_1_name', 'Кресло');
-	    INSERT INTO `i18n_ru_ru`(`key`,`value`) VALUES ('hall_chair_1_desc', 'В нём удобно сидеть, мягкое...');
-	    INSERT INTO `i18n_ru_ru`(`key`,`value`) VALUES ('hall_couch_1_name', 'Диван');
-	    INSERT INTO `i18n_ru_ru`(`key`,`value`) VALUES ('hall_couch_1_desc', 'Как кресло, только на диване можно ещё и лежать, а в самом диване куча места, здесь можно спрятать целый труп, или даже два!');
-	    INSERT INTO `i18n_ru_ru`(`key`,`value`) VALUES ('hall_tv_cabinet_1_name', 'Стол для телевизора');
-	    INSERT INTO `i18n_ru_ru`(`key`,`value`) VALUES ('hall_tv_cabinet_1_desc', 'Обычно на такой ставят телевизор, а ещё в нём есть полочки');
-	    INSERT INTO `i18n_ru_ru`(`key`,`value`) VALUES ('tvset_1_name', 'ЖК Телевизор');
-	    INSERT INTO `i18n_ru_ru`(`key`,`value`) VALUES ('tvset_1_desc', 'По такому показывали различные передачи, фильмы и мультики, в нём есть электроника');
+	    message_object "hall_chair_1", "Кресло", "В нём удобно сидеть, мягкое...";
+	    message_object "hall_couch_1", "Диван", "Как кресло, только на диване можно ещё и лежать, а в самом диване куча места, здесь можно спрятать целый труп, или даже два!";
+	    message_object "hall_tv_cabinet_1", "Стол для телевизора", "Обычно на такой ставят телевизор, а ещё в нём есть полочки";
+	    message_object "tvset_1", "ЖК Телевизор", "По такому показывали различные передачи, фильмы и мультики, в нём есть электроника";
     
     # Ванная ;
     
-        INSERT INTO `i18n_ru_ru`(`key`,`value`) VALUES ('bath_sink_1_name', 'Умывальник');
-        INSERT INTO `i18n_ru_ru`(`key`,`value`) VALUES ('bath_sink_1_desc', 'С помощью него можно привести себя в порядок, но давайте рассуждать трезво - кому это надо?');
-        INSERT INTO `i18n_ru_ru`(`key`,`value`) VALUES ('bath_washer_1_name', 'Стиральная машина');
-        INSERT INTO `i18n_ru_ru`(`key`,`value`) VALUES ('bath_washer_1_desc', 'Выстирывает вещи от грязи, в ней еть электроника');
-        INSERT INTO `i18n_ru_ru`(`key`,`value`) VALUES ('bath_1_name', 'Ванна');
-        INSERT INTO `i18n_ru_ru`(`key`,`value`) VALUES ('bath_1_desc', 'В ванной можно помыться, в ней есть металл');
+        message_object "bath_sink_1", "Умывальник", "С помощью него можно привести себя в порядок, но давайте рассуждать трезво - кому это надо?";
+        message_object "bath_washer_1", "Стиральная машина", "Выстирывает вещи от грязи, в ней еть электроника";
+        message_object "bath_1", "Ванна", "В ванной можно помыться, в ней есть металл";
 	
 	# Общее в помещениях ;
 	
-	    INSERT INTO `i18n_ru_ru`(`key`,`value`) VALUES ('door_1_name', 'Дверь');
-	    INSERT INTO `i18n_ru_ru`(`key`,`value`) VALUES ('door_1_desc', 'Деревянная дверь, разделяющая комнаты');
+	    message_object "door_1", "Дверь", "Деревянная дверь, разделяющая комнаты";
 	
 	# Оружие ;
 
-		INSERT INTO `i18n_ru_ru`(`key`,`value`) VALUES ('weapon_system_hands_name', 'Голые руки');
-		INSERT INTO `i18n_ru_ru`(`key`,`value`) VALUES ('weapon_system_hands_desc', 'Лучше в них что нибудь взять, но если ничего нет, пойдёт и так');
-
-		INSERT INTO `i18n_ru_ru`(`key`,`value`) VALUES ('weapon_pistol_pm_name', 'Пистолет ПМ');
-		INSERT INTO `i18n_ru_ru`(`key`,`value`) VALUES ('weapon_pistol_pm_desc', 'Пистолет Макарова 9x18мм');
+		message_object "weapon_system_hands", "Голые руки", "Лучше в них что нибудь взять, но если ничего нет, пойдёт и так";
+		message_object "weapon_pistol_pm", "Пистолет ПМ", "Пистолет Макарова 9x18мм";
 
 	# Патроны ;
 
-		INSERT INTO `i18n_ru_ru`(`key`,`value`) VALUES ('ammo_9x18_name', 'Патроны 9x18мм');
-		INSERT INTO `i18n_ru_ru`(`key`,`value`) VALUES ('ammo_9x18_desc', 'Пистолетные патроны 9x18мм');
+		message_object "ammo_9x18", "Патроны 9x18мм", "Пистолетные патроны 9x18мм";
 
 	# Ножи ;
 
-		INSERT INTO `i18n_ru_ru`(`key`,`value`) VALUES ('weapon_knife_kitchen_name', 'Кухонный нож');
-		INSERT INTO `i18n_ru_ru`(`key`,`value`) VALUES ('weapon_knife_kitchen_desc', 'Нож с широким лезвием, хорошо разделывает мясо');
+		message_object "weapon_knife_kitchen", "Кухонный нож", "Нож с широким лезвием, хорошо разделывает мясо";
 
 	# Гранаты ;
 
-		INSERT INTO `i18n_ru_ru`(`key`,`value`) VALUES ('weapon_grenade_f1_name', 'Ф1');
-		INSERT INTO `i18n_ru_ru`(`key`,`value`) VALUES ('weapon_grenade_f1_desc', 'Осколочная граната Ф1');
-
-		INSERT INTO `i18n_ru_ru`(`key`,`value`) VALUES ('weapon_grenade_rgd5_name', 'РГД-5');
-		INSERT INTO `i18n_ru_ru`(`key`,`value`) VALUES ('weapon_grenade_rgd5_desc', 'Ручная граната РГД-5');
+		message_object "weapon_grenade_f1", "Ф1", "Осколочная граната Ф1";
+		message_object "weapon_grenade_rgd5", "РГД-5", "Ручная граната РГД-5";
 
 	# Еда ;
 		
-		INSERT INTO `i18n_ru_ru`(`key`,`value`) VALUES ('food_raw_roach_name', 'Живой таракан');
-		INSERT INTO `i18n_ru_ru`(`key`,`value`) VALUES ('food_raw_roach_desc', 'Чёрный таракан, наверное он съедобен');
-		INSERT INTO `i18n_ru_ru`(`key`,`value`) VALUES ('food_raw_fry_fish_name', 'Мальки живца');
-		INSERT INTO `i18n_ru_ru`(`key`,`value`) VALUES ('food_raw_fry_fish_desc', 'Очень мелкая рыбёшка, такими не наешься');
-		INSERT INTO `i18n_ru_ru`(`key`,`value`) VALUES ('food_raw_larvae_name', 'Личинка жука');
-		INSERT INTO `i18n_ru_ru`(`key`,`value`) VALUES ('food_raw_larvae_desc', 'Склизкая и шевелится');
-		
-		
+		message_object "food_raw_roach", "Живой таракан", "Чёрный таракан, наверное он съедобен";
+		message_object "food_raw_fry_fish", "Мальки живца", "Очень мелкая рыбёшка, такими не наешься";
+		message_object "food_raw_larvae", "Личинка жука", "Склизкая и шевелится";
+
 	# Предметы - инструменты ;
 	
-		INSERT INTO `i18n_ru_ru`(`key`,`value`) VALUES ('tool/hacksaw_name', 'Ножовка по металлу');
-		INSERT INTO `i18n_ru_ru`(`key`,`value`) VALUES ('tool/hacksaw_desc', 'Небольшая пила, плохо справляется с деревом, зато может помочь перепилить арматуру или большую берцовую кость. Инструмент крайне медленный, если вам срочно понадобилось распилить рельсу придётся запастить терпением и матюками...');
-		INSERT INTO `i18n_ru_ru`(`key`,`value`) VALUES ('tool/hammer_name', 'Простой молоток');
-		INSERT INTO `i18n_ru_ru`(`key`,`value`) VALUES ('tool/hammer_desc', 'Обычный молоток, им можно бить с обоих сторон. Гвозди, двери, головы зомбей и даже шурупы - ему всё ни по чём!');
-		INSERT INTO `i18n_ru_ru`(`key`,`value`) VALUES ('tool/multihammer_name', 'Молоток с гвоздодёром');
-		INSERT INTO `i18n_ru_ru`(`key`,`value`) VALUES ('tool/multihammer_desc', 'С одной стороны молоток, с другой стороны гвоздодёр, универсальный мультиинструмент! Осталось только крикрутить бумеранг изолентой, и добавить прицел...');
-		INSERT INTO `i18n_ru_ru`(`key`,`value`) VALUES ('tool/pruning_saw_name', 'Садовая пила');
-		INSERT INTO `i18n_ru_ru`(`key`,`value`) VALUES ('tool/pruning_saw_desc', 'Грозный инструмент против кустарников, хорошо сидит в руке. ');
-		INSERT INTO `i18n_ru_ru`(`key`,`value`) VALUES ('tool/flatheadscrewdriver_name', 'Плоская отвёртка тип А');
-		INSERT INTO `i18n_ru_ru`(`key`,`value`) VALUES ('tool/flatheadscrewdriver_desc', 'Обычная отвёртка. Незаменимый инструмент. Бытует мнение, что плоской отвёрткой можно вкручивать таблетки в задницу, если под рукой нет кружки воды чтобы запить.');
-		INSERT INTO `i18n_ru_ru`(`key`,`value`) VALUES ('tool/phillipsscrewdriver_name', 'Крестовая отвёртка тип Б');
-		INSERT INTO `i18n_ru_ru`(`key`,`value`) VALUES ('tool/phillipsscrewdriver_desc', 'Обычная отвёртка. Убедитесь что у вас есть такая. Если вы отчаяный, её даже можно метать во врагов, пока не воткнётся.');
-		INSERT INTO `i18n_ru_ru`(`key`,`value`) VALUES ('tool/chisel_name', 'Зубило');
-		INSERT INTO `i18n_ru_ru`(`key`,`value`) VALUES ('tool/chisel_desc', 'Широкое зубило, хорошо работает по дереву, если бить сверху, им можно так же перекусывать мелкие детали, а если бить зомби в глаз, возможно удасться достать до мозга, ну или потерять там это зубило...');
-		INSERT INTO `i18n_ru_ru`(`key`,`value`) VALUES ('tool/crowbar_name', 'Лом');
-		INSERT INTO `i18n_ru_ru`(`key`,`value`) VALUES ('tool/crowbar_desc', 'Если вам нужно что то вскрыть, или сбежать из Чёрной Мезы, этот инструмент - то что нужно! Этим ломом можно вскрывать двери, ящики, контейнеры, полки и даже хитрые жопы, которые позарились на ваш лут.');
-		INSERT INTO `i18n_ru_ru`(`key`,`value`) VALUES ('tool/sledgehammer_name', 'Кувалда');
-		INSERT INTO `i18n_ru_ru`(`key`,`value`) VALUES ('tool/sledgehammer_desc', 'Довольно увесистая, такой можно сносить стены. Любая голова для этого инструмента превращается в арбуз, таким образом можно как бы невзначай избавиться от Петровича, если попросить подержать гвоздь...');
-		INSERT INTO `i18n_ru_ru`(`key`,`value`) VALUES ('tool/saw_name', 'Ножовка по дереву');
-		INSERT INTO `i18n_ru_ru`(`key`,`value`) VALUES ('tool/saw_desc', 'Пила с широкими острыми зубьями. С помощью прямых рук ей можно распиливать брёвна, шпалы и асистентов фокусников, причём последних не обязательно предупреждать...');
-		INSERT INTO `i18n_ru_ru`(`key`,`value`) VALUES ('tool/pipe_wrench_name', 'Большой разводной ключ тип А');
-		INSERT INTO `i18n_ru_ru`(`key`,`value`) VALUES ('tool/pipe_wrench_desc', 'Ключ к большим гайкам, ключ к трубам, ключ к успеху в качестве оружия воинов Одина. Этим агрегатом одинаково удобно крутить гайки и ломать пальцы злодеям. Если бы мы были в скайриме, то персонаж получил бы +100 к убеждению.');
-		INSERT INTO `i18n_ru_ru`(`key`,`value`) VALUES ('tool/pliers_name', 'Плоскогубцы');
-		INSERT INTO `i18n_ru_ru`(`key`,`value`) VALUES ('tool/pliers_desc', 'Швейцарский нож - говно, по сравнению с этим золотым самородком. Вкрутить шуруп, забить гвоздь, подстричь ногти на ногах, перекусить проволоку и даже сжать соски в тиски - список того что можно делать этим инструментом практически бесконечен!');
-		INSERT INTO `i18n_ru_ru`(`key`,`value`) VALUES ('tool/leveler_name', 'Строительный уровень');
-		INSERT INTO `i18n_ru_ru`(`key`,`value`) VALUES ('tool/leveler_desc', 'Незаменимая в хозяйстве металлическая линейка! Если вам осточертели 15 сантиметровые школьные линейки, и хочется подержать в руках настоящий инструмент брутального мужика (я про линейку если что) - это то что вам так не хватало! Длина измерения до 50 сантиметров, углы 45, 90, 180 градусов, погрешность в 1мм, три великолепных жидкостных уровня. Тебе всё ещё мало? Бери это дерьмо!');
-		INSERT INTO `i18n_ru_ru`(`key`,`value`) VALUES ('tool/ruler_name', 'Строительный уголок');
-		INSERT INTO `i18n_ru_ru`(`key`,`value`) VALUES ('tool/ruler_desc', 'Это металлическая линейка позволяющая выполнять малоточные расчёты до 1мм, а ещё ей можно мерить углы в 90 градусов. Не смотря на то что чем то напоминает форму бумеранга, назад она не возвращается, можешь не пробовать.');
-		INSERT INTO `i18n_ru_ru`(`key`,`value`) VALUES ('tool/wrench1_name', 'Малый разводной гаечный ключ тип Б');
-		INSERT INTO `i18n_ru_ru`(`key`,`value`) VALUES ('tool/wrench1_desc', 'Ключ позволяет открутить средние и малые гайки, к которым возможно подлезть. Довольно крепкий, хоть и не тяжёлый, так же им можно открывать кокосы и крошить орехи. Я упоминал обычные кокосы и орехи, остальное - твоя больная фантазия, за которую я не несу ответственности.');
-		INSERT INTO `i18n_ru_ru`(`key`,`value`) VALUES ('tool/wrench2_name', 'Средний трубчатый ключ тип В');
-		INSERT INTO `i18n_ru_ru`(`key`,`value`) VALUES ('tool/wrench2_desc', 'Строение ключа позволяет добраться до самых труднодоступных гаек и болтов невообразимой формы в виде 13 и 7 гранников. Если бы Россомаха жил на Земле, он выращивал бы на своих руках именно эти трубчатые ключи, это так же круто как те лезвия, более того удобно в хозяйстве. Хотя, такой незаменимый инструмент могли бы спилить ночью пока он спит и сдать в металлолом, возможно поэтому на Земле и не осталось живых Россомах из людей Х...');
-        
-		INSERT INTO `i18n_ru_ru`(`key`,`value`) VALUES ('tool/clippers_name', 'Кусачки');
-		INSERT INTO `i18n_ru_ru`(`key`,`value`) VALUES ('tool/clippers_desc', '');
-		INSERT INTO `i18n_ru_ru`(`key`,`value`) VALUES ('tool/pickaxe_name', 'Кирка');
-		INSERT INTO `i18n_ru_ru`(`key`,`value`) VALUES ('tool/pickaxe_desc', '');
-		
-		
+		message_object "tool/hacksaw", "Ножовка по металлу", "Небольшая пила, плохо справляется с деревом, зато может помочь перепилить арматуру или большую берцовую кость. Инструмент крайне медленный, если вам срочно понадобилось распилить рельсу придётся запастить терпением и матюками...";
+		message_object "tool/hammer", "Простой молоток", "Обычный молоток, им можно бить с обоих сторон. Гвозди, двери, головы зомбей и даже шурупы - ему всё ни по чём!";
+		message_object "tool/multihammer", "Молоток с гвоздодёром", "С одной стороны молоток, с другой стороны гвоздодёр, универсальный мультиинструмент! Осталось только крикрутить бумеранг изолентой, и добавить прицел...";
+		message_object "tool/pruning_saw", "Садовая пила", "Грозный инструмент против кустарников, хорошо сидит в руке. ";
+		message_object "tool/flatheadscrewdriver", "Плоская отвёртка тип А", "Обычная отвёртка. Незаменимый инструмент. Бытует мнение, что плоской отвёрткой можно вкручивать таблетки в задницу, если под рукой нет кружки воды чтобы запить.";
+		message_object "tool/phillipsscrewdriver", "Крестовая отвёртка тип Б", "Обычная отвёртка. Убедитесь что у вас есть такая. Если вы отчаяный, её даже можно метать во врагов, пока не воткнётся.";
+		message_object "tool/chisel", "Зубило", "Широкое зубило, хорошо работает по дереву, если бить сверху, им можно так же перекусывать мелкие детали, а если бить зомби в глаз, возможно удасться достать до мозга, ну или потерять там это зубило...";
+		message_object "tool/crowbar", "Лом", "Если вам нужно что то вскрыть, или сбежать из Чёрной Мезы, этот инструмент - то что нужно! Этим ломом можно вскрывать двери, ящики, контейнеры, полки и даже хитрые жопы, которые позарились на ваш лут.";
+		message_object "tool/sledgehammer", "Кувалда", "Довольно увесистая, такой можно сносить стены. Любая голова для этого инструмента превращается в арбуз, таким образом можно как бы невзначай избавиться от Петровича, если попросить подержать гвоздь...";
+		message_object "tool/saw", "Ножовка по дереву", "Пила с широкими острыми зубьями. С помощью прямых рук ей можно распиливать брёвна, шпалы и асистентов фокусников, причём последних не обязательно предупреждать...";
+		message_object "tool/pipe_wrench", "Большой разводной ключ тип А", "Ключ к большим гайкам, ключ к трубам, ключ к успеху в качестве оружия воинов Одина. Этим агрегатом одинаково удобно крутить гайки и ломать пальцы злодеям. Если бы мы были в скайриме, то персонаж получил бы +100 к убеждению.";
+		message_object "tool/pliers", "Плоскогубцы", "Швейцарский нож - говно, по сравнению с этим золотым самородком. Вкрутить шуруп, забить гвоздь, подстричь ногти на ногах, перекусить проволоку и даже сжать соски в тиски - список того что можно делать этим инструментом практически бесконечен!";
+		message_object "tool/leveler", "Строительный уровень", "Незаменимая в хозяйстве металлическая линейка! Если вам осточертели 15 сантиметровые школьные линейки, и хочется подержать в руках настоящий инструмент брутального мужика (я про линейку если что) - это то что вам так не хватало! Длина измерения до 50 сантиметров, углы 45, 90, 180 градусов, погрешность в 1мм, три великолепных жидкостных уровня. Тебе всё ещё мало? Бери это дерьмо!";
+		message_object "tool/ruler", "Строительный уголок", "Это металлическая линейка позволяющая выполнять малоточные расчёты до 1мм, а ещё ей можно мерить углы в 90 градусов. Не смотря на то что чем то напоминает форму бумеранга, назад она не возвращается, можешь не пробовать.";
+		message_object "tool/wrench1", "Малый разводной гаечный ключ тип Б", "Ключ позволяет открутить средние и малые гайки, к которым возможно подлезть. Довольно крепкий, хоть и не тяжёлый, так же им можно открывать кокосы и крошить орехи. Я упоминал обычные кокосы и орехи, остальное - твоя больная фантазия, за которую я не несу ответственности.";
+		message_object "tool/wrench2", "Средний трубчатый ключ тип В", "Строение ключа позволяет добраться до самых труднодоступных гаек и болтов невообразимой формы в виде 13 и 7 гранников. Если бы Россомаха жил на Земле, он выращивал бы на своих руках именно эти трубчатые ключи, это так же круто как те лезвия, более того удобно в хозяйстве. Хотя, такой незаменимый инструмент могли бы спилить ночью пока он спит и сдать в металлолом, возможно поэтому на Земле и не осталось живых Россомах из людей Х...";
+		message_object "tool/clippers_name", "Кусачки", "";
+		message_object "tool/pickaxe_name", "Кирка", "";
+
 	# Группы инструментов ;
 	
-		INSERT INTO `i18n_ru_ru`(`key`,`value`) VALUES ('tools/flatheadscrewdriver', 'Плоская отвёртка тип А');
-		INSERT INTO `i18n_ru_ru`(`key`,`value`) VALUES ('tools/phillipsscrewdriver', 'Крестовая отвёртка тип Б');
-		INSERT INTO `i18n_ru_ru`(`key`,`value`) VALUES ('tools/hammer', 'Молоток');
-		INSERT INTO `i18n_ru_ru`(`key`,`value`) VALUES ('tools/saw', 'Ножовка по дереву');
-		INSERT INTO `i18n_ru_ru`(`key`,`value`) VALUES ('tools/hacksaw', 'Ножовка по металлу');
-		INSERT INTO `i18n_ru_ru`(`key`,`value`) VALUES ('tools/line', 'Уголок');
-		INSERT INTO `i18n_ru_ru`(`key`,`value`) VALUES ('tools/shovel', 'Лопата');
-		INSERT INTO `i18n_ru_ru`(`key`,`value`) VALUES ('tools/clippers', 'Кусачки');
-		INSERT INTO `i18n_ru_ru`(`key`,`value`) VALUES ('tools/wrenchtypea', 'Гаечный ключ тип А');
-		INSERT INTO `i18n_ru_ru`(`key`,`value`) VALUES ('tools/wrenchtypeb', 'Гаечный ключ тип Б');
-		INSERT INTO `i18n_ru_ru`(`key`,`value`) VALUES ('tools/wrenchtypec', 'Гаечный ключ тип В');
-		INSERT INTO `i18n_ru_ru`(`key`,`value`) VALUES ('tools/pliers', 'Плоскогубцы');
-		INSERT INTO `i18n_ru_ru`(`key`,`value`) VALUES ('tools/pickaxe', 'Кирка');
-		INSERT INTO `i18n_ru_ru`(`key`,`value`) VALUES ('tools/axe', 'Топор');
-		INSERT INTO `i18n_ru_ru`(`key`,`value`) VALUES ('tools/knife', 'Нож');
-		INSERT INTO `i18n_ru_ru`(`key`,`value`) VALUES ('tools/crowbar', 'Лом');
-		INSERT INTO `i18n_ru_ru`(`key`,`value`) VALUES ('tools/sledgehammer', 'Кувалда');
-		
+		message "tools/flatheadscrewdriver", "Плоская отвёртка тип А";
+		message "tools/phillipsscrewdriver", "Крестовая отвёртка тип Б";
+		message "tools/hammer", "Молоток";
+		message "tools/saw", "Ножовка по дереву";
+		message "tools/hacksaw", "Ножовка по металлу";
+		message "tools/line", "Уголок";
+		message "tools/shovel", "Лопата";
+		message "tools/clippers", "Кусачки";
+		message "tools/wrenchtypea", "Гаечный ключ тип А";
+		message "tools/wrenchtypeb", "Гаечный ключ тип Б";
+		message "tools/wrenchtypec", "Гаечный ключ тип В";
+		message "tools/pliers", "Плоскогубцы";
+		message "tools/pickaxe", "Кирка";
+		message "tools/axe", "Топор";
+		message "tools/knife", "Нож";
+		message "tools/crowbar", "Лом";
+		message "tools/sledgehammer", "Кувалда";
 
 # UI ;
 
-INSERT INTO `i18n_ru_ru`(`key`,`value`) VALUES ('ui_menu_load_playerdata', 'Загрузка данных о персонаже');
-INSERT INTO `i18n_ru_ru`(`key`,`value`) VALUES ('ui_menu_load_mapscene', 'Загрузка мира');
-INSERT INTO `i18n_ru_ru`(`key`,`value`) VALUES ('ui_map_load_location', 'Загрузка локации');
-INSERT INTO `i18n_ru_ru`(`key`,`value`) VALUES ('ui_location_load_navmesh', 'Генерация поиска путей');
-INSERT INTO `i18n_ru_ru`(`key`,`value`) VALUES ('ui_location_load_rooms', 'Генерация помещений');
+message "ui_menu_load_playerdata", "Загрузка данных о персонаже";
+message "ui_menu_load_mapscene", "Загрузка мира";
+message "ui_map_load_location", "Загрузка локации";
+message "ui_location_load_navmesh", "Генерация поиска путей";
+message "ui_location_load_rooms", "Генерация помещений";
 
-INSERT INTO `i18n_ru_ru`(`key`,`value`) VALUES ('ui_battle_actions_run', 'Выполнить');
-INSERT INTO `i18n_ru_ru`(`key`,`value`) VALUES ('ui_battle_actions_cancel', 'Отменить');
-INSERT INTO `i18n_ru_ru`(`key`,`value`) VALUES ('ui_battle_end_step', 'Конец хода');
+message "ui_battle_actions_run", "Выполнить";
+message "ui_battle_actions_cancel", "Отменить";
+message "ui_battle_end_step", "Конец хода";
 
-INSERT INTO `i18n_ru_ru`(`key`,`value`) VALUES ('ui/skills/tabs_battle', 'Битва');
-INSERT INTO `i18n_ru_ru`(`key`,`value`) VALUES ('ui/skills/tabs_loot', 'Поиск');
-INSERT INTO `i18n_ru_ru`(`key`,`value`) VALUES ('ui/skills/tabs_craft', 'Создание');
-INSERT INTO `i18n_ru_ru`(`key`,`value`) VALUES ('ui/skills/tabs_scrap', 'Разбор');
-INSERT INTO `i18n_ru_ru`(`key`,`value`) VALUES ('ui/skills/tabs_main', 'Общие');
-INSERT INTO `i18n_ru_ru`(`key`,`value`) VALUES ('ui/skills/available_points', 'Доступно очков: ');
-INSERT INTO `i18n_ru_ru`(`key`,`value`) VALUES ('ui/skills/current_level', 'Текущий уровень: ');
-INSERT INTO `i18n_ru_ru`(`key`,`value`) VALUES ('ui/skills/current_exp', 'Опыт: ');
+message "ui/skills/tabs_battle", "Битва";
+message "ui/skills/tabs_loot", "Поиск";
+message "ui/skills/tabs_craft", "Создание";
+message "ui/skills/tabs_scrap", "Разбор";
+message "ui/skills/tabs_main", "Общие";
+message "ui/skills/available_points", "Доступно очков: ";
+message "ui/skills/current_level", "Текущий уровень: ";
+message "ui/skills/current_exp", "Опыт: ";
 
-INSERT INTO `i18n_ru_ru`(`key`,`value`) VALUES ('ui_loading', 'Загрузка...');
+message "ui_loading", "Загрузка...";
 
-INSERT INTO `i18n_ru_ru`(`key`,`value`) VALUES ('ui_button_startgame', 'Начать');
-INSERT INTO `i18n_ru_ru`(`key`,`value`) VALUES ('ui_button_players', 'Выбор персонажа');
-INSERT INTO `i18n_ru_ru`(`key`,`value`) VALUES ('ui_button_settings', 'Настройки');
-INSERT INTO `i18n_ru_ru`(`key`,`value`) VALUES ('ui_button_exit', 'Выход');
+message "ui_button_startgame", "Начать";
+message "ui_button_players", "Выбор персонажа";
+message "ui_button_settings", "Настройки";
+message "ui_button_exit", "Выход";
 
-INSERT INTO `i18n_ru_ru`(`key`,`value`) VALUES ('ui_equip_cancel', 'Отменить');
-INSERT INTO `i18n_ru_ru`(`key`,`value`) VALUES ('ui_equip_drop', 'Снять');
+message "ui_equip_cancel", "Отменить";
+message "ui_equip_drop", "Снять";
 
-INSERT INTO `i18n_ru_ru`(`key`,`value`) VALUES ('ui_button_player_select', 'Выбрать');
-INSERT INTO `i18n_ru_ru`(`key`,`value`) VALUES ('ui_button_player_add', 'Создать');
-INSERT INTO `i18n_ru_ru`(`key`,`value`) VALUES ('ui_button_player_delete', 'Удалить');
-INSERT INTO `i18n_ru_ru`(`key`,`value`) VALUES ('ui_button_player_cancel', 'Отменить');
-INSERT INTO `i18n_ru_ru`(`key`,`value`) VALUES ('ui_player_enter_name', 'Введите имя...');
+message "ui_button_player_select", "Выбрать";
+message "ui_button_player_add", "Создать";
+message "ui_button_player_delete", "Удалить";
+message "ui_button_player_cancel", "Отменить";
+message "ui_player_enter_name", "Введите имя...";
 
-INSERT INTO `i18n_ru_ru`(`key`,`value`) VALUES ('ui_scan_hunt', 'Мелкая охота');
-INSERT INTO `i18n_ru_ru`(`key`,`value`) VALUES ('ui_scan_inspect', 'Исследовать местность');
+message "ui_scan_hunt", "Мелкая охота";
+message "ui_scan_inspect", "Исследовать местность";
 
-INSERT INTO `i18n_ru_ru`(`key`,`value`) VALUES ('ui/craft/title', 'Создание предметов');
-INSERT INTO `i18n_ru_ru`(`key`,`value`) VALUES ('ui/craft/group_survive', 'Выживание');
-INSERT INTO `i18n_ru_ru`(`key`,`value`) VALUES ('ui/craft/group_weapon', 'Оружие');
-INSERT INTO `i18n_ru_ru`(`key`,`value`) VALUES ('ui/craft/group_tools', 'Инструменты');
+message "ui/craft/title", "Создание предметов";
+message "ui/craft/group_survive", "Выживание";
+message "ui/craft/group_weapon", "Оружие";
+message "ui/craft/group_tools", "Инструменты";
 
 # Messages ;
 
-INSERT INTO `i18n_ru_ru`(`key`,`value`) VALUES ('msg_weight_mlg', 'млг.');
-INSERT INTO `i18n_ru_ru`(`key`,`value`) VALUES ('msg_weight_g', 'г.');
-INSERT INTO `i18n_ru_ru`(`key`,`value`) VALUES ('msg_weight_kg', 'кг.');
+message "msg_weight_mlg", "млг.";
+message "msg_weight_g", "г.";
+message "msg_weight_kg", "кг.";
 
-INSERT INTO `i18n_ru_ru`(`key`,`value`) VALUES ('msg_ap', 'ОД');
-INSERT INTO `i18n_ru_ru`(`key`,`value`) VALUES ('msg_count', 'ед.');
+message "msg_ap", "ОД";
+message "msg_count", "ед.";
 
-INSERT INTO `i18n_ru_ru`(`key`,`value`) VALUES ('msg_name', 'Имя');
-INSERT INTO `i18n_ru_ru`(`key`,`value`) VALUES ('msg_mainlevel', 'Уровень');
-INSERT INTO `i18n_ru_ru`(`key`,`value`) VALUES ('msg_mainexp', 'Опыт');
-INSERT INTO `i18n_ru_ru`(`key`,`value`) VALUES ('msg_mainpoints', 'Свободных очков');
-INSERT INTO `i18n_ru_ru`(`key`,`value`) VALUES ('msg_protection', 'Защита');
-INSERT INTO `i18n_ru_ru`(`key`,`value`) VALUES ('msg_health', 'Здоровье');
+message "msg_name", "Имя";
+message "msg_mainlevel", "Уровень";
+message "msg_mainexp", "Опыт";
+message "msg_mainpoints", "Свободных очков";
+message "msg_protection", "Защита";
+message "msg_health", "Здоровье";
 
-INSERT INTO `i18n_ru_ru`(`key`,`value`) VALUES ('msg_intellect', 'Интеллект');
-INSERT INTO `i18n_ru_ru`(`key`,`value`) VALUES ('msg_strength', 'Сила');
-INSERT INTO `i18n_ru_ru`(`key`,`value`) VALUES ('msg_agility', 'Ловкость');
-INSERT INTO `i18n_ru_ru`(`key`,`value`) VALUES ('msg_endurance', 'Выносливость');
+message "msg_intellect", "Интеллект";
+message "msg_strength", "Сила";
+message "msg_agility", "Ловкость";
+message "msg_endurance", "Выносливость";
 
-INSERT INTO `i18n_ru_ru`(`key`,`value`) VALUES ('msg_tool_not_founded', '<Нет>');
+message "msg_tool_not_founded", "<Нет>";
 
-INSERT INTO `i18n_ru_ru`(`key`,`value`) VALUES ('msg_battle_action_description1', 'Вы совершаете');
-INSERT INTO `i18n_ru_ru`(`key`,`value`) VALUES ('msg_battle_action_attack_firearms', 'стрельбу из оружия');
-INSERT INTO `i18n_ru_ru`(`key`,`value`) VALUES ('msg_battle_action_reload_firearms', 'перезарядку оружия');
-INSERT INTO `i18n_ru_ru`(`key`,`value`) VALUES ('msg_battle_action_attack_edged', 'атаку холодным оружием');
-INSERT INTO `i18n_ru_ru`(`key`,`value`) VALUES ('msg_battle_action_throw_edged', 'бросок метательного оружия');
-INSERT INTO `i18n_ru_ru`(`key`,`value`) VALUES ('msg_battle_action_throw_grenade', 'бросок гранаты');
-INSERT INTO `i18n_ru_ru`(`key`,`value`) VALUES ('msg_battle_action_move', 'перемещение');
-INSERT INTO `i18n_ru_ru`(`key`,`value`) VALUES ('msg_battle_action_use', 'действие над объектом');
-INSERT INTO `i18n_ru_ru`(`key`,`value`) VALUES ('msg_battle_action_description2', 'На действие требуется');
+message "msg_battle_action_description1", "Вы совершаете";
+message "msg_battle_action_attack_firearms", "стрельбу из оружия";
+message "msg_battle_action_reload_firearms", "перезарядку оружия";
+message "msg_battle_action_attack_edged", "атаку холодным оружием";
+message "msg_battle_action_throw_edged", "бросок метательного оружия";
+message "msg_battle_action_throw_grenade", "бросок гранаты";
+message "msg_battle_action_move", "перемещение";
+message "msg_battle_action_use", "действие над объектом";
+message "msg_battle_action_description2", "На действие требуется";
 
-INSERT INTO `i18n_ru_ru`(`key`,`value`) VALUES ('msg_error_cant_do_exit', 'Выход слишком далеко, мне нужно подойти к нему');
-INSERT INTO `i18n_ru_ru`(`key`,`value`) VALUES ('msg_error_cant_pickup_item', 'Не могу подобрать, объект не пустой!');
-INSERT INTO `i18n_ru_ru`(`key`,`value`) VALUES ('msg_error_cant_enter_to_location', 'Я не могу так рисковать в текущем состоянии! (Необходимо хотябы 10 единиц здоровья)');
+message "msg_error_cant_do_exit", "Выход слишком далеко, мне нужно подойти к нему";
+message "msg_error_cant_pickup_item", "Не могу подобрать, объект не пустой!";
+message "msg_error_cant_enter_to_location", "Я не могу так рисковать в текущем состоянии! (Необходимо хотябы 10 единиц здоровья)";
 
-INSERT INTO `i18n_ru_ru`(`key`,`value`) VALUES ('msg_load_inet', 'Интернет на устройстве');
-INSERT INTO `i18n_ru_ru`(`key`,`value`) VALUES ('msg_load_gps', 'Геолокация на устройстве');
-INSERT INTO `i18n_ru_ru`(`key`,`value`) VALUES ('msg_load_on', 'работает');
-INSERT INTO `i18n_ru_ru`(`key`,`value`) VALUES ('msg_load_off', 'не работает');
+message "msg_load_inet", "Интернет на устройстве";
+message "msg_load_gps", "Геолокация на устройстве";
+message "msg_load_on", "работает";
+message "msg_load_off", "не работает";
 
-INSERT INTO `i18n_ru_ru`(`key`,`value`) VALUES ('msg_map_scan_wealth', 'Богатство локации');
-INSERT INTO `i18n_ru_ru`(`key`,`value`) VALUES ('msg_map_scan_info_water_biom', 'Всё вокруг затоплено примерно по колено, из-за воды очень трудно перемещаться. Кажется, в воде есть мелкая живность.');
-INSERT INTO `i18n_ru_ru`(`key`,`value`) VALUES ('msg_map_scan_info_wooden_biom', 'Почву буквально захватили разросшиеся деревья и кустарники. В траве и на земле куча живности.');
-INSERT INTO `i18n_ru_ru`(`key`,`value`) VALUES ('msg_map_scan_info_sand_biom', 'Ноги утопают в песке, кажется будто само время завязло в нём и замерло. Не видно ничего живого.');
-INSERT INTO `i18n_ru_ru`(`key`,`value`) VALUES ('msg_map_scan_info_exhausted_biom', 'Воздух густой и тяжёлый, в нём летает пыль смешанная с туманом. Мухи как будто ничего не замечают, сбиваются в тучи и облепляют всё вокруг. Кроме мух здесь нет живности.');
-INSERT INTO `i18n_ru_ru`(`key`,`value`) VALUES ('msg_map_scan_info_earthquake_biom', 'Почва приемущественно каменистая, испещрена трещинами уходящими глубоко под землю, а в некоторые трещины можно провалиться целиком. Кажется тут должна быть живность.');
+message "msg_map_scan_wealth", "Богатство локации";
+message "msg_map_scan_info_water_biom", "Всё вокруг затоплено примерно по колено, из-за воды очень трудно перемещаться. Кажется, в воде есть мелкая живность.";
+message "msg_map_scan_info_wooden_biom", "Почву буквально захватили разросшиеся деревья и кустарники. В траве и на земле куча живности.";
+message "msg_map_scan_info_sand_biom", "Ноги утопают в песке, кажется будто само время завязло в нём и замерло. Не видно ничего живого.";
+message "msg_map_scan_info_exhausted_biom", "Воздух густой и тяжёлый, в нём летает пыль смешанная с туманом. Мухи как будто ничего не замечают, сбиваются в тучи и облепляют всё вокруг. Кроме мух здесь нет живности.";
+message "msg_map_scan_info_earthquake_biom", "Почва приемущественно каменистая, испещрена трещинами уходящими глубоко под землю, а в некоторые трещины можно провалиться целиком. Кажется тут должна быть живность.";
 
-INSERT INTO `i18n_ru_ru`(`key`,`value`) VALUES ('msg_location_name', 'Тип локации');
+message "msg_location_name", "Тип локации";
 
-INSERT INTO `i18n_ru_ru`(`key`,`value`) VALUES ('msg_location_open_space', 'Открытая местность');
-INSERT INTO `i18n_ru_ru`(`key`,`value`) VALUES ('msg_location_house', 'Жилой дом');
-INSERT INTO `i18n_ru_ru`(`key`,`value`) VALUES ('msg_location_stock', 'Склад');
-INSERT INTO `i18n_ru_ru`(`key`,`value`) VALUES ('msg_location_super_market', 'Супермаркет');
-INSERT INTO `i18n_ru_ru`(`key`,`value`) VALUES ('msg_location_tech_store', 'Магазин техники');
-INSERT INTO `i18n_ru_ru`(`key`,`value`) VALUES ('msg_location_med', 'Аптека');
-INSERT INTO `i18n_ru_ru`(`key`,`value`) VALUES ('msg_location_hospital', 'Больница');
-INSERT INTO `i18n_ru_ru`(`key`,`value`) VALUES ('msg_location_army', 'Военное здание');
+message "msg_location_open_space", "Открытая местность";
+message "msg_location_house", "Жилой дом";
+message "msg_location_stock", "Склад";
+message "msg_location_super_market", "Супермаркет";
+message "msg_location_tech_store", "Магазин техники";
+message "msg_location_med", "Аптека";
+message "msg_location_hospital", "Больница";
+message "msg_location_army", "Военное здание";
 
-INSERT INTO `i18n_ru_ru`(`key`,`value`) VALUES ('msg_location_size_name', 'Размер локации');
+message "msg_location_size_name", "Размер локации";
 
-INSERT INTO `i18n_ru_ru`(`key`,`value`) VALUES ('msg_location_size_small', 'Маленькая');
-INSERT INTO `i18n_ru_ru`(`key`,`value`) VALUES ('msg_location_size_normal', 'Нормальная');
-INSERT INTO `i18n_ru_ru`(`key`,`value`) VALUES ('msg_location_size_large', 'Большая');
-															         
+message "msg_location_size_small", "Маленькая";
+message "msg_location_size_normal", "Нормальная";
+message "msg_location_size_large", "Большая";
+
 # Debug ;
 
-INSERT INTO `i18n_ru_ru`(`key`,`value`) VALUES ('ui_tmp_cleandb', 'Очистить БД');
+message "ui_tmp_cleandb", "Очистить БД";

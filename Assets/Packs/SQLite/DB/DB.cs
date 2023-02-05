@@ -17,6 +17,8 @@ namespace Engine.DB
 
         #endregion
 
+        MigrationScriptExecuter executor = new MigrationScriptExecuter();
+        
         #region Ctor
 
         /// <summary>
@@ -43,8 +45,9 @@ namespace Engine.DB
 
         public void DoFillDB()
         {
+            
             // Главная проливка структуры БД
-            DoSqlScript("init_script");
+            executor.ExecuteScriptFile("init_script");
 
             // Обновляем версию БД
             Do(connect =>
@@ -55,66 +58,9 @@ namespace Engine.DB
 
             // Проливаем языки
             foreach (var langItem in i18nList)
-                DoSqlScript("i18n/" + langItem);
+                executor.ExecuteScriptFile("i18n/" + langItem);
         }
-
-        private void DoSqlScript(string scriptName)
-        {
-            var sqlAsset = Resources.Load("Database/" + scriptName) as TextAsset;
-            if (sqlAsset == null)
-            {
-                Debug.LogError("Не удалось найти проливку '" + scriptName + "'!");
-                throw new Exception("script '" + scriptName + "' not founded!");
-            }
-
-            var sqlData = sqlAsset.text;
-            var datas = sqlData.Split(new string[] { ";\r\n" }, StringSplitOptions.None);
-            Exception e = null;
-
-            Debug.Log("reload sql script '" + scriptName + "'...");
-            Do(connect =>
-            {
-                int counter = 0;
-
-                foreach (var text in datas)
-                {
-                    string sql = text;
-
-                    if (string.IsNullOrEmpty(sql))
-                        continue;
-
-                    sql = sql.Trim();
-
-                    if (string.IsNullOrEmpty(sql) || sql.StartsWith("#"))
-                        continue;
-
-                    try
-                    {
-                        counter += connect.Execute(sql);
-                    }
-                    catch (Exception ex)
-                    {
-                        Debug.LogError("sql: " + sql);
-                        e = ex;
-                        throw ex;
-                    }
-                }
-
-                Debug.Log("reload sql counter: " + counter);
-            }, ex =>
-            {
-                Debug.LogException(ex);
-                e = ex;
-            });
-
-#if UNITY_EDITOR
-            if (e != null)
-            {
-                UnityEditor.EditorApplication.isPlaying = false;
-            }
-#endif
-        }
-
+        
         #endregion
 
         #region Hidden Fields
