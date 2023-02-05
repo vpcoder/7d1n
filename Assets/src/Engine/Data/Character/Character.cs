@@ -19,6 +19,8 @@ namespace Engine.Data
         public Equipment Equipment   { get; set; } = new Equipment();
 
         public Inventory Inventory   { get; set; } = new Inventory();
+        
+        public Quest Quest           { get; set; } = new Quest();
 
     }
 	

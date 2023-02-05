@@ -24,6 +24,7 @@ namespace Engine.Data.Stories
         public CharParametersStory ParametersStory = new CharParametersStory();
         public CharSkillsStory     SkillsStory     = new CharSkillsStory();
         public CharStateStory      StateStory      = new CharStateStory();
+        public CharQuestStory      QuestStory      = new CharQuestStory();
 
         #endregion
 
@@ -36,6 +37,7 @@ namespace Engine.Data.Stories
             ParametersStory.Delete(id);
             SkillsStory.Delete(id);
             StateStory.Delete(id);
+            QuestStory.Delete(id);
         }
 
         public void SaveAll(Character character)
@@ -47,6 +49,7 @@ namespace Engine.Data.Stories
             ParametersStory.Save(character.Parameters.CreateData());
             SkillsStory.Save(character.Skills.CreateData());
             StateStory.Save(character.State.CreateData());
+            QuestStory.Save(character.Quest.CreateData());
         }
 
         public void LoadAll(Character character)
@@ -82,6 +85,9 @@ namespace Engine.Data.Stories
     { }
 
     public class CharStateStory : StoryBase<StateStoryObject, CharStateProxy>
+    { }
+
+    public class CharQuestStory : StoryBase<QuestStoryObject, CharQuestProxy>
     { }
 
 }
