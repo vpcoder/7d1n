@@ -45,20 +45,8 @@ namespace Engine.DB
 
         public void DoFillDB()
         {
-            
             // Главная проливка структуры БД
             executor.ExecuteScriptFile("init_script");
-
-            // Обновляем версию БД
-            Do(connect =>
-            {
-                var version = Game.Instance.Buildtime.Version.ToString();
-                connect.Execute("INSERT INTO `meta` ( `id`, `version` ) VALUES( 0, '" + version + "' )");
-            });
-
-            // Проливаем языки
-            foreach (var langItem in i18nList)
-                executor.ExecuteScriptFile("i18n/" + langItem);
         }
         
         #endregion

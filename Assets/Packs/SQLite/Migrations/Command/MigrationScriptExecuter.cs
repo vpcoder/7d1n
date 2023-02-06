@@ -1,6 +1,8 @@
 using System;
 using System.Collections.Generic;
+using Engine.Data;
 using Engine.DB.Migrations.Base;
+using Packs.UnityAPI.sdon.Framework.String;
 using UnityEngine;
 
 namespace Engine.DB.Migrations
@@ -22,6 +24,7 @@ namespace Engine.DB.Migrations
             }
             Variables["dbType"] = "sqlite";
             Variables["lang"] = "i18n_ru_ru";
+            Variables["version"] = Game.Instance.Buildtime.Version.ToString();
         }
 
         private string TryGetName(ref string script)
@@ -40,8 +43,7 @@ namespace Engine.DB.Migrations
             commandNameToConverter.TryGetValue(name, out var converter);
             return converter;
         }
-
-
+        
         private ICollection<string> TryFindVariables(ref string script)
         {
             var pos = 0;
@@ -60,28 +62,51 @@ namespace Engine.DB.Migrations
             return list;
         }
         
-        public ICollection<string> ConvertScriptToSQL(ref string script)
+        private string ProcessingVariables(ref string script)
         {
-            var vars = TryFindVariables(ref script);
+            var vars = script.GetIncludesInQuotes("${", "}");
             if (Lists.IsNotEmpty(vars))
                 foreach (var variable in vars)
                     script = script.Replace("${" + variable + "}", Variables[variable] ?? "");
-
+            return script;
+        }
+        
+        private string ProcessingIncludes(string script)
+        {
+            var includes = script.GetIncludesInQuotes("include {", "}");
+            if (Lists.IsNotEmpty(includes))
+                foreach (var include in includes)
+                    script = script.Replace("include {" + include + "}", ReadScript(include));
+            return script;
+        }
+        
+        public ICollection<string> ConvertScriptToSQL(ref string script)
+        {
+            script = ProcessingVariables(ref script);
             var converter = TryFindConverter(ref script);
             return converter == null ? new List<string> { script } : converter.Convert(ref script);
+        }
+
+        private string GetPath(string scriptName)
+        {
+            return "Database/" + scriptName;
+        }
+
+        private string ReadScript(string scriptName)
+        {
+            var path = GetPath(scriptName);
+            var sqlAsset = Resources.Load(path) as TextAsset;
+            if (sqlAsset == null)
+            {
+                Debug.LogError("Не удалось найти проливку '" + path + "'!");
+                throw new Exception("script '" + path + "' not founded!");
+            }
+            return ProcessingIncludes(sqlAsset.text);
         }
         
         public void ExecuteScriptFile(string scriptName)
         {
-            var sqlAsset = Resources.Load("Database/" + scriptName) as TextAsset;
-            if (sqlAsset == null)
-            {
-                Debug.LogError("Не удалось найти проливку '" + scriptName + "'!");
-                throw new Exception("script '" + scriptName + "' not founded!");
-            }
-
-            var scriptData = sqlAsset.text;
-            var allBlocks = scriptData.Split(new[] { ";\r\n" }, StringSplitOptions.None);
+            var allBlocks = ReadScript(scriptName).Split(new[] { ";\r\n" }, StringSplitOptions.None);
             Exception e = null;
 
             Debug.Log("reload sql script '" + scriptName + "'...");

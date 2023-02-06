@@ -1,67 +1,11 @@
-# --------------------- ;
-# 7D1N - v0.0.0.52      ;
-# Проливка структуры БД ;
-# --------------------- ;
+# ------------------------------ ;
+# 7D1N - MigrationScriptExecuter ;
+#      Проливка структуры БД     ;
+#   Database structure shedding  ;
+# ------------------------------ ;
 
-# Метадата БД ;
-CREATE TABLE `meta` (
-	`id`				INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT UNIQUE,
-	`version`			TEXT NOT NULL
-);
-
-# Основные настройки игры ;
-CREATE TABLE `settings` (
-	`id`				INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT UNIQUE,
-	`language`			TEXT NOT NULL,
-	`musics_enabled`	INTEGER NOT NULL,
-	`sounds_enabled`	INTEGER NOT NULL,
-	`musics_volume`		INTEGER NOT NULL,
-	`sounds_volume`		INTEGER NOT NULL,
-	`player_id`			INTEGER NOT NULL
-);
-
-# Проливка дефолтных настроек ;
-INSERT INTO `settings` (
-	`id`,
-	`language`,
-	`musics_enabled`,
-	`musics_volume`,
-	`sounds_enabled`,
-	`sounds_volume`,
-	`player_id`
-) VALUES (
-	0,
-	'ru_ru',
-	1,
-	100,
-	1,
-	100,
-	0
-);
-
-# Сгенерированная ранее информация о индексах ячеек ;
-CREATE TABLE `location_cell` (
-	`id`			INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT UNIQUE,
-	`pos_x`			INTEGER NOT NULL,
-	`pos_y`			INTEGER NOT NULL,
-	`biom_pos_x`	INTEGER NOT NULL,
-	`biom_pos_y`	INTEGER NOT NULL,
-	`data`			TEXT NOT NULL
-);
-
-# Таблица доступных языков ;
-CREATE TABLE `i18n_lang` (
-	`id`	INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT UNIQUE,
-	`code`	TEXT NOT NULL UNIQUE,
-	`name`	TEXT NOT NULL
-);
-
-# Персонажи ;
-CREATE TABLE `player` (
-	`id`   INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT UNIQUE,
-	`name` TEXT NOT NULL,
-	`body` INTEGER NOT NULL
-);
-
-# FIXME: Проливаем дефолтного персонажа, потом это нужно будет убрать ;
-INSERT INTO `player`(`id`,`name`,`body`) VALUES (0, 'Robert', 0);
+include {meta}
+include {settings}
+include {langs}
+include {location}
+include {player}

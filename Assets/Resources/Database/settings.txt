@@ -1,0 +1,32 @@
+
+# Основные настройки игры ;
+# Basic game settings     ;
+CREATE TABLE `settings` (
+	`id`				INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT UNIQUE,
+	`language`			TEXT NOT NULL,
+	`musics_enabled`	INTEGER NOT NULL,
+	`sounds_enabled`	INTEGER NOT NULL,
+	`musics_volume`		INTEGER NOT NULL,
+	`sounds_volume`		INTEGER NOT NULL,
+	`player_id`			INTEGER NOT NULL
+);
+
+# Проливка дефолтных настроек   ;
+# Creating the default settings ;
+INSERT INTO `settings` (
+	`id`,
+	`language`,
+	`musics_enabled`,
+	`musics_volume`,
+	`sounds_enabled`,
+	`sounds_volume`,
+	`player_id`
+) VALUES (
+	0,
+	'ru_ru',
+	1,
+	100,
+	1,
+	100,
+	0
+);

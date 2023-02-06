@@ -18,7 +18,7 @@ namespace Engine.Data
         ///     ---
         ///     Current version of the product, affects the version of the database
         /// </summary>
-        public Version Version { get; } = new Version("1.0.0.52");
+        public Version Version { get; } = new Version("1.0.0.53");
 
     }
 

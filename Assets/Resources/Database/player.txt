@@ -1,0 +1,13 @@
+
+# Персонажи  ;
+# Characters ;
+CREATE TABLE `player` (
+	`id`   INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT UNIQUE,
+	`name` TEXT NOT NULL,
+	`body` INTEGER NOT NULL
+);
+
+
+# FIXME: Проливаем дефолтного персонажа, потом это нужно будет убрать    ;
+# FIXME: Shedding the default character, then it will have to be removed ;
+INSERT INTO `player` (`id`,`name`,`body`) VALUES (0, 'Robert', 0);

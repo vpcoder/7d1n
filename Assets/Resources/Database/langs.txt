@@ -1,0 +1,10 @@
+
+# Таблица доступных языков     ;
+# Table of available languages ;
+CREATE TABLE `i18n_lang` (
+	`id`	INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT UNIQUE,
+	`code`	TEXT NOT NULL UNIQUE,
+	`name`	TEXT NOT NULL
+);
+
+include {i18n/ru_ru}

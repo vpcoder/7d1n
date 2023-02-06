@@ -1,0 +1,11 @@
+
+# Метадата базы данных ;
+# Database metadata    ;
+CREATE TABLE `meta` (
+	`id`				INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT UNIQUE,
+	`version`			TEXT NOT NULL
+);
+
+# Версия БД  ;
+# DB version ;
+INSERT INTO `meta` (`id`, `version`) VALUES(0, '${version}');
