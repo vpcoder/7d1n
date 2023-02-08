@@ -11,21 +11,38 @@ namespace Engine.Story
 
         [SerializeField] private bool hidePlayer;
         [SerializeField] private bool hideTopPanel = true;
-        [SerializeField] private bool destroyOnEnd = true;
+        [SerializeField] private bool destroyStoryObjectOnEnd = true;
 
         private GameObject topPanel;
         private GameObject playerCharacter;
-        
+
+        public GameObject TopPanel
+        {
+            get
+            {
+                if (topPanel == null)
+                    topPanel = ObjectFinder.TopPanel;
+                return topPanel;
+            }
+        }
+
+        public GameObject PlayerCharacter
+        {
+            get
+            {
+                if(playerCharacter == null)
+                    playerCharacter = ObjectFinder.Find<LocationCharacter>().gameObject;
+                return playerCharacter;
+            }
+        }
+
         private void Start()
         {
             LoadFactory.Instance.Complete += Init;
         }
 
         public virtual void Init()
-        {
-            topPanel = ObjectFinder.TopPanel;
-            playerCharacter = ObjectFinder.Find<LocationCharacter>().gameObject;
-        }
+        { }
         
         public abstract void CreateDialog(DialogQueue dlg);
 
@@ -36,22 +53,22 @@ namespace Engine.Story
         protected virtual void EndDialogEvent()
         {
             if(hidePlayer)
-                playerCharacter.SetActive(true);
+                PlayerCharacter.SetActive(true);
             
             if(hideTopPanel)
-                topPanel.SetActive(true);
+                TopPanel.SetActive(true);
             
-            if (destroyOnEnd)
+            if (destroyStoryObjectOnEnd)
                 Destroy(gameObject);
         }
 
         protected virtual void StartDialogEvent()
         {
-            if(hidePlayer)
-                playerCharacter.SetActive(false);
+            if (hidePlayer)
+                PlayerCharacter.SetActive(false);
             
             if(hideTopPanel)
-                topPanel.SetActive(false);
+                TopPanel.SetActive(false);
         }
         
         public void RunDialog()

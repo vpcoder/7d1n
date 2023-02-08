@@ -6,7 +6,6 @@ namespace Engine.EGUI {
 	/// <summary>
 	/// Класс-шина для всплывающих сообщений/подсказок
 	/// </summary>
-	[ExecuteInEditMode]
 	[RequireComponent(typeof(RectTransform))]
 	[RequireComponent(typeof(VerticalLayoutGroup))]
 	[RequireComponent(typeof(ContentSizeFitter))]
@@ -86,7 +85,7 @@ namespace Engine.EGUI {
 
 #endif
 
-			if (Time.time - timestamp < delay) {
+			if (delay < 0 || Time.time - timestamp < delay) {
 				return;
 			}
 

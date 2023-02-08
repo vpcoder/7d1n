@@ -7,7 +7,6 @@ namespace Engine.EGUI {
 	/// <summary>
 	/// Класс-шина для анимации UI панелей
 	/// </summary>
-	[ExecuteInEditMode]
 	[RequireComponent(typeof(RectTransform))]
 	[RequireComponent(typeof(Graphic))]
 	public abstract class UIFader : MonoBehaviour, IFader {
