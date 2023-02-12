@@ -1,8 +1,9 @@
 using System.Collections.Generic;
+using System.Runtime.Serialization;
 
 namespace Engine.Data
 {
-    public interface IQuestInfo
+    public interface IQuestInfo : ISerializable
     {
         QuestState State { get; set; }
         int Stage { get; set; }

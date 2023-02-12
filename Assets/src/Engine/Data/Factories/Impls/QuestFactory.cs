@@ -28,35 +28,38 @@ namespace Engine.Data.Factories
         ///     ---
         ///     Cache quests by their type
         /// </summary>
-        private readonly IDictionary<Type, QuestInfo> dataByType = new Dictionary<Type, QuestInfo>();
+        private readonly IDictionary<Type, IQuestInfo> dataByType = new Dictionary<Type, IQuestInfo>();
 
         #region Ctor
 
         private QuestFactory()
         {
-           
+            foreach (var quest in AssembliesHandler.CreateImplementations<IQuestInfo>())
+            {
+                dataByType.Add(quest.GetType(), quest);
+            }
         }
         
         #endregion
         
-        public QuestInfo Get(Type type)
+        public IQuestInfo Get(Type type)
         {
             return dataByType[type];
         }
 
-        public QuestInfo Get<T>()
+        public T Get<T>()
         {
-            return Get(typeof(T));
+            return (T)Get(typeof(T));
         }
 
-        public IEnumerable<QuestInfo> GetActiveQuests()
+        public IEnumerable<IQuestInfo> GetActiveQuests()
         {
             foreach (var quest in dataByType.Values)
                 if (quest.State != QuestState.None)
                     yield return quest;
         }
 
-        public void SetQuests(ICollection<QuestInfo> quests)
+        public void SetQuests(ICollection<IQuestInfo> quests)
         {
             if(Lists.IsEmpty(quests))
                 return;
@@ -68,7 +71,7 @@ namespace Engine.Data.Factories
             }
         }
 
-        private void Set(QuestInfo factoryQuestInfo, QuestInfo serializedQuestData)
+        private void Set(IQuestInfo factoryQuestInfo, IQuestInfo serializedQuestData)
         {
             factoryQuestInfo.Stage    = serializedQuestData.Stage;
             factoryQuestInfo.State    = serializedQuestData.State;

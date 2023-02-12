@@ -21,7 +21,7 @@ namespace Engine.Data
         public long   ID { get { return IDValue; } set { } }
         public long   IDValue;
         
-        public List<QuestInfo> Quests;
+        public List<IQuestInfo> Quests;
     }
 
     /// <summary>

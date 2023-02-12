@@ -7,7 +7,7 @@ namespace Engine.Data
 {
     
     [Serializable]
-    public abstract class QuestInfo : IQuestInfo, ISerializable
+    public abstract class QuestInfo : IQuestInfo
     {
         private QuestState state;
         private int stage;
@@ -52,6 +52,21 @@ namespace Engine.Data
 
         public abstract IList<string> getDescription();
 
+        public void AddTag(string tag)
+        {
+            HashData.Add(tag);
+        }
+
+        public void RemoveTag(string tag)
+        {
+            HashData.Remove(tag);
+        }
+
+        public bool ContainsTag(string tag)
+        {
+            return HashData.Contains(tag);
+        }
+        
         public IEnumerable<string> getBeforeStageDescriptions()
         {
             if (stage == 0 || state == QuestState.None)
@@ -75,6 +90,13 @@ namespace Engine.Data
 
         #region Serialization
 
+        public QuestInfo()
+        {
+            stage = 0;
+            state = QuestState.None;
+            data = new HashSet<string>();
+        }
+        
         protected QuestInfo(SerializationInfo info, StreamingContext context)
         {
             state = (QuestState)info.GetInt32("state");

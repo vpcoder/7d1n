@@ -19,6 +19,11 @@ namespace Engine.Logic.Locations
 
         public int CurrentFloor => currentFloor;
 
+        public void SetMaxFloor()
+        {
+            SetFloor(maxFloor);
+        }
+        
         public void SetFloor(int floor)
         {
             if (floor < 1)
