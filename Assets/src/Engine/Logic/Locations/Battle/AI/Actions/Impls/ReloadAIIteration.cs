@@ -25,7 +25,7 @@ namespace Engine.Logic.Locations
             ammo.Count -= ammoCount;
             if (ammo.Count == 0)
             {
-                npc.Enemy.Items.Remove(ammo);
+                npc.Character.Items.Remove(ammo);
             }
 
             AudioController.Instance.PlaySound(npc.AttackAudioSource, weapon.ReloadSoundType);

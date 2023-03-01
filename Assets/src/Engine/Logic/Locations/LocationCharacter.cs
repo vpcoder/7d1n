@@ -25,6 +25,7 @@ namespace Engine.Logic.Locations
         [SerializeField] private float pickUpDistance = 1f;
         [SerializeField] private float speed = 3f;
         [SerializeField] private MoveContext moveContext;
+        [SerializeField] private Transform eye;
         
         private NavMeshPath navMeshPath;
         private List<Vector3> path;
@@ -34,6 +35,8 @@ namespace Engine.Logic.Locations
         
         
         #region Properties
+
+        public Transform Eye => eye;
         
         /// <summary>
         ///     Текущий путь, по которому надо пройти
@@ -79,6 +82,13 @@ namespace Engine.Logic.Locations
                 UpdatePoint();
             }
         }
+
+        /// <summary>
+        ///     Персонаж занят чем то?
+        ///     ---
+        ///     Is the character doing something?
+        /// </summary>
+        public bool IsBusy => Path != null;
         
         #endregion
 
@@ -117,13 +127,13 @@ namespace Engine.Logic.Locations
         public override void OnStart()
         {
             navMeshPath = new NavMeshPath();
-            Enemy = new PlayerCharacter();
+            Character = new PlayerCharacter();
             cameraController = ObjectFinder.Find<LocationCameraController>();
         }
 
         public override void OnUpdate()
         {
-            if (Enemy.Health <= 0)
+            if (Character.Health <= 0)
                 Died();
 
             if (Game.Instance.Runtime.Mode == Mode.Switch)

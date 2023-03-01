@@ -2,7 +2,7 @@
 namespace Engine.Data
 {
 
-    public enum EnemyGroup : byte
+    public enum OrderGroup : byte
     {
 
         /// <summary>

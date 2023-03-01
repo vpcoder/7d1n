@@ -133,7 +133,7 @@ namespace src.Engine.Scenes.Loader.Impls
             }
             
             battleManager.EnterToBattle();
-            Game.Instance.Runtime.BattleContext.Order.Add(EnemyGroup.PlayerGroup);
+            Game.Instance.Runtime.BattleContext.Order.Add(OrderGroup.PlayerGroup);
         }
     }
     

@@ -9,6 +9,7 @@ namespace Engine.Logic.Dialog
     public class DialogRuntime
     {
         private List<IActionCommand> dialogQueue;
+        private List<IActionCommand> endDialogQueue;
         private int index;
         private int goToActionIndex;
         private bool isLastGoTo;
@@ -53,8 +54,10 @@ namespace Engine.Logic.Dialog
             return action;
         }
         
-        public void SetDialogQueueAndRun(DialogBox dialogBox, [NotNull] IEnumerable<IActionCommand> dialogQueue,
-            int startIndex = 0)
+        public void SetDialogQueueAndRun([NotNull] DialogBox dialogBox,
+                                         [NotNull] IEnumerable<IActionCommand> dialogQueue,
+                                         IEnumerable<IActionCommand> endDialogQueue,
+                                         int startIndex = 0)
         {
             if (StartEvent != null)
             {
@@ -68,6 +71,8 @@ namespace Engine.Logic.Dialog
 #endif
 
             DialogBox = dialogBox;
+
+            this.endDialogQueue = endDialogQueue == null ? null : endDialogQueue.ToList();
             if (Lists.IsNotEmpty(this.dialogQueue))
                 End();
 
@@ -186,7 +191,24 @@ namespace Engine.Logic.Dialog
                 dialogQueue.Clear();
             }
 
+            if (Lists.IsNotEmpty(endDialogQueue))
+            {
+                foreach (var action in endDialogQueue)
+                {
+                    if (action == null)
+                        continue;
+                    
+                    if(!action.IsConstructed) {
+                        action.Construct();
+                    }
+                    action.Run(this);
+                    action.Destruct();
+                }
+                endDialogQueue.Clear();
+            }
+
             dialogQueue = null;
+            endDialogQueue = null;
             index = 0;
 
             if (DialogBox != null)

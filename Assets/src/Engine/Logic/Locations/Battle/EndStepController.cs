@@ -25,7 +25,7 @@ namespace Engine.Logic.Locations
 
         public void DoEndStepClick()
         {
-            if(Game.Instance.Runtime.BattleContext.OrderIndex != EnemyGroup.PlayerGroup)
+            if(Game.Instance.Runtime.BattleContext.OrderIndex != OrderGroup.PlayerGroup)
             {
                 Hide();
                 return;

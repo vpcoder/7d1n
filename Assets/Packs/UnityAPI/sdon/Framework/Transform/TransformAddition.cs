@@ -50,9 +50,11 @@ namespace UnityEngine {
 			SetState(obj.transform, another);
 		}
 		
-		public static void SetState(this Camera obj, Transform another)
+		public static void SetState(this Camera obj, Transform another, Transform lookAt = null)
 		{
 			SetState(obj.transform, another);
+			if(lookAt != null)
+				obj.transform.LookAt(lookAt);
 		}
 		
 		/// <summary>

@@ -1,6 +1,4 @@
-﻿using Engine.Character;
-using Engine.Data;
-using UnityEngine;
+﻿using Engine.Data;
 
 namespace Engine.Logic.Locations
 {

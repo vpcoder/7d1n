@@ -17,7 +17,7 @@ namespace Engine.Logic.Locations
         /// <summary>
         /// 
         /// </summary>
-        public EnemyGroup EnemyGroup { get; set; }
+        public OrderGroup OrderGroup { get; set; }
         
         /// <summary>
         /// 

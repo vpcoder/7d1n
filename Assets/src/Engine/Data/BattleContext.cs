@@ -28,14 +28,14 @@ namespace Engine.Data
         ///     ---
         ///     Index of the current stroke group
         /// </summary>
-        public EnemyGroup OrderIndex = EnemyGroup.PlayerGroup;
+        public OrderGroup OrderIndex = OrderGroup.PlayerGroup;
 
         /// <summary>
         ///     Всего групп в бою
         ///     ---
         ///     Total groups in battle
         /// </summary>
-        public readonly IList<EnemyGroup> Order = new List<EnemyGroup>();
+        public readonly IList<OrderGroup> Order = new List<OrderGroup>();
 
         /// <summary>
         ///     Отношения между группами
@@ -46,7 +46,7 @@ namespace Engine.Data
 
         #endregion
         
-        public void SetOrder(IEnumerable<EnemyGroup> values)
+        public void SetOrder(IEnumerable<OrderGroup> values)
         {
             Order.Clear();
             Order.AddRange(values.ToList());

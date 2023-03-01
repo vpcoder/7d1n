@@ -5,15 +5,12 @@ namespace Engine.Data.Factories.Xml
     public interface INpcInfo : IIdentity
     {
         string BodyName { get; }
-        string BehaviourName { get; }
         string SpriteName { get; }
     }
 
     public class NpcInfo : INpcInfo
     {
         public string BodyName { get; set; }
-
-        public string BehaviourName { get; set; }
 
         public string SpriteName { get; set; }
 
@@ -25,7 +22,6 @@ namespace Engine.Data.Factories.Xml
             {
                 ID = ID,
                 BodyName = BodyName,
-                BehaviourName = BehaviourName,
                 SpriteName = SpriteName,
             };
         }
@@ -47,7 +43,6 @@ namespace Engine.Data.Factories.Xml
             var npcInfo = new NpcInfo();
             npcInfo.ID            = Lng("ID");
             npcInfo.BodyName      = Str("Body");
-            npcInfo.BehaviourName = Str("Behaviour");
             npcInfo.SpriteName    = Str("Sprite");
             return npcInfo;
         }

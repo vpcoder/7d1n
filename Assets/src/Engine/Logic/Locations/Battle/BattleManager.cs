@@ -23,7 +23,7 @@ namespace Engine.Logic.Locations
 
         public void EnemyStepCompleted(EnemyNpcBehaviour enemy)
         {
-            if (Game.Instance.Runtime.BattleContext.OrderIndex != enemy.Enemy.EnemyGroup)
+            if (Game.Instance.Runtime.BattleContext.OrderIndex != enemy.Character.OrderGroup)
                 return;
 
             lock(locker)
@@ -104,7 +104,7 @@ namespace Engine.Logic.Locations
             var apController = ObjectFinder.Find<BattleApController>();
             apController.Show();
 
-            if (Game.Instance.Runtime.BattleContext.OrderIndex == EnemyGroup.PlayerGroup)
+            if (Game.Instance.Runtime.BattleContext.OrderIndex == OrderGroup.PlayerGroup)
                 StartPlayerStep();
 
             Debug.Log("battle started");
@@ -135,8 +135,8 @@ namespace Engine.Logic.Locations
             if (Game.Instance.Runtime.Mode != Mode.Battle) // Не битва
                 return;
 
-            if (Game.Instance.Runtime.BattleContext.OrderIndex == EnemyGroup.PlayerGroup ||
-                Game.Instance.Runtime.BattleContext.OrderIndex == EnemyGroup.AnotherPlayerGroup) // ходит игрок или противник-человек, не нужно сюда лезть
+            if (Game.Instance.Runtime.BattleContext.OrderIndex == OrderGroup.PlayerGroup ||
+                Game.Instance.Runtime.BattleContext.OrderIndex == OrderGroup.AnotherPlayerGroup) // ходит игрок или противник-человек, не нужно сюда лезть
                 return;
 
             // Ходят NPC
@@ -178,7 +178,7 @@ namespace Engine.Logic.Locations
             Debug.Log(index);
 
             Game.Instance.Runtime.BattleContext.OrderIndex = order[index];
-            if(Game.Instance.Runtime.BattleContext.OrderIndex == EnemyGroup.PlayerGroup) // Ходит игрок
+            if(Game.Instance.Runtime.BattleContext.OrderIndex == OrderGroup.PlayerGroup) // Ходит игрок
                 StartPlayerStep();
 
             NpcAISceneManager.Instance.UpdateOrderList(); // Обновляем очереди ходов
@@ -188,7 +188,7 @@ namespace Engine.Logic.Locations
                 return;
             }
 
-            if (Game.Instance.Runtime.BattleContext.OrderIndex != EnemyGroup.PlayerGroup && Game.Instance.Runtime.BattleContext.OrderIndex != EnemyGroup.AnotherPlayerGroup)
+            if (Game.Instance.Runtime.BattleContext.OrderIndex != OrderGroup.PlayerGroup && Game.Instance.Runtime.BattleContext.OrderIndex != OrderGroup.AnotherPlayerGroup)
 			{
                 NpcAIPredictor.Instance.CreateStrategyForAllNpc();
 			}       

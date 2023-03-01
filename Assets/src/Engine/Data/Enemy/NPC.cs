@@ -3,7 +3,7 @@
 namespace Engine.Data
 {
 
-    public class NPC : EnemyBase
+    public class NPC : CharacterBase
     {
 
         public override IIdentity Copy()
@@ -13,7 +13,7 @@ namespace Engine.Data
                 ID = ID,
                 AP = AP,
                 Exp = Exp,
-                EnemyGroup = EnemyGroup,
+                OrderGroup = OrderGroup,
                 Protection = Protection,
                 Health = Health,
                 ItemsForGeneration = ItemsForGeneration?.ToList(),

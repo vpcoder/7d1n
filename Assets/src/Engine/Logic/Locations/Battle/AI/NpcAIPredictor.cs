@@ -82,7 +82,7 @@ namespace Engine.Logic.Locations
             battle.EnemyGroupCounter = currentNpcList.Count;
 
             var context = new PredictorContext();
-            context.EnemyGroup = currentGroup;
+            context.OrderGroup = currentGroup;
             context.CurrentGroupNpc = currentNpcList;
             
             foreach (var npc in currentNpcList)

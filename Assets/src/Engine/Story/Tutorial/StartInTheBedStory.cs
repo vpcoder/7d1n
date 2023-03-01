@@ -2,7 +2,6 @@ using System.Collections.Generic;
 using Engine.Data.Factories;
 using Engine.Logic.Dialog;
 using Engine.Logic.Dialog.Action.Impls;
-using Engine.Logic.Locations;
 using UnityEngine;
 
 namespace Engine.Story.Tutorial
@@ -23,16 +22,10 @@ namespace Engine.Story.Tutorial
         {
             var background = ObjectFinder.SceneViewImage;
             var camera = Camera.main;
-            var fov = Camera.main.fieldOfView;
-            var initCameraState = new TransformPair();
             
             dlg.Run(() =>
             {
-                initCameraState = camera.GetState();
                 camera.SetState(characterEyes.transform);
-                camera.fieldOfView = 60f;
-                ObjectFinder.Find<FloorSwitchController>().SetFloor(2);
-                
                 background.sprite = BackgroundFactory.Instance.GetRaw("UI/Base/black");
                 background.color = Color.white;
             });
@@ -140,10 +133,6 @@ namespace Engine.Story.Tutorial
             dlg.Run(() =>
             {
                 StoryActionHelper.Fade(background, Color.white, Color.clear, 0.8f);
-                
-                Camera.main.fieldOfView = fov;
-                Camera.main.transform.SetState(initCameraState);
-                ObjectFinder.Find<FloorSwitchController>().SetFloor(1);
             });
             
         }

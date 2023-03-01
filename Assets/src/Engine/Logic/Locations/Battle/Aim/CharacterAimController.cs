@@ -82,7 +82,7 @@ namespace Engine.Logic.Locations.Battle
 
         private void UpdateEvent()
         {
-            if (Game.Instance.Runtime.BattleContext.OrderIndex != EnemyGroup.PlayerGroup) // Не ход игрока?
+            if (Game.Instance.Runtime.BattleContext.OrderIndex != OrderGroup.PlayerGroup) // Не ход игрока?
                 return;
 
             if (Game.Instance.Runtime.ActionMode != ActionMode.Aim)
@@ -98,9 +98,7 @@ namespace Engine.Logic.Locations.Battle
             if (floorHitPoint == Vector3.zero)
                 return;
 
-            var character = ObjectFinder.Find<LocationCharacter>();
-
-            if (Vector3.Distance(floorHitPoint, character.Position) > Radius)
+            if (Vector3.Distance(floorHitPoint, ObjectFinder.Character.Position) > Radius)
                 return;
 
             OnAimClick(floorHitPoint);
@@ -129,7 +127,7 @@ namespace Engine.Logic.Locations.Battle
             controller.AttackContext.Weapon = weapon;
             controller.Action = CharacterBattleAction.Attack;
 
-            var character = ObjectFinder.Find<LocationCharacter>();
+            var character = ObjectFinder.Character;
 
             int ap = 0;
             float aimRadius = weapon.AimRadius;

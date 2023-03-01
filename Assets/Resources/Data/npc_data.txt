@@ -1,23 +1,27 @@
 ﻿<Data>
 
-	<Item ID="0"
-		  Body="character"
-		  Behaviour="character"
-		  Sprite="character" />
-		  
+    <!--Quests-->
+        
+        <Item ID="-1"
+        	Body="quests/patient_tutorial_female"
+        	Sprite="patient_tutorial_female" />
+        	
+        <Item ID="0"
+        	Body="character"
+        	Sprite="character" />
+           
+    <!--/Quests-->
+
 	<Item ID="1"
 		  Body="surviver"
-		  Behaviour="surviver"
 		  Sprite="surviver" />
 	
 	<Item ID="100"
 		  Body="zombie/business_female"
-		  Behaviour="zombie/human_base"
 		  Sprite="zombie_business_female" />
 		  
 	<Item ID="101"
 		  Body="zombie/businessman_male"
-		  Behaviour="zombie/human_base"
 		  Sprite="zombie_businessman_male" />
 
 </Data>

@@ -33,6 +33,9 @@ namespace Engine.Story
 
             if (Time.time - downTime < 0.4f) // Это обычный клик на объекте
             {
+                if(ObjectFinder.Character?.IsBusy ?? true)
+                    return; // Персонаж щас чем то занят или его вообще нет в сцене, ничего не делаем
+                
                 var component = GetComponent<IStorySelectCatcher>();
                 if (CheckDistance())
                 {
@@ -60,7 +63,7 @@ namespace Engine.Story
         private bool CheckDistance()
         {
             if (character == null)
-                character = ObjectFinder.Find<LocationCharacter>();
+                character = ObjectFinder.Character;
 
             var distance = Vector3.Distance(transform.position, character.transform.position);
             return distance <= character.PickUpDistance * 2f;

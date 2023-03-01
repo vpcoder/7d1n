@@ -9,7 +9,6 @@ namespace Engine.Data.Factories
     public class NpcFactory : FactoryBase<INpcInfo, XmlFactoryLoaderNpc>
     {
 
-        private IDictionary<long, GameObject> bodyByID      = new Dictionary<long, GameObject>();
         private IDictionary<long, GameObject> behaviourByID = new Dictionary<long, GameObject>();
         private IDictionary<long, Sprite>     spriteByID    = new Dictionary<long, Sprite>();
 
@@ -21,44 +20,24 @@ namespace Engine.Data.Factories
 
         #endregion
 
-        public GameObject GetBody(long id)
+        public GameObject GetBehaviour(long id)
         {
-            GameObject body = null;
-            if (!bodyByID.TryGetValue(id, out body))
+            GameObject characterBody = null;
+            if (!behaviourByID.TryGetValue(id, out characterBody))
             {
                 var enemy = Get(id);
                 var path = "Data/Bodies/" + enemy.BodyName;
-                body = Resources.Load<GameObject>(path);
+                characterBody = Resources.Load<GameObject>(path);
 #if UNITY_EDITOR
-                if (body == null)
+                if (characterBody == null)
                 {
-                    Debug.LogError("body '" + path + "' not founded!");
+                    Debug.LogError("character body '" + path + "' not founded!");
                     return null;
                 }
 #endif
-                bodyByID.Add(id, body);
+                behaviourByID.Add(id, characterBody);
             }
-            return body;
-        }
-
-        public GameObject GetBehaviour(long id)
-        {
-            GameObject behaviour = null;
-            if (!behaviourByID.TryGetValue(id, out behaviour))
-            {
-                var enemy = Get(id);
-                var path = "Data/Behaviours/" + enemy.BehaviourName;
-                behaviour = Resources.Load<GameObject>(path);
-#if UNITY_EDITOR
-                if (behaviour == null)
-                {
-                    Debug.LogError("behaviour '" + path + "' not founded!");
-                    return null;
-                }
-#endif
-                behaviourByID.Add(id, behaviour);
-            }
-            return behaviour;
+            return characterBody;
         }
 
         public Sprite GetSprite(long id)

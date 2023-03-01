@@ -50,7 +50,7 @@ namespace Engine.Logic
         ///     ---
         ///     The object of this attacker's body
         /// </summary>
-        EnemyBody EnemyBody { get; }
+        CharacterBody CharacterBody { get; }
 
         /// <summary>
         ///     Ссылка на объект атакующего

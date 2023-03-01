@@ -31,7 +31,7 @@ namespace Engine.Data
         ///     ---
         ///     Object with parameters of relations between groups
         /// </returns>
-        IGroupRelationPair GetRelation(EnemyGroup first, EnemyGroup second);
+        IGroupRelationPair GetRelation(OrderGroup first, OrderGroup second);
 
         
         /// <summary>
@@ -56,7 +56,7 @@ namespace Engine.Data
         ///     true - if groups are feuding with each other,
         ///     otherwise - false
         /// </returns>
-        bool IsEnemies(EnemyGroup first, EnemyGroup second);
+        bool IsEnemies(OrderGroup first, OrderGroup second);
         bool IsEnemies(IGroupRelationPair relationPair);
         bool IsEnemies(int hostility);
         
@@ -82,7 +82,7 @@ namespace Engine.Data
         ///     true - if the groups are friends with each other,
         ///     otherwise - false
         /// </returns>
-        bool IsFriends(EnemyGroup first, EnemyGroup second);
+        bool IsFriends(OrderGroup first, OrderGroup second);
         bool IsFriends(IGroupRelationPair relationPair);
         bool IsFriends(int hostility);
         
@@ -108,7 +108,7 @@ namespace Engine.Data
         ///     true - if the groups are neutral to each other,
         ///     otherwise - false
         /// </returns>
-        bool IsNeutral(EnemyGroup first, EnemyGroup second);
+        bool IsNeutral(OrderGroup first, OrderGroup second);
         bool IsNeutral(IGroupRelationPair relationPair);
         bool IsNeutral(int hostility);
 

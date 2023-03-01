@@ -1,6 +1,5 @@
 ﻿using System;
 using Engine.Data;
-using Engine.Data.Factories;
 using System.Collections.Generic;
 using UnityEngine;
 using System.Linq;
@@ -24,9 +23,9 @@ namespace Engine.Logic.Locations
                                               IMonoBehaviourOverrideUpdateEvent
     {
 
+        [SerializeField] protected CharacterBody characterBody;
         [SerializeField] protected Animator animator;
         [SerializeField] protected NavMeshAgent agent;
-        [SerializeField] protected GameObject body;
         [SerializeField] protected AudioSource attackAudioSource;
         [SerializeField] protected Transform lookDirectionTransform;
         [SerializeField] protected long id;
@@ -35,22 +34,22 @@ namespace Engine.Logic.Locations
 
         #region Shared Properties
 
-        public Transform LookDirectionTransform { get { return lookDirectionTransform; } }
+        public Transform LookDirectionTransform => lookDirectionTransform;
         public NpcContext NpcContext { get; set; } = new NpcContext();
         public IAiIterationAction CurrentIterationAction { get; set; }
         public NpcBaseActionContext CurrentAction { get; set; }
-        public Animator Animator { get { return animator; } }
-        public NavMeshAgent Agent { get { return this.agent; } }
+        public Animator Animator => animator;
+        public NavMeshAgent Agent => agent;
         public Vector2Int Pos { get; set; }
 		public IDamagedObject Target { get; set; }
-        public EnemyBody EnemyBody { get; private set; }
+        public CharacterBody CharacterBody { get; private set; }
         public GameObject WeaponObject { get; private set; }
         public bool IsEndStep { get; set; } = true;
         public virtual IWeapon Weapon { get; set; }
         public virtual Vector3 TargetAttackPos { get; set; }
-        public virtual GameObject AttackCharacterObject { get { return this.gameObject; } }
-        public AudioSource AttackAudioSource { get { return this.attackAudioSource; } }
-        
+        public virtual GameObject AttackCharacterObject => gameObject;
+        public AudioSource AttackAudioSource => attackAudioSource;
+
         /// <summary>
         ///     Словарь предикторов по состоянию НПС
         ///     ---
@@ -60,25 +59,27 @@ namespace Engine.Logic.Locations
         
 
         /// <summary>
-        /// Параметры врага
+        ///     Параметры врага
+        ///     ---
+        ///     
         /// </summary>
-        public IEnemy Enemy
+        public ICharacter Character
         {
             get
             {
-                if(EnemyBody == null)
+                if(CharacterBody == null)
                 {
                     UpdateBody();
                 }
-                return EnemyBody.Enemy;
+                return CharacterBody.Character;
             }
             protected set
             {
-                if (EnemyBody == null)
+                if (CharacterBody == null)
                 {
                     UpdateBody();
                 }
-                EnemyBody.Enemy = value;
+                CharacterBody.Character = value;
             }
         }
 
@@ -130,7 +131,7 @@ namespace Engine.Logic.Locations
         
         public void EquipWeapon(IWeapon weapon)
         {
-            var weaponPoint = EnemyBody?.WeaponPoint;
+            var weaponPoint = CharacterBody?.WeaponPoint;
             weaponPoint.DestroyAllChilds();
 
             Weapon = weapon;
@@ -166,15 +167,17 @@ namespace Engine.Logic.Locations
 
         protected virtual void UpdateBody()
         {
-            this.body.transform.DestroyAllChilds();
-            var bodyBehaviour = GameObject.Instantiate(NpcFactory.Instance.GetBody(id), this.body.transform);
-            this.EnemyBody = bodyBehaviour.GetComponent<EnemyBody>();
-            this.animator.avatar = EnemyBody.Avatar;
-            this.animator.runtimeAnimatorController = EnemyBody.Controller;
+            this.CharacterBody = characterBody;
+            this.animator.avatar = CharacterBody.Avatar;
+            this.animator.runtimeAnimatorController = CharacterBody.Controller;
 
             //TODO: FIXME: Костыль, нужно переделать на сеть коллидеров, обернув конечности в box collider
-            var collider = this.gameObject.AddComponent<MeshCollider>();
-            collider.sharedMesh = EnemyBody.MeshRenderer.sharedMesh;
+            var collider = this.gameObject.GetComponent<Collider>();
+            if (collider == null)
+            {
+                collider = this.gameObject.AddComponent<MeshCollider>();
+                ((MeshCollider)collider).sharedMesh = CharacterBody.MeshRenderer.sharedMesh;
+            }
         }
 
         #region Unity Events
@@ -218,8 +221,8 @@ namespace Engine.Logic.Locations
             }
 
             // Сейчас ход NPC
-            if (Game.Instance.Runtime.BattleContext.OrderIndex != EnemyGroup.PlayerGroup &&
-                Game.Instance.Runtime.BattleContext.OrderIndex != EnemyGroup.AnotherPlayerGroup)
+            if (Game.Instance.Runtime.BattleContext.OrderIndex != OrderGroup.PlayerGroup &&
+                Game.Instance.Runtime.BattleContext.OrderIndex != OrderGroup.AnotherPlayerGroup)
             {
                 if (CurrentIterationAction.Iteration(this, CurrentAction, timestamp))
                     DoNextAction(); // Конец этого действия
@@ -269,8 +272,8 @@ namespace Engine.Logic.Locations
             manager.RemoveEnemiesFromBattle(this);
 
             var dropController = ObjectFinder.Find<ItemsDropController>();
-            dropController.Drop(transform.position, true, Enemy.Items); // Выкидываем предметы
-            dropController.Drop(transform.position, true, Enemy.Weapons?.Where(weapon => !DataDictionary.Items.SYSTEM_ITEMS.Contains(weapon.ID)).ToArray());
+            dropController.Drop(transform.position, true, Character.Items); // Выкидываем предметы
+            dropController.Drop(transform.position, true, Character.Weapons?.Where(weapon => !DataDictionary.Items.SYSTEM_ITEMS.Contains(weapon.ID)).ToArray());
 
             StopNPC();
 

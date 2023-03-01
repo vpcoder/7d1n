@@ -160,7 +160,7 @@ namespace Engine.Logic.Locations
 
         private void CheckEvents()
         {
-            if (Game.Instance.Runtime.BattleContext.OrderIndex != EnemyGroup.PlayerGroup) // Не ход игрока?
+            if (Game.Instance.Runtime.BattleContext.OrderIndex != OrderGroup.PlayerGroup) // Не ход игрока?
                 return;
 
             if (Game.Instance.Runtime.ActionMode != ActionMode.Move)

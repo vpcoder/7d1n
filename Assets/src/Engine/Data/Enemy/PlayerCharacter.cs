@@ -5,12 +5,12 @@ using System.Collections.Generic;
 namespace Engine.Data
 {
 
-    public class PlayerCharacter : IEnemy
+    public class PlayerCharacter : ICharacter
     {
         public string SpritePath => throw new NotImplementedException();
 
         public int AP { get { return Game.Instance.Runtime.BattleContext.CurrentCharacterAP; } set { } }
-        public EnemyGroup EnemyGroup { get; set; } = EnemyGroup.PlayerGroup;
+        public OrderGroup OrderGroup { get; set; } = OrderGroup.PlayerGroup;
         public long Exp { get { return 150; } set { } }
         public int Health { get { return Game.Instance.Character.State.Health; } set { Game.Instance.Character.State.Health = value; } }
         public int Protection { get { return Game.Instance.Character.State.Protection; } set { Game.Instance.Character.State.Protection = value; } }

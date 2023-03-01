@@ -1,4 +1,6 @@
 using Engine.EGUI;
+using Engine.Logic.Dialog;
+using Engine.Logic.Locations;
 using UnityEngine;
 
 namespace Engine.Story
@@ -42,6 +44,38 @@ namespace Engine.Story
         {
             UIHintMessageManager.Show(hintMessagePrefab, PlayerCharacter.transform.position, "Слишком далеко. Нужно подойти ближе.");
         }
+
+        protected override void StartDialogProcessing(DialogQueue dlg)
+        {
+            base.StartDialogProcessing(dlg);
+            
+            dlg.Run(() =>
+            {
+                var camera = Camera.main;
+                startFov = camera.fieldOfView;
+                startTransformPair = camera.GetState();
+                camera.fieldOfView = 60f;
+
+                var floorController = ObjectFinder.Find<FloorSwitchController>();
+                startFloor = floorController.CurrentFloor;
+                floorController.SetMaxFloor();
+            });
+        }
+
+        protected override void EndDialogProcessing(DialogQueue dlg)
+        {
+            dlg.Run(() =>
+            {
+                Camera.main.fieldOfView = startFov;
+                Camera.main.transform.SetState(startTransformPair);
+                ObjectFinder.Find<FloorSwitchController>().SetFloor(startFloor);
+            });
+            base.EndDialogProcessing(dlg);
+        }
+
+        private int startFloor;
+        private float startFov;
+        private TransformPair startTransformPair;
 
     }
     

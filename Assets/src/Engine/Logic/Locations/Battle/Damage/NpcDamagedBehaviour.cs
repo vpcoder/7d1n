@@ -21,7 +21,7 @@ namespace Engine.Logic.Locations
         {
             get
             {
-                return CurrentNPC.Enemy.Exp;
+                return CurrentNPC.Character.Exp;
             }
         }
 
@@ -34,11 +34,11 @@ namespace Engine.Logic.Locations
         {
             get
             {
-                return CurrentNPC.Enemy.Health;
+                return CurrentNPC.Character.Health;
             }
             set
             {
-                CurrentNPC.Enemy.Health = value;
+                CurrentNPC.Character.Health = value;
             }
         }
 
@@ -51,7 +51,7 @@ namespace Engine.Logic.Locations
         {
             get
             {
-                return CurrentNPC.Enemy.Protection;
+                return CurrentNPC.Character.Protection;
             }
         }
 

@@ -31,7 +31,7 @@ namespace Engine.Logic.Locations
         int Protection { get; }
 
         /// <summary>
-        ///     Кем то уже полечен опыт за него?
+        ///     Кем то уже получен опыт за него?
         ///     ---
         ///     Is someone already experienced for him?
         /// </summary>

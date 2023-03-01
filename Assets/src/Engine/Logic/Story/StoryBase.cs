@@ -77,12 +77,14 @@ namespace Engine.Story
             dialogBox.Runtime.StartEvent += StartDialogEvent;
             dialogBox.Runtime.EndEvent   += EndDialogEvent;
 
-            var queue = new DialogQueue();
-            StartDialogProcessing(queue);
-            CreateDialog(queue);
-            EndDialogProcessing(queue);
+            var mainDialog = new DialogQueue();
+            StartDialogProcessing(mainDialog);
+            CreateDialog(mainDialog);
             
-            dialogBox.SetDialogQueueAndRun(queue.Queue, 0, this);
+            var endDialog = new DialogQueue();
+            EndDialogProcessing(endDialog);
+            
+            dialogBox.SetDialogQueueAndRun(mainDialog.Queue, endDialog.Queue, 0, this);
         }
         
     }

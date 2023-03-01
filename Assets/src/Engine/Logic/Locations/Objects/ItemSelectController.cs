@@ -68,7 +68,7 @@ namespace Engine.Logic.Locations
         public void OnUseClick()
         {
             if (Game.Instance.Runtime.Mode != Mode.Game
-                && Game.Instance.Runtime.BattleContext.OrderIndex != EnemyGroup.PlayerGroup) // Не наш ход
+                && Game.Instance.Runtime.BattleContext.OrderIndex != OrderGroup.PlayerGroup) // Не наш ход
                 return;
             
             var item = GetComponent<LocationObjectItemBehaviour>();

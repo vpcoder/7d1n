@@ -57,7 +57,7 @@ namespace Engine.Logic.Locations.Impls
             if (isNeedLook)
                 npc.NpcContext.Actions.Add(CreateLook(target, 1f));
 
-            var ap = npc.Enemy.AP;
+            var ap = npc.Character.AP;
             var moveResult = DoMoveIfNeeded(npc, target, ref ap); // Движемся к цели, если нужно
             for(;;)
             {
@@ -94,7 +94,7 @@ namespace Engine.Logic.Locations.Impls
 
             var currentAp = ap;
 
-            var weapon = TryFindRangedWeapon(ap, enemy.Enemy.Weapons, enemy.Enemy.Items);
+            var weapon = TryFindRangedWeapon(ap, enemy.Character.Weapons, enemy.Character.Items);
             if (weapon != null) // FIXME: check raycast
             {
                 result.Weapon = weapon;
@@ -133,7 +133,7 @@ namespace Engine.Logic.Locations.Impls
         	if(ap <= 0)
         		return false;
         	
-            var weapon = TryFindWeaponByPredicate(ap, enemy.Enemy.Weapons, enemy.Enemy.Items); // Оружия которые можно использовать (хватает ОД)
+            var weapon = TryFindWeaponByPredicate(ap, enemy.Character.Weapons, enemy.Character.Items); // Оружия которые можно использовать (хватает ОД)
             if (weapon == null)
                 return false;
 
@@ -176,7 +176,7 @@ namespace Engine.Logic.Locations.Impls
                     {
                         if (weapon.ReloadAP > ap)
                             return false;
-                        var ammo = TryFindAmmo(weapon, enemy.Enemy.Items);
+                        var ammo = TryFindAmmo(weapon, enemy.Character.Items);
                         if (ammo != null)
                         {
                             ap -= weapon.ReloadAP;

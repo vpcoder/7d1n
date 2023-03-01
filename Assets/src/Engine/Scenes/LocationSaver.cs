@@ -42,7 +42,7 @@ namespace Engine.Logic
             var data = new List<EnemyDataSet>();
             foreach(var entry in NpcAISceneManager.Instance.GroupToNpcList)
             {
-                if (entry.Key == EnemyGroup.PlayerGroup || entry.Key == EnemyGroup.AnotherPlayerGroup) // Не сохраняем персонажей реальных игроков
+                if (entry.Key == OrderGroup.PlayerGroup || entry.Key == OrderGroup.AnotherPlayerGroup) // Не сохраняем персонажей реальных игроков
                     continue;
 
                 foreach(var enemy in entry.Value)
@@ -64,11 +64,11 @@ namespace Engine.Logic
         {
             return new EnemyDataSet()
             {
-                ID = enemy.Enemy.ID,
-                Health = enemy.Enemy.Health,
-                Protection = enemy.Enemy.Protection,
-                Items = enemy.Enemy.Items?.Select(item => Read(item)).ToList(),
-                Weapons = enemy.Enemy.Weapons?.Select(weapon => Read(weapon)).ToList(),
+                ID = enemy.Character.ID,
+                Health = enemy.Character.Health,
+                Protection = enemy.Character.Protection,
+                Items = enemy.Character.Items?.Select(item => Read(item)).ToList(),
+                Weapons = enemy.Character.Weapons?.Select(weapon => Read(weapon)).ToList(),
                 Position = enemy.transform.position.ToString(),
                 Rotation = enemy.transform.rotation.eulerAngles.ToString(),
             };

@@ -18,14 +18,14 @@ namespace Engine.Data
         ///     ---
         ///     The first group in the pairing
         /// </summary>
-        EnemyGroup FirstGroup  { get; set; }
+        OrderGroup FirstGroup  { get; set; }
         
         /// <summary>
         ///     Вторая группа в паре
         ///     ---
         ///     The second group in the pairing
         /// </summary>
-        EnemyGroup SecondGroup { get; set; }
+        OrderGroup SecondGroup { get; set; }
         
         /// <summary>
         ///     Враждебность между группами

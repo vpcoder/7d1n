@@ -32,42 +32,42 @@ namespace Engine.Data
             relationPairs = new LinkedList<IGroupRelationPair>(new[]
             {
                 // Зомби против всех
-                Create(EnemyGroup.ZombieGroup, EnemyGroup.PlayerGroup, -100),
-                Create(EnemyGroup.ZombieGroup, EnemyGroup.AnotherPlayerGroup, -100),
-                Create(EnemyGroup.ZombieGroup, EnemyGroup.DeceasedGroup, -100),
-                Create(EnemyGroup.ZombieGroup, EnemyGroup.MaraudersGroup, -100),
-                Create(EnemyGroup.ZombieGroup, EnemyGroup.WildAnimalsGroup, -100),
-                Create(EnemyGroup.ZombieGroup, EnemyGroup.ReconstructionistsGroup, -100),
-                Create(EnemyGroup.ZombieGroup, EnemyGroup.ScythiansGroup, -100),
-                Create(EnemyGroup.ZombieGroup, EnemyGroup.SprintersGroup, -100),
-                Create(EnemyGroup.ZombieGroup, EnemyGroup.TechnocratsGroup, -100),
-                Create(EnemyGroup.ZombieGroup, EnemyGroup.NewLightGroup, -100),
+                Create(OrderGroup.ZombieGroup, OrderGroup.PlayerGroup, -100),
+                Create(OrderGroup.ZombieGroup, OrderGroup.AnotherPlayerGroup, -100),
+                Create(OrderGroup.ZombieGroup, OrderGroup.DeceasedGroup, -100),
+                Create(OrderGroup.ZombieGroup, OrderGroup.MaraudersGroup, -100),
+                Create(OrderGroup.ZombieGroup, OrderGroup.WildAnimalsGroup, -100),
+                Create(OrderGroup.ZombieGroup, OrderGroup.ReconstructionistsGroup, -100),
+                Create(OrderGroup.ZombieGroup, OrderGroup.ScythiansGroup, -100),
+                Create(OrderGroup.ZombieGroup, OrderGroup.SprintersGroup, -100),
+                Create(OrderGroup.ZombieGroup, OrderGroup.TechnocratsGroup, -100),
+                Create(OrderGroup.ZombieGroup, OrderGroup.NewLightGroup, -100),
                 
                 // Дикие животные против всех
-                Create(EnemyGroup.WildAnimalsGroup, EnemyGroup.PlayerGroup, -100),
-                Create(EnemyGroup.WildAnimalsGroup, EnemyGroup.AnotherPlayerGroup, -100),
-                Create(EnemyGroup.WildAnimalsGroup, EnemyGroup.DeceasedGroup, -100),
-                Create(EnemyGroup.WildAnimalsGroup, EnemyGroup.MaraudersGroup, -100),
-                Create(EnemyGroup.WildAnimalsGroup, EnemyGroup.ReconstructionistsGroup, -100),
-                Create(EnemyGroup.WildAnimalsGroup, EnemyGroup.ScythiansGroup, -100),
-                Create(EnemyGroup.WildAnimalsGroup, EnemyGroup.SprintersGroup, -100),
-                Create(EnemyGroup.WildAnimalsGroup, EnemyGroup.TechnocratsGroup, -100),
-                Create(EnemyGroup.WildAnimalsGroup, EnemyGroup.NewLightGroup, -100),
+                Create(OrderGroup.WildAnimalsGroup, OrderGroup.PlayerGroup, -100),
+                Create(OrderGroup.WildAnimalsGroup, OrderGroup.AnotherPlayerGroup, -100),
+                Create(OrderGroup.WildAnimalsGroup, OrderGroup.DeceasedGroup, -100),
+                Create(OrderGroup.WildAnimalsGroup, OrderGroup.MaraudersGroup, -100),
+                Create(OrderGroup.WildAnimalsGroup, OrderGroup.ReconstructionistsGroup, -100),
+                Create(OrderGroup.WildAnimalsGroup, OrderGroup.ScythiansGroup, -100),
+                Create(OrderGroup.WildAnimalsGroup, OrderGroup.SprintersGroup, -100),
+                Create(OrderGroup.WildAnimalsGroup, OrderGroup.TechnocratsGroup, -100),
+                Create(OrderGroup.WildAnimalsGroup, OrderGroup.NewLightGroup, -100),
                 
                 // Усопшие - нейтральные с остальными
-                Create(EnemyGroup.DeceasedGroup, EnemyGroup.PlayerGroup, 0),
-                Create(EnemyGroup.DeceasedGroup, EnemyGroup.AnotherPlayerGroup, 0),
-                Create(EnemyGroup.DeceasedGroup, EnemyGroup.MaraudersGroup, 0),
-                Create(EnemyGroup.DeceasedGroup, EnemyGroup.ReconstructionistsGroup, 0),
-                Create(EnemyGroup.DeceasedGroup, EnemyGroup.ScythiansGroup, 0),
-                Create(EnemyGroup.DeceasedGroup, EnemyGroup.SprintersGroup, 0),
-                Create(EnemyGroup.DeceasedGroup, EnemyGroup.TechnocratsGroup, 0),
-                Create(EnemyGroup.DeceasedGroup, EnemyGroup.NewLightGroup, 0),
+                Create(OrderGroup.DeceasedGroup, OrderGroup.PlayerGroup, 0),
+                Create(OrderGroup.DeceasedGroup, OrderGroup.AnotherPlayerGroup, 0),
+                Create(OrderGroup.DeceasedGroup, OrderGroup.MaraudersGroup, 0),
+                Create(OrderGroup.DeceasedGroup, OrderGroup.ReconstructionistsGroup, 0),
+                Create(OrderGroup.DeceasedGroup, OrderGroup.ScythiansGroup, 0),
+                Create(OrderGroup.DeceasedGroup, OrderGroup.SprintersGroup, 0),
+                Create(OrderGroup.DeceasedGroup, OrderGroup.TechnocratsGroup, 0),
+                Create(OrderGroup.DeceasedGroup, OrderGroup.NewLightGroup, 0),
                 
                 // Мородёры против одиночек
-                Create(EnemyGroup.MaraudersGroup, EnemyGroup.PlayerGroup, -1),
-                Create(EnemyGroup.MaraudersGroup, EnemyGroup.AnotherPlayerGroup, -1),
-                Create(EnemyGroup.MaraudersGroup, EnemyGroup.SprintersGroup, -1),
+                Create(OrderGroup.MaraudersGroup, OrderGroup.PlayerGroup, -1),
+                Create(OrderGroup.MaraudersGroup, OrderGroup.AnotherPlayerGroup, -1),
+                Create(OrderGroup.MaraudersGroup, OrderGroup.SprintersGroup, -1),
             });
         }
         
@@ -93,7 +93,7 @@ namespace Engine.Data
         ///     ---
         ///     Object with parameters of relations between groups
         /// </returns>
-        public IGroupRelationPair GetRelation(EnemyGroup first, EnemyGroup second)
+        public IGroupRelationPair GetRelation(OrderGroup first, OrderGroup second)
         {
             if (first == second)
                 return null;
@@ -110,7 +110,7 @@ namespace Engine.Data
             return newRelation;
         }
 
-        private IGroupRelationPair Create(EnemyGroup first, EnemyGroup second, int hostility)
+        private IGroupRelationPair Create(OrderGroup first, OrderGroup second, int hostility)
         {
             return new GroupRelationPair()
             {
@@ -121,7 +121,7 @@ namespace Engine.Data
         }
 
         
-        public bool IsEnemies(EnemyGroup first, EnemyGroup second)
+        public bool IsEnemies(OrderGroup first, OrderGroup second)
         {
             return IsEnemies(GetRelation(first, second));
         }
@@ -134,7 +134,7 @@ namespace Engine.Data
             return hostility < 0;
         }
         
-        public bool IsFriends(EnemyGroup first, EnemyGroup second)
+        public bool IsFriends(OrderGroup first, OrderGroup second)
         {
             return IsFriends(GetRelation(first, second));
         }
@@ -147,7 +147,7 @@ namespace Engine.Data
             return hostility > 0;
         }
 
-        public bool IsNeutral(EnemyGroup first, EnemyGroup second)
+        public bool IsNeutral(OrderGroup first, OrderGroup second)
         {
             return IsNeutral(GetRelation(first, second));
         }

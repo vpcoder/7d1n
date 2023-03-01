@@ -77,7 +77,7 @@ namespace Engine.Logic.Dialog
             Game.Instance.Runtime.Mode = Mode.Game;
         }
 
-        public void SetDialogQueueAndRun([NotNull] IEnumerable<IActionCommand> dialogQueue, int startIndex, object locker)
+        public void SetDialogQueueAndRun([NotNull] IEnumerable<IActionCommand> dialogQueue, IEnumerable<IActionCommand> endDialogQueue, int startIndex, object locker)
         {
             if (Locker != null)
             {
@@ -90,7 +90,7 @@ namespace Engine.Logic.Dialog
             Game.Instance.Runtime.Mode = Mode.Dialog;
 
             Show();
-            runtime.SetDialogQueueAndRun(this, dialogQueue, startIndex);
+            runtime.SetDialogQueueAndRun(this, dialogQueue, endDialogQueue, startIndex);
             runtime.Run();
         }
 

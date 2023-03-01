@@ -18,17 +18,17 @@ namespace Engine.Logic.Locations
 
         #endregion
 
-        public IDictionary<EnemyGroup, List<EnemyNpcBehaviour>> GroupToNpcList
+        public IDictionary<OrderGroup, List<EnemyNpcBehaviour>> GroupToNpcList
         {
             get
             {
-                var data = new Dictionary<EnemyGroup, List<EnemyNpcBehaviour>>();
+                var data = new Dictionary<OrderGroup, List<EnemyNpcBehaviour>>();
                 foreach (var enemy in GameObject.FindObjectsOfType<EnemyNpcBehaviour>())
                 {
                     if (enemy.NpcContext.Status.IsDead) // Не берём в расчёт мёртвых
                         continue;
                     
-                    var group = enemy.Enemy.EnemyGroup;
+                    var group = enemy.Character.OrderGroup;
                     data.AddInToList(group, enemy);
                 }
                 return data;
@@ -45,20 +45,20 @@ namespace Engine.Logic.Locations
         ///     ---
         ///     Groups of moves in the right order
         /// </returns>
-        public List<EnemyGroup> CreateOrderList()
+        public List<OrderGroup> CreateOrderList()
         {
             Debug.Log("battle create order...");
 
-            var order = new List<EnemyGroup>();
-            var enemyInitiative = new Dictionary<EnemyGroup, int>();
+            var order = new List<OrderGroup>();
+            var enemyInitiative = new Dictionary<OrderGroup, int>();
             foreach(var enemy in GameObject.FindObjectsOfType<EnemyNpcBehaviour>())
             {
-                var info = enemy.Enemy;
+                var info = enemy.Character;
                 int initiative;
-                if (!enemyInitiative.TryGetValue(info.EnemyGroup, out initiative))
+                if (!enemyInitiative.TryGetValue(info.OrderGroup, out initiative))
                     initiative = 0;
 
-                enemyInitiative[info.EnemyGroup] = initiative;
+                enemyInitiative[info.OrderGroup] = initiative;
             }
 
             order.AddRange(enemyInitiative.Keys);

@@ -129,9 +129,9 @@ namespace Engine.Logic.Locations
         /// <param name="npc"></param>
         /// <param name="allAiItems"></param>
         /// <returns></returns>
-        protected virtual List<PotentialTarget> FindPotentialEnemies(EnemyNpcBehaviour npc, IDictionary<EnemyGroup, List<EnemyNpcBehaviour>> allAiItems)
+        protected virtual List<PotentialTarget> FindPotentialEnemies(EnemyNpcBehaviour npc, IDictionary<OrderGroup, List<EnemyNpcBehaviour>> allAiItems)
         {
-            var group = npc.EnemyBody.Enemy.EnemyGroup;
+            var group = npc.CharacterBody.Character.OrderGroup;
             var potentialTargetList = new List<PotentialTarget>();
             var relations = Game.Instance.Runtime.BattleContext.Relations;
             foreach(var entry in allAiItems)
@@ -142,7 +142,7 @@ namespace Engine.Logic.Locations
                 foreach(var potentialEnemy in entry.Value)
                 {
                     var path = npc.CalculatePath(potentialEnemy.transform.position);
-                    var rangedWeapon = TryFindRangedWeapon(potentialEnemy.Enemy.AP, potentialEnemy.Enemy.Weapons, potentialEnemy.Enemy.Items);
+                    var rangedWeapon = TryFindRangedWeapon(potentialEnemy.Character.AP, potentialEnemy.Character.Weapons, potentialEnemy.Character.Items);
                     if(path != null || (rangedWeapon != null && NpcCalculationService.CanSeeTarget(npc, potentialEnemy)))
                     {
                         potentialTargetList.Add(new PotentialTarget()
@@ -151,7 +151,7 @@ namespace Engine.Logic.Locations
                             Path = path,
                             PathLength = PathHelper.CalcLength(path),
                             FirearmsWeapon = rangedWeapon,
-                            PriorityWeapon = rangedWeapon ?? TryFindWeaponByPredicate(potentialEnemy.Enemy.AP, potentialEnemy.Enemy.Weapons, potentialEnemy.Enemy.Items),
+                            PriorityWeapon = rangedWeapon ?? TryFindWeaponByPredicate(potentialEnemy.Character.AP, potentialEnemy.Character.Weapons, potentialEnemy.Character.Items),
                         });
                     }
                 }
@@ -159,7 +159,7 @@ namespace Engine.Logic.Locations
             return potentialTargetList;
         }
         
-        protected PotentialTarget FindTargetByDistancePriority(EnemyNpcBehaviour npc, IDictionary<EnemyGroup, List<EnemyNpcBehaviour>> allAiItems)
+        protected PotentialTarget FindTargetByDistancePriority(EnemyNpcBehaviour npc, IDictionary<OrderGroup, List<EnemyNpcBehaviour>> allAiItems)
         {
             var potentialTargetList = FindPotentialEnemies(npc, allAiItems);
 			
