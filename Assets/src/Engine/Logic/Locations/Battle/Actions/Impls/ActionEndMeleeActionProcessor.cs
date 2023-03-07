@@ -84,12 +84,19 @@ namespace Engine.Logic.Locations.Battle.Actions
         private void DoOneHandedAction(IEdgedWeapon edgedWeapon, BattleActionAttackContext context, LocationCharacter character)
         {
             var colliders = GetCollidersInToSphere(edgedWeapon, context, character);
-            IDamagedObject target = TryFindFirstTarget<NpcDamagedBase>(colliders, character); // Сначала целимся на живых NPC
+            IFragmentDamaged target = TryFindFirstTarget<FragmentCharacterDamagedBehaviour>(colliders, character); // Сначала целимся на живых NPC
             if (target == null)
-                target = TryFindFirstTarget<IDamagedObject>(colliders, character); // NPC под руку не попались, смотрим на дамажные неживые цели
+                target = TryFindFirstTarget<IFragmentDamaged>(colliders, character); // NPC под руку не попались, смотрим на дамажные неживые цели
+            
+#if UNITY_EDITOR
+            if (target != null && target.Damaged == null)
+            {
+                Debug.LogError("fragment " + ((MonoBehaviour)target).transform.name + " class " + target.GetType().FullName + " has empty Damaged link!");
+            }            
+#endif
             
             if(target != null) // Махали не в пустую! Во что-то попали...
-                BattleCalculationService.DoEdgedAttack(character, target);
+                BattleCalculationService.DoEdgedAttack(character, target.Damaged);
         }
 
         /// <summary>
@@ -119,9 +126,17 @@ namespace Engine.Logic.Locations.Battle.Actions
             {
                 if(collider.gameObject == character.gameObject)
                     continue;
-                IDamagedObject target = collider.gameObject.GetComponent<IDamagedObject>();
+                IFragmentDamaged target = collider.gameObject.GetComponent<IFragmentDamaged>();
+                
+#if UNITY_EDITOR
+                if (target != null && target.Damaged == null)
+                {
+                    Debug.LogError("fragment " + ((MonoBehaviour)target).transform.name + " class " + target.GetType().FullName + " has empty Damaged link!");
+                }            
+#endif
+                
                 if (target != null)
-                    BattleCalculationService.DoEdgedAttack(character, target);
+                    BattleCalculationService.DoEdgedAttack(character, target.Damaged);
             }
         }
 
@@ -136,7 +151,7 @@ namespace Engine.Logic.Locations.Battle.Actions
             return colliders;
         }
         
-        private T TryFindFirstTarget<T>(Collider[] colliders, LocationCharacter character) where T : class, IDamagedObject
+        private T TryFindFirstTarget<T>(Collider[] colliders, LocationCharacter character) where T : class, IFragmentDamaged
         {
             T target = null;
             foreach (var collider in colliders)

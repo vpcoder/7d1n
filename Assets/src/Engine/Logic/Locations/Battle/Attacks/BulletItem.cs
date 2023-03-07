@@ -276,11 +276,11 @@ namespace Engine.Logic.Locations
                 if (gameObject == source.AttackCharacterObject || checkedkHits.Contains(gameObject))
                     continue;
 
-                var damaged = gameObject.GetComponent<IDamagedObject>();
-                if(damaged == null)
+                var fragment = gameObject.GetComponent<IFragmentDamaged>();
+                if(fragment == null)
                     continue;
 
-                result.Add(damaged);
+                result.Add(fragment.Damaged);
                 checkedkHits.Add(gameObject); // Запоминаем что такой объект уже прошили насквозь
             }
 

@@ -160,13 +160,17 @@ namespace Engine.Logic.Locations
             if (damagedObject == null)
                 return; // Ни во что не врезались
 
-            IDamagedObject enemy = damagedObject.transform.GetComponent<IDamagedObject>();
+            IFragmentDamaged fragment = damagedObject.transform.GetComponent<IFragmentDamaged>();
+            IDamagedObject damaged = null;
 
-            if (enemy == null)
+            if (fragment != null)
+                damaged = fragment.Damaged;
+            
+            if (damaged == null)
                 return; // Не дамажный объект, пролетаем насквозь
 
             // Наносим урон
-            BattleCalculationService.DoEdgedThrowDamage(source, enemy, weapon, this);
+            BattleCalculationService.DoEdgedThrowDamage(source, damaged, weapon, this);
         }
 
         /// <summary>

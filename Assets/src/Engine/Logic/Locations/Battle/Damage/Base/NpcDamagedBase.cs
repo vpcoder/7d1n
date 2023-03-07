@@ -15,6 +15,8 @@ namespace Engine.Logic.Locations
     public abstract class NpcDamagedBase : DamagedBase
     {
 
+        [SerializeField] private EnemyNpcBehaviour characterLink;
+        
         #region Properties
 
         /// <summary>
@@ -22,7 +24,7 @@ namespace Engine.Logic.Locations
         ///     ---
         ///     Link to current NPC
         /// </summary>
-        protected EnemyNpcBehaviour CurrentNPC { get { return GetComponent<EnemyNpcBehaviour>(); } }
+        protected EnemyNpcBehaviour CurrentNPC => characterLink;
 
         #endregion
 

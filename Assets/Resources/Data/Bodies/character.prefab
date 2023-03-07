@@ -688,10 +688,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 961b15825add7734a94dcf610646ed54, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  enemyBody: {fileID: 5306660399653735326}
+  characterBody: {fileID: 0}
   animator: {fileID: 2247469614197937706}
   agent: {fileID: 2247469614197937708}
-  body: {fileID: 7846584517238027253}
   attackAudioSource: {fileID: 2247469614197937704}
   lookDirectionTransform: {fileID: 2247469614688114507}
   id: 0
@@ -1997,11 +1996,11 @@ MonoBehaviour:
   controller: {fileID: 9100000, guid: 01b65cbf686b2e74b838057848291ba0, type: 2}
   avatar: {fileID: 9000000, guid: 0ae23f2dfa7ace44099f6ba8c5b84d8e, type: 3}
   weaponPoint: {fileID: 846447814372437583}
-  enemy:
+  charData:
     ID: 0
     AP: 8
-    Exp: 50
-    EnemyGroup: 0
+    Exp: 5
+    orderGroup: 3
     Protection: 1
     Health: 100
     ItemsForGeneration: 

@@ -2,6 +2,8 @@ using System.Collections.Generic;
 using Engine.Data.Factories;
 using Engine.Logic.Dialog;
 using Engine.Logic.Dialog.Action.Impls;
+using Engine.Logic.Locations;
+using Engine.Logic.Locations.Animation;
 using UnityEngine;
 
 namespace Engine.Story.Tutorial
@@ -9,6 +11,8 @@ namespace Engine.Story.Tutorial
     
     public class StartInTheBedStory : StoryOnStart
     {
+
+        [SerializeField] private EnemyNpcBehaviour zombie;
         
         [SerializeField] private Transform characterEyes;
         [SerializeField] private Transform leftWindow;
@@ -25,6 +29,8 @@ namespace Engine.Story.Tutorial
             
             dlg.Run(() =>
             {
+                // "Убиваем" зомби, чтобы лежал на кровати
+                zombie.Animator.SetInteger(AnimationKey.DeadKey, 2);
                 camera.SetState(characterEyes.transform);
                 background.sprite = BackgroundFactory.Instance.GetRaw("UI/Base/black");
                 background.color = Color.white;
