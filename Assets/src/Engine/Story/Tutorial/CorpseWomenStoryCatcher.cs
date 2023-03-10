@@ -11,15 +11,27 @@ namespace Engine.Story.Tutorial
     {
 
         [SerializeField] private EnemyNpcBehaviour zombie;
+        [SerializeField] private Transform zombiePoint1;
+        [SerializeField] private Transform zombiePoint2;
         
         public override void CreateDialog(DialogQueue dlg)
         {
             dlg.Run(() =>
             {
-                Camera.main.SetState(PlayerEyePos, zombie);
+                Camera.main.SetState(PlayerEyePos, zombiePoint2);
                 QuestFactory.Instance.Get<TutorialQuest>().AddTag("Women");
             });
-            dlg.Text("Женщина");
+            dlg.Text("Женщина, на вид молодая...");
+            dlg.Run(() =>
+            {
+                dlg.RuntimeObjectList.Add(StoryActionHelper.LookAt(Camera.main, zombiePoint1));
+            });
+            dlg.Text("На теле множество ран...");
+            dlg.Run(() =>
+            {
+                dlg.RuntimeObjectList.Add(StoryActionHelper.LookAt(Camera.main, zombiePoint2));
+            });
+            dlg.Text("Похоже её пытались вылечить...");
             
             WakeUpZombieStory.CheckWakeUp(dlg, zombie, PlayerEyePos);
         }

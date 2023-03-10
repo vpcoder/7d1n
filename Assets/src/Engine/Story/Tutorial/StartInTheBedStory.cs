@@ -21,6 +21,8 @@ namespace Engine.Story.Tutorial
         [SerializeField] private Transform forwardWindow2;
         [SerializeField] private Transform rightSide;
 
+        [SerializeField] private List<StoryBase> stories;
+        
         private Color half = new Color(0.5f, 0.5f, 0.5f, 0.5f);
 
         public override void Init()
@@ -158,6 +160,9 @@ namespace Engine.Story.Tutorial
             dlg.Delay(2f, true);
             dlg.Run(() =>
             {
+                foreach (var story in stories)
+                    story.enabled = true;
+                
                 StoryActionHelper.Fade(background, Color.white, Color.clear, 0.8f); // Не добавляем RuntimeObjectList, чтобы скрипт доиграл до конца гарантированно
                 Camera.main.fieldOfView = startFov;
                 Camera.main.transform.SetState(startTransformPair);

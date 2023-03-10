@@ -21,8 +21,19 @@ namespace Engine.Story.Tutorial
                 Camera.main.SetState(PlayerEyePos, manPoint);
                 QuestFactory.Instance.Get<TutorialQuest>().AddTag("Man");
             });
-            dlg.Text("");
             
+            dlg.Text("Мужчина... кажется он мёртв...");
+            dlg.Run(() =>
+            {
+                dlg.RuntimeObjectList.Add(StoryActionHelper.LookAt(Camera.main, bloodPoint));
+            });
+            dlg.Text("Что за чертовщина тут происходит?!");
+            dlg.Run(() =>
+            {
+                dlg.RuntimeObjectList.Add(StoryActionHelper.LookAt(Camera.main, manPoint));
+            });
+            dlg.Text("...");
+
             WakeUpZombieStory.CheckWakeUp(dlg, zombie, PlayerEyePos);
         }
         
