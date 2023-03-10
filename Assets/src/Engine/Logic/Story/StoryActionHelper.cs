@@ -17,24 +17,28 @@ namespace Engine.Story
             return source.AddComponent<T>();
         }
         
-        public static void LookAt(Transform source, Transform target, float speed = 1f)
+        public static LookAtStoryAction LookAt(Transform source, Transform target, float speed = 1f)
         {
-            Create<LookAtStoryAction>(source.gameObject).Init(source.transform, target, speed);
+            var obj = Create<LookAtStoryAction>(source.gameObject);
+            obj.Init(source.transform, target, speed);
+            return obj;
         }
         
-        public static void LookAt(Camera source, Transform target, float speed = 1f)
+        public static LookAtStoryAction LookAt(Camera source, Transform target, float speed = 1f)
         {
-            LookAt(source.transform, target, speed);
+            return LookAt(source.transform, target, speed);
         }
         
-        public static void LookAt(GameObject source, Transform target, float speed = 1f)
+        public static LookAtStoryAction LookAt(GameObject source, Transform target, float speed = 1f)
         {
-            LookAt(source.transform, target, speed);
+            return LookAt(source.transform, target, speed);
         }
 
-        public static void Fade(Image image, Color from, Color to, float speed = 1f)
+        public static BackgroundFaderStoryAction Fade(Image image, Color from, Color to, float speed = 1f)
         {
-            Create<BackgroundFaderStoryAction>(image.gameObject).Init(image, from, to, speed);
+            var obj = Create<BackgroundFaderStoryAction>(image.gameObject);
+            obj.Init(image, from, to, speed);
+            return obj;
         }
         
     }

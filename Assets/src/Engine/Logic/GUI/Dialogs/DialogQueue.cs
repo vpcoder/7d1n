@@ -2,13 +2,15 @@
 using System.Collections.Generic;
 using Engine.Logic.Dialog.Action;
 using Engine.Logic.Dialog.Action.Impls;
+using Engine.Story;
 
 namespace Engine.Logic.Dialog
 {
     
     public class DialogQueue
     {
-        
+
+        public List<IActionDestruct> RuntimeObjectList { get; } = new List<IActionDestruct>();
         public List<IActionCommand> Queue { get; } = new List<IActionCommand>();
         
         public ActionAddPrefab Prefab(string prefabID)

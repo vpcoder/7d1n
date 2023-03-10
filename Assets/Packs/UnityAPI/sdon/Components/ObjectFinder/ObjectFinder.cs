@@ -32,6 +32,7 @@ namespace UnityEngine
         public static GameObject TopPanel => GameObject.FindWithTag("TopPanel");
         public static GameObject SceneView => GameObject.FindWithTag("SceneView");
         public static Image SceneViewImage => SceneView.GetComponent<Image>();
+        public static BattleManager BattleManager => Find<BattleManager>();
         
         public static void Clear()
         {

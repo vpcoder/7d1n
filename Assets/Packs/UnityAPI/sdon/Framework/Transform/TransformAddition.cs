@@ -45,17 +45,55 @@ namespace UnityEngine {
 			transform.rotation = another.rotation;
 		}
 		
+		public static void SetState(this Transform transform, Vector3 pos)
+		{
+			transform.position = pos;
+		}
+		
 		public static void SetState(this GameObject obj, Transform another)
 		{
 			SetState(obj.transform, another);
 		}
 		
-		public static void SetState(this Camera obj, Transform another, Transform lookAt = null)
+		public static void SetState(this GameObject obj, Vector3 pos)
+		{
+			SetState(obj.transform, pos);
+		}
+		
+		public static void SetState(this Behaviour obj, Transform another, Transform lookAt = null)
 		{
 			SetState(obj.transform, another);
 			if(lookAt != null)
 				obj.transform.LookAt(lookAt);
 		}
+		
+		public static void SetState(this Behaviour obj, Vector3 pos, Transform lookAt = null)
+		{
+			SetState(obj.transform, pos);
+			if(lookAt != null)
+				obj.transform.LookAt(lookAt);
+		}
+		
+		public static void SetState(this Behaviour obj, Behaviour another, Transform lookAt = null)
+		{
+			SetState(obj, another.transform, lookAt);
+		}
+		
+		public static void SetState(this Behaviour obj, Behaviour another, Behaviour lookAt = null)
+		{
+			SetState(obj, another.transform, lookAt == null ? null : lookAt.transform);
+		}
+		
+		public static void SetState(this Camera camera, Behaviour another, Behaviour lookAt = null)
+		{
+			SetState(camera, another.transform, lookAt == null ? null : lookAt.transform);
+		}
+		
+		public static void SetState(this Camera camera, Vector3 pos, Behaviour lookAt = null)
+		{
+			SetState(camera, pos, lookAt == null ? null : lookAt.transform);
+		}
+		
 		
 		/// <summary>
 		/// Асинхронно удаляет все дочерние элементы внутри Transform

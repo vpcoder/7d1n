@@ -13,6 +13,7 @@ namespace Engine.Story
         [SerializeField] private bool hideTopPanel = true;
         [SerializeField] private bool destroyStoryObjectOnEnd = true;
 
+        private Vector3 playerEyePos;
         private GameObject topPanel;
         private GameObject playerCharacter;
 
@@ -30,19 +31,20 @@ namespace Engine.Story
         {
             get
             {
-                if(playerCharacter == null)
-                    playerCharacter = ObjectFinder.Find<LocationCharacter>().gameObject;
+                if (playerCharacter == null)
+                    playerCharacter = ObjectFinder.Character.gameObject;
                 return playerCharacter;
             }
         }
+
+        public Vector3 PlayerEyePos => playerEyePos;
 
         private void Start()
         {
             LoadFactory.Instance.Complete += Init;
         }
 
-        public virtual void Init()
-        { }
+        public virtual void Init() { }
         
         public abstract void CreateDialog(DialogQueue dlg);
 
@@ -73,6 +75,8 @@ namespace Engine.Story
         
         public void RunDialog()
         {
+            playerEyePos = ObjectFinder.Character.Eye.position;
+            
             var dialogBox = ObjectFinder.DialogBox;
             dialogBox.Runtime.StartEvent += StartDialogEvent;
             dialogBox.Runtime.EndEvent   += EndDialogEvent;
@@ -80,6 +84,20 @@ namespace Engine.Story
             var mainDialog = new DialogQueue();
             StartDialogProcessing(mainDialog);
             CreateDialog(mainDialog);
+
+            mainDialog.Run(() =>
+            {
+                foreach (var runtimeObject in mainDialog.RuntimeObjectList)
+                {
+                    if(runtimeObject != null)
+                        runtimeObject.Destruct();
+                }
+            });
+            mainDialog.Run(() =>
+            {
+                StoryActionHelper.Fade(ObjectFinder.SceneViewImage, Color.white, Color.clear, 
+                    0.8f); // Не добавляем RuntimeObjectList, чтобы скрипт доиграл до конца гарантированно
+            });
             
             var endDialog = new DialogQueue();
             EndDialogProcessing(endDialog);

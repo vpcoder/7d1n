@@ -2,6 +2,8 @@ using System;
 using System.Collections.Generic;
 using System.Runtime.Serialization;
 using System.Linq;
+using JetBrains.Annotations;
+using UnityEngine;
 
 namespace Engine.Data
 {
@@ -65,6 +67,40 @@ namespace Engine.Data
         public bool ContainsTag(string tag)
         {
             return HashData.Contains(tag);
+        }
+        
+        public bool NotContainsTag(string tag)
+        {
+            return !ContainsTag(tag);
+        }
+        
+        public bool NotContainsAllTags([NotNull] params string[] tags)
+        {
+            return !ContainsAllTags(tags);
+        }
+        
+        public bool NotContainsAllTags([NotNull] ICollection<string> tags)
+        {
+            return !ContainsAllTags(tags);
+        }
+        
+        public bool ContainsAllTags([NotNull] params string[] tags)
+        {
+            if (tags == null)
+                return false;
+            return ContainsAllTags(tags.ToList());
+        }
+        
+        public bool ContainsAllTags([NotNull] ICollection<string> tags)
+        {
+            if (Lists.IsEmpty(tags))
+                return false;
+            foreach (var tag in tags)
+            {
+                if (NotContainsTag(tag))
+                    return false;
+            }
+            return true;
         }
         
         public IEnumerable<string> getBeforeStageDescriptions()

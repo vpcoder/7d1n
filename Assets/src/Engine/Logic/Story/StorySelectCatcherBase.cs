@@ -42,7 +42,7 @@ namespace Engine.Story
         
         public virtual void SelectOutDistance()
         {
-            UIHintMessageManager.Show(hintMessagePrefab, PlayerCharacter.transform.position, "Слишком далеко. Нужно подойти ближе.");
+            UIHintMessageManager.Show(hintMessagePrefab, PlayerEyePos, "Слишком далеко. Нужно подойти ближе.");
         }
 
         protected override void StartDialogProcessing(DialogQueue dlg)

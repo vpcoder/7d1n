@@ -4,6 +4,7 @@ using Engine.Logic.Dialog;
 using Engine.Logic.Dialog.Action.Impls;
 using Engine.Logic.Locations;
 using Engine.Logic.Locations.Animation;
+using Engine.Logic.Map;
 using UnityEngine;
 
 namespace Engine.Story.Tutorial
@@ -21,14 +22,33 @@ namespace Engine.Story.Tutorial
         [SerializeField] private Transform rightSide;
 
         private Color half = new Color(0.5f, 0.5f, 0.5f, 0.5f);
+
+        public override void Init()
+        {
+            ObjectFinder.Find<LocationCameraController>().UpdateCameraPos();
+            base.Init();
+        }
         
+        private int startFloor;
+        private float startFov;
+        private TransformPair startTransformPair;
+
         public override void CreateDialog(DialogQueue dlg)
         {
             var background = ObjectFinder.SceneViewImage;
             var camera = Camera.main;
-            
+
             dlg.Run(() =>
             {
+                var camera = Camera.main;
+                startFov = camera.fieldOfView;
+                startTransformPair = camera.GetState();
+                camera.fieldOfView = 60f;
+
+                var floorController = ObjectFinder.Find<FloorSwitchController>();
+                startFloor = floorController.CurrentFloor;
+                floorController.SetMaxFloor();
+
                 // "Убиваем" зомби, чтобы лежал на кровати
                 zombie.Animator.SetInteger(AnimationKey.DeadKey, 2);
                 camera.SetState(characterEyes.transform);
@@ -39,30 +59,30 @@ namespace Engine.Story.Tutorial
             dlg.Text("Где я?");
             dlg.Run(() =>
             {
-                StoryActionHelper.Fade(background, Color.white, half, 0.5f);
+                dlg.RuntimeObjectList.Add(StoryActionHelper.Fade(background, Color.white, half, 0.5f));
             });
             dlg.Delay(2f, true);
             dlg.Text("Как давно я здесь?");
             dlg.Run(() =>
             {
-                StoryActionHelper.LookAt(camera, forwardWindow2);
+                dlg.RuntimeObjectList.Add(StoryActionHelper.LookAt(camera, forwardWindow2));
             });
             dlg.Text("Память спутана");
             dlg.Run(() =>
             {
-                StoryActionHelper.Fade(background, half, Color.white, 0.5f);
+                dlg.RuntimeObjectList.Add(StoryActionHelper.Fade(background, half, Color.white, 0.5f));
             });
             dlg.Text("Мне лишь хочется закрыть глаза и забыться...");
             dlg.Text("...");
             dlg.Text("Я всё ещё здесь?");
             dlg.Run(() =>
             {
-                StoryActionHelper.Fade(background, Color.white, half, 0.5f);
+                dlg.RuntimeObjectList.Add(StoryActionHelper.Fade(background, Color.white, half, 0.5f));
             });
             dlg.Delay(2f, true);
             dlg.Run(() =>
             {
-                StoryActionHelper.Fade(background, half, Color.white, 0.5f);
+                dlg.RuntimeObjectList.Add(StoryActionHelper.Fade(background, half, Color.white, 0.5f));
             });
             dlg.Text("Боль...");
             dlg.Text("Эта боль в конечностях сводит с ума...");
@@ -82,30 +102,30 @@ namespace Engine.Story.Tutorial
             dlg.Text("Мне нужно открыть глаза...");
             dlg.Run(() =>
             {
-                StoryActionHelper.Fade(background, Color.white, half, 0.5f);
+                dlg.RuntimeObjectList.Add(StoryActionHelper.Fade(background, Color.white, half, 0.5f));
             });
             dlg.Text("...");
             dlg.Run(() =>
             {
-                StoryActionHelper.Fade(background, half, Color.clear, 0.5f);
+                dlg.RuntimeObjectList.Add(StoryActionHelper.Fade(background, half, Color.clear, 0.5f));
             });
             dlg.Text("Сколько времени прошло?");
             dlg.Sound("dialogs/tutorial/bed_1");
             dlg.Run(() =>
             {
-                StoryActionHelper.LookAt(camera, leftWindow);
+                dlg.RuntimeObjectList.Add(StoryActionHelper.LookAt(camera, leftWindow));
             });
             dlg.Text("Не понимаю, что это за место...");
             dlg.Sound("dialogs/tutorial/bed_2");
             dlg.Run(() =>
             {
-                StoryActionHelper.LookAt(camera, forwardWindow);
+                dlg.RuntimeObjectList.Add(StoryActionHelper.LookAt(camera, forwardWindow));
             });
             dlg.Text("...");
             dlg.Sound("dialogs/tutorial/bed_1");
             dlg.Run(() =>
             {
-                StoryActionHelper.LookAt(camera, rightSide);
+                dlg.RuntimeObjectList.Add(StoryActionHelper.LookAt(camera, rightSide));
             });
             dlg.GoTo(point3);
             
@@ -117,14 +137,14 @@ namespace Engine.Story.Tutorial
             
             dlg.Run(() =>
             {
-                StoryActionHelper.Fade(background, Color.white, half, 0.5f);
+                dlg.RuntimeObjectList.Add(StoryActionHelper.Fade(background, Color.white, half, 0.5f));
             });
             dlg.Text("???");
             dlg.Sound("dialogs/tutorial/bed_1");
             dlg.Run(() =>
             {
-                StoryActionHelper.LookAt(camera, rightSide);
-                StoryActionHelper.Fade(background, half, Color.clear, 0.5f);
+                dlg.RuntimeObjectList.Add(StoryActionHelper.LookAt(camera, rightSide));
+                dlg.RuntimeObjectList.Add(StoryActionHelper.Fade(background, half, Color.clear, 0.5f));
             });
             
             
@@ -132,15 +152,17 @@ namespace Engine.Story.Tutorial
             dlg.Text("Что за...");
             dlg.Run(() =>
             {
-                StoryActionHelper.Fade(background, Color.clear, Color.white, 0.7f);
+                dlg.RuntimeObjectList.Add(StoryActionHelper.Fade(background, Color.clear, Color.white, 0.7f));
             });
             dlg.Sound("dialogs/tutorial/bed_3");
             dlg.Delay(2f, true);
             dlg.Run(() =>
             {
-                StoryActionHelper.Fade(background, Color.white, Color.clear, 0.8f);
+                StoryActionHelper.Fade(background, Color.white, Color.clear, 0.8f); // Не добавляем RuntimeObjectList, чтобы скрипт доиграл до конца гарантированно
+                Camera.main.fieldOfView = startFov;
+                Camera.main.transform.SetState(startTransformPair);
+                ObjectFinder.Find<FloorSwitchController>().SetFloor(startFloor);
             });
-            
         }
 
     }

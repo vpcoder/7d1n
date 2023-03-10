@@ -18,17 +18,26 @@ namespace Engine.Story.Tutorial
         {
             dlg.Run(() =>
             {
-                Camera.main.SetState(ObjectFinder.Character.Eye, windowLeftPoint);
+                Camera.main.SetState(PlayerEyePos, windowLeftPoint);
                 QuestFactory.Instance.Get<TutorialQuest>().AddTag("Window");
             });
             dlg.Text("Окна разбиты и закрыты всяким мусором");
-            dlg.Run(() => StoryActionHelper.LookAt(Camera.main, windowsRightPoint));
+            dlg.Run(() =>
+            {
+                dlg.RuntimeObjectList.Add(StoryActionHelper.LookAt(Camera.main, windowsRightPoint));
+            });
             dlg.Text("Сюда задувает ветер, а за окном какая то разруха...");
             dlg.Text("Я в... городе?");
-            
-            WakeUpZombieStory.CheckWakeUp(dlg, zombie);
-        }
 
+            WakeUpZombieStory.CheckWakeUp(dlg, zombie, PlayerEyePos);
+        }
+        
+        protected override void EndDialogEvent()
+        {
+            base.EndDialogEvent();
+            WakeUpZombieStory.EndProcessing();
+        }
+        
     }
     
 }

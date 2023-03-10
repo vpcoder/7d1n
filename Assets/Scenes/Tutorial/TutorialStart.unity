@@ -1618,7 +1618,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1b59520bf80a477a85d5f138405a8d69, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  hidePlayer: 0
+  hidePlayer: 1
   hideTopPanel: 1
   destroyStoryObjectOnEnd: 0
   destroyOnFirstSelect: 1
@@ -1626,7 +1626,7 @@ MonoBehaviour:
     type: 3}
   hintMessagePrefab: {fileID: 8988916943085667554, guid: 5622133fd8bd0e1499b6000b085198dc,
     type: 3}
-  zombie: {fileID: 0}
+  zombie: {fileID: 319410602}
   bloodPoint: {fileID: 1200757973}
   manPoint: {fileID: 907437307}
 --- !u!114 &262707607
@@ -1926,7 +1926,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c740eea646c84cda94afcc46c27acb84, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  hidePlayer: 0
+  hidePlayer: 1
   hideTopPanel: 1
   destroyStoryObjectOnEnd: 0
   destroyOnFirstSelect: 1
@@ -9340,7 +9340,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1265281159}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: f29aeb473c7b46eeb10d41a94130a814, type: 3}
   m_Name: 
@@ -12988,14 +12988,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 1, g: 1, b: 1, a: 0}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 27f94004a5e179843b9726c631a99ebf, type: 3}
+  m_Sprite: {fileID: 21300000, guid: d3f9eb61055ce80489922c4caec18e4f, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -13978,7 +13978,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6a2868e55c334f9392d2ecf1c78e5e9b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  hidePlayer: 0
+  hidePlayer: 1
   hideTopPanel: 1
   destroyStoryObjectOnEnd: 0
   destroyOnFirstSelect: 1
@@ -13986,7 +13986,7 @@ MonoBehaviour:
     type: 3}
   hintMessagePrefab: {fileID: 8988916943085667554, guid: 5622133fd8bd0e1499b6000b085198dc,
     type: 3}
-  zombie: {fileID: 0}
+  zombie: {fileID: 319410602}
   windowLeftPoint: {fileID: 1362496533}
   windowsRightPoint: {fileID: 389106255}
 --- !u!4 &1801091272 stripped

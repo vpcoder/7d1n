@@ -4,7 +4,7 @@ using UnityEngine.UI;
 namespace Engine.Story.Actions
 {
     
-    public class BackgroundFaderStoryAction : MonoBehaviour
+    public class BackgroundFaderStoryAction : MonoBehaviour, IActionDestruct
     {
 
         private Image image;
@@ -27,6 +27,12 @@ namespace Engine.Story.Actions
             this.image.color = startColor;
             this.isStart = true;
             this.timestamp = Time.time;
+        }
+        
+        public void Destruct()
+        {
+            isStart = false;
+            Destroy(this);
         }
 
         private void Update()

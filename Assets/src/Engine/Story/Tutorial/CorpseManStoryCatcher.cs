@@ -18,12 +18,18 @@ namespace Engine.Story.Tutorial
         {
             dlg.Run(() =>
             {
-                Camera.main.SetState(ObjectFinder.Character.Eye, manPoint);
+                Camera.main.SetState(PlayerEyePos, manPoint);
                 QuestFactory.Instance.Get<TutorialQuest>().AddTag("Man");
             });
             dlg.Text("");
             
-            WakeUpZombieStory.CheckWakeUp(dlg, zombie);
+            WakeUpZombieStory.CheckWakeUp(dlg, zombie, PlayerEyePos);
+        }
+        
+        protected override void EndDialogEvent()
+        {
+            base.EndDialogEvent();
+            WakeUpZombieStory.EndProcessing();
         }
         
     }

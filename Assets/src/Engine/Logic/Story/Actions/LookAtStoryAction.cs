@@ -3,7 +3,7 @@ using UnityEngine;
 namespace Engine.Story.Actions
 {
     
-    public class LookAtStoryAction : MonoBehaviour
+    public class LookAtStoryAction : MonoBehaviour, IActionDestruct
     {
         
         private Quaternion startRotation;
@@ -26,6 +26,12 @@ namespace Engine.Story.Actions
             isStart = true;
         }
 
+        public void Destruct()
+        {
+            isStart = false;
+            Destroy(this);
+        }
+
         private void Update()
         {
             if(!isStart)
@@ -33,9 +39,9 @@ namespace Engine.Story.Actions
             
             var progress = Mathf.Min(1f, (Time.time - timestamp) * speed);
             source.rotation = Quaternion.Lerp(startRotation, endRotation, progress);
-            
+
             if (progress >= 1f)
-                Destroy(this);
+                Destruct();
         }
         
     }
