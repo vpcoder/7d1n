@@ -127,7 +127,7 @@ namespace Engine.Logic.Locations.Objects
             if (Health > 0 || isDestroyed)
                 return;
 
-            isDestroyed = false;
+            isDestroyed = true;
             DoDestroy();
         }
 

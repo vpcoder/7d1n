@@ -1,3 +1,4 @@
+using Engine.Data;
 using Engine.Data.Factories;
 using Engine.Data.Quests;
 using Engine.Logic.Dialog;
@@ -39,10 +40,11 @@ namespace Engine.Story.Tutorial
                 Camera.main.SetState(playerEyePos, zombie.transform);
                 zombie.Animator.SetInteger(AnimationKey.DeadKey, 0);
             });
-            dlg.Text("Что происходит?");
+            dlg.Text("Чт...");
             dlg.Run(() =>
             {
                 zombie.Agent.enabled = true;
+                zombie.NpcContext.Status.State = NpcStateType.Fighting;
             });
             dlg.Delay(1f);
 
