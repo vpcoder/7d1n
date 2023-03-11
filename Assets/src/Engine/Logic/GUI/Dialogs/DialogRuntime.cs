@@ -98,11 +98,12 @@ namespace Engine.Logic.Dialog
             Debug.Log("dialog goto action to '" + actionID + "'...");
 #endif
 
-            for (; index < dialogQueue.Count; index++)
+            for (int i = 0; i < dialogQueue.Count; i++)
             {
-                var action = dialogQueue[index];
+                var action = dialogQueue[i];
                 if (action?.ID == actionID)
                 {
+                    index = i;
                     var actionGoTo = GetByIndex(goToActionIndex);
                     if (actionGoTo != null && actionGoTo.IsConstructed && actionGoTo.DestructType == DestructType.OnEndAction)
                         actionGoTo.Destruct();
