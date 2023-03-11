@@ -22,11 +22,15 @@ namespace Engine.Story.Tutorial
                 QuestFactory.Instance.Get<TutorialQuest>().AddTag("Man");
             });
             
-            dlg.Text("Мужчина... кажется он мёртв...");
+            dlg.Text("Мужчина... Он мёртв.");
+            dlg.Text("Нет, я не медик, не подумай... Просто дыра в его груди... В неё без проблем войдёт моя рука.");
+            dlg.Text("Взяв всё это в расчёт, можно сказать, что вряд ли до такого его довела семейная жизнь.");
             dlg.Run(() =>
             {
                 dlg.RuntimeObjectList.Add(StoryActionHelper.LookAt(Camera.main, bloodPoint));
             });
+            dlg.Text("Вряд ли его довела семейная жизнь");
+            dlg.Text("Судя пов");
             dlg.Text("Что за чертовщина тут происходит?!");
             dlg.Run(() =>
             {

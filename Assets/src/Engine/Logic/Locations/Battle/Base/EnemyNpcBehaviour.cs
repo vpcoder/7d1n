@@ -32,6 +32,12 @@ namespace Engine.Logic.Locations
 
         private float timestamp;
 
+        #region Events
+
+        public event Action DeadEvent;
+
+        #endregion
+        
         #region Shared Properties
 
         public Transform LookDirectionTransform => lookDirectionTransform;
@@ -266,6 +272,7 @@ namespace Engine.Logic.Locations
             if (NpcContext.Status.IsDead)
                 return;
 
+            DeadEvent?.Invoke();
             NpcContext.Status.IsDead = true;
 
             var manager = ObjectFinder.Find<BattleManager>();

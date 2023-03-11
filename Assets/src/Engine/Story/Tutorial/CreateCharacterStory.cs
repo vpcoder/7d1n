@@ -1,0 +1,139 @@
+using System.Collections.Generic;
+using Engine.Data;
+using Engine.Logic;
+using Engine.Logic.Dialog;
+using Engine.Logic.Dialog.Action.Impls;
+using Engine.Logic.Locations;
+using Engine.Logic.Locations.Animation;
+using Engine.Logic.Map;
+using UnityEngine;
+
+namespace Engine.Story.Tutorial
+{
+    
+    public class CreateCharacterStory : StoryOnStart
+    {
+
+        [SerializeField] private CharacterMeshSwitcher meshSwitch;
+        [SerializeField] private EnemyNpcBehaviour zombie;
+
+        [SerializeField] private Transform startPoint;
+        [SerializeField] private Transform startPoint2;
+        [SerializeField] private Transform characterEyes;
+        [SerializeField] private Transform characterBody;
+        
+        [SerializeField] private GameObject selectCharacterInterface;
+        [SerializeField] private GameObject changeCharacterNameInterface;
+
+        public override void Init()
+        {
+            ObjectFinder.Find<LocationCameraController>().UpdateCameraPos();
+            base.Init();
+        }
+        
+        private int startFloor;
+        private float startFov;
+        private TransformPair startTransformPair;
+
+        public override void CreateDialog(DialogQueue dlg)
+        {
+            var background = ObjectFinder.SceneViewImage;
+            var camera = Camera.main;
+
+            var startSelectBodyPoint = SelectVariant.Point;
+            var completeSelectBodyPoint = SelectVariant.Point;
+            var list1 = new List<SelectVariant>
+            {
+                SelectVariant.New("Ещё нет", startSelectBodyPoint),
+                SelectVariant.New("Выбрал", completeSelectBodyPoint),
+            };
+            var startChangeNamePoint = SelectVariant.Point;
+            var completeChangeNamePoint = SelectVariant.Point;
+            var list2 = new List<SelectVariant>
+            {
+                SelectVariant.New("Ещё нет", startChangeNamePoint),
+                SelectVariant.New("Написал", completeChangeNamePoint),
+            };
+            
+            
+            dlg.Run(() =>
+            {
+                var story = ObjectFinder.Find<StartInTheBedStory>();
+                story.SaveState();
+                story.RewriteSaveState = false;
+                story.SetupDialogState();
+
+                // "Убиваем" зомби, чтобы лежал на кровати
+                zombie.Animator.SetInteger(AnimationKey.DeadKey, 2);
+                camera.SetState(startPoint, characterEyes.transform);
+                background.color = Color.white;
+                
+                dlg.RuntimeObjectList.Add(StoryActionHelper.Fade(background, Color.white, Color.clear,
+                    0.8f));
+            });
+            dlg.Text("[Нажми здесь, чтобы продолжить]");
+            dlg.Text("[Перед тобой персонаж]");
+            dlg.Text("[Он изрядно побит, довольно вонюч, а ещё у него очень плохой характер]");
+            
+            dlg.Run(() =>
+            {
+                dlg.RuntimeObjectList.Add(StoryActionHelper.LookAtAndMove(camera, characterBody.transform, startPoint2.position));
+            });
+
+            dlg.Text("[Возможно всё это никуда не годится]");
+            dlg.Text("[Дам тебе выбор]");
+            dlg.Run(() =>
+            {
+                selectCharacterInterface.SetActive(true);
+            });
+            dlg.Text("[Листай влево или вправо, чтобы определиться с внешним видом]");
+            dlg.Point(startSelectBodyPoint);
+            dlg.Text("[Выбрал?]");
+            dlg.Select(list1, "[Точно?]");
+            
+            dlg.Point(completeSelectBodyPoint);
+            dlg.Run(() =>
+            {
+                selectCharacterInterface.Destroy();
+            });
+            dlg.Text("[Хорошо, давай определимся с тем как его зовут]");
+            
+            
+            dlg.Text("[Придумай ему какое-нибудь ублюдочное имя]");
+            dlg.Run(() =>
+            {
+                changeCharacterNameInterface.SetActive(true);
+            });
+            dlg.Text("[Напиши что нибудь унизительное]");
+            dlg.Point(startChangeNamePoint);
+            dlg.Text("[Написал?]");
+            dlg.Select(list2, "[Точно?]");
+            dlg.Text("[" + Game.Instance.Character.Account.Name + "? Отлично. Не знаю за что ты так не любишь этого персонажа, раз выбрал такое имя...]");
+            
+            dlg.Point(completeChangeNamePoint);
+            dlg.Run(() =>
+            {
+                changeCharacterNameInterface.Destroy();
+            });
+
+            dlg.Text("[Так, определились с внешностью]");
+            dlg.Text("[Выбрали мерзкое имя <color=\"green\">" + Game.Instance.Character.Account.Name + "</color>]");
+            dlg.Text("[Пора начинать...]");
+            
+            dlg.Run(() =>
+            {
+                Game.Instance.Character.Account.SpriteID = meshSwitch.MeshIndex;
+                dlg.RuntimeObjectList.Add(StoryActionHelper.Fade(background, Color.clear, Color.white,
+                    0.8f)); // Не добавляем RuntimeObjectList, чтобы скрипт доиграл до конца гарантированно
+            });
+            dlg.Delay(2f, true);
+        }
+
+        protected override void EndDialogEvent()
+        {
+            base.EndDialogEvent();
+            ObjectFinder.Find<StartInTheBedStory>().RunDialog();
+        }
+    }
+    
+}

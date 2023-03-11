@@ -1,20 +1,15 @@
 using System.Collections.Generic;
-using Engine.Data.Factories;
+using Engine.Data;
 using Engine.Logic.Dialog;
 using Engine.Logic.Dialog.Action.Impls;
 using Engine.Logic.Locations;
-using Engine.Logic.Locations.Animation;
-using Engine.Logic.Map;
 using UnityEngine;
 
 namespace Engine.Story.Tutorial
 {
     
-    public class StartInTheBedStory : StoryOnStart
+    public class StartInTheBedStory : StorySelectCatcherBase
     {
-
-        [SerializeField] private EnemyNpcBehaviour zombie;
-        
         [SerializeField] private Transform characterEyes;
         [SerializeField] private Transform leftWindow;
         [SerializeField] private Transform forwardWindow;
@@ -25,16 +20,6 @@ namespace Engine.Story.Tutorial
         
         private Color half = new Color(0.5f, 0.5f, 0.5f, 0.5f);
 
-        public override void Init()
-        {
-            ObjectFinder.Find<LocationCameraController>().UpdateCameraPos();
-            base.Init();
-        }
-        
-        private int startFloor;
-        private float startFov;
-        private TransformPair startTransformPair;
-
         public override void CreateDialog(DialogQueue dlg)
         {
             var background = ObjectFinder.SceneViewImage;
@@ -42,22 +27,12 @@ namespace Engine.Story.Tutorial
 
             dlg.Run(() =>
             {
-                var camera = Camera.main;
-                startFov = camera.fieldOfView;
-                startTransformPair = camera.GetState();
-                camera.fieldOfView = 60f;
-
-                var floorController = ObjectFinder.Find<FloorSwitchController>();
-                startFloor = floorController.CurrentFloor;
-                floorController.SetMaxFloor();
-
-                // "Убиваем" зомби, чтобы лежал на кровати
-                zombie.Animator.SetInteger(AnimationKey.DeadKey, 2);
-                camera.SetState(characterEyes.transform);
-                background.sprite = BackgroundFactory.Instance.GetRaw("UI/Base/black");
+                camera.SetState(characterEyes, forwardWindow);
                 background.color = Color.white;
             });
+            
             dlg.Text("Что происходит?");
+            
             dlg.Text("Где я?");
             dlg.Run(() =>
             {
@@ -156,17 +131,20 @@ namespace Engine.Story.Tutorial
             {
                 dlg.RuntimeObjectList.Add(StoryActionHelper.Fade(background, Color.clear, Color.white, 0.7f));
             });
+            
             dlg.Sound("dialogs/tutorial/bed_3");
             dlg.Delay(2f, true);
             dlg.Run(() =>
             {
+                PlayerCharacter.SetActive(true);
+                PlayerCharacter.GetComponent<LocationCharacter>().MeshSwitcher.MeshIndex = Game.Instance.Character.Account.SpriteID;
+                
                 foreach (var story in stories)
                     story.enabled = true;
                 
                 StoryActionHelper.Fade(background, Color.white, Color.clear, 0.8f); // Не добавляем RuntimeObjectList, чтобы скрипт доиграл до конца гарантированно
-                Camera.main.fieldOfView = startFov;
-                Camera.main.transform.SetState(startTransformPair);
-                ObjectFinder.Find<FloorSwitchController>().SetFloor(startFloor);
+                
+                EndDialogEvent();
             });
         }
 

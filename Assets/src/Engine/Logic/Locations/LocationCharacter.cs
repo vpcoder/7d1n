@@ -21,7 +21,8 @@ namespace Engine.Logic.Locations
     {
 
         #region Hidden Fields
-        
+
+        [SerializeField] private CharacterMeshSwitcher meshSwitcher;
         [SerializeField] private float pickUpDistance = 1f;
         [SerializeField] private float speed = 3f;
         [SerializeField] private MoveContext moveContext;
@@ -36,6 +37,8 @@ namespace Engine.Logic.Locations
         
         #region Properties
 
+        public CharacterMeshSwitcher MeshSwitcher => meshSwitcher;
+        
         public Transform Eye => eye;
         
         /// <summary>
@@ -129,6 +132,7 @@ namespace Engine.Logic.Locations
             navMeshPath = new NavMeshPath();
             Character = new PlayerCharacter();
             cameraController = ObjectFinder.Find<LocationCameraController>();
+            meshSwitcher.MeshIndex = Game.Instance.Character.Account.SpriteID;
         }
 
         public override void OnUpdate()

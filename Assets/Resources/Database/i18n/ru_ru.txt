@@ -205,6 +205,8 @@ message "ui/craft/group_survive", "Выживание";
 message "ui/craft/group_weapon", "Оружие";
 message "ui/craft/group_tools", "Инструменты";
 
+message "ui/create_character_name", "Введите имя...";
+
 # Messages ;
 
 message "msg_weight_mlg", "млг.";
