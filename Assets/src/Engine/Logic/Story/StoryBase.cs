@@ -8,6 +8,7 @@ namespace Engine.Story
     public abstract class StoryBase : MonoBehaviour, IStory
     {
 
+        [SerializeField] private bool useShowFade = true;
         [SerializeField] private bool hidePlayer;
         [SerializeField] private bool hideTopPanel = true;
         [SerializeField] private bool destroyStoryObjectOnEnd = true;
@@ -92,12 +93,16 @@ namespace Engine.Story
                         runtimeObject.Destruct();
                 }
             });
-            mainDialog.Run(() =>
+
+            if (useShowFade)
             {
-                StoryActionHelper.Fade(ObjectFinder.SceneViewImage, Color.white, Color.clear, 
-                    0.8f); // Не добавляем RuntimeObjectList, чтобы скрипт доиграл до конца гарантированно
-            });
-            
+                mainDialog.Run(() =>
+                {
+                    StoryActionHelper.Fade(ObjectFinder.SceneViewImage, Color.white, Color.clear,
+                        0.8f); // Не добавляем RuntimeObjectList, чтобы скрипт доиграл до конца гарантированно
+                });
+            }
+
             var endDialog = new DialogQueue();
             EndDialogProcessing(endDialog);
             

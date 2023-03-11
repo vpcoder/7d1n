@@ -14,7 +14,7 @@ namespace Engine.Logic.Dialog.Action.Impls
         public override void DoRun(DialogRuntime runtime)
         {
             var dialogBox = runtime.DialogBox;
-            dialogBox.SetText(Text);
+            dialogBox.SetText(runtime.ProcessText(Text));
 
             dialogBox.SetFirstAvatar(FirstAvatar == null ? null : AvatarFactory.Instance.Get(FirstAvatar));
             dialogBox.SetSecondAvatar(SecondAvatar == null ? null : AvatarFactory.Instance.Get(SecondAvatar));

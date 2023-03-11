@@ -35,21 +35,28 @@ namespace Engine.Logic.Dialog
             return action;
         }
         
-        public ActionText TextFormat(string text, object args1, string first = null, string second = null)
+        public ActionSet Set(string name, string value)
         {
-            return Text(string.Format(text, args1), first, second);
+            var action = new ActionSet
+            {
+                Name = name,
+                Value = value,
+            };
+            Queue.Add(action);
+            return action;
         }
         
-        public ActionText TextFormat(string text, object args1, object args2, string first = null, string second = null)
+        public ActionSet Set(string name, Func<string> callback)
         {
-            return Text(string.Format(text, args1, args2), first, second);
+            var action = new ActionSet
+            {
+                Name = name,
+                Callback = callback,
+            };
+            Queue.Add(action);
+            return action;
         }
-        
-        public ActionText TextFormat(string text, object args1, object args2, object args3, string first = null, string second = null)
-        {
-            return Text(string.Format(text, args1, args2, args3), first, second);
-        }
-        
+
         public ActionSelect Select(List<SelectVariant> variants, string text = null, string first = null, string second = null)
         {
             var action = new ActionSelect

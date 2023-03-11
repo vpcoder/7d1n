@@ -9,7 +9,7 @@ namespace Engine.Logic.Dialog.Action.Impls
     {
         
         public string ID { get; private set; }
-        public string Text { get; private set; }
+        public string Text { get; set; }
         public string GoTo { get; private set; }
 
         public static string Point => Guid.NewGuid().ToString();
@@ -39,8 +39,12 @@ namespace Engine.Logic.Dialog.Action.Impls
         public override void DoRun(DialogRuntime runtime)
         {
             var dialogBox = runtime.DialogBox;
+            
+            foreach (var variant in Variants)
+                variant.Text = runtime.ProcessText(variant.Text);
+
             dialogBox.SetVariants(Variants);
-            dialogBox.SetText(Text);
+            dialogBox.SetText(runtime.ProcessText(Text));
             dialogBox.SetFirstAvatar(AvatarFactory.Instance.Get(FirstAvatar));
             dialogBox.SetSecondAvatar(AvatarFactory.Instance.Get(SecondAvatar));
         }

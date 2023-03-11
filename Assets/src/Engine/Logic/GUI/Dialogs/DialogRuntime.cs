@@ -2,12 +2,14 @@
 using System.Linq;
 using Engine.Logic.Dialog.Action;
 using JetBrains.Annotations;
+using Packs.UnityAPI.sdon.Framework.String;
 using UnityEngine;
 
 namespace Engine.Logic.Dialog
 {
     public class DialogRuntime
     {
+        private IDictionary<string, string> variables;
         private List<IActionCommand> dialogQueue;
         private List<IActionCommand> endDialogQueue;
         private int index;
@@ -27,6 +29,35 @@ namespace Engine.Logic.Dialog
 
         public bool IsEnd => Lists.IsEmpty(dialogQueue) || index >= dialogQueue.Count;
 
+        public string GetVariable(string name)
+        {
+            return variables[name];
+        }
+
+        public void SetVariable(string name, string value)
+        {
+            variables[name] = value;
+        }
+
+        public string ProcessText(string text)
+        {
+            if (string.IsNullOrWhiteSpace(text))
+                return null;
+            
+            var vars = text.GetIncludesInQuotes("${", "}");
+            if (Lists.IsNotEmpty(vars))
+            {
+                foreach (var variable in vars)
+                {
+                    if (!variables.TryGetValue(variable, out var value))
+                        value = "?";
+                    text = text.Replace("${" + variable + "}", value);
+                }
+            }
+
+        return text;
+        }
+        
         private bool IsWaitType(WaitType type)
         {
             if (Lists.IsEmpty(dialogQueue))
@@ -70,6 +101,7 @@ namespace Engine.Logic.Dialog
             Debug.Log("setup dialog queue in runtime...");
 #endif
 
+            variables = new Dictionary<string, string>();
             DialogBox = dialogBox;
 
             this.endDialogQueue = endDialogQueue == null ? null : endDialogQueue.ToList();
