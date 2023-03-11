@@ -15,7 +15,13 @@ namespace Engine.Story
         [SerializeField] private GameObject hintMessagePrefab;
         
         private UIHintMessage hintLink;
-        
+
+        public bool RewriteSaveState
+        {
+            get;
+            set;
+        } = true;
+
         private void Start()
         {
             if(hintQuestPrefab != null)
@@ -48,27 +54,44 @@ namespace Engine.Story
         protected override void StartDialogProcessing(DialogQueue dlg)
         {
             base.StartDialogProcessing(dlg);
-            
-            dlg.Run(() =>
-            {
-                var camera = Camera.main;
-                startFov = camera.fieldOfView;
-                startTransformPair = camera.GetState();
-                camera.fieldOfView = 60f;
 
-                var floorController = ObjectFinder.Find<FloorSwitchController>();
-                startFloor = floorController.CurrentFloor;
-                floorController.SetMaxFloor();
-            });
+            if (RewriteSaveState)
+            {
+                dlg.Run(() =>
+                {
+                    SaveState();
+                    SetupDialogState();
+                });
+            }
+        }
+
+        public void SaveState()
+        {
+            var camera = Camera.main;
+            startFov = camera.fieldOfView;
+            startTransformPair = camera.GetState();
+            startFloor = ObjectFinder.Find<FloorSwitchController>().CurrentFloor;
+        }
+
+        public void SetupDialogState()
+        {
+            var camera = Camera.main;
+            camera.fieldOfView = 60f;
+            ObjectFinder.Find<FloorSwitchController>().SetMaxFloor();
+        }
+
+        public void ResetState()
+        {
+            Camera.main.fieldOfView = startFov;
+            Camera.main.transform.SetState(startTransformPair);
+            ObjectFinder.Find<FloorSwitchController>().SetFloor(startFloor);
         }
 
         protected override void EndDialogProcessing(DialogQueue dlg)
         {
             dlg.Run(() =>
             {
-                Camera.main.fieldOfView = startFov;
-                Camera.main.transform.SetState(startTransformPair);
-                ObjectFinder.Find<FloorSwitchController>().SetFloor(startFloor);
+                ResetState();
             });
             base.EndDialogProcessing(dlg);
         }
