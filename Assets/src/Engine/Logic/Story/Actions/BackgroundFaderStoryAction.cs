@@ -31,6 +31,8 @@ namespace Engine.Story.Actions
         
         public void Destruct()
         {
+            image.color = endColor;
+            
             isStart = false;
             Destroy(this);
         }

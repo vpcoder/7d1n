@@ -28,6 +28,8 @@ namespace Engine.Story.Actions
 
         public void Destruct()
         {
+            source.rotation = endRotation;
+            
             isStart = false;
             Destroy(this);
         }
