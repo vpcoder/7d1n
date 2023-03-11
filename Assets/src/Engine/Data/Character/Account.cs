@@ -3,13 +3,20 @@
 namespace Engine.Data
 {
 
+    public enum GenderType
+    {
+        Male,
+        Female,
+    };
+
     [Serializable]
     public class AccountStoryObject : IStoryObject
     {
-        public long   ID { get { return IDValue; } set { } }
-        public long   IDValue;
-        public long   SpriteID;
-        public string Name;
+        public long         ID { get { return IDValue; } set { } }
+        public long         IDValue;
+        public long         SpriteID;
+        public GenderType   Gender;
+        public string       Name;
     }
 
     /// <summary>
@@ -40,7 +47,9 @@ namespace Engine.Data
         ///     The visible name of the character
         ///     This is the name the other players can see
         /// </summary>
-        public string Name     { get; set; } = "Robert";
+        public string     Name   { get; set; } = "Robert";
+
+        public GenderType Gender { get; set; } = GenderType.Male;
 
         #region Serialization
 
@@ -50,7 +59,8 @@ namespace Engine.Data
             {
                 IDValue  = Game.Instance.Runtime.PlayerID,
                 SpriteID = SpriteID,
-                Name     = Name
+                Name     = Name,
+                Gender   = Gender,
             };
             return data;
         }
@@ -59,6 +69,7 @@ namespace Engine.Data
         {
             this.SpriteID = data.SpriteID;
             this.Name     = data.Name;
+            this.Gender   = data.Gender;
         }
 
         #endregion

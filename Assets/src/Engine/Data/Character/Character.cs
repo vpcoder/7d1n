@@ -21,7 +21,8 @@ namespace Engine.Data
         public Inventory Inventory   { get; set; } = new Inventory();
         
         public Quest Quest           { get; set; } = new Quest();
-
+        
+        public bool IsHe => Account.Gender == GenderType.Male;
     }
 	
 }
