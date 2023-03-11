@@ -18,9 +18,9 @@ namespace UnityEditor {
 		/// </summary>
 		private const string DEFAULT_PATH = "./Assets/";
 
-		private static Color LABEL_BACKGROUND_COLOR = new Color(0f, 0f, 0f, 0f);
+		private static Color LABEL_BACKGROUND_COLOR = new Color(0.2f, 0.2f, 0.2f, 1f);
 
-		private static Color LABEL_FORE_COLOR       = new Color(0f, 0f, 1f);
+		private static Color LABEL_FORE_COLOR       = new Color(0f, 1f, 0f);
 
 		private static Color INFOBOX_BACKGROUND_COLOR = new Color(0f, 0.6f, 0.9f);
 
