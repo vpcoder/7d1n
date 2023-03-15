@@ -61,13 +61,18 @@ namespace Engine.DB.Migrations
             }
             return list;
         }
-        
+
         private string ProcessingVariables(ref string script)
         {
             var vars = script.GetIncludesInQuotes("${", "}");
-            if (Lists.IsNotEmpty(vars))
+            if (Lists.IsNotEmpty(vars)) {
                 foreach (var variable in vars)
-                    script = script.Replace("${" + variable + "}", Variables[variable] ?? "");
+                {
+                    if (!Variables.TryGetValue(variable, out var value))
+                        value = "?";
+                    script = script.Replace("${" + variable + "}", value);
+                }
+            }
             return script;
         }
         
@@ -75,8 +80,12 @@ namespace Engine.DB.Migrations
         {
             var includes = script.GetIncludesInQuotes("include {", "}");
             if (Lists.IsNotEmpty(includes))
+            {
                 foreach (var include in includes)
+                {
                     script = script.Replace("include {" + include + "}", ReadScript(include));
+                }
+            }
             return script;
         }
         

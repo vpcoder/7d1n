@@ -17,7 +17,6 @@ namespace Engine.Story.Tutorial
         {
             var quest = QuestFactory.Instance.Get<TutorialQuest>();
             return quest.ContainsAllTags("Man", "Window", "Women");
-            
         }
 
         public static void EndProcessing()
@@ -40,7 +39,10 @@ namespace Engine.Story.Tutorial
                 Camera.main.SetState(playerEyePos, zombie.transform);
                 zombie.Animator.SetInteger(AnimationKey.DeadKey, 0);
             });
-            dlg.Text("Чт...");
+            dlg.Delay(0.5f, "Что...");
+            dlg.Delay(0.5f, "Это...");
+            dlg.Delay(0.5f, "За...");
+            dlg.Text("Херня...");
             dlg.Run(() =>
             {
                 zombie.Agent.enabled = true;

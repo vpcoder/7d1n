@@ -71,6 +71,8 @@ namespace Engine.Story.Tutorial
                 dlg.RuntimeObjectList.Add(StoryActionHelper.Fade(background, Color.white, Color.clear,
                     0.8f));
             });
+            
+            /*
             dlg.Text("[Нажми здесь, чтобы продолжить]");
             dlg.Text("[Перед тобой персонаж]");
             dlg.Text("[Он изрядно побит, довольно вонюч, а ещё у него очень плохой характер]");
@@ -98,8 +100,7 @@ namespace Engine.Story.Tutorial
             });
             dlg.Text("[Хорошо, давай определимся с тем как его зовут]");
             
-            
-            dlg.Text("[Придумай ему какое-нибудь ублюдочное имя]");
+            dlg.Text("[Придумай ему какое-нибудь имя]");
             dlg.Run(() =>
             {
                 changeCharacterNameInterface.SetActive(true);
@@ -107,9 +108,11 @@ namespace Engine.Story.Tutorial
             dlg.Text("[Напиши что нибудь унизительное]");
             dlg.Point(startChangeNamePoint);
             dlg.Text("[Написал?]");
-            dlg.Select(list2, "[Точно?]");
+            dlg.Set("characterName", () => Game.Instance.Character.Account.Name);
+            dlg.Select(list2, "['<color=\"green\">${characterName}</color>'? Точно?]");
             dlg.Text("[" + Game.Instance.Character.Account.Name + "? Отлично. Не знаю за что ты так не любишь этого персонажа, раз выбрал такое имя...]");
             
+            dlg.Set("characterName", () => Game.Instance.Character.Account.Name);
             dlg.Point(completeChangeNamePoint);
             dlg.Run(() =>
             {
@@ -117,8 +120,35 @@ namespace Engine.Story.Tutorial
             });
 
             dlg.Text("[Так, определились с внешностью]");
-            dlg.Text("[Выбрали мерзкое имя <color=\"green\">" + Game.Instance.Character.Account.Name + "</color>]");
+            dlg.Text("[Выбрали имя <color=\"green\">${characterName}</color>]");
             dlg.Text("[Пора начинать...]");
+
+            dlg.Run(() =>
+            {
+                dlg.RuntimeObjectList.Add(StoryActionHelper.Fade(background, Color.clear, Color.white,
+                    0.8f));
+            });
+            dlg.Music("star_wars");
+            dlg.Delay(2, "[.]");
+            dlg.Delay(2, "[..]");
+            dlg.Delay(2, "[...]");
+            dlg.Delay(3, "[Давным-давно...]");
+            dlg.Delay(3, "[В далёкой-далёкой галактике...]");
+            dlg.Delay(4, "[Бушевали...]");
+            dlg.Run(() => AudioController.Instance.StopMusic());
+            dlg.Sound("scratch");
+            dlg.Run(() =>
+            {
+                dlg.RuntimeObjectList.Add(StoryActionHelper.Fade(background, Color.white, Color.clear,
+                    0.8f));
+            });
+            dlg.Text("[Ладно-ладно, это была шутка]");
+            dlg.Text("[Полюбому ты поверил]");
+            dlg.Text("[Всё, теперь серьёзно]");
+            dlg.Text("[Кхм...]");
+            dlg.Text("[Приготовились...]");
+            
+            */
             
             dlg.Run(() =>
             {

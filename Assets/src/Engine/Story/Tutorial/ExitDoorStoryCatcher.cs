@@ -1,6 +1,7 @@
 using Engine.Data.Factories;
 using Engine.Data.Quests;
 using Engine.Logic.Dialog;
+using Engine.Logic.Locations;
 using UnityEngine;
 
 namespace Engine.Story.Tutorial
@@ -11,6 +12,7 @@ namespace Engine.Story.Tutorial
 
         [SerializeField] private Transform door;
         [SerializeField] private Vector3 openAngles;
+        [SerializeField] private Transform lookTo;
         
         public override void CreateDialog(DialogQueue dlg)
         {
@@ -22,7 +24,7 @@ namespace Engine.Story.Tutorial
             dlg.Text("Кажется, тут не закрыто...");
             dlg.Run(() =>
             {
-                door.transform.localRotation = Quaternion.Euler(openAngles);  
+                door.transform.localRotation = Quaternion.Euler(openAngles);
             });
             
             dlg.Text("Выходим");

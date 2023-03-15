@@ -31,20 +31,41 @@ namespace Engine.Story.Tutorial
                 background.color = Color.white;
             });
             
-            dlg.Text("Что происходит?");
+            dlg.Delay(0.1f, "[.]");
+            dlg.Delay(0.1f, "[..]");
+            dlg.Delay(0.2f, "[...]");
+            dlg.Delay(0.6f, "[Запускаю сердце]");
+            dlg.Delay(0.4f, "[Запускаю сердце] - Ok!");
+            dlg.Delay(0.6f, "[Восстанавливаю нейронные связи]");
+            dlg.Delay(0.4f, "[Восстанавливаю нейронные связи] - Ok!");
+            dlg.Delay(0.6f, "[Разогреваю мышцы]");
+            dlg.Delay(0.4f, "[Разогреваю мышцы] - Ok!");
+            dlg.Delay(0.6f, "[Стабилизирую поток крови]");
+            dlg.Delay(0.4f, "[Стабилизирую поток крови] - Ok!");
+            dlg.Delay(0.6f, "[Запускаю дыхание]");
+            dlg.Delay(0.4f, "[Запускаю дыхание] - Ok!");
+            dlg.Delay(0.6f, "[Возобновляю работу мозга]");
+            dlg.Delay(0.4f, "[Возобновляю работу мозга] - Ok!");
+            dlg.Delay(0.6f, "[Подключаю зрение]");
+            dlg.Delay(0.4f, "[Подключаю зрение] - Ok!");
+            dlg.Delay(0.6f, "[Старт сознания]");
+            dlg.Delay(0.4f, "[Старт сознания] - Ok!");
+            dlg.Delay(1f, true);
             
-            dlg.Text("Где я?");
+            dlg.Text("Этот шум...");
+            dlg.Text("Что происходит?...");
+            dlg.Text("Где я?...");
             dlg.Run(() =>
             {
                 dlg.RuntimeObjectList.Add(StoryActionHelper.Fade(background, Color.white, half, 0.5f));
             });
             dlg.Delay(2f, true);
-            dlg.Text("Как давно я здесь?");
+            dlg.Text("Как давно я здесь?...");
             dlg.Run(() =>
             {
                 dlg.RuntimeObjectList.Add(StoryActionHelper.LookAt(camera, forwardWindow2));
             });
-            dlg.Text("Память спутана");
+            dlg.Text("Память спутана...");
             dlg.Run(() =>
             {
                 dlg.RuntimeObjectList.Add(StoryActionHelper.Fade(background, half, Color.white, 0.5f));
@@ -63,7 +84,7 @@ namespace Engine.Story.Tutorial
             });
             dlg.Text("Боль...");
             dlg.Text("Эта боль в конечностях сводит с ума...");
-            dlg.Text("Нужно ли сопротивляться, или поддаваться соблазну забвения?");
+            dlg.Text("Мне нужно отдохнуть...");
 
             var point1 = SelectVariant.Point;
             var point2 = SelectVariant.Point;
@@ -76,15 +97,21 @@ namespace Engine.Story.Tutorial
             
             
             dlg.Point(point1);
-            dlg.Text("Мне нужно открыть глаза...");
-            dlg.Run(() =>
-            {
-                dlg.RuntimeObjectList.Add(StoryActionHelper.Fade(background, Color.white, half, 0.5f));
-            });
+            dlg.Text("Не могу, мне нужен сон...");
+
+            var pointNext = SelectVariant.Point;
+            list = new List<SelectVariant> {
+                SelectVariant.New("Сопротивляться сну", pointNext),
+            };
+            dlg.Select(list);
+
+            dlg.Point(pointNext);
             dlg.Text("...");
+            dlg.Text("Хватит...");
+            dlg.Text("Кто нажимает на эти сраные кнопки?!");
             dlg.Run(() =>
             {
-                dlg.RuntimeObjectList.Add(StoryActionHelper.Fade(background, half, Color.clear, 0.5f));
+                dlg.RuntimeObjectList.Add(StoryActionHelper.Fade(background, Color.white, Color.clear, 0.5f));
             });
             dlg.Text("Сколько времени прошло?");
             dlg.Sound("dialogs/tutorial/bed_1");

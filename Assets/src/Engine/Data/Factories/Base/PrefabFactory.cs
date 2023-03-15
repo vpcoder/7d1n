@@ -54,11 +54,16 @@ namespace Engine.Data.Factories
         /// </returns>
         public T Get(string id)
         {
+            if (string.IsNullOrWhiteSpace(id))
+                return null;
             return GetRaw(Directory + "/" + id);
         }
         
         public T GetRaw(string id)
         {
+            if (string.IsNullOrWhiteSpace(id))
+                return null;
+            
             T result = null;
             if (!data.TryGetValue(id, out result))
             {

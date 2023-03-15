@@ -26,12 +26,12 @@ namespace Engine.Story.Tutorial
             {
                 dlg.RuntimeObjectList.Add(StoryActionHelper.LookAt(Camera.main, zombiePoint1));
             });
-            dlg.Text("На теле множество ран...");
+            dlg.Text("На теле множество ран... Они перебинтованы и обработаны.");
             dlg.Run(() =>
             {
                 dlg.RuntimeObjectList.Add(StoryActionHelper.LookAt(Camera.main, zombiePoint2));
             });
-            dlg.Text("Похоже её пытались вылечить...");
+            dlg.Text("Похоже, её пытались вылечить...");
             
             WakeUpZombieStory.CheckWakeUp(dlg, zombie, PlayerEyePos);
         }
