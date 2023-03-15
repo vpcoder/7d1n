@@ -19,7 +19,11 @@ namespace Engine.Logic.Locations
 
         [SerializeField] private CharacterDamagedFragment fragment;
 
-        public CharacterDamagedFragment CharacterFragment => fragment;
+        public CharacterDamagedFragment CharacterFragment
+        {
+            get { return fragment; }
+            set { fragment = value; }
+        }
         
     }
 

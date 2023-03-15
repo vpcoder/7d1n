@@ -21,7 +21,11 @@ namespace Engine.Logic.Locations
         ///     ---
         ///     The object that will eventually aggregate damage from all parts
         /// </summary>
-        public IDamagedObject Damaged => damaged;
+        public IDamagedObject Damaged
+        {
+            get { return damaged; }
+            set { damaged = (DamagedBase)value; }
+        }
         
     }
     
