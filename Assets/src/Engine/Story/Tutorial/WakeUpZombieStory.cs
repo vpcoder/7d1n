@@ -46,7 +46,7 @@ namespace Engine.Story.Tutorial
             dlg.Run(() =>
             {
                 zombie.Agent.enabled = true;
-                zombie.NpcContext.Status.State = NpcStateType.Fighting;
+                zombie.CharacterContext.Status.State = NpcStateType.Fighting;
                 zombie.DeadEvent += () =>
                 {
                     ObjectFinder.Find<ExitDoorStoryCatcher>().enabled = true;

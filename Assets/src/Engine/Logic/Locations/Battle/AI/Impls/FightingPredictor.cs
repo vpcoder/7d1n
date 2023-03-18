@@ -51,11 +51,11 @@ namespace Engine.Logic.Locations.Impls
 
             npc.Target = target;
             npc.CurrentAction = null;
-            npc.NpcContext.Actions.Clear();
-            npc.NpcContext.Actions.Add(CreateWait(0.1f, 1f)); // Начинаем ход со случайной задержкой от 0.1 до 1 секунды, чтобы казалось что нпс более живые
+            npc.CharacterContext.Actions.Clear();
+            npc.CharacterContext.Actions.Add(CreateWait(0.1f, 1f)); // Начинаем ход со случайной задержкой от 0.1 до 1 секунды, чтобы казалось что нпс более живые
 
             if (isNeedLook)
-                npc.NpcContext.Actions.Add(CreateLook(target, 1f));
+                npc.CharacterContext.Actions.Add(CreateLook(target, 1f));
 
             var ap = npc.Character.AP;
             var moveResult = DoMoveIfNeeded(npc, target, ref ap); // Движемся к цели, если нужно
@@ -74,10 +74,10 @@ namespace Engine.Logic.Locations.Impls
                     if (!DoAttackIfNeeded(npc, target, ref ap)) // Атакуем пока есть ОД
                         break;
                 }
-                npc.NpcContext.Actions.Add(CreateWait(0.3f, 0.6f)); // 300mls-600mls
+                npc.CharacterContext.Actions.Add(CreateWait(0.3f, 0.6f)); // 300mls-600mls
             }
 
-            foreach(var action in npc.NpcContext.Actions)
+            foreach(var action in npc.CharacterContext.Actions)
             {
                 Debug.Log("+ " + npc.transform.name + " action: " + action.Action.ToString());
             }
@@ -123,7 +123,7 @@ namespace Engine.Logic.Locations.Impls
             if (pathFragment.Count == 0)
                 return result;
 
-			enemy.NpcContext.Actions.Add(CreateMove(enemy, pathFragment, 1f));
+			enemy.CharacterContext.Actions.Add(CreateMove(enemy, pathFragment, 1f));
             result.Moved = true;
             return result;
         }
@@ -140,14 +140,14 @@ namespace Engine.Logic.Locations.Impls
             switch(weapon.Type)
             {
                 case GroupType.WeaponFirearms:
-                    enemy.NpcContext.Actions.Add(CreatePickWeapon(enemy, (IFirearmsWeapon)weapon));
-                    enemy.NpcContext.Actions.Add(CreateWait(0.5f, 0.8f));
-                    enemy.NpcContext.Actions.Add(CreateAttack(enemy, (IFirearmsWeapon)weapon));
+                    enemy.CharacterContext.Actions.Add(CreatePickWeapon(enemy, (IFirearmsWeapon)weapon));
+                    enemy.CharacterContext.Actions.Add(CreateWait(0.5f, 0.8f));
+                    enemy.CharacterContext.Actions.Add(CreateAttack(enemy, (IFirearmsWeapon)weapon));
                     break;
                 case GroupType.WeaponEdged:
-                    enemy.NpcContext.Actions.Add(CreatePickWeapon(enemy, (IEdgedWeapon)weapon));
-                    enemy.NpcContext.Actions.Add(CreateWait(0.5f, 0.8f));
-                    enemy.NpcContext.Actions.Add(CreateAttack(enemy, (IEdgedWeapon)weapon));
+                    enemy.CharacterContext.Actions.Add(CreatePickWeapon(enemy, (IEdgedWeapon)weapon));
+                    enemy.CharacterContext.Actions.Add(CreateWait(0.5f, 0.8f));
+                    enemy.CharacterContext.Actions.Add(CreateAttack(enemy, (IEdgedWeapon)weapon));
                     break;
                 default:
                     throw new NotSupportedException();
@@ -167,9 +167,9 @@ namespace Engine.Logic.Locations.Impls
                 case GroupType.WeaponFirearms:
                     if (weapon.AmmoCount > 0)
                     {
-                        enemy.NpcContext.Actions.Add(CreatePickWeapon(enemy, weapon));
-                        enemy.NpcContext.Actions.Add(CreateWait(0.5f, 0.8f));
-                        enemy.NpcContext.Actions.Add(CreateAttack(enemy, weapon));
+                        enemy.CharacterContext.Actions.Add(CreatePickWeapon(enemy, weapon));
+                        enemy.CharacterContext.Actions.Add(CreateWait(0.5f, 0.8f));
+                        enemy.CharacterContext.Actions.Add(CreateAttack(enemy, weapon));
                         weapon.AmmoCount--;
                     }
                     else
@@ -180,9 +180,9 @@ namespace Engine.Logic.Locations.Impls
                         if (ammo != null)
                         {
                             ap -= weapon.ReloadAP;
-                            enemy.NpcContext.Actions.Add(CreatePickWeapon(enemy, weapon));
-                            enemy.NpcContext.Actions.Add(CreateWait(0.5f, 0.8f));
-                            enemy.NpcContext.Actions.Add(CreateReload(enemy, weapon, ammo));
+                            enemy.CharacterContext.Actions.Add(CreatePickWeapon(enemy, weapon));
+                            enemy.CharacterContext.Actions.Add(CreateWait(0.5f, 0.8f));
+                            enemy.CharacterContext.Actions.Add(CreateReload(enemy, weapon, ammo));
                             return true;
                         }
                     }

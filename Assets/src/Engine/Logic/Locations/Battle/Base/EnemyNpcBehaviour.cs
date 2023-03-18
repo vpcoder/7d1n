@@ -22,14 +22,15 @@ namespace Engine.Logic.Locations
                                               IMonoBehaviourOverrideStartEvent,
                                               IMonoBehaviourOverrideUpdateEvent
     {
-
         [SerializeField] protected CharacterBody characterBody;
         [SerializeField] protected Animator animator;
         [SerializeField] protected NavMeshAgent agent;
         [SerializeField] protected AudioSource attackAudioSource;
         [SerializeField] protected Transform lookDirectionTransform;
         [SerializeField] protected long id;
-
+        [SerializeField] private Transform eye;
+        [SerializeField] private CharacterMeshSwitcher meshSwitcher;
+        
         private float timestamp;
 
         #region Events
@@ -40,8 +41,18 @@ namespace Engine.Logic.Locations
         
         #region Shared Properties
 
+        public CharacterMeshSwitcher MeshSwitcher
+        {
+            get { return meshSwitcher; }
+            set { meshSwitcher = value; }
+        }
+        public Transform Eye
+        {
+            get { return eye;}
+            set { eye = value; }
+        }
         public Transform LookDirectionTransform => lookDirectionTransform;
-        public NpcContext NpcContext { get; set; } = new NpcContext();
+        public CharacterContext CharacterContext { get; set; } = new CharacterContext();
         public IAiIterationAction CurrentIterationAction { get; set; }
         public NpcBaseActionContext CurrentAction { get; set; }
         public Animator Animator => animator;
@@ -122,19 +133,11 @@ namespace Engine.Logic.Locations
         /// </exception>
         public IPredictor TryFindPredictor()
         {
-            if (!PredictorByState.TryGetValue(NpcContext.Status.State, out var predictor))
-                throw new NotSupportedException("npc state '" + NpcContext.Status.State + "' isn't supported!");
+            if (!PredictorByState.TryGetValue(CharacterContext.Status.State, out var predictor))
+                throw new NotSupportedException("npc state '" + CharacterContext.Status.State + "' isn't supported!");
             return predictor;
         }
 
-        public void LoadPredictors(IDictionary<NpcStateType, string> stateToPredictorName)
-        {
-            PredictorByState?.Clear();
-            PredictorByState = new Dictionary<NpcStateType, IPredictor>();
-            foreach (var entry in stateToPredictorName)
-                PredictorByState[entry.Key] = NpcAIPredictor.Instance.Get(entry.Value);
-        }
-        
         public void EquipWeapon(IWeapon weapon)
         {
             var weaponPoint = CharacterBody?.WeaponPoint;
@@ -249,7 +252,7 @@ namespace Engine.Logic.Locations
             if(CurrentIterationAction != null)
                 CurrentIterationAction.End(this, CurrentAction, timestamp);
 
-            if (NpcContext.Actions.Count == 0)
+            if (CharacterContext.Actions.Count == 0)
             {
                 CurrentAction = null;
                 CurrentIterationAction = null;
@@ -257,23 +260,23 @@ namespace Engine.Logic.Locations
                 return;
             }
 
-            CurrentAction = NpcContext.Actions[0];
+            CurrentAction = CharacterContext.Actions[0];
             CurrentIterationAction = AiIteratorFactory.Instance.GetIterationAction(CurrentAction.Action);
 
             if(CurrentIterationAction != null)
                 CurrentIterationAction.Start(this, CurrentAction);
 
             timestamp = Time.time;
-            NpcContext.Actions.RemoveAt(0);
+            CharacterContext.Actions.RemoveAt(0);
         }
 
         public virtual void Died()
         {
-            if (NpcContext.Status.IsDead)
+            if (CharacterContext.Status.IsDead)
                 return;
 
             DeadEvent?.Invoke();
-            NpcContext.Status.IsDead = true;
+            CharacterContext.Status.IsDead = true;
 
             var manager = ObjectFinder.Find<BattleManager>();
             manager.RemoveEnemiesFromBattle(this);

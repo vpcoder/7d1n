@@ -22,11 +22,9 @@ namespace Engine.Logic.Locations
 
         #region Hidden Fields
 
-        [SerializeField] private CharacterMeshSwitcher meshSwitcher;
         [SerializeField] private float pickUpDistance = 1f;
         [SerializeField] private float speed = 3f;
         [SerializeField] private MoveContext moveContext;
-        [SerializeField] private Transform eye;
         
         private NavMeshPath navMeshPath;
         private List<Vector3> path;
@@ -37,10 +35,6 @@ namespace Engine.Logic.Locations
         
         #region Properties
 
-        public CharacterMeshSwitcher MeshSwitcher => meshSwitcher;
-        
-        public Transform Eye => eye;
-        
         /// <summary>
         ///     Текущий путь, по которому надо пройти
         ///     (может быть пустым или не заполненным, что значит что персонаж стоит на месте)
@@ -132,7 +126,7 @@ namespace Engine.Logic.Locations
             navMeshPath = new NavMeshPath();
             Character = new PlayerCharacter();
             cameraController = ObjectFinder.Find<LocationCameraController>();
-            meshSwitcher.MeshIndex = Game.Instance.Character.Account.SpriteID;
+            MeshSwitcher.MeshIndex = Game.Instance.Character.Account.SpriteID;
         }
 
         public override void OnUpdate()

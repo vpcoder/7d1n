@@ -87,6 +87,11 @@ namespace Engine.Logic.Locations
             
             foreach (var npc in currentNpcList)
             {
+                if (!npc.CharacterContext.Status.IsEnabledAI) // Не работаем с NPC, ИИ которых выключен
+                {
+                    npc.StopNPC();
+                    continue;
+                }
                 context.Npc = npc;
                 var predictor = npc.TryFindPredictor();
                 predictor.CreateStrategyForNpc(context);

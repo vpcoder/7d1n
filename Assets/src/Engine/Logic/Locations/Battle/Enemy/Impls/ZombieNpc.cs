@@ -19,6 +19,14 @@ namespace Engine.Logic.Locations.Enemy.Impls
             });
             base.UpdateBody();
         }
+        
+        public void LoadPredictors(IDictionary<NpcStateType, string> stateToPredictorName)
+        {
+            PredictorByState?.Clear();
+            PredictorByState = new Dictionary<NpcStateType, IPredictor>();
+            foreach (var entry in stateToPredictorName)
+                PredictorByState[entry.Key] = NpcAIPredictor.Instance.Get(entry.Value);
+        }
 
     }
     

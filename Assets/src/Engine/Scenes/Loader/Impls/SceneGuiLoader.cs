@@ -127,7 +127,7 @@ namespace src.Engine.Scenes.Loader.Impls
 
                 var npc = GameObject.Instantiate(behaviour, pos, Quaternion.Euler(rot));
                 var npcBehaviour = npc.GetComponent<EnemyNpcBehaviour>();
-                npcBehaviour.NpcContext.Status.State = NpcStateType.Fighting;
+                npcBehaviour.CharacterContext.Status.State = NpcStateType.Fighting;
                 enemyPointsList.Remove(randomPoint);
                 enemies.Add(npcBehaviour);
             }

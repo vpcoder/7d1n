@@ -1,6 +1,5 @@
 using System;
 using System.Collections.Generic;
-using Engine.Logic;
 using Engine.Logic.Locations;
 using UnityEngine;
 
@@ -37,16 +36,23 @@ namespace UnityEditor.Menu
             { CharacterDamagedFragment.LowerLegRight, new FragmentInfo("LowerLeg_R", new Vector3(-0.2f, 0f, 0f), new Vector3(0.5f, 0.15f, 0.15f)) },
         };
 
+        private static FragmentInfo EYES_INFO = new FragmentInfo("Eyes", new Vector3(0f, 0.03f, 0.2f), Vector3.zero);
+        private const string ROOT_SKELETON_NAME = "Root";
+        
         [MenuItem("7d1n/Root Bones/Add humanoid Fragment Damaged")]
         public static void AddDamagedFragment()
         {
-            var root = TryFindRoot(Selection.activeTransform, "Root");
-            if(root == null)
+            var root = TryFindRoot(Selection.activeTransform, ROOT_SKELETON_NAME);
+            if (root == null)
+                root = TryFindRootReverse(Selection.activeTransform, ROOT_SKELETON_NAME);
+            if (root == null)
+            {
+                Debug.LogError("root skeleton not founded in selected object, you must select bone/skeleton!");
                 return;
+            }
 
-            var damaged = TryFindDamaged(root);
-            if (damaged == null)
-                throw new Exception("damaged base not founded on root.parent!");
+            var damaged = FindDamaged(root);
+            SetupCharacterProps(root);
 
             foreach (var fragment in humanoidBonesName)
                 SetupFragmentSet(root, damaged, fragment.Key);
@@ -57,19 +63,57 @@ namespace UnityEditor.Menu
         [MenuItem("7d1n/Root Bones/Remove humanoid Fragment Damaged")]
         public static void RemoveDamagedFragment()
         {
-            var root = TryFindRoot(Selection.activeTransform, "Root");
-            if(root == null)
+            var root = TryFindRoot(Selection.activeTransform, ROOT_SKELETON_NAME);
+            if (root == null)
+                root = TryFindRootReverse(Selection.activeTransform, ROOT_SKELETON_NAME);
+            if (root == null)
+            {
+                Debug.LogError("root skeleton not founded in selected object, you must select bone/skeleton!");
                 return;
+            }
 
             foreach (var fragment in humanoidBonesName)
                 RemoveFragmentSet(root, fragment.Key);
         }
 
+        private static DamagedBase FindDamaged(Transform root)
+        {
+            var damaged = TryFindByChild<DamagedBase>(root);
+            if (damaged == null)
+                throw new Exception("DamagedBase not founded on root.parent!");
+            return damaged;
+        }
+        
+        private static void SetupCharacterProps(Transform root)
+        {
+            var character = TryFindByChild<EnemyNpcBehaviour>(root);
+            if (character == null)
+                throw new Exception("EnemyNpcBehaviour not founded on root.parent!");
+
+            var eyes = TryFindRoot(root, EYES_INFO.Name);
+            if (eyes == null)
+                throw new Exception("skeleton hasn't contains eyes bone with name '" + EYES_INFO.Name + "'!");
+
+            var eye = eyes.Find("Eye")?.gameObject;
+            if (eye == null)
+            {
+                eye = new GameObject();
+                eye.name = "Eye";
+                eye.transform.SetParent(eyes);
+            }
+
+            eye.transform.localScale = Vector3.one;
+            eye.transform.localPosition = EYES_INFO.Center;
+            eye.transform.localRotation = Quaternion.identity;
+            character.Eye = eye.transform;
+        }
+        
         private static void RemoveFragmentSet(Transform root, CharacterDamagedFragment fragmentType)
         {
             var info = humanoidBonesName[fragmentType];
             var fragment = TryFindFragment(root, info);
-            
+            if(fragment == null)
+                return;
             fragment.gameObject.GetComponent<FragmentCharacterDamagedBehaviour>()?.Destroy();
             fragment.gameObject.GetComponent<BoxCollider>()?.Destroy();
         }
@@ -105,15 +149,24 @@ namespace UnityEditor.Menu
             Debug.Log("fragment '" + fragmentType.ToString() + "' added damaged fragment");
         }
 
-        private static DamagedBase TryFindDamaged(Transform child)
+        private static T TryFindByChild<T>(Transform child) where T : MonoBehaviour
         {
             if (child == null)
                 return null;
-            var damaged = child.GetComponent<DamagedBase>();
-            if (damaged != null)
-                return damaged;
+            var component = child.GetComponent<T>();
+            if (component != null)
+                return component;
             
-            return TryFindDamaged(child.parent);
+            return TryFindByChild<T>(child.parent);
+        }
+        
+        private static Transform TryFindRootReverse(Transform child, string name)
+        {
+            if (child == null)
+                return null;
+            if (child.name == name)
+                return child;
+            return TryFindRootReverse(child.parent, name);
         }
         
         private static Transform TryFindFragment(Transform root, FragmentInfo fragmentInfo)

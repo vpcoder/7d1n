@@ -13,7 +13,7 @@ namespace Engine.Logic.Locations
     /// 
     /// </summary>
     [Serializable]
-    public class NpcContext
+    public class CharacterContext
     {
 
         /// <summary>
@@ -22,7 +22,7 @@ namespace Engine.Logic.Locations
         ///     Current state of the creature
         /// </summary>
         [SerializeField]
-        public NpcStatus Status = new NpcStatus();
+        public CharacterStatus Status = new CharacterStatus();
 
         /// <summary>
         ///     Список действий, которые NPC планирует совершить в текущем ходу

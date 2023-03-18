@@ -25,7 +25,7 @@ namespace Engine.Logic.Locations
                 var data = new Dictionary<OrderGroup, List<EnemyNpcBehaviour>>();
                 foreach (var enemy in GameObject.FindObjectsOfType<EnemyNpcBehaviour>())
                 {
-                    if (enemy.NpcContext.Status.IsDead) // Не берём в расчёт мёртвых
+                    if (enemy.CharacterContext.Status.IsDead) // Не берём в расчёт мёртвых
                         continue;
                     
                     var group = enemy.Character.OrderGroup;
