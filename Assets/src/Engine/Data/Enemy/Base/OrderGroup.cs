@@ -67,20 +67,13 @@ namespace Engine.Data
         ///     
         /// </summary>
         TechnocratsGroup = 0x08,
-        
-        /// <summary>
-        ///     Спринтеры
-        ///     ---
-        ///     
-        /// </summary>
-        SprintersGroup = 0x09,
-        
+
         /// <summary>
         ///     Реконструкторы
         ///     ---
         ///     
         /// </summary>
-        ReconstructionistsGroup = 0x0A,
+        ReconstructionistsGroup = 0x09,
         
     };
 

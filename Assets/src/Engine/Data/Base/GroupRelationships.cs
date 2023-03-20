@@ -39,7 +39,6 @@ namespace Engine.Data
                 Create(OrderGroup.ZombieGroup, OrderGroup.WildAnimalsGroup, -100),
                 Create(OrderGroup.ZombieGroup, OrderGroup.ReconstructionistsGroup, -100),
                 Create(OrderGroup.ZombieGroup, OrderGroup.ScythiansGroup, -100),
-                Create(OrderGroup.ZombieGroup, OrderGroup.SprintersGroup, -100),
                 Create(OrderGroup.ZombieGroup, OrderGroup.TechnocratsGroup, -100),
                 Create(OrderGroup.ZombieGroup, OrderGroup.NewLightGroup, -100),
                 
@@ -50,24 +49,25 @@ namespace Engine.Data
                 Create(OrderGroup.WildAnimalsGroup, OrderGroup.MaraudersGroup, -100),
                 Create(OrderGroup.WildAnimalsGroup, OrderGroup.ReconstructionistsGroup, -100),
                 Create(OrderGroup.WildAnimalsGroup, OrderGroup.ScythiansGroup, -100),
-                Create(OrderGroup.WildAnimalsGroup, OrderGroup.SprintersGroup, -100),
                 Create(OrderGroup.WildAnimalsGroup, OrderGroup.TechnocratsGroup, -100),
                 Create(OrderGroup.WildAnimalsGroup, OrderGroup.NewLightGroup, -100),
                 
                 // Усопшие - нейтральные с остальными
                 Create(OrderGroup.DeceasedGroup, OrderGroup.PlayerGroup, 0),
                 Create(OrderGroup.DeceasedGroup, OrderGroup.AnotherPlayerGroup, 0),
-                Create(OrderGroup.DeceasedGroup, OrderGroup.MaraudersGroup, 0),
                 Create(OrderGroup.DeceasedGroup, OrderGroup.ReconstructionistsGroup, 0),
                 Create(OrderGroup.DeceasedGroup, OrderGroup.ScythiansGroup, 0),
-                Create(OrderGroup.DeceasedGroup, OrderGroup.SprintersGroup, 0),
                 Create(OrderGroup.DeceasedGroup, OrderGroup.TechnocratsGroup, 0),
                 Create(OrderGroup.DeceasedGroup, OrderGroup.NewLightGroup, 0),
                 
-                // Мородёры против одиночек
+                // Мородёры против остальных
                 Create(OrderGroup.MaraudersGroup, OrderGroup.PlayerGroup, -1),
                 Create(OrderGroup.MaraudersGroup, OrderGroup.AnotherPlayerGroup, -1),
-                Create(OrderGroup.MaraudersGroup, OrderGroup.SprintersGroup, -1),
+                Create(OrderGroup.MaraudersGroup, OrderGroup.DeceasedGroup, -1),
+                Create(OrderGroup.MaraudersGroup, OrderGroup.ReconstructionistsGroup, -1),
+                Create(OrderGroup.MaraudersGroup, OrderGroup.ScythiansGroup, -1),
+                Create(OrderGroup.MaraudersGroup, OrderGroup.TechnocratsGroup, -1),
+                Create(OrderGroup.MaraudersGroup, OrderGroup.NewLightGroup, -1),
             });
         }
         

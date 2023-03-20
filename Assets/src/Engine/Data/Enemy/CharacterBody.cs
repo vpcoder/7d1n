@@ -55,6 +55,8 @@ namespace Engine.Data
             }
         }
 
+        public CharData Data => charData;
+
         private ICharacter CreateCharacter()
         {
             var character = new NPC();
