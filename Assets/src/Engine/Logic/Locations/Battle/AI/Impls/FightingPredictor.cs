@@ -85,7 +85,7 @@ namespace Engine.Logic.Locations.Impls
             npc.StartNPC(); // Ходим
         }
 
-        private PredictorMoveResult DoMoveIfNeeded(EnemyNpcBehaviour enemy, IDamagedObject target, ref int ap)
+        private PredictorMoveResult DoMoveIfNeeded(CharacterNpcBehaviour character, IDamagedObject target, ref int ap)
         {
             var result = new PredictorMoveResult();
 
@@ -94,7 +94,7 @@ namespace Engine.Logic.Locations.Impls
 
             var currentAp = ap;
 
-            var weapon = TryFindRangedWeapon(ap, enemy.Character.Weapons, enemy.Character.Items);
+            var weapon = TryFindRangedWeapon(ap, character.Character.Weapons, character.Character.Items);
             if (weapon != null) // FIXME: check raycast
             {
                 result.Weapon = weapon;
@@ -102,7 +102,7 @@ namespace Engine.Logic.Locations.Impls
             }
 
 			var endPos = target.ToObject.transform.position;
-			var path = enemy.CalculatePath(endPos);
+			var path = character.CalculatePath(endPos);
 
             if (Lists.IsEmpty(path))
                 return result;
@@ -123,31 +123,31 @@ namespace Engine.Logic.Locations.Impls
             if (pathFragment.Count == 0)
                 return result;
 
-			enemy.CharacterContext.Actions.Add(CreateMove(enemy, pathFragment, 1f));
+			character.CharacterContext.Actions.Add(CreateMove(character, pathFragment, 1f));
             result.Moved = true;
             return result;
         }
 
-        private bool DoAttackIfNeeded(EnemyNpcBehaviour enemy, IDamagedObject target, ref int ap)
+        private bool DoAttackIfNeeded(CharacterNpcBehaviour character, IDamagedObject target, ref int ap)
         {
         	if(ap <= 0)
         		return false;
         	
-            var weapon = TryFindWeaponByPredicate(ap, enemy.Character.Weapons, enemy.Character.Items); // Оружия которые можно использовать (хватает ОД)
+            var weapon = TryFindWeaponByPredicate(ap, character.Character.Weapons, character.Character.Items); // Оружия которые можно использовать (хватает ОД)
             if (weapon == null)
                 return false;
 
             switch(weapon.Type)
             {
                 case GroupType.WeaponFirearms:
-                    enemy.CharacterContext.Actions.Add(CreatePickWeapon(enemy, (IFirearmsWeapon)weapon));
-                    enemy.CharacterContext.Actions.Add(CreateWait(0.5f, 0.8f));
-                    enemy.CharacterContext.Actions.Add(CreateAttack(enemy, (IFirearmsWeapon)weapon));
+                    character.CharacterContext.Actions.Add(CreatePickWeapon(character, (IFirearmsWeapon)weapon));
+                    character.CharacterContext.Actions.Add(CreateWait(0.5f, 0.8f));
+                    character.CharacterContext.Actions.Add(CreateAttack(character, (IFirearmsWeapon)weapon));
                     break;
                 case GroupType.WeaponEdged:
-                    enemy.CharacterContext.Actions.Add(CreatePickWeapon(enemy, (IEdgedWeapon)weapon));
-                    enemy.CharacterContext.Actions.Add(CreateWait(0.5f, 0.8f));
-                    enemy.CharacterContext.Actions.Add(CreateAttack(enemy, (IEdgedWeapon)weapon));
+                    character.CharacterContext.Actions.Add(CreatePickWeapon(character, (IEdgedWeapon)weapon));
+                    character.CharacterContext.Actions.Add(CreateWait(0.5f, 0.8f));
+                    character.CharacterContext.Actions.Add(CreateAttack(character, (IEdgedWeapon)weapon));
                     break;
                 default:
                     throw new NotSupportedException();
@@ -157,7 +157,7 @@ namespace Engine.Logic.Locations.Impls
             return true;
         }
 
-        private bool DoAttackOnlyRanged(EnemyNpcBehaviour enemy, IDamagedObject target, IFirearmsWeapon weapon, ref int ap)
+        private bool DoAttackOnlyRanged(CharacterNpcBehaviour character, IDamagedObject target, IFirearmsWeapon weapon, ref int ap)
         {
             if (weapon == null)
                 return false;
@@ -167,22 +167,22 @@ namespace Engine.Logic.Locations.Impls
                 case GroupType.WeaponFirearms:
                     if (weapon.AmmoCount > 0)
                     {
-                        enemy.CharacterContext.Actions.Add(CreatePickWeapon(enemy, weapon));
-                        enemy.CharacterContext.Actions.Add(CreateWait(0.5f, 0.8f));
-                        enemy.CharacterContext.Actions.Add(CreateAttack(enemy, weapon));
+                        character.CharacterContext.Actions.Add(CreatePickWeapon(character, weapon));
+                        character.CharacterContext.Actions.Add(CreateWait(0.5f, 0.8f));
+                        character.CharacterContext.Actions.Add(CreateAttack(character, weapon));
                         weapon.AmmoCount--;
                     }
                     else
                     {
                         if (weapon.ReloadAP > ap)
                             return false;
-                        var ammo = TryFindAmmo(weapon, enemy.Character.Items);
+                        var ammo = TryFindAmmo(weapon, character.Character.Items);
                         if (ammo != null)
                         {
                             ap -= weapon.ReloadAP;
-                            enemy.CharacterContext.Actions.Add(CreatePickWeapon(enemy, weapon));
-                            enemy.CharacterContext.Actions.Add(CreateWait(0.5f, 0.8f));
-                            enemy.CharacterContext.Actions.Add(CreateReload(enemy, weapon, ammo));
+                            character.CharacterContext.Actions.Add(CreatePickWeapon(character, weapon));
+                            character.CharacterContext.Actions.Add(CreateWait(0.5f, 0.8f));
+                            character.CharacterContext.Actions.Add(CreateReload(character, weapon, ammo));
                             return true;
                         }
                     }

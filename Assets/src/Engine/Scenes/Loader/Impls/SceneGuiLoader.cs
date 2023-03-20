@@ -34,7 +34,7 @@ namespace src.Engine.Scenes.Loader.Impls
 
         protected override void OnPostLoad(LoadContext context)
         {
-            var enemyPointsList = context.EnemyListInfo;
+            var characterPointsList = context.EnemyListInfo;
             var character = Game.Instance.Character;
             
             character.Inventory.Add(DataDictionary.Weapons.WEAPON_PISTOL_PM, 1);
@@ -109,14 +109,14 @@ namespace src.Engine.Scenes.Loader.Impls
             ObjectFinder.Find<HandsController>().GetCell(0).Weapon = pm;
 
             var battleManager = ObjectFinder.Find<BattleManager>();
-            var enemies = new List<EnemyNpcBehaviour>();
+            var enemies = new List<CharacterNpcBehaviour>();
             
             for (int i = 0; i < 5; i++)
             {
-                if (enemyPointsList.Count == 0)
+                if (characterPointsList.Count == 0)
                     break;
 
-                var randomPoint = enemyPointsList[Random.Range(0, enemyPointsList.Count)];
+                var randomPoint = characterPointsList[Random.Range(0, characterPointsList.Count)];
                 
                 var behaviour = NpcFactory.Instance.GetBehaviour(Random.Range(100, 101 + 1));
                 var pos = randomPoint.Position;
@@ -126,9 +126,9 @@ namespace src.Engine.Scenes.Loader.Impls
                 rot.z = 0;
 
                 var npc = GameObject.Instantiate(behaviour, pos, Quaternion.Euler(rot));
-                var npcBehaviour = npc.GetComponent<EnemyNpcBehaviour>();
-                npcBehaviour.CharacterContext.Status.State = NpcStateType.Fighting;
-                enemyPointsList.Remove(randomPoint);
+                var npcBehaviour = npc.GetComponent<CharacterNpcBehaviour>();
+                npcBehaviour.CharacterContext.Status.State = CharacterStateType.Fighting;
+                characterPointsList.Remove(randomPoint);
                 enemies.Add(npcBehaviour);
             }
             

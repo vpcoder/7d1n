@@ -22,12 +22,12 @@ namespace Engine.Logic.Locations
         /// <summary>
         /// 
         /// </summary>
-        public EnemyNpcBehaviour Npc { get; set; }
+        public CharacterNpcBehaviour Npc { get; set; }
         
         /// <summary>
         /// 
         /// </summary>
-        public ICollection<EnemyNpcBehaviour> CurrentGroupNpc { get; set; }
+        public ICollection<CharacterNpcBehaviour> CurrentGroupNpc { get; set; }
     }
     
 }

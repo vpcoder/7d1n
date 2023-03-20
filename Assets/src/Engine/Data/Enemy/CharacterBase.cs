@@ -7,7 +7,7 @@ namespace Engine.Data
     /// 
     /// Базовый класс противника
     /// ---
-    /// Base enemy class
+    /// Base character class
     /// 
     /// </summary>
     public abstract class CharacterBase : ICharacter
@@ -72,7 +72,7 @@ namespace Engine.Data
         /// <summary>
         ///     Генерируемое оружие, которым враг будет пользоваться
         ///     ---
-        ///     Generated weapons that the enemy will use
+        ///     Generated weapons that the character will use
         /// </summary>
         public List<long> WeaponsForGeneration { get; set; }
 
@@ -86,7 +86,7 @@ namespace Engine.Data
         /// <summary>
         ///     Генерируемые предметы находящиеся в сумках у врага
         ///     ---
-        ///     Generated items found in enemy bags
+        ///     Generated items found in character bags
         /// </summary>
         public List<ResourcePair> ItemsForGeneration { get; set; }
 
@@ -100,12 +100,12 @@ namespace Engine.Data
         /// <summary>
         ///     Выполняет копирование текущего экземпляра врага
         ///     ---
-        ///     Performs a copy of the current enemy instance
+        ///     Performs a copy of the current character instance
         /// </summary>
         /// <returns>
         ///     Копию текущего экземпляра врага, со всеми параметрами
         ///     ---
-        ///     A copy of the current enemy instance, with all parameters
+        ///     A copy of the current character instance, with all parameters
         /// </returns>
         public abstract IIdentity Copy();
 

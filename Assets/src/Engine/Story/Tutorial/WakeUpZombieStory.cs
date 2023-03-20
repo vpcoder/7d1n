@@ -27,7 +27,7 @@ namespace Engine.Story.Tutorial
             ObjectFinder.BattleManager.EnterToBattle();
         }
         
-        public static void CheckWakeUp(DialogQueue dlg, EnemyNpcBehaviour zombie, Vector3 playerEyePos)
+        public static void CheckWakeUp(DialogQueue dlg, CharacterNpcBehaviour zombie, Vector3 playerEyePos)
         {
             var pointExit = SelectVariant.Point;
             var pointWakeUp = SelectVariant.Point;
@@ -46,7 +46,7 @@ namespace Engine.Story.Tutorial
             dlg.Run(() =>
             {
                 zombie.Agent.enabled = true;
-                zombie.CharacterContext.Status.State = NpcStateType.Fighting;
+                zombie.CharacterContext.Status.State = CharacterStateType.Fighting;
                 zombie.DeadEvent += () =>
                 {
                     ObjectFinder.Find<ExitDoorStoryCatcher>().enabled = true;

@@ -45,8 +45,8 @@ namespace Engine.Logic
                 if (entry.Key == OrderGroup.PlayerGroup || entry.Key == OrderGroup.AnotherPlayerGroup) // Не сохраняем персонажей реальных игроков
                     continue;
 
-                foreach(var enemy in entry.Value)
-                    data.Add(Read(enemy));
+                foreach(var character in entry.Value)
+                    data.Add(Read(character));
             }
             return data;
         }
@@ -60,17 +60,17 @@ namespace Engine.Logic
             return data;
         }
 
-        public EnemyDataSet Read(EnemyNpcBehaviour enemy)
+        public EnemyDataSet Read(CharacterNpcBehaviour character)
         {
             return new EnemyDataSet()
             {
-                ID = enemy.Character.ID,
-                Health = enemy.Character.Health,
-                Protection = enemy.Character.Protection,
-                Items = enemy.Character.Items?.Select(item => Read(item)).ToList(),
-                Weapons = enemy.Character.Weapons?.Select(weapon => Read(weapon)).ToList(),
-                Position = enemy.transform.position.ToString(),
-                Rotation = enemy.transform.rotation.eulerAngles.ToString(),
+                ID = character.Character.ID,
+                Health = character.Character.Health,
+                Protection = character.Character.Protection,
+                Items = character.Character.Items?.Select(item => Read(item)).ToList(),
+                Weapons = character.Character.Weapons?.Select(weapon => Read(weapon)).ToList(),
+                Position = character.transform.position.ToString(),
+                Rotation = character.transform.rotation.eulerAngles.ToString(),
             };
         }
 

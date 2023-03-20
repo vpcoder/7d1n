@@ -134,10 +134,10 @@ namespace Engine.Logic.Locations.Generator.Environment.Building.Arrangement
 
         private void FillEnemyInfoByEmptySegments(GenerationRoomContext context)
         {
-            var enemyInfo = Game.Instance.Runtime.GenerationInfo.EnemyInfo;
+            var characterInfo = Game.Instance.Runtime.GenerationInfo.EnemyInfo;
             foreach (var emptySegmentLink in TileService.GetFurnitureOnTheLayoutByTiles(TileLayoutType.Floor, context.TilesInfo.TilesData, TileService.EmptyEnvironmentItemFilter))
             {
-                enemyInfo.EnemyStartPoints.Add(new EnemyPointInfo()
+                characterInfo.EnemyStartPoints.Add(new EnemyPointInfo()
                 {
                     Position = emptySegmentLink.Marker.GetSegmentPos(EdgeLayout.Floor, emptySegmentLink.SegmentType),
                 });

@@ -66,7 +66,7 @@ namespace Engine.Data
         /// <summary>
         ///     Генерируемое оружие, которым враг будет пользоваться
         ///     ---
-        ///     Generated weapons that the enemy will use
+        ///     Generated weapons that the character will use
         /// </summary>
         List<long> WeaponsForGeneration { get; set; }
 
@@ -80,7 +80,7 @@ namespace Engine.Data
         /// <summary>
         ///     Генерируемые предметы находящиеся в сумках у врага
         ///     ---
-        ///     Generated items found in enemy bags
+        ///     Generated items found in character bags
         /// </summary>
         List<ResourcePair> ItemsForGeneration { get; set; }
 

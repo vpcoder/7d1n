@@ -17,7 +17,7 @@ namespace Engine.Logic.Locations
 
         public override NpcActionType ActionType => NpcActionType.PickWeapon;
 
-        public override bool Iteration(EnemyNpcBehaviour npc, NpcPickWeaponActionContext actionContext, float timestamp)
+        public override bool Iteration(CharacterNpcBehaviour npc, NpcPickWeaponActionContext actionContext, float timestamp)
         {
             if (actionContext.Weapon != null)
             {
@@ -27,10 +27,10 @@ namespace Engine.Logic.Locations
             return true;
         }
 
-        public override void Start(EnemyNpcBehaviour npc, NpcPickWeaponActionContext actionContext)
+        public override void Start(CharacterNpcBehaviour npc, NpcPickWeaponActionContext actionContext)
         { }
 
-        public override void End(EnemyNpcBehaviour npc, NpcPickWeaponActionContext actionContext, float timestamp)
+        public override void End(CharacterNpcBehaviour npc, NpcPickWeaponActionContext actionContext, float timestamp)
         { }
 
     }

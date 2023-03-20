@@ -19,7 +19,7 @@ namespace Engine.Logic.Locations
 
         public override NpcActionType ActionType => NpcActionType.Attack;
 
-        public override bool Iteration(EnemyNpcBehaviour npc, NpcAttackActionContext actionContext, float timestamp)
+        public override bool Iteration(CharacterNpcBehaviour npc, NpcAttackActionContext actionContext, float timestamp)
         {
             if (npc.Target == null) // Потеряли цель
                 return true; // Конец этого действия
@@ -46,10 +46,10 @@ namespace Engine.Logic.Locations
             return true;
         }
 
-        public override void Start(EnemyNpcBehaviour npc, NpcAttackActionContext actionContext)
+        public override void Start(CharacterNpcBehaviour npc, NpcAttackActionContext actionContext)
         { }
 
-        public override void End(EnemyNpcBehaviour npc, NpcAttackActionContext actionContext, float timestamp)
+        public override void End(CharacterNpcBehaviour npc, NpcAttackActionContext actionContext, float timestamp)
         { }
 
     }

@@ -24,7 +24,7 @@ namespace Engine.Data
         /// <summary>
         ///     Можно метать во врага
         ///     ---
-        ///     You can throw it at the enemy
+        ///     You can throw it at the character
         /// </summary>
         bool CanThrow { get; set; }
 

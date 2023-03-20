@@ -1,7 +1,10 @@
 using System;
 using System.Collections.Generic;
+using Engine.Data;
+using Engine.Logic;
 using Engine.Logic.Locations;
 using UnityEngine;
+using UnityEngine.AI;
 
 namespace UnityEditor.Menu
 {
@@ -52,7 +55,6 @@ namespace UnityEditor.Menu
             }
 
             var damaged = FindDamaged(root);
-            SetupCharacterProps(root);
 
             foreach (var fragment in humanoidBonesName)
                 SetupFragmentSet(root, damaged, fragment.Key);
@@ -76,6 +78,20 @@ namespace UnityEditor.Menu
                 RemoveFragmentSet(root, fragment.Key);
         }
 
+        [MenuItem("7d1n/Root Bones/Setup humanoid character props")]
+        public static void SetupCharacterProps()
+        {
+            var root = TryFindRoot(Selection.activeTransform, ROOT_SKELETON_NAME);
+            if (root == null)
+                root = TryFindRootReverse(Selection.activeTransform, ROOT_SKELETON_NAME);
+            if (root == null)
+            {
+                Debug.LogError("root skeleton not founded in selected object, you must select bone/skeleton!");
+                return;
+            }
+            SetupCharacterProps(root);
+        }
+        
         private static DamagedBase FindDamaged(Transform root)
         {
             var damaged = TryFindByChild<DamagedBase>(root);
@@ -86,10 +102,22 @@ namespace UnityEditor.Menu
         
         private static void SetupCharacterProps(Transform root)
         {
-            var character = TryFindByChild<EnemyNpcBehaviour>(root);
+            var character = TryFindByChild<CharacterNpcBehaviour>(root);
             if (character == null)
                 throw new Exception("EnemyNpcBehaviour not founded on root.parent!");
 
+            var direction = TryFindRoot(character.transform, "Direction")?.gameObject;
+            if (direction == null)
+            {
+                direction = new GameObject();
+                direction.transform.name = "Direction";
+                direction.transform.SetParent(character.transform);
+                direction.transform.localPosition = Vector3.zero;
+                direction.transform.localRotation = Quaternion.identity;
+                direction.transform.localScale = Vector3.one;
+            }
+            character.LookDirectionTransform = direction.transform;
+            
             var eyes = TryFindRoot(root, EYES_INFO.Name);
             if (eyes == null)
                 throw new Exception("skeleton hasn't contains eyes bone with name '" + EYES_INFO.Name + "'!");
@@ -106,6 +134,47 @@ namespace UnityEditor.Menu
             eye.transform.localPosition = EYES_INFO.Center;
             eye.transform.localRotation = Quaternion.identity;
             character.Eye = eye.transform;
+
+            var audioSource = character.GetComponent<AudioSource>();
+            if (audioSource == null)
+                audioSource = character.gameObject.AddComponent<AudioSource>();
+            character.AttackAudioSource = audioSource;
+            
+            var characterBody = root.parent?.GetComponent<CharacterBody>();
+            if (characterBody == null)
+                throw new Exception("CharacterBody can't be null!");
+
+            var meshData = characterBody.transform.Find("MeshData");
+            if (meshData == null)
+                throw new Exception("MeshData can't be null!");
+            
+            var switcher = meshData.gameObject.GetComponent<CharacterMeshSwitcher>();
+            if (switcher == null)
+                switcher = meshData.gameObject.AddComponent<CharacterMeshSwitcher>();
+
+            switcher.Renderer = meshData.GetComponent<SkinnedMeshRenderer>();
+            character.MeshSwitcher = switcher;
+            character.CharacterBody = characterBody;
+            
+
+            var weaponPoint = TryFindRoot(root, "WeaponPoint")?.gameObject;
+            if (weaponPoint == null)
+            {
+                weaponPoint = new GameObject();
+                var hand = TryFindRoot(root, "Hand_R");
+                weaponPoint.transform.name = "WeaponPoint";
+                weaponPoint.transform.SetParent(TryFindRoot(hand, "IndexFinger_01 1"));
+                weaponPoint.transform.localPosition = new Vector3(-0.0299f, 0f, -0.0022f);
+                weaponPoint.transform.localRotation = Quaternion.identity;
+                weaponPoint.transform.localScale = Vector3.one;
+            }
+
+            characterBody.WeaponPoint = weaponPoint.transform;
+
+            var agent = character.GetComponent<NavMeshAgent>();
+            if (agent == null)
+                agent = character.gameObject.AddComponent<NavMeshAgent>();
+            character.Agent = agent;
         }
         
         private static void RemoveFragmentSet(Transform root, CharacterDamagedFragment fragmentType)

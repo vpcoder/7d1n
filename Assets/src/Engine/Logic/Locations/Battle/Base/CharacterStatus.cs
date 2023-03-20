@@ -26,7 +26,7 @@ namespace Engine.Logic.Locations
         ///     /// The current state of the character (behavior pattern).
         /// Based on the state, a suitable behavior strategy will be developed according to the situation
         /// </summary>
-        public NpcStateType State = NpcStateType.Normal;
+        public CharacterStateType State = CharacterStateType.Normal;
         
         /// <summary>
         ///     Персонаж мёртв?

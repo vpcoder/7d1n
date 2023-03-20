@@ -11,11 +11,11 @@ namespace Engine.Logic.Locations
     /// A basic NPC who can take damage
     /// 
     /// </summary>
-    [RequireComponent(typeof(EnemyNpcBehaviour))]
+    [RequireComponent(typeof(CharacterNpcBehaviour))]
     public abstract class NpcDamagedBase : DamagedBase
     {
 
-        [SerializeField] private EnemyNpcBehaviour characterLink;
+        [SerializeField] private CharacterNpcBehaviour characterLink;
         
         #region Properties
 
@@ -24,7 +24,7 @@ namespace Engine.Logic.Locations
         ///     ---
         ///     Link to current NPC
         /// </summary>
-        protected EnemyNpcBehaviour CurrentNPC => characterLink;
+        protected CharacterNpcBehaviour CurrentNPC => characterLink;
 
         #endregion
 

@@ -71,7 +71,7 @@ namespace Engine.Logic.Locations
             return CreateWait(Random.Range(delayMin, delayMax));
         }
         
-        protected NpcBaseActionContext CreateMove(EnemyNpcBehaviour enemy, List<Vector3> path, float speed)
+        protected NpcBaseActionContext CreateMove(CharacterNpcBehaviour character, List<Vector3> path, float speed)
         {
             return new NpcMoveActionContext()
             {
@@ -81,7 +81,7 @@ namespace Engine.Logic.Locations
             };
         }
 
-        protected NpcBaseActionContext CreatePickWeapon(EnemyNpcBehaviour enemy, IWeapon weapon)
+        protected NpcBaseActionContext CreatePickWeapon(CharacterNpcBehaviour character, IWeapon weapon)
         {
             return new NpcPickWeaponActionContext()
             {
@@ -90,7 +90,7 @@ namespace Engine.Logic.Locations
             };
         }
 
-        protected NpcBaseActionContext CreateAttack(EnemyNpcBehaviour enemy, IWeapon weapon)
+        protected NpcBaseActionContext CreateAttack(CharacterNpcBehaviour character, IWeapon weapon)
         {
             return new NpcAttackActionContext()
             {
@@ -99,7 +99,7 @@ namespace Engine.Logic.Locations
             };
         }
 
-        protected NpcBaseActionContext CreateReload(EnemyNpcBehaviour enemy, IFirearmsWeapon weapon, IItem ammo)
+        protected NpcBaseActionContext CreateReload(CharacterNpcBehaviour character, IFirearmsWeapon weapon, IItem ammo)
         {
             return new NpcReloadActionContext()
             {
@@ -129,7 +129,7 @@ namespace Engine.Logic.Locations
         /// <param name="npc"></param>
         /// <param name="allAiItems"></param>
         /// <returns></returns>
-        protected virtual List<PotentialTarget> FindPotentialEnemies(EnemyNpcBehaviour npc, IDictionary<OrderGroup, List<EnemyNpcBehaviour>> allAiItems)
+        protected virtual List<PotentialTarget> FindPotentialEnemies(CharacterNpcBehaviour npc, IDictionary<OrderGroup, List<CharacterNpcBehaviour>> allAiItems)
         {
             var group = npc.CharacterBody.Character.OrderGroup;
             var potentialTargetList = new List<PotentialTarget>();
@@ -159,7 +159,7 @@ namespace Engine.Logic.Locations
             return potentialTargetList;
         }
         
-        protected PotentialTarget FindTargetByDistancePriority(EnemyNpcBehaviour npc, IDictionary<OrderGroup, List<EnemyNpcBehaviour>> allAiItems)
+        protected PotentialTarget FindTargetByDistancePriority(CharacterNpcBehaviour npc, IDictionary<OrderGroup, List<CharacterNpcBehaviour>> allAiItems)
         {
             var potentialTargetList = FindPotentialEnemies(npc, allAiItems);
 			

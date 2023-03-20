@@ -16,7 +16,7 @@ namespace Engine.Logic.Locations
 
         public override NpcActionType ActionType => NpcActionType.Reload;
 
-        public override bool Iteration(EnemyNpcBehaviour npc, NpcReloadActionContext actionContext, float timestamp)
+        public override bool Iteration(CharacterNpcBehaviour npc, NpcReloadActionContext actionContext, float timestamp)
         {
             var weapon = actionContext.FirearmsWeapon;
             var ammo = actionContext.Ammo;
@@ -34,10 +34,10 @@ namespace Engine.Logic.Locations
             return true;
         }
 
-        public override void Start(EnemyNpcBehaviour npc, NpcReloadActionContext actionContext)
+        public override void Start(CharacterNpcBehaviour npc, NpcReloadActionContext actionContext)
         { }
 
-        public override void End(EnemyNpcBehaviour npc, NpcReloadActionContext actionContext, float timestamp)
+        public override void End(CharacterNpcBehaviour npc, NpcReloadActionContext actionContext, float timestamp)
         { }
 
     }

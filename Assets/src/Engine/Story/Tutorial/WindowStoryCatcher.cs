@@ -10,7 +10,7 @@ namespace Engine.Story.Tutorial
     public class WindowStoryCatcher : StorySelectCatcherBase
     {
 
-        [SerializeField] private EnemyNpcBehaviour zombie;
+        [SerializeField] private CharacterNpcBehaviour zombie;
         [SerializeField] private Transform windowLeftPoint;
         [SerializeField] private Transform windowsRightPoint;
 

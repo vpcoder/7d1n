@@ -17,7 +17,7 @@ namespace Engine.Logic.Locations
     /// Any NPC in the game, including the player character, and his comrades
     /// 
     /// </summary>
-    public abstract class EnemyNpcBehaviour : MonoBehaviour,
+    public abstract class CharacterNpcBehaviour : MonoBehaviour,
                                               IAttackObject,
                                               IMonoBehaviourOverrideStartEvent,
                                               IMonoBehaviourOverrideUpdateEvent
@@ -51,28 +51,52 @@ namespace Engine.Logic.Locations
             get { return eye;}
             set { eye = value; }
         }
-        public Transform LookDirectionTransform => lookDirectionTransform;
+
+        public Transform LookDirectionTransform
+        {
+            get { return lookDirectionTransform; }
+            set { lookDirectionTransform = value; }
+        }
         public CharacterContext CharacterContext { get; set; } = new CharacterContext();
         public IAiIterationAction CurrentIterationAction { get; set; }
         public NpcBaseActionContext CurrentAction { get; set; }
-        public Animator Animator => animator;
-        public NavMeshAgent Agent => agent;
+
+        public Animator Animator
+        {
+            get { return animator; }
+            set { animator = value; }
+        }
+        public NavMeshAgent Agent
+        {
+            get { return agent; }
+            set { agent = value; }
+        }
         public Vector2Int Pos { get; set; }
 		public IDamagedObject Target { get; set; }
-        public CharacterBody CharacterBody { get; private set; }
-        public GameObject WeaponObject { get; private set; }
+
+        public CharacterBody CharacterBody
+        {
+            get { return characterBody; }
+            set { characterBody = value; }
+        }
+        public GameObject WeaponObject { get; set; }
         public bool IsEndStep { get; set; } = true;
         public virtual IWeapon Weapon { get; set; }
         public virtual Vector3 TargetAttackPos { get; set; }
         public virtual GameObject AttackCharacterObject => gameObject;
-        public AudioSource AttackAudioSource => attackAudioSource;
+
+        public AudioSource AttackAudioSource
+        {
+            get { return attackAudioSource; }
+            set { attackAudioSource = value; }
+        }
 
         /// <summary>
         ///     Словарь предикторов по состоянию НПС
         ///     ---
         ///     
         /// </summary>
-        protected IDictionary<NpcStateType, IPredictor> PredictorByState { get; set; }
+        protected IDictionary<CharacterStateType, IPredictor> PredictorByState { get; set; }
         
 
         /// <summary>
@@ -179,14 +203,6 @@ namespace Engine.Logic.Locations
             this.CharacterBody = characterBody;
             this.animator.avatar = CharacterBody.Avatar;
             this.animator.runtimeAnimatorController = CharacterBody.Controller;
-
-            //TODO: FIXME: Костыль, нужно переделать на сеть коллидеров, обернув конечности в box collider
-            var collider = this.gameObject.GetComponent<Collider>();
-            if (collider == null)
-            {
-                collider = this.gameObject.AddComponent<MeshCollider>();
-                ((MeshCollider)collider).sharedMesh = CharacterBody.MeshRenderer.sharedMesh;
-            }
         }
 
         #region Unity Events

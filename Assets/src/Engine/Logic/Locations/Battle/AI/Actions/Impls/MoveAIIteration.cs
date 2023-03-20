@@ -18,7 +18,7 @@ namespace Engine.Logic.Locations
 
         public override NpcActionType ActionType => NpcActionType.Move;
 
-        public override bool Iteration(EnemyNpcBehaviour npc, NpcMoveActionContext actionContext, float timestamp)
+        public override bool Iteration(CharacterNpcBehaviour npc, NpcMoveActionContext actionContext, float timestamp)
         {
 
             npc.Animator.SetInteger(AnimationKey.WeaponEquipKey, (int)MoveSpeedType.Run);
@@ -53,7 +53,7 @@ namespace Engine.Logic.Locations
             return false;
         }
 
-        private Quaternion GetLookAtRotation(EnemyNpcBehaviour npc, Vector3 nextPoint)
+        private Quaternion GetLookAtRotation(CharacterNpcBehaviour npc, Vector3 nextPoint)
         {
             npc.LookDirectionTransform.LookAt(nextPoint);
             var nextRotate = npc.LookDirectionTransform.rotation;
@@ -62,14 +62,14 @@ namespace Engine.Logic.Locations
             return nextRotate;
         }
 
-        public override void Start(EnemyNpcBehaviour npc, NpcMoveActionContext actionContext)
+        public override void Start(CharacterNpcBehaviour npc, NpcMoveActionContext actionContext)
         {
             actionContext.StartPosition = npc.transform.position;
             actionContext.StartRotation = npc.transform.rotation;
             actionContext.Timestamp     = Time.time;
         }
 
-        public override void End(EnemyNpcBehaviour npc, NpcMoveActionContext actionContext, float timestamp)
+        public override void End(CharacterNpcBehaviour npc, NpcMoveActionContext actionContext, float timestamp)
         { }
 
     }

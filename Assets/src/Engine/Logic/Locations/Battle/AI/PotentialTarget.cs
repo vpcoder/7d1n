@@ -8,7 +8,7 @@ namespace Engine.Logic.Locations
     public class PotentialTarget
     {
 
-        public EnemyNpcBehaviour Target { get; set; }
+        public CharacterNpcBehaviour Target { get; set; }
         
         public List<Vector3> Path { get; set; }
 

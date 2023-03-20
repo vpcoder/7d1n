@@ -28,7 +28,7 @@ namespace Engine
         ///     true - if the NPC sees the target
         ///     false - the target is not visible
         /// </returns>
-        public static bool CanSeeTarget(EnemyNpcBehaviour npc, EnemyNpcBehaviour lookTarget)
+        public static bool CanSeeTarget(CharacterNpcBehaviour npc, CharacterNpcBehaviour lookTarget)
         {
             
             

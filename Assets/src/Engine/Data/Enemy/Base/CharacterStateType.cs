@@ -8,7 +8,7 @@ namespace Engine.Data
     /// Emotional state of the NPC character
     /// 
     /// </summary>
-    public enum NpcStateType
+    public enum CharacterStateType
     {
         
         /// <summary>

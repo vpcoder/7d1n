@@ -25,8 +25,8 @@ namespace Engine.Data.Factories
             GameObject characterBody = null;
             if (!behaviourByID.TryGetValue(id, out characterBody))
             {
-                var enemy = Get(id);
-                var path = "Data/Bodies/" + enemy.BodyName;
+                var character = Get(id);
+                var path = "Data/Bodies/" + character.BodyName;
                 characterBody = Resources.Load<GameObject>(path);
 #if UNITY_EDITOR
                 if (characterBody == null)
@@ -45,8 +45,8 @@ namespace Engine.Data.Factories
             Sprite sprite = null;
             if (!spriteByID.TryGetValue(id, out sprite))
             {
-                var enemy = Get(id);
-                var path = "Data/Sprites/" + enemy.SpriteName;
+                var character = Get(id);
+                var path = "Data/Sprites/" + character.SpriteName;
                 sprite = Resources.Load<Sprite>(path);
 #if UNITY_EDITOR
                 if (sprite == null)

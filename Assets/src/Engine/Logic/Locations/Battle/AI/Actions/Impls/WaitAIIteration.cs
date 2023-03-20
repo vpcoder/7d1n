@@ -18,17 +18,17 @@ namespace Engine.Logic.Locations
 
         public override NpcActionType ActionType => NpcActionType.Wait;
 
-        public override bool Iteration(EnemyNpcBehaviour npc, NpcWaitActionContext actionContext, float timestamp)
+        public override bool Iteration(CharacterNpcBehaviour npc, NpcWaitActionContext actionContext, float timestamp)
         {
             npc.Animator.SetInteger(AnimationKey.MoveSpeedKey, (int)MoveSpeedType.Idle);
 
             return Time.time - timestamp >= actionContext.WaitDelay;
         }
 
-        public override void Start(EnemyNpcBehaviour npc, NpcWaitActionContext actionContext)
+        public override void Start(CharacterNpcBehaviour npc, NpcWaitActionContext actionContext)
         { }
 
-        public override void End(EnemyNpcBehaviour npc, NpcWaitActionContext actionContext, float timestamp)
+        public override void End(CharacterNpcBehaviour npc, NpcWaitActionContext actionContext, float timestamp)
         { }
 
     }

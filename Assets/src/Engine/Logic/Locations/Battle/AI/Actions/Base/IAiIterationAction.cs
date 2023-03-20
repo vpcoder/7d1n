@@ -40,7 +40,7 @@ namespace Engine.Logic.Locations
         /// ---
         /// Context of the operation performed by the creature AI
         /// </param>
-        void Start(EnemyNpcBehaviour npc, NpcBaseActionContext actionContext);
+        void Start(CharacterNpcBehaviour npc, NpcBaseActionContext actionContext);
 
         /// <summary>
         /// Выполняет итерацию действия ИИ существа с учётом контекста операции
@@ -71,7 +71,7 @@ namespace Engine.Logic.Locations
         /// True - if in this iteration the action was completed,
         /// False - if the action is still in progress and more iterations are needed
         /// </returns>
-        bool Iteration(EnemyNpcBehaviour npc, NpcBaseActionContext actionContext, float timestamp);
+        bool Iteration(CharacterNpcBehaviour npc, NpcBaseActionContext actionContext, float timestamp);
 
         /// <summary>
         /// The method is called when the action being performed is finished
@@ -88,7 +88,7 @@ namespace Engine.Logic.Locations
         /// ---
         /// Context of the operation performed by the creature AI
         /// </param>
-        void End(EnemyNpcBehaviour npc, NpcBaseActionContext actionContext, float timestamp);
+        void End(CharacterNpcBehaviour npc, NpcBaseActionContext actionContext, float timestamp);
 
     }
 

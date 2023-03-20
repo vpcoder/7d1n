@@ -13,7 +13,7 @@ namespace Engine.Logic.Locations
     {
 
         [SerializeField] private GameObject damageHintPrefab;
-        [SerializeField] private List<EnemyNpcBehaviour> enemies;
+        [SerializeField] private List<CharacterNpcBehaviour> enemies;
 
         [SerializeField] private BattleActionsController battleActionsController;
 
@@ -21,14 +21,14 @@ namespace Engine.Logic.Locations
         public int EnemyGroupCounter = 0;
         private object locker = new object();
 
-        public void EnemyStepCompleted(EnemyNpcBehaviour enemy)
+        public void EnemyStepCompleted(CharacterNpcBehaviour character)
         {
-            if (Game.Instance.Runtime.BattleContext.OrderIndex != enemy.Character.OrderGroup)
+            if (Game.Instance.Runtime.BattleContext.OrderIndex != character.Character.OrderGroup)
                 return;
 
             lock(locker)
             {
-                Debug.Log("enemy '" + enemy.transform.name + "' completed step...");
+                Debug.Log("character '" + character.transform.name + "' completed step...");
                 EnemyEndStepCounter++;
             }
         }
@@ -52,7 +52,7 @@ namespace Engine.Logic.Locations
         ///     
         /// </summary>
         /// <param name="enemies">Враги</param>
-        public void AddEnemiesToBattle(params EnemyNpcBehaviour[] enemies)
+        public void AddEnemiesToBattle(params CharacterNpcBehaviour[] enemies)
         {
             Debug.Log("add enemies from battle...");
             this.enemies.AddRange(enemies);
@@ -64,16 +64,16 @@ namespace Engine.Logic.Locations
         ///     
         /// </summary>
         /// <param name="enemies">Враги</param>
-        public void RemoveEnemiesFromBattle(params EnemyNpcBehaviour[] enemies)
+        public void RemoveEnemiesFromBattle(params CharacterNpcBehaviour[] enemies)
         {
             Debug.Log("remove enemies from battle...");
 
-            foreach (var enemy in enemies)
+            foreach (var character in enemies)
             {
-                this.enemies.Remove(enemy);
+                this.enemies.Remove(character);
                 foreach(var another in this.enemies)
                 {
-                	if(another.Target == enemy.GetComponent<IDamagedObject>())
+                	if(another.Target == character.GetComponent<IDamagedObject>())
                 		another.Target = null; // TODO: Подумать о том как пересчитать стратегию для тех кто еще не потратил ОД, у них свой ход, а цель уже вышла из боя
                 }
             }

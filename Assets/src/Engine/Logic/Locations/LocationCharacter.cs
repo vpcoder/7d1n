@@ -17,7 +17,7 @@ namespace Engine.Logic.Locations
     /// Player character on location
     /// 
     /// </summary>
-    public class LocationCharacter : EnemyNpcBehaviour
+    public class LocationCharacter : CharacterNpcBehaviour
     {
 
         #region Hidden Fields

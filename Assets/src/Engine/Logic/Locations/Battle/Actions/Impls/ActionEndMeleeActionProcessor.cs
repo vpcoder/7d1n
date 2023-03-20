@@ -63,7 +63,7 @@ namespace Engine.Logic.Locations.Battle.Actions
         ///     Атака одноручным оружием, цепляем первую ближайшую цель - в преоритете живой противник,
         ///     если по такому никак не попасть смотрим на неживые цели, объекты окружения
         ///     ---
-        ///     Attack with a one-handed weapon, aim the first closest target - the living enemy takes priority,
+        ///     Attack with a one-handed weapon, aim the first closest target - the living character takes priority,
         ///     if there is no way to hit it, look at undead targets, objects of the environment
         /// </summary>
         /// <param name="edgedWeapon">

@@ -8,9 +8,15 @@ namespace Engine.Logic
     public class CharacterMeshSwitcher : MonoBehaviour
     {
 
-        [SerializeField] private SkinnedMeshRenderer renderer;
+        [SerializeField] private new SkinnedMeshRenderer renderer;
         [SerializeField] private List<Mesh> meshList;
         [SerializeField] private long selectedIndex;
+
+        public SkinnedMeshRenderer Renderer
+        {
+            get { return renderer; }
+            set { renderer = value; }
+        }
 
         public long MeshIndex
         {
@@ -37,7 +43,9 @@ namespace Engine.Logic
 
         private void UpdateMesh()
         {
-            renderer.sharedMesh = meshList[(int)selectedIndex];
+            if(Lists.IsEmpty(meshList))
+                return;
+            Renderer.sharedMesh = meshList[(int)selectedIndex];
         }
         
 #if UNITY_EDITOR

@@ -124,12 +124,12 @@ namespace Engine.Logic.Locations
 
             foreach (var item in damagedObjects) // Передаём урон всем кто попал под сферокаст
             {
-                var enemy = item.transform.GetComponent<IDamagedObject>();
-                if (enemy == null)
+                var character = item.transform.GetComponent<IDamagedObject>();
+                if (character == null)
                     continue; // Этому объекту нельзя нанести урон
 
                 // Наносим урон взрывом
-                BattleCalculationService.DoGrenadeDamage(source, enemy, weapon, this);
+                BattleCalculationService.DoGrenadeDamage(source, character, weapon, this);
             }
         }
 

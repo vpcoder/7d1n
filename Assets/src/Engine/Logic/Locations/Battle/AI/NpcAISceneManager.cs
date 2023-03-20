@@ -18,18 +18,18 @@ namespace Engine.Logic.Locations
 
         #endregion
 
-        public IDictionary<OrderGroup, List<EnemyNpcBehaviour>> GroupToNpcList
+        public IDictionary<OrderGroup, List<CharacterNpcBehaviour>> GroupToNpcList
         {
             get
             {
-                var data = new Dictionary<OrderGroup, List<EnemyNpcBehaviour>>();
-                foreach (var enemy in GameObject.FindObjectsOfType<EnemyNpcBehaviour>())
+                var data = new Dictionary<OrderGroup, List<CharacterNpcBehaviour>>();
+                foreach (var character in GameObject.FindObjectsOfType<CharacterNpcBehaviour>())
                 {
-                    if (enemy.CharacterContext.Status.IsDead) // Не берём в расчёт мёртвых
+                    if (character.CharacterContext.Status.IsDead) // Не берём в расчёт мёртвых
                         continue;
                     
-                    var group = enemy.Character.OrderGroup;
-                    data.AddInToList(group, enemy);
+                    var group = character.Character.OrderGroup;
+                    data.AddInToList(group, character);
                 }
                 return data;
             }
@@ -50,18 +50,18 @@ namespace Engine.Logic.Locations
             Debug.Log("battle create order...");
 
             var order = new List<OrderGroup>();
-            var enemyInitiative = new Dictionary<OrderGroup, int>();
-            foreach(var enemy in GameObject.FindObjectsOfType<EnemyNpcBehaviour>())
+            var characterInitiative = new Dictionary<OrderGroup, int>();
+            foreach(var character in GameObject.FindObjectsOfType<CharacterNpcBehaviour>())
             {
-                var info = enemy.Character;
+                var info = character.Character;
                 int initiative;
-                if (!enemyInitiative.TryGetValue(info.OrderGroup, out initiative))
+                if (!characterInitiative.TryGetValue(info.OrderGroup, out initiative))
                     initiative = 0;
 
-                enemyInitiative[info.OrderGroup] = initiative;
+                characterInitiative[info.OrderGroup] = initiative;
             }
 
-            order.AddRange(enemyInitiative.Keys);
+            order.AddRange(characterInitiative.Keys);
             
             return order;
         }

@@ -15,7 +15,7 @@ namespace Engine.Story.Tutorial
     {
 
         [SerializeField] private CharacterMeshSwitcher meshSwitch;
-        [SerializeField] private EnemyNpcBehaviour zombie;
+        [SerializeField] private CharacterNpcBehaviour zombie;
 
         [SerializeField] private Transform startPoint;
         [SerializeField] private Transform startPoint2;

@@ -30,12 +30,14 @@ namespace Engine.Data
         [SerializeField] private Avatar avatar;
         [SerializeField] private Transform weaponPoint;
         [SerializeField] private CharData charData;
-        [SerializeField] private SkinnedMeshRenderer meshRenderer;
 
         public RuntimeAnimatorController Controller { get { return controller; } }
         public Avatar Avatar { get { return avatar; } }
-        public Transform WeaponPoint { get { return weaponPoint; } }
-        public SkinnedMeshRenderer MeshRenderer { get { return meshRenderer; } }
+        public Transform WeaponPoint
+        {
+            get { return weaponPoint; }
+            set { weaponPoint = value; }
+        }
 
         private ICharacter cachedCharacter;
 

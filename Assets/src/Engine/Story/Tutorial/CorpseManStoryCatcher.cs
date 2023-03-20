@@ -10,7 +10,7 @@ namespace Engine.Story.Tutorial
     public class CorpseManStoryCatcher : StorySelectCatcherBase
     {
 
-        [SerializeField] private EnemyNpcBehaviour zombie;
+        [SerializeField] private CharacterNpcBehaviour zombie;
         [SerializeField] private Transform bloodPoint;
         [SerializeField] private Transform manPoint;
         

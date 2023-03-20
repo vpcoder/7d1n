@@ -21,8 +21,8 @@ namespace Engine.Logic.Animations
 
         override public void OnStateExit(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
         {
-            var enemy = animator.gameObject.GetComponent<EnemyNpcBehaviour>();
-            if (enemy == null)
+            var character = animator.gameObject.GetComponent<CharacterNpcBehaviour>();
+            if (character == null)
                 return;
 
             var context = ObjectFinder.Find<BattleActionsController>().AttackContext;

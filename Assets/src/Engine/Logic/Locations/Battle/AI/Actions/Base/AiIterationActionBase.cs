@@ -41,7 +41,7 @@ namespace Engine.Logic.Locations
         ///     ---
         ///     Context of the operation performed by the creature AI
         /// </param>
-        public abstract void Start(EnemyNpcBehaviour npc, T actionContext);
+        public abstract void Start(CharacterNpcBehaviour npc, T actionContext);
 
         /// <summary>
         ///     Метод вызывается когда совершаемое действие закончено
@@ -58,7 +58,7 @@ namespace Engine.Logic.Locations
         ///     ---
         ///     Context of the operation performed by the creature AI
         /// </param>
-        public abstract void End(EnemyNpcBehaviour npc, T actionContext, float timestamp);
+        public abstract void End(CharacterNpcBehaviour npc, T actionContext, float timestamp);
 
         /// <summary>
         ///     Выполняет итерацию действия ИИ существа с учётом контекста операции
@@ -89,7 +89,7 @@ namespace Engine.Logic.Locations
         ///     True - if in this iteration the action was completed,
         ///     False - if the action is still in progress and more iterations are needed
         /// </returns>
-        public abstract bool Iteration(EnemyNpcBehaviour npc, T actionContext, float timestamp);
+        public abstract bool Iteration(CharacterNpcBehaviour npc, T actionContext, float timestamp);
 
         /// <summary>
         ///     Выполняет итерацию действия ИИ существа с учётом контекста операции
@@ -120,7 +120,7 @@ namespace Engine.Logic.Locations
         ///     True - if in this iteration the action was completed,
         ///     False - if the action is still in progress and more iterations are needed
         /// </returns>
-        public bool Iteration(EnemyNpcBehaviour npc, NpcBaseActionContext actionContext, float timestamp)
+        public bool Iteration(CharacterNpcBehaviour npc, NpcBaseActionContext actionContext, float timestamp)
         {
             return Iteration(npc, (T)actionContext, timestamp);
         }
@@ -140,7 +140,7 @@ namespace Engine.Logic.Locations
         ///     ---
         ///     Context of the operation performed by the creature AI
         /// </param>
-        public void Start(EnemyNpcBehaviour npc, NpcBaseActionContext actionContext)
+        public void Start(CharacterNpcBehaviour npc, NpcBaseActionContext actionContext)
         {
             Start(npc, (T)actionContext);
         }
@@ -160,7 +160,7 @@ namespace Engine.Logic.Locations
         ///     ---
         ///     Context of the operation performed by the creature AI
         /// </param>
-        public void End(EnemyNpcBehaviour npc, NpcBaseActionContext actionContext, float timestamp)
+        public void End(CharacterNpcBehaviour npc, NpcBaseActionContext actionContext, float timestamp)
         {
             End(npc, (T)actionContext, timestamp);
         }
