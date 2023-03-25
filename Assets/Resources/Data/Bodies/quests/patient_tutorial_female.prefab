@@ -573,7 +573,6 @@ MonoBehaviour:
     ItemsMaxCountForGeneration: 0
     WeaponsForGeneration: 
     WeaponsMaxCountForGeneration: 0
-  meshRenderer: {fileID: 1799289287919369478}
 --- !u!65 &8303382469736948419
 BoxCollider:
   m_ObjectHideFlags: 0

@@ -61,13 +61,17 @@ namespace Engine.Data
                 Create(OrderGroup.DeceasedGroup, OrderGroup.NewLightGroup, 0),
                 
                 // Мородёры против остальных
-                Create(OrderGroup.MaraudersGroup, OrderGroup.PlayerGroup, -1),
-                Create(OrderGroup.MaraudersGroup, OrderGroup.AnotherPlayerGroup, -1),
-                Create(OrderGroup.MaraudersGroup, OrderGroup.DeceasedGroup, -1),
-                Create(OrderGroup.MaraudersGroup, OrderGroup.ReconstructionistsGroup, -1),
-                Create(OrderGroup.MaraudersGroup, OrderGroup.ScythiansGroup, -1),
-                Create(OrderGroup.MaraudersGroup, OrderGroup.TechnocratsGroup, -1),
-                Create(OrderGroup.MaraudersGroup, OrderGroup.NewLightGroup, -1),
+                Create(OrderGroup.MaraudersGroup, OrderGroup.PlayerGroup, -100),
+                Create(OrderGroup.MaraudersGroup, OrderGroup.AnotherPlayerGroup, -100),
+                Create(OrderGroup.MaraudersGroup, OrderGroup.DeceasedGroup, -100),
+                Create(OrderGroup.MaraudersGroup, OrderGroup.ReconstructionistsGroup, -100),
+                Create(OrderGroup.MaraudersGroup, OrderGroup.TechnocratsGroup, -100),
+                Create(OrderGroup.MaraudersGroup, OrderGroup.NewLightGroup, -100),
+                Create(OrderGroup.MaraudersGroup, OrderGroup.ScythiansGroup, 0), // К скифам относятся нейтрально
+                
+                // Новый свет против мародёров и технократов
+                Create(OrderGroup.NewLightGroup, OrderGroup.TechnocratsGroup, -100),
+                Create(OrderGroup.NewLightGroup, OrderGroup.MaraudersGroup, -100),
             });
         }
         

@@ -30,26 +30,19 @@ namespace Engine.Story.Tutorial
                 camera.SetState(characterEyes, forwardWindow);
                 background.color = Color.white;
             });
-            
+
+            dlg.Music("memories");
             dlg.Delay(0.1f, "[.]");
             dlg.Delay(0.1f, "[..]");
             dlg.Delay(0.2f, "[...]");
-            dlg.Delay(0.6f, "[Запускаю сердце]");
-            dlg.Delay(0.4f, "[Запускаю сердце] - Ok!");
             dlg.Delay(0.6f, "[Восстанавливаю нейронные связи]");
             dlg.Delay(0.4f, "[Восстанавливаю нейронные связи] - Ok!");
-            dlg.Delay(0.6f, "[Разогреваю мышцы]");
-            dlg.Delay(0.4f, "[Разогреваю мышцы] - Ok!");
-            dlg.Delay(0.6f, "[Стабилизирую поток крови]");
-            dlg.Delay(0.4f, "[Стабилизирую поток крови] - Ok!");
-            dlg.Delay(0.6f, "[Запускаю дыхание]");
-            dlg.Delay(0.4f, "[Запускаю дыхание] - Ok!");
             dlg.Delay(0.6f, "[Возобновляю работу мозга]");
             dlg.Delay(0.4f, "[Возобновляю работу мозга] - Ok!");
-            dlg.Delay(0.6f, "[Подключаю зрение]");
-            dlg.Delay(0.4f, "[Подключаю зрение] - Ok!");
-            dlg.Delay(0.6f, "[Старт сознания]");
-            dlg.Delay(0.4f, "[Старт сознания] - Ok!");
+            dlg.Delay(0.1f, "[.]");
+            dlg.Delay(0.1f, "[..]");
+            dlg.Delay(0.2f, "[...]");
+
             dlg.Delay(1f, true);
             
             dlg.Text("Этот шум...");
@@ -169,7 +162,9 @@ namespace Engine.Story.Tutorial
                 foreach (var story in stories)
                     story.enabled = true;
                 
-                StoryActionHelper.Fade(background, Color.white, Color.clear, 0.8f); // Не добавляем RuntimeObjectList, чтобы скрипт доиграл до конца гарантированно
+                // Не добавляем RuntimeObjectList, чтобы скрипт доиграл до конца гарантированно
+                // Do not add RuntimeObjectList, so that the script is guaranteed to finish
+                StoryActionHelper.Fade(background, Color.white, Color.clear, 0.8f);
                 
                 EndDialogEvent();
             });

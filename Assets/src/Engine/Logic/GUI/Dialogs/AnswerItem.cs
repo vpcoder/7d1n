@@ -1,4 +1,5 @@
-﻿using Engine.Logic.Base;
+﻿using Engine.Data.Factories;
+using Engine.Logic.Base;
 using Engine.Logic.Dialog.Action.Impls;
 using UnityEngine;
 using UnityEngine.UI;
@@ -19,6 +20,7 @@ namespace Engine.Logic.Dialog
         
         public void OnClick()
         {
+            AudioController.Instance.PlaySound("ui/button");
             ObjectFinder.DialogBox.SelectVariant(Model);
         }
 

@@ -29,6 +29,7 @@ namespace Engine.Logic.Dialog
         public object Locker { get; set; }
 
         public DialogRuntime Runtime => runtime;
+        public bool IsAnswerBoxShowed => answerBox != null;
 
         public void SelectVariant(SelectVariant variant)
         {

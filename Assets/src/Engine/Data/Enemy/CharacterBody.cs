@@ -31,8 +31,17 @@ namespace Engine.Data
         [SerializeField] private Transform weaponPoint;
         [SerializeField] private CharData charData;
 
-        public RuntimeAnimatorController Controller { get { return controller; } }
-        public Avatar Avatar { get { return avatar; } }
+        public RuntimeAnimatorController Controller
+        {
+            get { return controller; }
+            set { controller = value; }
+        }
+
+        public Avatar Avatar
+        {
+            get { return avatar; }
+            set { avatar = value; }
+        }
         public Transform WeaponPoint
         {
             get { return weaponPoint; }

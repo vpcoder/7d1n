@@ -63,17 +63,19 @@ namespace Engine.Story.Tutorial
                 story.RewriteSaveState = false;
                 story.SetupDialogState();
 
-                // "Убиваем" зомби, чтобы лежал на кровати
+                // Фейково "убиваем" зомби-девушку, чтобы лежала на кровати, "как будто умерла"
+                // Fake "kill" a zombie girl to lie on the bed "as if dead"
                 zombie.Animator.SetInteger(AnimationKey.DeadKey, 2);
                 camera.SetState(startPoint, characterEyes.transform);
                 background.color = Color.white;
-                
-                dlg.RuntimeObjectList.Add(StoryActionHelper.Fade(background, Color.white, Color.clear,
-                    0.8f));
             });
+            dlg.Music("dead_lain");
             
-            /*
             dlg.Text("[Нажми здесь, чтобы продолжить]");
+            dlg.Run(() =>
+            {
+                dlg.RuntimeObjectList.Add(StoryActionHelper.Fade(background, Color.white, Color.clear, 0.8f));
+            });
             dlg.Text("[Перед тобой персонаж]");
             dlg.Text("[Он изрядно побит, довольно вонюч, а ещё у него очень плохой характер]");
             
@@ -125,8 +127,7 @@ namespace Engine.Story.Tutorial
 
             dlg.Run(() =>
             {
-                dlg.RuntimeObjectList.Add(StoryActionHelper.Fade(background, Color.clear, Color.white,
-                    0.8f));
+                dlg.RuntimeObjectList.Add(StoryActionHelper.Fade(background, Color.clear, Color.white, 0.8f));
             });
             dlg.Music("star_wars");
             dlg.Delay(2, "[.]");
@@ -139,8 +140,7 @@ namespace Engine.Story.Tutorial
             dlg.Sound("scratch");
             dlg.Run(() =>
             {
-                dlg.RuntimeObjectList.Add(StoryActionHelper.Fade(background, Color.white, Color.clear,
-                    0.8f));
+                dlg.RuntimeObjectList.Add(StoryActionHelper.Fade(background, Color.white, Color.clear, 0.8f));
             });
             dlg.Text("[Ладно-ладно, это была шутка]");
             dlg.Text("[Полюбому ты поверил]");
@@ -148,13 +148,12 @@ namespace Engine.Story.Tutorial
             dlg.Text("[Кхм...]");
             dlg.Text("[Приготовились...]");
             
-            */
-            
             dlg.Run(() =>
             {
                 Game.Instance.Character.Account.SpriteID = meshSwitch.MeshIndex;
-                dlg.RuntimeObjectList.Add(StoryActionHelper.Fade(background, Color.clear, Color.white,
-                    0.8f)); // Не добавляем RuntimeObjectList, чтобы скрипт доиграл до конца гарантированно
+                // Не добавляем RuntimeObjectList, чтобы скрипт доиграл до конца гарантированно
+                // Do not add RuntimeObjectList, so that the script is guaranteed to finish
+                dlg.RuntimeObjectList.Add(StoryActionHelper.Fade(background, Color.clear, Color.white, 0.8f));
             });
             dlg.Delay(2f, true);
         }

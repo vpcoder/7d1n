@@ -5,7 +5,9 @@ namespace Engine.Data.Factories
 {
 
     /// <summary>
-    /// Фабрика музыки
+    ///     Фабрика музыки
+    ///     ---
+    ///     
     /// </summary>
     public class MusicFactory : PrefabFactory<AudioClip>
     {
@@ -14,6 +16,7 @@ namespace Engine.Data.Factories
         public static MusicFactory Instance { get { return instance.Value; } }
         private MusicFactory() { }
 
+        protected override bool UseCache => false;
         public override string Directory => "Musics";
 
     }

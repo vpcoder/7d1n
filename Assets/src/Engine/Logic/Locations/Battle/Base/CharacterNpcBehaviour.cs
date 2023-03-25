@@ -200,9 +200,16 @@ namespace Engine.Logic.Locations
 
         protected virtual void UpdateBody()
         {
-            this.CharacterBody = characterBody;
-            this.animator.avatar = CharacterBody.Avatar;
-            this.animator.runtimeAnimatorController = CharacterBody.Controller;
+#if UNITY_EDITOR
+            if (Animator == null)
+                Debug.LogError("character animator can't be null!");
+            if(CharacterBody == null)
+                Debug.LogError("character body can't be null!");
+            if (Animator == null || CharacterBody == null)
+                return;
+#endif
+            Animator.avatar = CharacterBody.Avatar;
+            Animator.runtimeAnimatorController = CharacterBody.Controller;
         }
 
         #region Unity Events

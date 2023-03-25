@@ -44,7 +44,7 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 0.0055, y: 0.003, z: 0.003}
+  m_Size: {x: 55, y: 30.000002, z: 30.000002}
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!114 &1779643080783952676
 MonoBehaviour:
@@ -291,7 +291,7 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 0.003, y: 0.0015, z: 0.0015}
+  m_Size: {x: 30.000002, y: 15.000001, z: 15.000001}
   m_Center: {x: 0, y: 0.02, z: 0}
 --- !u!114 &2828492889083326870
 MonoBehaviour:
@@ -382,7 +382,7 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 0.005, y: 0.0015, z: 0.0015}
+  m_Size: {x: 50, y: 15.000001, z: 15.000001}
   m_Center: {x: -0.1, y: 0, z: 0}
 --- !u!114 &6251799997138633767
 MonoBehaviour:
@@ -473,7 +473,7 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 0.005, y: 0.0015, z: 0.0015}
+  m_Size: {x: 50, y: 15.000001, z: 15.000001}
   m_Center: {x: -0.2, y: 0, z: 0}
 --- !u!114 &1084261020314214877
 MonoBehaviour:
@@ -625,7 +625,7 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 0.005, y: 0.0015, z: 0.0015}
+  m_Size: {x: 50, y: 15.000001, z: 15.000001}
   m_Center: {x: -0.05, y: 0, z: 0}
 --- !u!114 &4472890351036398406
 MonoBehaviour:
@@ -833,16 +833,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 961b15825add7734a94dcf610646ed54, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  characterBody: {fileID: 0}
+  characterBody: {fileID: 5306660399653735326}
   animator: {fileID: 2247469614197937706}
   agent: {fileID: 2247469614197937708}
   attackAudioSource: {fileID: 2247469614197937704}
   lookDirectionTransform: {fileID: 2247469614688114507}
   id: 0
-  meshSwitcher: {fileID: 0}
+  eye: {fileID: 2247469614547723075}
+  meshSwitcher: {fileID: 1692860573}
   pickUpDistance: 1.4
   speed: 3
-  eye: {fileID: 2247469614547723075}
 --- !u!114 &2247469614197937703
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -998,9 +998,9 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2247469614547723074}
-  m_LocalRotation: {x: 0.008736675, y: -0.00341317, z: 0.0006371851, w: 0.99995583}
-  m_LocalPosition: {x: 1.1, y: 0.6, z: 5.6}
-  m_LocalScale: {x: 99.99993, y: 100, z: 99.99996}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0.03, z: 0.2}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 3133643120488837602}
   m_RootOrder: 0
@@ -1445,7 +1445,7 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 0.003, y: 0.0015, z: 0.0015}
+  m_Size: {x: 30.000002, y: 15.000001, z: 15.000001}
   m_Center: {x: 0, y: -0.02, z: 0}
 --- !u!114 &7357031653446613107
 MonoBehaviour:
@@ -1505,7 +1505,7 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 0.005, y: 0.0015, z: 0.0015}
+  m_Size: {x: 50, y: 15.000001, z: 15.000001}
   m_Center: {x: -0.05, y: 0, z: 0}
 --- !u!114 &8058165299133913548
 MonoBehaviour:
@@ -1531,6 +1531,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3809385550426104621}
   - component: {fileID: 5302890988441167370}
+  - component: {fileID: 1692860573}
   m_Layer: 0
   m_Name: MeshBody
   m_TagString: Untagged
@@ -1653,6 +1654,25 @@ SkinnedMeshRenderer:
     m_Center: {x: 0, y: 86.62144, z: -7.3431396}
     m_Extent: {x: 102.45599, y: 96.43168, z: 26.668186}
   m_DirtyAABB: 0
+--- !u!114 &1692860573
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4348947077521471835}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8751a0197dc5488b879bd26aa792080a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  renderer: {fileID: 5302890988441167370}
+  meshList:
+  - {fileID: 4300008, guid: 897b34267f422c1499700402763d096e, type: 3}
+  - {fileID: 4300006, guid: 897b34267f422c1499700402763d096e, type: 3}
+  - {fileID: 4300016, guid: 897b34267f422c1499700402763d096e, type: 3}
+  - {fileID: 4300010, guid: 897b34267f422c1499700402763d096e, type: 3}
+  selectedIndex: 0
 --- !u!1 &5057610953134627335
 GameObject:
   m_ObjectHideFlags: 0
@@ -1914,7 +1934,7 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 0.005, y: 0.0015, z: 0.0015}
+  m_Size: {x: 50, y: 15.000001, z: 15.000001}
   m_Center: {x: 0.1, y: 0, z: 0}
 --- !u!114 &3250033515098984879
 MonoBehaviour:
@@ -2099,7 +2119,7 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 0.005, y: 0.0015, z: 0.0015}
+  m_Size: {x: 50, y: 15.000001, z: 15.000001}
   m_Center: {x: 0.2, y: 0, z: 0}
 --- !u!114 &7901397924053895230
 MonoBehaviour:
@@ -2160,7 +2180,7 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 0.003, y: 0.004, z: 0.003}
+  m_Size: {x: 30.000002, y: 40, z: 30.000002}
   m_Center: {x: 0, y: 0.05, z: 0}
 --- !u!114 &2838117192002816749
 MonoBehaviour:
@@ -2291,15 +2311,14 @@ MonoBehaviour:
   charData:
     ID: 0
     AP: 8
-    Exp: 5
-    orderGroup: 3
+    Exp: 150
+    orderGroup: 0
     Protection: 1
     Health: 100
     ItemsForGeneration: 
     ItemsMaxCountForGeneration: 0
     WeaponsForGeneration: 
     WeaponsMaxCountForGeneration: 0
-  meshRenderer: {fileID: 5302890988441167370}
 --- !u!1 &8119771778530213129
 GameObject:
   m_ObjectHideFlags: 0

@@ -24,6 +24,15 @@ namespace Engine.Data.Factories
     {
 
         /// <summary>
+        ///     Использовать кеш? Выполнять кеширование?
+        ///     Если включено - всё что было загружено остаётся в кеше
+        ///     ---
+        ///     Use cache? Perform caching?
+        ///     If enabled, everything that was downloaded stays in the cache
+        /// </summary>
+        protected virtual bool UseCache => true;
+
+        /// <summary>
         ///     Коллекция кешированных префабов
         ///     ---
         ///     A collection of cached prefabs
@@ -64,16 +73,16 @@ namespace Engine.Data.Factories
             if (string.IsNullOrWhiteSpace(id))
                 return null;
             
-            T result = null;
-            if (!data.TryGetValue(id, out result))
-            {
-                result = Resources.Load<T>(id);
-                if (result == null)
-                {
-                    Debug.LogError("prefab '" + GetType().Name + "' with id '" + id + "' - not founded!");
-                }
+            if (UseCache && data.TryGetValue(id, out var result))
+                return result;
+            
+            result = Resources.Load<T>(id);
+            if (result == null)
+                Debug.LogError("prefab '" + GetType().Name + "' with id '" + id + "' - not founded!");
+            
+            if(UseCache)
                 data.Add(id, result);
-            }
+
             return result;
         }
 

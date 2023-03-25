@@ -25,7 +25,7 @@ INSERT INTO `settings` (
 	0,
 	'ru_ru',
 	1,
-	100,
+	40,
 	1,
 	100,
 	0

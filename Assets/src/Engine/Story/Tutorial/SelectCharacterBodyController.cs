@@ -12,12 +12,14 @@ namespace Engine.Story.Tutorial
 
         public void OnLeftClick()
         {
+            AudioController.Instance.PlaySound("ui/button");
             meshSwitcher.MeshIndex++;
             Game.Instance.Character.Account.SpriteID = meshSwitcher.MeshIndex;
         }
 
         public void OnRightClick()
         {
+            AudioController.Instance.PlaySound("ui/button");
             meshSwitcher.MeshIndex--;
             Game.Instance.Character.Account.SpriteID = meshSwitcher.MeshIndex;
         }
