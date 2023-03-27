@@ -29,7 +29,7 @@ namespace Engine.Logic.Locations
             }
 
             AudioController.Instance.PlaySound(npc.AttackAudioSource, weapon.ReloadSoundType);
-            npc.Animator.SetInteger(AnimationKey.AttackTypeKey, (int)AttackType.Reload);
+            npc.Animator.SetCharacterDoAttackType(AttackType.Reload);
 
             return true;
         }

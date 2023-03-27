@@ -9,7 +9,11 @@ namespace Engine.Logic.Locations
 {
 
     /// <summary>
+    /// 
     /// Сервис, позволяющий выполнять выбрасывание предметов на локацию
+    /// ---
+    /// A service that allows you to throw items on a location
+    /// 
     /// </summary>
     public class ItemsDropController : MonoBehaviour
     {
@@ -22,7 +26,7 @@ namespace Engine.Logic.Locations
             Drop(worldPosition, dropWithRandomPos, ItemSerializator.Convert(item));
         }
 
-        public void Drop(Vector3 worldPosition, bool dropWithRandomPos, IEnumerable < IItem> items)
+        public void Drop(Vector3 worldPosition, bool dropWithRandomPos, IEnumerable<IItem> items)
         {
             if (items == null)
                 return;
@@ -32,7 +36,7 @@ namespace Engine.Logic.Locations
 
         public void Drop(Vector3 worldPosition, bool dropWithRandomPos, params IItem[] items)
         {
-            if (items == null || items.Length == 0)
+            if (Lists.IsEmpty(items))
                 return;
 
             foreach(var item in items)
@@ -41,14 +45,19 @@ namespace Engine.Logic.Locations
 
         public void Drop(Vector3 worldPosition, bool dropWithRandomPos, ItemInfo itemInfo)
         {
-            if (itemInfo == null)
+            // К нам могли прийти ошибочные данные, запрещаем NPE и выкидывание системных объектов на локацию
+            // We may have received erroneous data, prohibit NPE and throwing system objects on the location
+            if (itemInfo == null || DataDictionary.Items.IsSystemItem(itemInfo.ID))
                 return;
 
             // Получаем предмет, чтобы вытащить его префаб
+            // Getting an item to take out its prefab
             IItem item = ItemFactory.Instance.Get(itemInfo.ID);
             // Выкидываем предмет на карту
-            var dropped = GameObject.Instantiate<GameObject>(item.Prefab);
+            // Throw the item on the map
+            var dropped = GameObject.Instantiate(item.Prefab);
             // Достаём информацию о выкинутом предмете, и инициализируем предмет
+            // Retrieve information about the discarded item, and initialize the item
             var droppedBehaviour = dropped.GetComponent<LocationDroppedItemBehaviour>();
             droppedBehaviour.Init(itemInfo, worldPosition, dropWithRandomPos);
         }
@@ -63,7 +72,7 @@ namespace Engine.Logic.Locations
 
         public void Drop(Vector3 worldPosition, bool dropWithRandomPos, params ItemInfo[] itemsInfo)
         {
-            if (itemsInfo == null || itemsInfo.Length == 0)
+            if (Lists.IsEmpty(itemsInfo))
                 return;
 
             foreach (var itemInfo in itemsInfo)

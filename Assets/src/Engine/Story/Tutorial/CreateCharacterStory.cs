@@ -65,7 +65,7 @@ namespace Engine.Story.Tutorial
 
                 // Фейково "убиваем" зомби-девушку, чтобы лежала на кровати, "как будто умерла"
                 // Fake "kill" a zombie girl to lie on the bed "as if dead"
-                zombie.Animator.SetInteger(AnimationKey.DeadKey, 2);
+                zombie.Animator.SetCharacterDeadType(DeatType.FakeDead);
                 camera.SetState(startPoint, characterEyes.transform);
                 background.color = Color.white;
             });

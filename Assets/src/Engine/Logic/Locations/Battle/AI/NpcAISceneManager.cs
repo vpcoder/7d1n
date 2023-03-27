@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using Object = UnityEngine.Object;
 
 namespace Engine.Logic.Locations
 {
@@ -23,7 +24,7 @@ namespace Engine.Logic.Locations
             get
             {
                 var data = new Dictionary<OrderGroup, List<CharacterNpcBehaviour>>();
-                foreach (var character in GameObject.FindObjectsOfType<CharacterNpcBehaviour>())
+                foreach (var character in Object.FindObjectsOfType<CharacterNpcBehaviour>())
                 {
                     if (character.CharacterContext.Status.IsDead) // Не берём в расчёт мёртвых
                         continue;

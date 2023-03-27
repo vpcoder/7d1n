@@ -87,7 +87,8 @@ namespace Engine.Logic.Locations
             for (int i = colliders.Length - 1; i >=0; i--)
             {
                 var damaged = colliders[i];
-                if (damaged.gameObject.GetComponent<IDamagedObject>() != null)
+                var target = damaged.gameObject.GetComponent<IFragmentDamaged>();
+                if (target != null && target.Damaged != source.Damaged)
                     list.Add(damaged.gameObject);
             }
             
@@ -124,12 +125,12 @@ namespace Engine.Logic.Locations
 
             foreach (var item in damagedObjects) // Передаём урон всем кто попал под сферокаст
             {
-                var character = item.transform.GetComponent<IDamagedObject>();
-                if (character == null)
+                var fragment = item.transform.GetComponent<IFragmentDamaged>();
+                if (fragment == null)
                     continue; // Этому объекту нельзя нанести урон
 
                 // Наносим урон взрывом
-                BattleCalculationService.DoGrenadeDamage(source, character, weapon, this);
+                BattleCalculationService.DoGrenadeDamage(source, fragment.Damaged, weapon, this);
             }
         }
 

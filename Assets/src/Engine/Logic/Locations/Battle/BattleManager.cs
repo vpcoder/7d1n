@@ -7,13 +7,17 @@ namespace Engine.Logic.Locations
 {
 
     /// <summary>
+    /// 
     /// Менеджер отвечающий за переход в режим битвы и за выход из битвы
+    /// ---
+    /// Manager responsible for entering battle mode and for quitting the battle
+    /// 
     /// </summary>
     public class BattleManager : MonoBehaviour
     {
 
         [SerializeField] private GameObject damageHintPrefab;
-        [SerializeField] private List<CharacterNpcBehaviour> enemies;
+        [SerializeField] private List<CharacterNpcBehaviour> characters;
 
         [SerializeField] private BattleActionsController battleActionsController;
 
@@ -21,17 +25,7 @@ namespace Engine.Logic.Locations
         public int EnemyGroupCounter = 0;
         private object locker = new object();
 
-        public void EnemyStepCompleted(CharacterNpcBehaviour character)
-        {
-            if (Game.Instance.Runtime.BattleContext.OrderIndex != character.Character.OrderGroup)
-                return;
 
-            lock(locker)
-            {
-                Debug.Log("character '" + character.transform.name + "' completed step...");
-                EnemyEndStepCounter++;
-            }
-        }
 
         public BattleActionsController BattleActions
         {
@@ -47,15 +41,43 @@ namespace Engine.Logic.Locations
         }
 
         /// <summary>
-        ///     Вводит врага в битву
+        ///     Вызывается когда NPC заканчивает свой ход
         ///     ---
-        ///     
+        ///     Called when an NPC finishes his turn
         /// </summary>
-        /// <param name="enemies">Враги</param>
-        public void AddEnemiesToBattle(params CharacterNpcBehaviour[] enemies)
+        /// <param name="npc">
+        ///     NPC который завершил свой ход
+        ///     ---
+        ///     NPC who has completed his turn
+        /// </param>
+        public void EnemyStepCompleted(CharacterNpcBehaviour npc)
+        {
+            if (Game.Instance.Runtime.BattleContext.OrderIndex != npc.Character.OrderGroup)
+                return;
+
+            lock(locker)
+            {
+#if UNITY_EDITOR && BATTLE_DEBUG
+                Debug.Log("character '" + npc.transform.name + "' completed step...");
+#endif
+                EnemyEndStepCounter++;
+            }
+        }
+        
+        /// <summary>
+        ///     Вводит персонажей в битву
+        ///     ---
+        ///     Introduces the characters to the battle
+        /// </summary>
+        /// <param name="npcs">
+        ///     Персонажи, которые были вовлечены в битву
+        ///     ---
+        ///     Characters who were involved in the battle
+        /// </param>
+        public void AddEnemiesToBattle(params CharacterNpcBehaviour[] npcs)
         {
             Debug.Log("add enemies from battle...");
-            this.enemies.AddRange(enemies);
+            this.characters.AddRange(npcs);
         }
 
         /// <summary>
@@ -70,20 +92,58 @@ namespace Engine.Logic.Locations
 
             foreach (var character in enemies)
             {
-                this.enemies.Remove(character);
-                foreach(var another in this.enemies)
+                this.characters.Remove(character);
+                foreach(var another in this.characters)
                 {
                 	if(another.Target == character.GetComponent<IDamagedObject>())
                 		another.Target = null; // TODO: Подумать о том как пересчитать стратегию для тех кто еще не потратил ОД, у них свой ход, а цель уже вышла из боя
                 }
             }
 
-            if(this.enemies.Count == 0)
+            if(IsNeedExitBattle())
                 ExitFromBattle();
         }
 
         /// <summary>
-        /// Разворачиваем битву
+        ///     Определяет, нужно ли прервать битву?
+        ///     ---
+        ///     Determines whether the battle should be cut short?
+        /// </summary>
+        /// <returns>
+        ///     Если никого, вовлечённого в битву кроме игрока не осталось,
+        ///     или, если все оставшиеся вовлечённые в битву сущности не конфликтуют между собой - вернёт true,
+        ///     в остальных случаях - вернёт false
+        ///     ---
+        ///     If there are no other entities involved in the battle besides the player,
+        ///     or if all remaining entities involved in the battle don't conflict with each other - it returns true,
+        ///     in other cases - will return false
+        /// </returns>
+        public bool IsNeedExitBattle()
+        {
+            var ctx = Game.Instance.Runtime.BattleContext;
+            if (Lists.IsEmpty(characters) || ctx.Order.Count <= 1)
+                return true;
+
+            foreach (var e1 in characters)
+            {
+                foreach (var e2 in characters)
+                {
+                    if(e1 == e2)
+                        break;
+
+                    // Если есть враждующие группы, битва не окончена!
+                    // If there are opposing groups, the battle is not over!
+                    if (ctx.Relations.IsEnemies(e1.Character.OrderGroup, e2.Character.OrderGroup))
+                        return false;
+                }
+            }
+            return true;
+        }
+
+        /// <summary>
+        ///     Все вокруг входят в пошаговый режим, разворачивается битва.
+        ///     ---
+        ///     All around enter turn-based mode, the battle unfolds.
         /// </summary>
         public void EnterToBattle()
         {
@@ -94,8 +154,8 @@ namespace Engine.Logic.Locations
 
             Debug.Log("finding enemies...");
             foreach (var entry in NpcAISceneManager.Instance.GroupToNpcList)
-                enemies.AddRange(entry.Value);
-            Debug.Log("founded " + enemies.Count + " npc bodies");
+                characters.AddRange(entry.Value);
+            Debug.Log("founded " + characters.Count + " npc bodies");
             
             Debug.Log("creating order...");
             NpcAISceneManager.Instance.SetupOrder(); // Формируем очереди ходов
@@ -111,7 +171,11 @@ namespace Engine.Logic.Locations
         }
 
         /// <summary>
-        /// Выходим из битвы
+        ///     Выходим из битвы.
+        ///     Завершается битва, все меняют своё состояние на нормальное.
+        ///     ---
+        ///     Exit the battle.
+        ///     The battle ends, everyone changes their state to normal.
         /// </summary>
         public void ExitFromBattle()
         {
@@ -128,26 +192,42 @@ namespace Engine.Logic.Locations
 
             Game.Instance.Runtime.Mode = Mode.Game;
             Game.Instance.Runtime.BattleFlag = false;
+            
+            
+            foreach (var character in characters)
+            {
+                // Всех уцелевших возвращаем в нормальное состояние
+                // All survivors return to normal
+                character.CharacterContext.Status.State = CharacterStateType.Normal;
+            }
+            characters.Clear();
         }
 
         private void Update()
         {
-            if (Game.Instance.Runtime.Mode != Mode.Battle) // Не битва
+            // Если нет битвы, нет смысла что то анализировать
+            // If there is no battle, there is no point in analyzing anything.
+            if (Game.Instance.Runtime.Mode != Mode.Battle) 
                 return;
 
+            // Если сейчас ходит игрок или противник-человек, не нужно сюда лезть, люди сами разберутся когда они закончат свой ход
+            // If a human player or opponent moves now, there's no need to get involved, people will figure it out themselves when they finish their turn
             if (Game.Instance.Runtime.BattleContext.OrderIndex == OrderGroup.PlayerGroup ||
-                Game.Instance.Runtime.BattleContext.OrderIndex == OrderGroup.AnotherPlayerGroup) // ходит игрок или противник-человек, не нужно сюда лезть
+                Game.Instance.Runtime.BattleContext.OrderIndex == OrderGroup.AnotherPlayerGroup)
                 return;
 
-            // Ходят NPC
-            if (EnemyEndStepCounter >= EnemyGroupCounter)
-            {
-                DoNextOrder();
-            }
+            // Если ещё остались персонажи, которые не завершили свой ход
+            // If there are still characters who have not completed their turn
+            if (EnemyEndStepCounter < EnemyGroupCounter)
+                return;
+            
+            // Все персонажи в рамках текущей группы хода завершили свой ход, необходимо передать ход следующей группе
+            // All characters within the current turn group have completed their turn, it is necessary to pass the turn to the next group
+            DoNextOrder();
         }
 
         /// <summary>
-        /// Начало хода игрока
+        ///     Начало хода игрока
         /// </summary>
         public void StartPlayerStep()
         {
@@ -182,7 +262,7 @@ namespace Engine.Logic.Locations
                 StartPlayerStep();
 
             NpcAISceneManager.Instance.UpdateOrderList(); // Обновляем очереди ходов
-            if(Game.Instance.Runtime.BattleContext.Order.Count <= 1)
+            if(IsNeedExitBattle())
             {
                 ExitFromBattle();
                 return;

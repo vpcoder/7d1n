@@ -1,4 +1,5 @@
 ﻿using Engine.Data;
+using Engine.Logic.Locations;
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -16,6 +17,8 @@ namespace Engine.Logic
     {
 
         #region Properties
+
+        IDamagedObject Damaged { get; }
 
         /// <summary>
         ///     Агент выполняющий навигацию для этого атакующего

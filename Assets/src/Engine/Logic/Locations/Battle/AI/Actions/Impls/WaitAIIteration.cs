@@ -20,7 +20,7 @@ namespace Engine.Logic.Locations
 
         public override bool Iteration(CharacterNpcBehaviour npc, NpcWaitActionContext actionContext, float timestamp)
         {
-            npc.Animator.SetInteger(AnimationKey.MoveSpeedKey, (int)MoveSpeedType.Idle);
+            npc.Animator.SetCharacterMoveSpeedType(MoveSpeedType.Idle);
 
             return Time.time - timestamp >= actionContext.WaitDelay;
         }

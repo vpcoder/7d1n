@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using Engine.Logic.Locations;
 using JetBrains.Annotations;
 
 namespace Engine.Data
@@ -123,7 +124,6 @@ namespace Engine.Data
                 Hostility = hostility,
             };
         }
-
         
         public bool IsEnemies(OrderGroup first, OrderGroup second)
         {

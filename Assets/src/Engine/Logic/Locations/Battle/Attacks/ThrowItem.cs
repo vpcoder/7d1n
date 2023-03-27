@@ -141,7 +141,11 @@ namespace Engine.Logic.Locations
             if (hits == null || hits.Length == 0)
                 return null;
             
-            var hit = hits.Where(item => item.collider.gameObject != source.AttackCharacterObject).FirstOrDefault();
+            var hit = hits.Where(item =>
+            {
+                var target = item.collider.gameObject.GetComponent<IFragmentDamaged>();
+                return target != null && target.Damaged != source.Damaged;
+            }).FirstOrDefault();
             if (hit.collider?.gameObject == null)
                 return null;
 

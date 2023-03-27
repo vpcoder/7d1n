@@ -172,7 +172,7 @@ namespace Engine.Logic.Locations
             if (Lists.IsEmpty(path))
                 return;
 
-            Animator.SetInteger(AnimationKey.MoveSpeedKey, (int)MoveSpeedType.Run); // Меняем состояние на бег
+            Animator.SetCharacterMoveSpeedType(MoveSpeedType.Run); // Меняем состояние на бег
 
             lookDirectionTransform.LookAt(path[0]); // Выставляем параметры поворота персонажа в сторону точки куда он бежит
             moveContext.NextRotation = Quaternion.Euler(0, lookDirectionTransform.rotation.eulerAngles.y, 0);
@@ -191,7 +191,7 @@ namespace Engine.Logic.Locations
         /// </summary>
         private void StopMove()
         {
-            Animator.SetInteger(AnimationKey.MoveSpeedKey, (int)MoveSpeedType.Idle);
+            Animator.SetCharacterMoveSpeedType(MoveSpeedType.Idle);
             path = null;
         }
 

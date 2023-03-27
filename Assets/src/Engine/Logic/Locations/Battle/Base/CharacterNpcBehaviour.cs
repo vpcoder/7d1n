@@ -22,6 +22,7 @@ namespace Engine.Logic.Locations
                                               IMonoBehaviourOverrideStartEvent,
                                               IMonoBehaviourOverrideUpdateEvent
     {
+        [SerializeField] protected DamagedBase damaged;
         [SerializeField] protected CharacterBody characterBody;
         [SerializeField] protected Animator animator;
         [SerializeField] protected NavMeshAgent agent;
@@ -41,6 +42,12 @@ namespace Engine.Logic.Locations
         
         #region Shared Properties
 
+        public IDamagedObject Damaged
+        {
+            get { return damaged; }
+            set { damaged = (DamagedBase)value; }
+        }
+        
         public CharacterMeshSwitcher MeshSwitcher
         {
             get { return meshSwitcher; }
@@ -128,16 +135,25 @@ namespace Engine.Logic.Locations
 
         public void StartNPC()
         {
-            DoNextAction(); // Начинаем первое действие
-            IsEndStep = false; // Стартуем логику разбора очереди действий
+            // Начинаем первое действие в очереди действий
+            // Starting the first action in the action queue
+            DoNextAction();
+            
+            // Стартуем логику разбора очереди действий
+            // Let's start the logic of the action queue parsing
+            IsEndStep = false;
         }
 
         public void StopNPC()
         {
-            IsEndStep = true; // Останавливаем логику разбора очереди действий
+            // Останавливаем логику разбора очереди действий
+            // Stopping the logic of the parsing queue of actions
+            IsEndStep = true;
             
+            // Помечаем в менеджере что NPC завершил ход
+            // Mark in the manager that the NPC has completed his turn
             var manager = ObjectFinder.Find<BattleManager>();
-            manager.EnemyStepCompleted(this); // Помечаем в менеджере что NPC завершил ход
+            manager.EnemyStepCompleted(this);
         }
 
         /// <summary>
@@ -168,12 +184,12 @@ namespace Engine.Logic.Locations
             weaponPoint.DestroyAllChilds();
 
             Weapon = weapon;
-            Animator.SetInteger(AnimationKey.AttackTypeKey, (int)AttackType.Empty);
+            Animator.SetCharacterDoAttackType(AttackType.Empty);
 
-            if (weapon == null || weapon.ID == DataDictionary.Weapons.WEAPON_SYSTEM_HANDS)
+            if (weapon == null || DataDictionary.Items.IsSystemHands(weapon.ID))
             {
                 this.WeaponObject = weaponPoint?.gameObject;
-                Animator.SetInteger(AnimationKey.WeaponEquipKey, (int)WeaponType.Hands);
+                Animator.SetCharacterEquipWeaponType(WeaponType.Hands);
                 return;
             }
 
@@ -187,7 +203,7 @@ namespace Engine.Logic.Locations
                 this.WeaponObject = weaponBody;
             }
 
-            Animator.SetInteger(AnimationKey.WeaponEquipKey, (int)weapon.WeaponType);
+            Animator.SetCharacterEquipWeaponType(weapon.WeaponType);
         }
 
         public List<Vector3> CalculatePath(Vector3 targetPoint)
@@ -202,9 +218,9 @@ namespace Engine.Logic.Locations
         {
 #if UNITY_EDITOR
             if (Animator == null)
-                Debug.LogError("character animator can't be null!");
+                Debug.LogError("character animator can't be null! " + transform.name);
             if(CharacterBody == null)
-                Debug.LogError("character body can't be null!");
+                Debug.LogError("character body can't be null! " + transform.name);
             if (Animator == null || CharacterBody == null)
                 return;
 #endif
@@ -300,17 +316,22 @@ namespace Engine.Logic.Locations
 
             DeadEvent?.Invoke();
             CharacterContext.Status.IsDead = true;
-
+            CharacterContext.Status.IsEnabledAI = false;
+            
             var manager = ObjectFinder.Find<BattleManager>();
             manager.RemoveEnemiesFromBattle(this);
 
+            var pos = transform.position;
             var dropController = ObjectFinder.Find<ItemsDropController>();
-            dropController.Drop(transform.position, true, Character.Items); // Выкидываем предметы
-            dropController.Drop(transform.position, true, Character.Weapons?.Where(weapon => !DataDictionary.Items.SYSTEM_ITEMS.Contains(weapon.ID)).ToArray());
+            dropController.Drop(pos, true, Character.Items); // Выкидываем предметы
+            dropController.Drop(pos, true, Character.Weapons?
+                .Where(weapon => DataDictionary.Items.IsNotSystemItem(weapon.ID))
+                .Select(weapon => (IItem)weapon)
+                .ToArray());
 
             StopNPC();
 
-            Animator.SetInteger(AnimationKey.DeadKey, 1);
+            Animator.SetCharacterDeadType(DeatType.Dead);
         }
 
         public virtual void AddBattleExp(long value)

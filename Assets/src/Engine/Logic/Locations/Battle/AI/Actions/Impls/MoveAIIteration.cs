@@ -21,7 +21,7 @@ namespace Engine.Logic.Locations
         public override bool Iteration(CharacterNpcBehaviour npc, NpcMoveActionContext actionContext, float timestamp)
         {
 
-            npc.Animator.SetInteger(AnimationKey.WeaponEquipKey, (int)MoveSpeedType.Run);
+            npc.Animator.SetCharacterMoveSpeedType(MoveSpeedType.Run);
 
             var nextPoint = actionContext.Path[0];
             var nextRotation = GetLookAtRotation(npc, nextPoint);

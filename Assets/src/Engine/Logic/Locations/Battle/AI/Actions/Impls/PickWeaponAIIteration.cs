@@ -21,7 +21,7 @@ namespace Engine.Logic.Locations
         {
             if (actionContext.Weapon != null)
             {
-                npc.Animator.SetInteger(AnimationKey.WeaponEquipKey, (int)actionContext.Weapon.WeaponType);
+                npc.Animator.SetCharacterEquipWeaponType(actionContext.Weapon.WeaponType);
             }
             npc.Weapon = actionContext.Weapon;
             return true;

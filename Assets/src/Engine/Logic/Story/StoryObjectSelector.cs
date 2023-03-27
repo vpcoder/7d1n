@@ -16,8 +16,6 @@ namespace Engine.Story
         /// </summary>
         private float downTime;
 
-        private LocationCharacter character;
-        
         private void OnMouseDown()
         {
             if (Game.Instance.Runtime.Mode != Mode.Game)
@@ -31,13 +29,18 @@ namespace Engine.Story
             if (Game.Instance.Runtime.Mode != Mode.Game)
                 return;
 
-            if (Time.time - downTime < 0.4f) // Это обычный клик на объекте
+            // Это обычный клик на объекте
+            // This is a normal click on an object
+            if (Time.time - downTime < 0.4f)
             {
-                if(ObjectFinder.Character?.IsBusy ?? true)
-                    return; // Персонаж щас чем то занят или его вообще нет в сцене, ничего не делаем
+                var character = ObjectFinder.Character;
+                // Если персонаж щас чем то занят или его вообще нет в сцене, ничего не делаем
+                // If a character is busy with something or is not in the scene at all, we do nothing.
+                if(character == null || character.IsBusy)
+                    return;
                 
                 var component = GetComponent<IStorySelectCatcher>();
-                if (CheckDistance())
+                if (CheckDistance(character))
                 {
                     component?.SelectInDistance();
                 }
@@ -60,11 +63,8 @@ namespace Engine.Story
         ///     true - if the character is close enough,
         ///     false - otherwise
         /// </returns>
-        private bool CheckDistance()
+        private bool CheckDistance(LocationCharacter character)
         {
-            if (character == null)
-                character = ObjectFinder.Character;
-
             var distance = Vector3.Distance(transform.position, character.transform.position);
             return distance <= character.PickUpDistance * 2f;
         }

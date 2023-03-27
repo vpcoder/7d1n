@@ -156,7 +156,7 @@ namespace Engine.Logic.Locations.Battle
                     break;
             }
             
-            character.Animator.SetInteger(AnimationKey.WeaponEquipKey, (int)weapon.WeaponType);
+            character.Animator.SetCharacterEquipWeaponType(weapon.WeaponType);
 
             controller.NeedAP = ap;
             controller.UpdateState();

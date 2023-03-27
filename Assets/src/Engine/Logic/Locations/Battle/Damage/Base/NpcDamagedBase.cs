@@ -37,7 +37,7 @@ namespace Engine.Logic.Locations
         /// </summary>
         public override void TakeDamage()
         {
-            CurrentNPC.Animator.SetInteger(AnimationKey.DamageKey, 1);
+            CurrentNPC.Animator.SetCharacterDamageType(TakeDamageType.Take1);
             if (Health <= 0)
                 CurrentNPC.Died();
         }

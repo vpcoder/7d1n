@@ -34,7 +34,7 @@ namespace Engine
         {
             var firearms = (IFirearmsWeapon)source.Weapon;
             var bulletPrefab = BulletEffectFactory.Instance.Get(firearms.AmmoEffectType);
-            var bullet = GameObject.Instantiate<GameObject>(bulletPrefab);
+            var bullet = Object.Instantiate(bulletPrefab);
             var bulletItem = bullet.GetComponent<BulletItem>();
 
             var firearmsBehaviour = source.WeaponObject?.GetComponent<IFirearmsBehaviour>();
@@ -57,7 +57,7 @@ namespace Engine
         public static void DoEdgedThrowAttack(IAttackObject source, IEdgedWeapon edged, Vector3 weaponPos)
         {
             var throwPrefab = EdgedEffectFactory.Instance.Get(edged.ThrowBulletObject);
-            var bullet = GameObject.Instantiate(throwPrefab);
+            var bullet = Object.Instantiate(throwPrefab);
             var edgedItem = bullet.GetComponent<ThrowItem>();
 
             var targetPos = source.TargetAttackPos;

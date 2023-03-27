@@ -29,11 +29,11 @@ namespace Engine.Logic.Locations
             switch (actionContext.Weapon.Type)
             {
                 case GroupType.WeaponEdged:
-                    npc.Animator.SetInteger(AnimationKey.AttackTypeKey, (int)AttackType.EdgedAttack);
+                    npc.Animator.SetCharacterDoAttackType(AttackType.EdgedAttack);
                     BattleCalculationService.DoEdgedAttack(npc, npc.Target);
                     break;
                 case GroupType.WeaponFirearms:
-                    npc.Animator.SetInteger(AnimationKey.AttackTypeKey, (int)AttackType.SingleShot);
+                    npc.Animator.SetCharacterDoAttackType(AttackType.SingleShot);
                     BattleCalculationService.DoFirearmsAttack(npc);
                     break;
                 case GroupType.WeaponGrenade:

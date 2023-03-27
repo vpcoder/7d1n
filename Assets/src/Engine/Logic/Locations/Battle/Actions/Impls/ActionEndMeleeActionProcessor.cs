@@ -95,7 +95,7 @@ namespace Engine.Logic.Locations.Battle.Actions
             }            
 #endif
             
-            if(target != null) // Махали не в пустую! Во что-то попали...
+            if(target != null && target.Damaged != character.Damaged) // Махали не в пустую! Во что-то попали...
                 BattleCalculationService.DoEdgedAttack(character, target.Damaged);
         }
 
@@ -135,7 +135,7 @@ namespace Engine.Logic.Locations.Battle.Actions
                 }            
 #endif
                 
-                if (target != null)
+                if (target != null && target.Damaged != character.Damaged)
                     BattleCalculationService.DoEdgedAttack(character, target.Damaged);
             }
         }
@@ -159,6 +159,12 @@ namespace Engine.Logic.Locations.Battle.Actions
                 if(collider.gameObject == character.gameObject)
                     continue;
                 target = collider.gameObject.GetComponent<T>();
+                
+                // Исключаем ситуацию атаки по себе
+                // Excluding the situation of an attack on ourselves
+                if (target?.Damaged == character.Damaged)
+                    target = null;
+                
                 if (target != null)
                     break;
             }

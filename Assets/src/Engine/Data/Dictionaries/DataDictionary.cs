@@ -4,7 +4,11 @@ namespace Engine.Data
 {
 
     /// <summary>
+    /// 
     /// Словарь объектов
+    /// ---
+    /// Object Dictionary
+    /// 
     /// </summary>
     public partial class DataDictionary
     {
@@ -21,7 +25,23 @@ namespace Engine.Data
 
             public static bool IsSystemHands(long id)
             {
-                return id == Weapons.WEAPON_SYSTEM_ZOMBIE_HANDS || id == Weapons.WEAPON_SYSTEM_HANDS;
+                return id == Weapons.WEAPON_SYSTEM_ZOMBIE_HANDS 
+                       || id == Weapons.WEAPON_SYSTEM_HANDS;
+            }
+
+            public static bool IsNotSystemHands(long id)
+            {
+                return !IsSystemHands(id);
+            }
+            
+            public static bool IsSystemItem(long id)
+            {
+                return SYSTEM_ITEMS.Contains(id);
+            }
+
+            public static bool IsNotSystemItem(long id)
+            {
+                return !IsSystemItem(id);
             }
 
         }

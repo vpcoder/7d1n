@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using Engine.Logic.Locations.Animation;
+using UnityEngine;
 
 namespace Engine.Logic.Map
 {
@@ -20,7 +21,7 @@ namespace Engine.Logic.Map
             this.movePoint = movePoint;
             move = true;
             UpdateInfo();
-            characterAnimator.SetInteger("MoveSpeed", 1);
+            characterAnimator.SetCharacterMoveSpeedType(MoveSpeedType.Walk);
             characterAnimator.transform.LookAt(movePoint);
         }
 
@@ -29,7 +30,7 @@ namespace Engine.Logic.Map
             move = false;
             UpdateInfo();
 
-            characterAnimator.SetInteger("MoveSpeed", 0);
+            characterAnimator.SetCharacterMoveSpeedType(MoveSpeedType.Idle);
         }
 
         public void SwitchBiom(BiomType biom)

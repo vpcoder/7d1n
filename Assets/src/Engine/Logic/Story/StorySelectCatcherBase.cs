@@ -10,7 +10,8 @@ namespace Engine.Story
     {
 
         [SerializeField] private bool destroyOnFirstSelect = false;
-        
+
+        [SerializeField] private bool showQuestHint = true;
         [SerializeField] private GameObject hintQuestPrefab;
         [SerializeField] private GameObject hintMessagePrefab;
         
@@ -24,7 +25,7 @@ namespace Engine.Story
 
         private void Start()
         {
-            if(hintQuestPrefab != null)
+            if(hintQuestPrefab != null && showQuestHint)
                 hintLink = UIHintMessageManager.ShowQuestHint(hintQuestPrefab, transform.position);
         }
 

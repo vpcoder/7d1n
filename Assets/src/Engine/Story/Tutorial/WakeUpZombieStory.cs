@@ -37,7 +37,7 @@ namespace Engine.Story.Tutorial
             dlg.Run(() =>
             {
                 Camera.main.SetState(playerEyePos, zombie.transform);
-                zombie.Animator.SetInteger(AnimationKey.DeadKey, 0);
+                zombie.Animator.SetCharacterDeadType(DeatType.Alive);
             });
             dlg.Delay(0.5f, "Что...");
             dlg.Delay(0.5f, "Это...");

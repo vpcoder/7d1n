@@ -277,7 +277,7 @@ namespace Engine.Logic.Locations
                     continue;
 
                 var fragment = gameObject.GetComponent<IFragmentDamaged>();
-                if(fragment == null)
+                if(fragment == null || fragment.Damaged == source.Damaged)
                     continue;
 
                 result.Add(fragment.Damaged);
