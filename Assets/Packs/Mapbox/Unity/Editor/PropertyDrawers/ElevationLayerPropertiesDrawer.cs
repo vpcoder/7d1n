@@ -8,7 +8,7 @@
 	[CustomPropertyDrawer(typeof(ElevationLayerProperties))]
 	public class ElevationLayerPropertiesDrawer : PropertyDrawer
 	{
-		string objectId = "";
+		string objectId = string.Empty;
 		static float lineHeight = EditorGUIUtility.singleLineHeight;
 		GUIContent[] sourceTypeContent;
 		bool isGUIContentSet = false;

@@ -11,7 +11,7 @@ namespace Mapbox.Editor
     [CanEditMultipleObjects]
     public class MapManagerEditor : Editor
     {
-        private string objectId = "";
+        private string objectId = string.Empty;
         private Color previewButtonColor = new Color(0.7f, 1.0f, 0.7f);
         /// <summary>
         /// Gets or sets a value indicating whether to show general section <see cref="T:Mapbox.Editor.MapManagerEditor"/>.
@@ -132,7 +132,7 @@ namespace Mapbox.Editor
             {
                 prevProp.boolValue = GUILayout.Toggle(prevProp.boolValue, "Enable Preview", style);
                 GUI.color = guiColor;
-                EditorGUILayout.LabelField("", GUI.skin.horizontalSlider);
+                EditorGUILayout.LabelField(string.Empty, GUI.skin.horizontalSlider);
             }
 
             ShowGeneral = EditorGUILayout.Foldout(ShowGeneral, new GUIContent { text = "GENERAL", tooltip = "Options related to map data" });
@@ -196,7 +196,7 @@ namespace Mapbox.Editor
 
         void ShowSepartor()
         {
-            EditorGUILayout.LabelField("", GUI.skin.horizontalSlider);
+            EditorGUILayout.LabelField(string.Empty, GUI.skin.horizontalSlider);
             EditorGUILayout.Space();
         }
 

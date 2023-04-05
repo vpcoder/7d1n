@@ -25,7 +25,7 @@ namespace Engine.Logic.Locations
         ///     Link to current NPC
         /// </summary>
         protected CharacterNpcBehaviour CurrentNPC => characterLink;
-
+        
         #endregion
 
         #region Methods
@@ -37,6 +37,8 @@ namespace Engine.Logic.Locations
         /// </summary>
         public override void TakeDamage()
         {
+            if(!CanTakeDamage)
+                return;
             CurrentNPC.Animator.SetCharacterDamageType(TakeDamageType.Take1);
             if (Health <= 0)
                 CurrentNPC.Died();

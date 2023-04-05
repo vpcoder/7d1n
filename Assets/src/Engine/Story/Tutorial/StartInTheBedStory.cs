@@ -17,6 +17,7 @@ namespace Engine.Story.Tutorial
         [SerializeField] private Transform rightSide;
 
         [SerializeField] private List<StoryBase> stories;
+        [SerializeField] private CharacterNpcBehaviour zombie;
         
         private Color half = new Color(0.5f, 0.5f, 0.5f, 0.5f);
 
@@ -31,7 +32,6 @@ namespace Engine.Story.Tutorial
                 background.color = Color.white;
             });
 
-            dlg.Music("memories");
             dlg.Delay(0.1f, "[.]");
             dlg.Delay(0.1f, "[..]");
             dlg.Delay(0.2f, "[...]");
@@ -45,6 +45,7 @@ namespace Engine.Story.Tutorial
 
             dlg.Delay(1f, true);
             
+            dlg.Music("memories");
             dlg.Text("Этот шум...");
             dlg.Text("Что происходит?...");
             dlg.Text("Где я?...");
@@ -146,6 +147,7 @@ namespace Engine.Story.Tutorial
             
             
             dlg.Point(point3);
+            dlg.Sound("quests/tutorial/zombie_talk", zombie.AttackAudioSource);
             dlg.Text("Что за...");
             dlg.Run(() =>
             {

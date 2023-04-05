@@ -14,7 +14,7 @@
 
 		public void Set(Dictionary<string, object> props)
 		{
-			_text.text = "";
+			_text.text = string.Empty;
 
 			if (props.ContainsKey("name"))
 			{

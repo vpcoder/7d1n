@@ -15,7 +15,7 @@ namespace UnityEditor.AI
                 if (areaValue == areaProperty.intValue)
                     areaIndex = i;
             }
-            ArrayUtility.Add(ref areaNames, "");
+            ArrayUtility.Add(ref areaNames, string.Empty);
             ArrayUtility.Add(ref areaNames, "Open Area Settings...");
 
             var rect = EditorGUILayout.GetControlRect(true, EditorGUIUtility.singleLineHeight);
@@ -48,7 +48,7 @@ namespace UnityEditor.AI
                 if (id == agentTypeID.intValue)
                     index = i;
             }
-            agentTypeNames[count] = "";
+            agentTypeNames[count] = string.Empty;
             agentTypeNames[count + 1] = "Open Agent Settings...";
 
             bool validAgentType = index != -1;

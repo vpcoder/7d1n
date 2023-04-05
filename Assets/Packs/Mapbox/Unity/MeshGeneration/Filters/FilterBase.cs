@@ -11,7 +11,7 @@ namespace Mapbox.Unity.MeshGeneration.Filters
 
 	public class FilterBase : ILayerFeatureFilterComparer
 	{
-		public virtual string Key { get { return ""; } }
+		public virtual string Key { get { return string.Empty; } }
 
 		public virtual bool Try(VectorFeatureUnity feature)
 		{

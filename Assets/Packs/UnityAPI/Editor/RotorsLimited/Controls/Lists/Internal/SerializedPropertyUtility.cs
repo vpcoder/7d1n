@@ -31,7 +31,7 @@ namespace Rotorz.ReorderableList.Internal {
 					property.floatValue = 0f;
 					break;
 				case SerializedPropertyType.String:
-					property.stringValue = "";
+					property.stringValue = string.Empty;
 					break;
 				case SerializedPropertyType.Color:
 					property.colorValue = Color.black;

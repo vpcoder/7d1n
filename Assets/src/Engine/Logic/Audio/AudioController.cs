@@ -176,29 +176,40 @@ namespace Engine
 
             var mixer = Resources.Load<AudioMixer>(type.ToString());
             master = mixer.FindMatchingGroups("Master")[0];
+            mixer.SetFloat("Volume", GetExpLevel(type));
 
-            float level;
+            mixers[type] = master;
+            return master;
+        }
+
+        private float GetLevel(MixerType type)
+        {
             switch (type)
             {
                 case MixerType.Sounds:
-                    level = GameSettings.Instance.Settings.SoundsEnabled ? GameSettings.Instance.Settings.SoundsVolume : 0;
-                    break;
+                    return GameSettings.Instance.Settings.SoundsEnabled ? GameSettings.Instance.Settings.SoundsVolume : 0;
                 case MixerType.Musics:
-                    level = GameSettings.Instance.Settings.MusicsEnabled ? GameSettings.Instance.Settings.MusicsVolume : 0;
-                    break;
+                    return GameSettings.Instance.Settings.MusicsEnabled ? GameSettings.Instance.Settings.MusicsVolume : 0;
                 default:
                     throw new NotSupportedException();
             }
+        }
+
+        public float GetExpLevel(MixerType type)
+        {
+            float level = GetLevel(type);
             if (level > 100)
                 level = 100;
             if (level <= 0)
                 level = 0.0001f;
             else
                 level = Mathf.Log10(level / 100f) * 20f;
-            mixer.SetFloat("Volume", level);
-
-            mixers[type] = master;
-            return master;
+            return level;
+        }
+        
+        public float GetLowLevel(MixerType type)
+        {
+            return GetLevel(type) / 100f;
         }
 
         public AudioTimedFragment CreateTimedFragment(Vector3 worldPosition, MixerType type, string sound)

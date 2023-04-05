@@ -24,7 +24,7 @@ namespace Mapbox.Editor
 
 		//default mapboxconfig
 		static string _configurationFile;
-		static string _accessToken = "";
+		static string _accessToken = string.Empty;
 		[Range(0, 1000)]
 		static int _memoryCacheSize = 500;
 		[Range(0, 3000)]
@@ -433,7 +433,7 @@ namespace Mapbox.Editor
 			//_accessToken is empty
 			if (string.IsNullOrEmpty(_accessToken))
 			{
-				_accessToken = EditorGUILayout.TextField("", _accessToken, _textFieldStyle);
+				_accessToken = EditorGUILayout.TextField(string.Empty, _accessToken, _textFieldStyle);
 				EditorGUI.BeginDisabledGroup(true);
 				GUILayout.Button("Submit", _submitButtonStyle);
 				EditorGUI.EndDisabledGroup();
@@ -444,7 +444,7 @@ namespace Mapbox.Editor
 				if (_validating)
 				{
 					EditorGUI.BeginDisabledGroup(true);
-					_accessToken = EditorGUILayout.TextField("", _accessToken, _textFieldStyle);
+					_accessToken = EditorGUILayout.TextField(string.Empty, _accessToken, _textFieldStyle);
 					GUILayout.Button("Checking", _submitButtonStyle);
 					EditorGUI.EndDisabledGroup();
 				}
@@ -457,7 +457,7 @@ namespace Mapbox.Editor
 						GUI.backgroundColor = _validBackgroundColor;
 						GUI.contentColor = _validContentColor;
 
-						_accessToken = EditorGUILayout.TextField("", _accessToken, _textFieldStyle);
+						_accessToken = EditorGUILayout.TextField(string.Empty, _accessToken, _textFieldStyle);
 						GUILayout.Button("Valid", _validButtonStyle);
 
 						GUI.contentColor = _defaultContentColor;
@@ -471,7 +471,7 @@ namespace Mapbox.Editor
 						GUI.contentColor = _invalidContentColor;
 						GUI.backgroundColor = _invalidBackgroundColor;
 
-						_accessToken = EditorGUILayout.TextField("", _accessToken, _textFieldStyle);
+						_accessToken = EditorGUILayout.TextField(string.Empty, _accessToken, _textFieldStyle);
 						GUILayout.Button("Invalid", _validButtonStyle);
 
 						GUI.contentColor = _defaultContentColor;
@@ -488,7 +488,7 @@ namespace Mapbox.Editor
 				//_accessToken is a new, unsubmitted token.
 				else
 				{
-					_accessToken = EditorGUILayout.TextField("", _accessToken, _textFieldStyle);
+					_accessToken = EditorGUILayout.TextField(string.Empty, _accessToken, _textFieldStyle);
 
 					if (GUILayout.Button("Submit", _submitButtonStyle))
 					{

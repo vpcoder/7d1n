@@ -452,7 +452,7 @@ namespace Mapbox.Unity.MeshGeneration.Factories
 						_tilesWaitingProcessing.Add(tile);
 					}
 				}
-				if (layerName != "")
+				if (string.IsNullOrWhiteSpace(layerName))
 				{
 					builder.Create(tile.VectorData.Data.GetLayer(layerName), tile, DecreaseProgressCounter);
 				}

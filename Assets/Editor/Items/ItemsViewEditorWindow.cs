@@ -29,7 +29,7 @@ namespace GitIntegration.Items
         {
             get
             {
-                if (selectedGroupType == 0 && txtNameFilter == "")
+                if (selectedGroupType == 0 && string.IsNullOrWhiteSpace(txtNameFilter))
                 {
                     return ItemsEditorFactory.Instance.Items;
                 }
@@ -57,7 +57,7 @@ namespace GitIntegration.Items
         }
 
         private int selectedGroupType = 0;
-        private string txtNameFilter = "";
+        private string txtNameFilter = string.Empty;
         private static string[] typesCache;
         
         private void OnGUI()

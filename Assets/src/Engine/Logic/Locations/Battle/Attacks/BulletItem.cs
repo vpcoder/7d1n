@@ -54,7 +54,7 @@ namespace Engine.Logic.Locations
         private Vector3 targetPos;
 
         /// <summary>
-        ///     Тока в которой снаряд заканчивает свой полёт
+        ///     Точка в которой снаряд заканчивает свой полёт
         ///     ---
         ///     The one in which the projectile ends its flight
         /// </summary>
@@ -137,32 +137,54 @@ namespace Engine.Logic.Locations
 
             timestamp = Time.time;
 
-            if(next != null) // На пути следования снаряда есть объект?
+            // На пути следования снаряда есть объект?
+            // Is there an object in the path of the projectile?
+            if(next != null)
             {
                 var nextPointDistance = NextDistance;
-                if(nextPointDistance < reactDistance || // Дистанция до объекта уже сопоставима с дистанцией-реакцией
-                    nextDistance > nextPointDistance) // Дистанция начала расти, значит мы уже пролетели объект
+                
+                // Дистанция до объекта уже сопоставима с дистанцией-реакцией
+                // The distance to the object is already comparable to the reaction distance
+                if(nextPointDistance < reactDistance ||
+                   // Дистанция начала расти, значит мы уже пролетели объект
+                   // The distance began to grow, so we have already flown the object
+                    nextDistance > nextPointDistance)
                 {
 
-                    DoDamage(next); // Наносим урон тому до кого долетели
+                    DoDamage(next);
                     var destroyObject = next as IDestroyedObject;
-                    if (destroyObject != null) // Если этот объект неживой, дополнительно проверяем его состояние
+                    
+                    // Если этот объект неживой, дополнительно проверяем его состояние
+                    // If this object is inanimate, we additionally check its state
+                    if (destroyObject != null)
                         destroyObject.CheckDestroy();
 
-                    this.next = UpdateNext(); // Переключаемся на следующую цель
+                    // Переключаемся на следующую цель
+                    // Switch to the next target
+                    this.next = UpdateNext();
                     if(this.next != null)
                         this.nextDistance = NextDistance;
                 }
                 else
                 {
-                    nextDistance = nextPointDistance; // Всё ещё движемся к цели...
+                    // Всё ещё движемся к цели...
+                    // Still moving toward the goal...
+                    nextDistance = nextPointDistance;
                 }
             }
 
-            if (afterDistance > maxDistance || // Вылетели за пределы максимальной дистанции полёта снаряда
-                afterDistance > beforeDistance || // Пролетели цель
-                afterDistance <= reactDistance || // До цели осталось слишком маленькое расстояние - расстояние-реакции
-                stopPenetration) // Снаряд застрял в ком то
+            // Вылетели за пределы максимальной дистанции полёта снаряда
+            // flew beyond maximum projectile flight distance
+            if (afterDistance > maxDistance || 
+                // Пролетели цель
+                // The target flew by
+                afterDistance > beforeDistance ||
+                // До цели осталось слишком маленькое расстояние - расстояние-реакции
+                // There is too little distance left to the target - distance-response
+                afterDistance <= reactDistance || 
+                // Снаряд застрял в ком то, не смогли пробить насквозь
+                // A shell stuck in someone, couldn't get through
+                stopPenetration)
             {
                 isInited = false;
                 GameObject.Destroy(this.gameObject);
@@ -244,6 +266,7 @@ namespace Engine.Logic.Locations
             this.damagedObjects = PrepareDamagedObjects();
 
             // Обновляем следующую цель снаряда
+            // Update the next projectile target
             this.next = damagedObjects != null && damagedObjects.Count > 0 ? damagedObjects[0] : null;
             this.nextDistance = NextDistance;
 
@@ -269,6 +292,8 @@ namespace Engine.Logic.Locations
             var result = new List<IDamagedObject>(hits.Length);
             // В результате рейкаста мы можем получить последовательность с повторными вхождениями одних и тех же объектов, когда луч прошивает их
             // Поэтому нужно отсеить такие дублирования, для этого использую Set и его Contains
+            // As a result of the raycast, we can get a sequence with repeated occurrences of the same objects as the ray passes through them
+            // Therefore, it is necessary to sift out such duplicates, and for this use Set and its Contains
             var checkedkHits = new HashSet<GameObject>();
             foreach(var item in hits)
             {
@@ -281,7 +306,9 @@ namespace Engine.Logic.Locations
                     continue;
 
                 result.Add(fragment.Damaged);
-                checkedkHits.Add(gameObject); // Запоминаем что такой объект уже прошили насквозь
+                // Запоминаем что такой объект уже прошили насквозь
+                // Remember that such an object has already been pierced through
+                checkedkHits.Add(gameObject);
             }
 
             return result;
@@ -298,11 +325,15 @@ namespace Engine.Logic.Locations
                 return;
 
             // Рассчитываем параметры для определения пробития объекта item
+            // Calculate the parameters for determining the penetration of the item
             var targetProtectionPercent = BattleCalculationService.GetProtectionPercent(damagedObject.Protection);
             var penetrationPercent = BattleCalculationService.GetPenetrationPerent(weapon.Penetration, targetProtectionPercent);
-            stopPenetration = !BattleCalculationService.IsPenetration(penetrationPercent); // Пробиваем насквозь?
+            
+            // Пробиваем насквозь?
+            // Punching through?
+            stopPenetration = !BattleCalculationService.IsPenetration(penetrationPercent);
 
-            BattleCalculationService.DoBulletDamage(source, damagedObject, weapon, this); // Наносим урон снарядом
+            BattleCalculationService.DoBulletDamage(source, damagedObject, weapon, this);
         }
 
         #endregion

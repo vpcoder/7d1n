@@ -36,7 +36,7 @@
 				else
 				{
 					monoscriptProperty.objectReferenceValue = null;
-					typeStringProperty.stringValue = "";
+					typeStringProperty.stringValue = string.Empty;
 				}
 			}
 

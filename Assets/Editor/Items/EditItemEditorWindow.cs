@@ -147,7 +147,7 @@ namespace GitIntegration.Items
 
         public void SaveBaseItemInfo(XmlElement element, XmlDocument doc)
         {
-            element.InnerXml = "";
+            element.InnerXml = string.Empty;
             
             element.SetAttribute("ID", id.ToString());
             element.SetAttribute("Name", txtName + "_name");

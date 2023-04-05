@@ -147,7 +147,7 @@
 				if (element.Contains("["))
 				{
 					var elementName = element.Substring(0, element.IndexOf("[", StringComparison.CurrentCulture));
-					var index = System.Convert.ToInt32(element.Substring(element.IndexOf("[", StringComparison.CurrentCulture)).Replace("[", "").Replace("]", ""));
+					var index = System.Convert.ToInt32(element.Substring(element.IndexOf("[", StringComparison.CurrentCulture)).Replace("[", string.Empty).Replace("]", ""));
 					obj = GetValue_Imp(obj, elementName, index);
 				}
 				else
@@ -168,7 +168,7 @@
 				if (element.Contains("["))
 				{
 					var elementName = element.Substring(0, element.IndexOf("[", StringComparison.CurrentCulture));
-					var index = System.Convert.ToInt32(element.Substring(element.IndexOf("[", StringComparison.CurrentCulture)).Replace("[", "").Replace("]", ""));
+					var index = System.Convert.ToInt32(element.Substring(element.IndexOf("[", StringComparison.CurrentCulture)).Replace("[", string.Empty).Replace("]", ""));
 					obj = GetValue_Imp(obj, elementName, index);
 				}
 				else
@@ -187,7 +187,7 @@
 				{
 					var tp = obj.GetType();
 					var elementName = element.Substring(0, element.IndexOf("[", StringComparison.CurrentCulture));
-					var index = System.Convert.ToInt32(element.Substring(element.IndexOf("[", StringComparison.CurrentCulture)).Replace("[", "").Replace("]", ""));
+					var index = System.Convert.ToInt32(element.Substring(element.IndexOf("[", StringComparison.CurrentCulture)).Replace("[", string.Empty).Replace("]", ""));
 					var field = tp.GetField(elementName, BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance);
 					var arr = field.GetValue(obj) as System.Collections.IList;
 					arr[index] = value;
@@ -225,7 +225,7 @@
 				if (element.Contains("["))
 				{
 					var elementName = element.Substring(0, element.IndexOf("[", StringComparison.CurrentCulture));
-					var index = System.Convert.ToInt32(element.Substring(element.IndexOf("[", StringComparison.CurrentCulture)).Replace("[", "").Replace("]", ""));
+					var index = System.Convert.ToInt32(element.Substring(element.IndexOf("[", StringComparison.CurrentCulture)).Replace("[", string.Empty).Replace("]", ""));
 					obj = GetValue_Imp(obj, elementName, index);
 				}
 				else

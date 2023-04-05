@@ -36,7 +36,7 @@
 
 		public bool isLayerAdded = false;
 		bool m_Initialized = false;
-		string objectId = "";
+		string objectId = string.Empty;
 		private string TilesetId
 		{
 			get
@@ -667,7 +667,7 @@
 							continue;
 						}
 
-						string presetPropertyName = "";
+						string presetPropertyName = string.Empty;
 						if (layer.layer == roadLayer)
 						{
 							presetPropertyName = layerProperty.FindPropertyRelative("roadLayer_TypeProperty").stringValue;

@@ -19,7 +19,7 @@ namespace Engine.Story.Tutorial
             dlg.Run(() =>
             {
                 Camera.main.SetState(PlayerEyePos, manPoint);
-                QuestFactory.Instance.Get<TutorialQuest>().AddTag("Man");
+                QuestFactory.Instance.Get<TutorialQuest>().AddTag(TutorialQuest.CheckPointMan);
             });
             
             dlg.Text("Мужчина... Он мёртв.");

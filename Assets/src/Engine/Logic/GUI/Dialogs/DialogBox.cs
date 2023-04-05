@@ -52,7 +52,7 @@ namespace Engine.Logic.Dialog
         public void SetText(string text)
         {
             if (text == null)
-                text = "";
+                text = string.Empty;
             textField.text = text;
         }
 

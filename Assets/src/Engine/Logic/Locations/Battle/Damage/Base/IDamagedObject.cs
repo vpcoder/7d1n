@@ -58,6 +58,13 @@ namespace Engine.Logic.Locations
         /// </summary>
         GameObject ToObject { get; }
 
+        /// <summary>
+        ///     Объект может получать урон? Может быть объект бессмертный?
+        ///     ---
+        ///     Can the object take damage? Can an object be immortal?
+        /// </summary>
+        bool CanTakeDamage { get; set; }
+
         #endregion
 
         #region Methods

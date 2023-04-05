@@ -53,7 +53,7 @@ namespace Engine.Logic.Map
 					float touchDeltaMag = (touchZero.position - touchOne.position).magnitude;
 					float zoomFactor = 0.01f * (touchDeltaMag - prevTouchDeltaMag);
 
-					ZoomMapUsingTouchOrMouse(zoomFactor);
+					UpdateCameraPos(zoomFactor);
 					break;
 			}
 		}
@@ -64,30 +64,26 @@ namespace Engine.Logic.Map
         private void DoZoom(float zoomFactor)
         {
             var deltaZoom = zoomFactor * zoomSpeed;
-
-            if (zoomZone.x > currentZoom + deltaZoom)
-                deltaZoom = 0;
-
-            if (zoomZone.y < currentZoom + deltaZoom)
-                deltaZoom = 0;
-
             currentZoom += deltaZoom;
-
+            if (zoomZone.x > currentZoom)
+	            currentZoom = zoomZone.x;
+            if (zoomZone.y < currentZoom)
+	            currentZoom = zoomZone.y;
             var cameraTransform = referenceCamera.transform;
-            cameraTransform.position += cameraTransform.forward * deltaZoom;
+            cameraTransform.position += cameraTransform.forward * currentZoom;
         }
-
-        private void ZoomMapUsingTouchOrMouse(float zoomFactor)
-		{
-            DoZoom(zoomFactor);
-        }
-
+        
         private void Awake()
         {
             UpdateCameraPos();
         }
 
         public void UpdateCameraPos()
+        {
+	        UpdateCameraPos(0f);
+        }
+        
+        public void UpdateCameraPos(float zoomFactor)
         {
 	        var targetPos = target.transform.position + new Vector3(0f, 2f, 0f); // Смотрим чуть выше груди персонажа
 	        var cameraTransform = referenceCamera.transform;
@@ -101,6 +97,8 @@ namespace Engine.Logic.Map
 		        								   z + targetPos.z);
 
 	        cameraTransform.LookAt(targetPos);
+	        
+	        DoZoom(zoomFactor);
         } 
         
         private void UpdateCameraPos(float deltaX, float deltaY)
@@ -119,8 +117,11 @@ namespace Engine.Logic.Map
                 UpdateCameraPos(deltaX, deltaY);
             }
 
-            DoZoom(Input.GetAxis("Mouse ScrollWheel"));
-        }
+            if (DeviceInput.TouchCount == 2)
+            {
+	            UpdateCameraPos(Input.GetAxis("Mouse ScrollWheel"));
+            }
+		}
 
         public void OnDrag(PointerEventData eventData)
         {
@@ -140,6 +141,16 @@ namespace Engine.Logic.Map
                 HandleMouseAndKeyBoard();
             }
         }
+        
+#if UNITY_EDITOR
+
+	    private void OnValidate()
+	    {
+		    UpdateCameraPos();
+	    }
+
+#endif
+        
 
     }
 

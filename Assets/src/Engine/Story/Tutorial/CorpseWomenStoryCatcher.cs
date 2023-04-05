@@ -19,7 +19,7 @@ namespace Engine.Story.Tutorial
             dlg.Run(() =>
             {
                 Camera.main.SetState(PlayerEyePos, zombiePoint2);
-                QuestFactory.Instance.Get<TutorialQuest>().AddTag("Women");
+                QuestFactory.Instance.Get<TutorialQuest>().AddTag(TutorialQuest.CheckPointWomen);
             });
             dlg.Text("Женщина, на вид молодая...");
             dlg.Run(() =>

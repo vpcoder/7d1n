@@ -98,6 +98,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 607cb42d69d644c5826ebfc8b647bfba, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  damaged: {fileID: 0}
   characterBody: {fileID: 389704606714000840}
   animator: {fileID: 3821133424267481658}
   agent: {fileID: 3821133424267481660}

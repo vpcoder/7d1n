@@ -1,14 +1,13 @@
 ﻿namespace Mapbox.Editor
 {
 	using UnityEngine;
-	using System.Collections;
 	using UnityEditor;
 	using Mapbox.Unity.Map;
 	using Mapbox.Unity.MeshGeneration.Modifiers;
 
 	public class BehaviorModifiersSectionDrawer
 	{
-		string objectId = "";
+		string objectId = string.Empty;
 
 		bool showGameplay
 		{

@@ -16,7 +16,9 @@ namespace Engine.Story.Tutorial
         private static bool Condition()
         {
             var quest = QuestFactory.Instance.Get<TutorialQuest>();
-            return quest.ContainsAllTags("Man", "Window", "Women");
+            return quest.ContainsAllTags(TutorialQuest.CheckPointMan,
+                TutorialQuest.CheckPointWindow,
+                TutorialQuest.CheckPointWomen);
         }
 
         public static void EndProcessing()
@@ -34,25 +36,27 @@ namespace Engine.Story.Tutorial
             dlg.IfGoTo(() => Condition(), pointWakeUp, pointExit);
 
             dlg.Point(pointWakeUp);
+            dlg.Sound("quests/tutorial/zombie_wakeup", zombie.AttackAudioSource);
             dlg.Run(() =>
             {
-                Camera.main.SetState(playerEyePos, zombie.transform);
+                Camera.main.SetState(playerEyePos, zombie.Eye);
                 zombie.Animator.SetCharacterDeadType(DeatType.Alive);
-            });
-            dlg.Delay(0.5f, "Что...");
-            dlg.Delay(0.5f, "Это...");
-            dlg.Delay(0.5f, "За...");
-            dlg.Text("Херня...");
-            dlg.Run(() =>
-            {
-                zombie.Agent.enabled = true;
+                zombie.Damaged.CanTakeDamage = true;
                 zombie.CharacterContext.Status.State = CharacterStateType.Fighting;
                 zombie.DeadEvent += () =>
                 {
                     ObjectFinder.Find<ExitDoorStoryCatcher>().enabled = true;
                 };
             });
-            dlg.Delay(1f);
+            dlg.Delay(0.5f, "Что...");
+            dlg.Delay(0.5f, "Что это...");
+            dlg.Run(() =>
+            {
+                zombie.Agent.enabled = true;
+
+            });
+            dlg.Delay(0.5f, "Что это за...");
+            dlg.Delay(1f, "Что это за хуйня?!");
 
             dlg.Point(pointExit);
         }

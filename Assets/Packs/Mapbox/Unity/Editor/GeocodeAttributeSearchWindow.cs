@@ -17,7 +17,7 @@
 
 		private bool _updateAbstractMap;
 
-		string _searchInput = "";
+		string _searchInput = string.Empty;
 
 		ForwardGeocodeResource _resource;
 
@@ -33,7 +33,7 @@
 
 		void OnEnable()
 		{
-			_resource = new ForwardGeocodeResource("");
+			_resource = new ForwardGeocodeResource(string.Empty);
 			EditorApplication.playModeStateChanged += OnModeChanged;
 		}
 
@@ -101,7 +101,7 @@
 
 						//split feature name and add elements until the maxButtonContentLenght is exceeded
 						string[] featureNameSplit = feature.PlaceName.Split(',');
-						string buttonContent = "";
+						string buttonContent = string.Empty;
 						int maxButtonContentLength = 30;
 						for (int j = 0; j < featureNameSplit.Length; j++)
 						{

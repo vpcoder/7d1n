@@ -45,7 +45,7 @@ namespace Mapbox.Unity.MeshGeneration.Interfaces
 			item.coreOptions.combineMeshes = item.combineMeshes;
 			item.moveFeaturePositionTo = item._movePrefabFeaturePositionTo;
 
-			string layerName = "";
+			string layerName = string.Empty;
 			if (item.layerNameFromFindByTypeDictionary.TryGetValue(item.findByType, out layerName))
 			{
 				item.coreOptions.layerName = layerName;
@@ -165,10 +165,10 @@ namespace Mapbox.Unity.MeshGeneration.Interfaces
 		/// <param name="item">Item.</param>
 		private void SetCategoryFilterOptions(PrefabItemOptions item)
 		{
-			string propertyName = "";
+			string propertyName = string.Empty;
 			item.categoryPropertyFromFindByTypeDictionary.TryGetValue(item.findByType, out propertyName);
 
-			string concatenatedString = "";
+			string concatenatedString = string.Empty;
 			if (item.findByType == LocationPrefabFindBy.MapboxCategory)
 			{
 
@@ -214,7 +214,7 @@ namespace Mapbox.Unity.MeshGeneration.Interfaces
 				return;
 			}
 
-			string propertyName = "";
+			string propertyName = string.Empty;
 			item.densityPropertyFromFindByTypeDictionary.TryGetValue(item.findByType, out propertyName);
 
 			if (item.findByType == LocationPrefabFindBy.MapboxCategory || item.findByType == LocationPrefabFindBy.POIName)
@@ -239,7 +239,7 @@ namespace Mapbox.Unity.MeshGeneration.Interfaces
 				return;
 			}
 
-			string propertyName = "";
+			string propertyName = string.Empty;
 			item.namePropertyFromFindByTypeDictionary.TryGetValue(item.findByType, out propertyName);
 
 			if (item.findByType == LocationPrefabFindBy.POIName)

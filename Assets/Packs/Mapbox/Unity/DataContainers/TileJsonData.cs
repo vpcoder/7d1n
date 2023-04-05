@@ -62,9 +62,9 @@
 
 			ClearData();
 
-			var propertyName = "";
-			var propertyDescription = "";
-			var layerSource = "";
+			var propertyName = string.Empty;
+			var propertyDescription = string.Empty;
+			var layerSource = string.Empty;
 
 			foreach (var layer in tjr.VectorLayers)
 			{

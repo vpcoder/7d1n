@@ -35,7 +35,7 @@ namespace Mapbox.Unity.Utilities
 
 		void ClearLog()
 		{
-			_log = "";
+			_log = string.Empty;
 			_logText.text = _log;
 			_logScroll.verticalNormalizedPosition = 0f;
 		}
@@ -44,7 +44,7 @@ namespace Mapbox.Unity.Utilities
 		{
 			if (!string.IsNullOrEmpty(_log) && _log.Length > 15000)
 			{
-				_log = "";
+				_log = string.Empty;
 			}
 			_log += string.Format("<color={0}>{1}</color>\n", color, log);
 			_logText.text = _log;

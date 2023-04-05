@@ -19,7 +19,7 @@ namespace Engine.Story.Tutorial
             dlg.Run(() =>
             {
                 Camera.main.SetState(PlayerEyePos, windowLeftPoint);
-                QuestFactory.Instance.Get<TutorialQuest>().AddTag("Window");
+                QuestFactory.Instance.Get<TutorialQuest>().AddTag(TutorialQuest.CheckPointWindow);
             });
             dlg.Text("Окна разбиты и закрыты всяким мусором");
             dlg.Run(() =>

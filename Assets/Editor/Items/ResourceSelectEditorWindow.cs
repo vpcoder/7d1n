@@ -28,7 +28,7 @@ namespace GitIntegration.Items
             }
         }
 
-        private string txtNameFilter = "";
+        private string txtNameFilter = string.Empty;
         private static string[] typesCache;
         
         public long Selected { get; set; }

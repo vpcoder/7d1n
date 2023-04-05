@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using Engine.Logic.Dialog.Action;
 using Engine.Logic.Dialog.Action.Impls;
 using Engine.Story;
+using UnityEngine;
 
 namespace Engine.Logic.Dialog
 {
@@ -123,11 +124,12 @@ namespace Engine.Logic.Dialog
             return action;
         }
         
-        public ActionSound Sound(string sound)
+        public ActionSound Sound(string sound, AudioSource source = null)
         {
             var action = new ActionSound()
             {
                 Sound = sound,
+                Source = source,
             };
             Queue.Add(action);
             return action;
