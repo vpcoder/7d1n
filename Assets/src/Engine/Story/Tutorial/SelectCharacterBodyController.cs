@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using Engine.Data;
 using Engine.Logic;
 using UnityEngine;
@@ -8,6 +9,7 @@ namespace Engine.Story.Tutorial
     public class SelectCharacterBodyController : MonoBehaviour
     {
 
+        [SerializeField] private List<GenderType> bodyGender;
         [SerializeField] private CharacterMeshSwitcher meshSwitcher;
 
         public void OnLeftClick()
@@ -15,6 +17,7 @@ namespace Engine.Story.Tutorial
             AudioController.Instance.PlaySound("ui/button");
             meshSwitcher.MeshIndex++;
             Game.Instance.Character.Account.SpriteID = meshSwitcher.MeshIndex;
+            Game.Instance.Character.Account.Gender = bodyGender[(int)meshSwitcher.MeshIndex];
         }
 
         public void OnRightClick()
@@ -22,6 +25,7 @@ namespace Engine.Story.Tutorial
             AudioController.Instance.PlaySound("ui/button");
             meshSwitcher.MeshIndex--;
             Game.Instance.Character.Account.SpriteID = meshSwitcher.MeshIndex;
+            Game.Instance.Character.Account.Gender = bodyGender[(int)meshSwitcher.MeshIndex];
         }
         
     }

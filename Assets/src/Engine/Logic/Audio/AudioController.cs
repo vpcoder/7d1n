@@ -174,7 +174,7 @@ namespace Engine
             if (mixers.TryGetValue(type, out AudioMixerGroup master))
                 return master;
 
-            var mixer = Resources.Load<AudioMixer>(type.ToString());
+            var mixer = Resources.Load<AudioMixer>("Audio/" + type.ToString());
             master = mixer.FindMatchingGroups("Master")[0];
             mixer.SetFloat("Volume", GetExpLevel(type));
 

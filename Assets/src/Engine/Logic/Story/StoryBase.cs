@@ -8,6 +8,8 @@ namespace Engine.Story
     public abstract class StoryBase : MonoBehaviour, IStory
     {
 
+        [SerializeField] protected bool activeFlag = true;
+        
         [SerializeField] private bool useShowFade = true;
         [SerializeField] private bool hidePlayer;
         [SerializeField] private bool hideTopPanel = true;
@@ -17,6 +19,12 @@ namespace Engine.Story
         private GameObject topPanel;
         private GameObject playerCharacter;
 
+        public virtual bool IsActive
+        {
+            get { return activeFlag; }
+            set { activeFlag = value; }
+        }
+        
         public GameObject TopPanel
         {
             get
@@ -98,8 +106,9 @@ namespace Engine.Story
             {
                 mainDialog.Run(() =>
                 {
-                    StoryActionHelper.Fade(ObjectFinder.SceneViewImage, Color.white, Color.clear,
-                        0.8f); // Не добавляем RuntimeObjectList, чтобы скрипт доиграл до конца гарантированно
+                    // Не добавляем RuntimeObjectList, чтобы скрипт доиграл до конца гарантированно
+                    // Do not add RuntimeObjectList, so that the script is guaranteed to finish
+                    StoryActionHelper.Fade(ObjectFinder.SceneViewImage, Color.white, Color.clear, 0.8f);
                 });
             }
 

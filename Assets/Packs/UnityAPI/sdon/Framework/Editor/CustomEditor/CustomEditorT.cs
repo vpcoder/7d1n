@@ -106,15 +106,16 @@ namespace UnityEditor {
 
 			EditorVisibleType visibleType = GetEditorVisibleType();
 
-			if (visibleType == EditorVisibleType.HideInFader) {
-				showEditor = EditorGUILayout.Foldout(showEditor, "Editor | Редактор");
-				if (showEditor) {
+			switch (visibleType)
+			{
+				case EditorVisibleType.HideInFader:
+					showEditor = EditorGUILayout.Foldout(showEditor, "Editor | Редактор");
+					if (showEditor)
+						OnDefaultEditor();
+					break;
+				case EditorVisibleType.Show:
 					OnDefaultEditor();
-				}
-			}
-
-			if (visibleType == EditorVisibleType.Show) {
-				OnDefaultEditor();
+					break;
 			}
 
 			showDocs = EditorGUILayout.Foldout(showDocs, "Documentation | Документация");
@@ -123,7 +124,6 @@ namespace UnityEditor {
 			}
 
 			OnAdditionEditor();
-
 		}
 
 		#endregion
@@ -144,11 +144,9 @@ namespace UnityEditor {
 		}
 
 		public override void OnInspectorGUI() {
-
 			DoDescriptionSection();
 			DoTextInfoSection();
 			DoEditorSection();
-
 		}
 
 		#endregion

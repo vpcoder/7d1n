@@ -162,7 +162,7 @@ namespace Engine.Story.Tutorial
                 PlayerCharacter.GetComponent<LocationCharacter>().MeshSwitcher.MeshIndex = Game.Instance.Character.Account.SpriteID;
                 
                 foreach (var story in stories)
-                    story.enabled = true;
+                    story.IsActive = true;
                 
                 // Не добавляем RuntimeObjectList, чтобы скрипт доиграл до конца гарантированно
                 // Do not add RuntimeObjectList, so that the script is guaranteed to finish

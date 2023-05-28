@@ -8,9 +8,10 @@ namespace EngineEditor.Baensi.Editors {
 	public static class ActivatorHintMessageEditorLinks {
 
 		[MenuItem("GameObject/UI/UIHintMessage/UIHintMessageWorldPosition")]
-		public static bool AddHintMessageWorldPositionContextMenu() {
+		public static bool AddHintMessageWorldPositionContextMenu()
+		{
 
-			Canvas canvas = UIHandler.Canvas;
+			Canvas canvas = ObjectFinder.Canvas;
 
 			GameObject    newObject = new GameObject();
 			RectTransform parent = newObject.AddComponent<RectTransform>();
@@ -76,9 +77,10 @@ namespace EngineEditor.Baensi.Editors {
 		}
 
 		[MenuItem("GameObject/UI/UIHintMessage/UIHintMessageScreenPosition")]
-		public static bool AddHintMessageScreenPositionContextMenu() {
+		public static bool AddHintMessageScreenPositionContextMenu()
+		{
 
-			Canvas canvas = UIHandler.Canvas;
+			Canvas canvas = ObjectFinder.Canvas;
 
 			GameObject newObject = new GameObject();
 			RectTransform parent = newObject.AddComponent<RectTransform>();

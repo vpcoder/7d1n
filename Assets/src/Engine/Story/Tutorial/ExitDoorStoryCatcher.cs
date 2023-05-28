@@ -1,7 +1,6 @@
 using Engine.Data.Factories;
 using Engine.Data.Quests;
 using Engine.Logic.Dialog;
-using Engine.Logic.Locations;
 using UnityEngine;
 
 namespace Engine.Story.Tutorial
@@ -21,7 +20,11 @@ namespace Engine.Story.Tutorial
                 Camera.main.SetState(PlayerEyePos, door);
                 QuestFactory.Instance.Get<TutorialQuest>().Stage++;
             });
-            dlg.Text("Кажется, тут не закрыто...");
+            dlg.Text("Кажется, тут закрыто...");
+            dlg.Text(" - Эй! Откройте!");
+            dlg.Text(" - ");
+            
+            
             dlg.Run(() =>
             {
                 door.transform.localRotation = Quaternion.Euler(openAngles);

@@ -33,6 +33,7 @@ namespace Engine.Data
             relationPairs = new LinkedList<IGroupRelationPair>(new[]
             {
                 // Зомби против всех
+                // Zombies Against All
                 Create(OrderGroup.ZombieGroup, OrderGroup.PlayerGroup, -100),
                 Create(OrderGroup.ZombieGroup, OrderGroup.AnotherPlayerGroup, -100),
                 Create(OrderGroup.ZombieGroup, OrderGroup.DeceasedGroup, -100),
@@ -44,6 +45,7 @@ namespace Engine.Data
                 Create(OrderGroup.ZombieGroup, OrderGroup.NewLightGroup, -100),
                 
                 // Дикие животные против всех
+                // Wild Animals Against All
                 Create(OrderGroup.WildAnimalsGroup, OrderGroup.PlayerGroup, -100),
                 Create(OrderGroup.WildAnimalsGroup, OrderGroup.AnotherPlayerGroup, -100),
                 Create(OrderGroup.WildAnimalsGroup, OrderGroup.DeceasedGroup, -100),
@@ -54,6 +56,7 @@ namespace Engine.Data
                 Create(OrderGroup.WildAnimalsGroup, OrderGroup.NewLightGroup, -100),
                 
                 // Усопшие - нейтральные с остальными
+                // The deceased are neutral with the rest
                 Create(OrderGroup.DeceasedGroup, OrderGroup.PlayerGroup, 0),
                 Create(OrderGroup.DeceasedGroup, OrderGroup.AnotherPlayerGroup, 0),
                 Create(OrderGroup.DeceasedGroup, OrderGroup.ReconstructionistsGroup, 0),
@@ -62,15 +65,19 @@ namespace Engine.Data
                 Create(OrderGroup.DeceasedGroup, OrderGroup.NewLightGroup, 0),
                 
                 // Мородёры против остальных
+                // The Morochers Against Rest of Us
                 Create(OrderGroup.MaraudersGroup, OrderGroup.PlayerGroup, -100),
                 Create(OrderGroup.MaraudersGroup, OrderGroup.AnotherPlayerGroup, -100),
                 Create(OrderGroup.MaraudersGroup, OrderGroup.DeceasedGroup, -100),
                 Create(OrderGroup.MaraudersGroup, OrderGroup.ReconstructionistsGroup, -100),
                 Create(OrderGroup.MaraudersGroup, OrderGroup.TechnocratsGroup, -100),
                 Create(OrderGroup.MaraudersGroup, OrderGroup.NewLightGroup, -100),
-                Create(OrderGroup.MaraudersGroup, OrderGroup.ScythiansGroup, 0), // К скифам относятся нейтрально
+                // К скифам относятся нейтрально
+                // The Scythians are treated neutrally
+                Create(OrderGroup.MaraudersGroup, OrderGroup.ScythiansGroup, 0),
                 
                 // Новый свет против мародёров и технократов
+                // New Light Against Morochers and Technocrats
                 Create(OrderGroup.NewLightGroup, OrderGroup.TechnocratsGroup, -100),
                 Create(OrderGroup.NewLightGroup, OrderGroup.MaraudersGroup, -100),
             });

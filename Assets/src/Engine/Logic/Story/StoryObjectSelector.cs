@@ -18,7 +18,8 @@ namespace Engine.Story
 
         private void OnMouseDown()
         {
-            if (Game.Instance.Runtime.Mode != Mode.Game)
+            if (Game.Instance.Runtime.Mode != Mode.Game
+                || Game.Instance.Runtime.ActionMode == ActionMode.Rotation)
                 return;
 
             downTime = Time.time;
@@ -40,14 +41,16 @@ namespace Engine.Story
                     return;
                 
                 var component = GetComponent<IStorySelectCatcher>();
+                if(component == null || !component.IsActive)
+                    return;
+                
                 if (CheckDistance(character))
                 {
-                    component?.SelectInDistance();
+                    component.SelectInDistance();
+                    return;
                 }
-                else
-                {
-                    component?.SelectOutDistance();
-                }
+                
+                component.SelectOutDistance();
             }
         }
 

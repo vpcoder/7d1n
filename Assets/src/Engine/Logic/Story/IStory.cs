@@ -3,7 +3,7 @@ using Engine.Logic.Dialog;
 namespace Engine.Story
 
 {
-    public interface IStory
+    public interface IStory : IStoryActive
     {
 
         void Init();

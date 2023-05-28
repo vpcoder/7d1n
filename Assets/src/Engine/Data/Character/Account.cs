@@ -3,12 +3,6 @@
 namespace Engine.Data
 {
 
-    public enum GenderType
-    {
-        Male,
-        Female,
-    };
-
     [Serializable]
     public class AccountStoryObject : IStoryObject
     {
@@ -49,6 +43,11 @@ namespace Engine.Data
         /// </summary>
         public string     Name   { get; set; } = "Robert";
 
+        /// <summary>
+        ///     Пол персонажа
+        ///     ---
+        ///     Character's gender
+        /// </summary>
         public GenderType Gender { get; set; } = GenderType.Male;
 
         #region Serialization

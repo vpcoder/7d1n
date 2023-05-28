@@ -8,7 +8,7 @@ namespace Engine.Story
     /// Story object with which the player's character can interact (receive clicks)
     /// 
     /// </summary>
-    public interface IStorySelectCatcher
+    public interface IStorySelectCatcher : IStoryActive
     {
 
         /// <summary>
