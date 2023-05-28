@@ -4,7 +4,7 @@ namespace Engine.Data
 {
 
     [Serializable]
-    public class ParametersStoryData : IStoryObject
+    public class ParametersRepositoryData : IRepositoryObject
     {
         public long ID { get { return IDValue; } set { } }
         public long IDValue;
@@ -15,7 +15,7 @@ namespace Engine.Data
         public int Endurance;
     }
 
-    public class Parameters : ICharacterStoredObjectSerializable<ParametersStoryData>
+    public class Parameters : ICharacterStoredObjectSerializable<ParametersRepositoryData>
     {
         public int Intellect { get; set; } = 0; // Интеллект
         public int Strength  { get; set; } = 0; // Сила
@@ -24,9 +24,9 @@ namespace Engine.Data
 
         #region Serialization
 
-        public ParametersStoryData CreateData()
+        public ParametersRepositoryData CreateData()
         {
-            var data = new ParametersStoryData
+            var data = new ParametersRepositoryData
             {
                 IDValue = Game.Instance.Runtime.PlayerID,
                 Intellect = Intellect,
@@ -37,7 +37,7 @@ namespace Engine.Data
             return data;
         }
 
-        public void LoadFromData(ParametersStoryData data)
+        public void LoadFromData(ParametersRepositoryData data)
         {
             this.Intellect = data.Intellect;
             this.Strength  = data.Strength;

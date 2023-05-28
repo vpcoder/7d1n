@@ -11,7 +11,7 @@ namespace Engine.Data
     /// 
     /// </summary>
     [Serializable]
-    public abstract class StoryObject : IStoryObject
+    public abstract class RepositoryObject : IRepositoryObject
     {
 
         ///<summary>

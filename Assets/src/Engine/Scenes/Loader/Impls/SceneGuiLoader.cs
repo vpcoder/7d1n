@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using Engine.Data;
 using Engine.Data.Factories;
-using Engine.Data.Stories;
+using Engine.Data.Repositories;
 using Engine.Logic.Locations;
 using Engine.Scenes;
 using Engine.Scenes.Loader;
@@ -16,7 +16,7 @@ namespace src.Engine.Scenes.Loader.Impls
         protected override void OnLoad(LoadContext context)
         {
             Debug.Log("save character data...");
-            CharacterStory.Instance.SaveAll(Game.Instance.Character);
+            CharacterRepository.Instance.SaveAll(Game.Instance.Character);
             
             Debug.Log("load location ui...");
             var canvas = ObjectFinder.Get<Canvas>("Canvas");

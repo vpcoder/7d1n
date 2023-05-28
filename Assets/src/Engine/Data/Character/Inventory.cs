@@ -1,5 +1,5 @@
 ﻿using Engine.Data.Factories;
-using Engine.Data.Stories;
+using Engine.Data.Repositories;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,7 +9,7 @@ namespace Engine.Data
 {
 
     [Serializable]
-    public class InventoryStoryObject : IStoryObject
+    public class InventoryRepositoryObject : IRepositoryObject
     {
         public long ID { get { return IDValue; } set { } }
         public long IDValue;
@@ -17,7 +17,7 @@ namespace Engine.Data
         public List<ItemInfo> Items;
     }
 
-    public class Inventory : ICharacterStoredObjectSerializable<InventoryStoryObject>
+    public class Inventory : ICharacterStoredObjectSerializable<InventoryRepositoryObject>
     {
 
         public event Action Save;
@@ -59,9 +59,9 @@ namespace Engine.Data
 
         #region Serialization
 
-        public InventoryStoryObject CreateData()
+        public InventoryRepositoryObject CreateData()
         {
-            var data = new InventoryStoryObject
+            var data = new InventoryRepositoryObject
             {
                 IDValue = Game.Instance.Runtime.PlayerID,
                 Items = Items.Select(ItemSerializator.Convert).ToList()
@@ -69,7 +69,7 @@ namespace Engine.Data
             return data;
         }
 
-        public void LoadFromData(InventoryStoryObject data)
+        public void LoadFromData(InventoryRepositoryObject data)
         {
             Items.Clear();
             if(data.Items != null)
@@ -80,8 +80,8 @@ namespace Engine.Data
 
         private void OnSave()
         {
-            CharacterStory.Instance.InventoryStory.Save(CreateData());
-            CharacterStory.Instance.EquipmentStory.Save(Game.Instance.Character.Equipment.CreateData());
+            CharacterRepository.Instance.InventoryRepository.Save(CreateData());
+            CharacterRepository.Instance.EquipmentRepository.Save(Game.Instance.Character.Equipment.CreateData());
         }
 
         

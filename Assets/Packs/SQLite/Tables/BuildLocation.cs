@@ -6,7 +6,7 @@ namespace Engine.DB
 
 	[Serializable]
 	[Table("build_location")]
-	public class BuildLocation : Dto, IStoryObject
+	public class BuildLocation : Dto, IRepositoryObject
     {
 
         [Column("timestamp")]

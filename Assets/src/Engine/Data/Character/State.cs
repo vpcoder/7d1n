@@ -4,7 +4,7 @@ namespace Engine.Data
 {
 	
 	[Serializable]
-	public class StateStoryObject : IStoryObject
+	public class StateRepositoryObject : IRepositoryObject
     {
         public long ID { get { return IDValue; } set { } }
         public long IDValue;
@@ -19,7 +19,7 @@ namespace Engine.Data
         public int  MaxAP;
     }
     
-	public class State : ICharacterStoredObjectSerializable<StateStoryObject>
+	public class State : ICharacterStoredObjectSerializable<StateRepositoryObject>
     {
 
         #region Properties
@@ -45,9 +45,9 @@ namespace Engine.Data
 
 #region Serialization
 
-        public StateStoryObject CreateData()
+        public StateRepositoryObject CreateData()
         {
-            var data = new StateStoryObject
+            var data = new StateRepositoryObject
             {
                 IDValue = Game.Instance.Runtime.PlayerID,
                 Health = Health,
@@ -62,7 +62,7 @@ namespace Engine.Data
             return data;
         }
 
-        public void LoadFromData(StateStoryObject data)
+        public void LoadFromData(StateRepositoryObject data)
         {
             this.Health     = data.Health;
             this.MaxHealth  = data.MaxHealth;

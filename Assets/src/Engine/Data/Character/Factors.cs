@@ -11,7 +11,7 @@ namespace Engine.Data
     }
 
     [Serializable]
-    public class FactorStoryObject : IStoryObject
+    public class FactorRepositoryObject : IRepositoryObject
     {
         public long ID { get { return IDValue; } set { } }
         public long IDValue;
@@ -19,21 +19,21 @@ namespace Engine.Data
         
     }
 
-    public class Factors : ICharacterStoredObjectSerializable<FactorStoryObject>
+    public class Factors : ICharacterStoredObjectSerializable<FactorRepositoryObject>
     {
 
         #region Serialization
 
-        public FactorStoryObject CreateData()
+        public FactorRepositoryObject CreateData()
         {
-            var data = new FactorStoryObject
+            var data = new FactorRepositoryObject
             {
                 IDValue = Game.Instance.Runtime.PlayerID,
             };
             return data;
         }
 
-        public void LoadFromData(FactorStoryObject data)
+        public void LoadFromData(FactorRepositoryObject data)
         {
 
         }

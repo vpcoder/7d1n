@@ -4,7 +4,7 @@ namespace Engine.Data
 {
 
     [Serializable]
-    public class AccountStoryObject : IStoryObject
+    public class AccountRepositoryObject : IRepositoryObject
     {
         public long         ID { get { return IDValue; } set { } }
         public long         IDValue;
@@ -22,7 +22,7 @@ namespace Engine.Data
     /// May contain information about the character or player
     /// 
     /// </summary>
-    public class Account : ICharacterStoredObjectSerializable<AccountStoryObject>
+    public class Account : ICharacterStoredObjectSerializable<AccountRepositoryObject>
     {
 
         /// <summary>
@@ -52,9 +52,9 @@ namespace Engine.Data
 
         #region Serialization
 
-        public AccountStoryObject CreateData()
+        public AccountRepositoryObject CreateData()
         {
-            var data = new AccountStoryObject
+            var data = new AccountRepositoryObject
             {
                 IDValue  = Game.Instance.Runtime.PlayerID,
                 SpriteID = SpriteID,
@@ -64,7 +64,7 @@ namespace Engine.Data
             return data;
         }
 
-        public void LoadFromData(AccountStoryObject data)
+        public void LoadFromData(AccountRepositoryObject data)
         {
             this.SpriteID = data.SpriteID;
             this.Name     = data.Name;

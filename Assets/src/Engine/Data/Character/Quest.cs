@@ -16,7 +16,7 @@ namespace Engine.Data
     }
     
     [Serializable]
-    public class QuestStoryObject : IStoryObject
+    public class QuestRepositoryObject : IRepositoryObject
     {
         public long   ID { get { return IDValue; } set { } }
         public long   IDValue;
@@ -31,14 +31,14 @@ namespace Engine.Data
     /// 
     /// 
     /// </summary>
-    public class Quest : ICharacterStoredObjectSerializable<QuestStoryObject>
+    public class Quest : ICharacterStoredObjectSerializable<QuestRepositoryObject>
     {
         
         #region Serialization
 
-        public QuestStoryObject CreateData()
+        public QuestRepositoryObject CreateData()
         {
-            var data = new QuestStoryObject
+            var data = new QuestRepositoryObject
             {
                 IDValue  = Game.Instance.Runtime.PlayerID,
                 Quests   = QuestFactory.Instance.GetActiveQuests().ToList(),
@@ -46,7 +46,7 @@ namespace Engine.Data
             return data;
         }
 
-        public void LoadFromData(QuestStoryObject data)
+        public void LoadFromData(QuestRepositoryObject data)
         {
             QuestFactory.Instance.SetQuests(data.Quests);
         }

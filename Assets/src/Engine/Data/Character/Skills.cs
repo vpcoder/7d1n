@@ -1,13 +1,13 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using Engine.Data.Stories;
+using Engine.Data.Repositories;
 
 namespace Engine.Data
 {
 
     [Serializable]
-    public class SkillsStoryObject : IStoryObject
+    public class SkillsRepositoryObject : IRepositoryObject
     {
         public long ID { get { return IDValue; } set { } }
         public long IDValue;
@@ -18,7 +18,7 @@ namespace Engine.Data
     }
 
 
-    public class Skills : ICharacterStoredObjectSerializable<SkillsStoryObject>
+    public class Skills : ICharacterStoredObjectSerializable<SkillsRepositoryObject>
     {
 
         /// <summary>
@@ -44,7 +44,7 @@ namespace Engine.Data
         {
             var result = blueprints.Add(blueprintId);
             if(result)
-                CharacterStory.Instance.SkillsStory.Save(CreateData());
+                CharacterRepository.Instance.SkillsRepository.Save(CreateData());
             return result;
         }
         
@@ -63,15 +63,15 @@ namespace Engine.Data
         {
             var result = skills.Add(skillId);
             if(result)
-                CharacterStory.Instance.SkillsStory.Save(CreateData());
+                CharacterRepository.Instance.SkillsRepository.Save(CreateData());
             return result;
         }
 
         #region Serialization
 
-        public SkillsStoryObject CreateData()
+        public SkillsRepositoryObject CreateData()
         {
-            var data = new SkillsStoryObject
+            var data = new SkillsRepositoryObject
             {
                 IDValue = Game.Instance.Runtime.PlayerID,
                 SkillsData = skills.ToList(),
@@ -80,7 +80,7 @@ namespace Engine.Data
             return data;
         }
 
-        public void LoadFromData(SkillsStoryObject data)
+        public void LoadFromData(SkillsRepositoryObject data)
         {
             skills = data.SkillsData.ToSet();
             blueprints = data.BlueprintsData.ToSet();

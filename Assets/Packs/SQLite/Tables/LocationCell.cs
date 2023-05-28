@@ -6,7 +6,7 @@ namespace Engine.DB
     
 	[Serializable]
 	[Table("location_cell")]
-	public class LocationCell : Dto, IStoryObject
+	public class LocationCell : Dto, IRepositoryObject
     {
 
         [Column("pos_x")]

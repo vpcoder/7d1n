@@ -1,4 +1,4 @@
-﻿using Engine.Data.Stories;
+﻿using Engine.Data.Repositories;
 using System;
 using System.Linq;
 
@@ -6,7 +6,7 @@ namespace Engine.Data
 {
 
     [Serializable]
-    public class EquipmentStoryObject : IStoryObject
+    public class EquipmentRepositoryObject : IRepositoryObject
     {
         public long ID { get { return IDValue; } set { } }
         public long IDValue;
@@ -20,7 +20,7 @@ namespace Engine.Data
         public int Use2Index;
     }
 
-    public class Equipment : ICharacterStoredObjectSerializable<EquipmentStoryObject>
+    public class Equipment : ICharacterStoredObjectSerializable<EquipmentRepositoryObject>
     {
 
         public ICloth Head { get; set; }
@@ -79,7 +79,7 @@ namespace Engine.Data
 
             if(result)
             {
-                CharacterStory.Instance.EquipmentStory.Save(CreateData());
+                CharacterRepository.Instance.EquipmentRepository.Save(CreateData());
             }
 
             return result;
@@ -95,10 +95,10 @@ namespace Engine.Data
 
         #region Serialization
 
-        public EquipmentStoryObject CreateData()
+        public EquipmentRepositoryObject CreateData()
         {
             var inventory = Game.Instance.Character.Inventory;
-            var data = new EquipmentStoryObject
+            var data = new EquipmentRepositoryObject
             {
                 IDValue = Game.Instance.Runtime.PlayerID,
                 HeadIndex = inventory.TryFindIndex(Head),
@@ -112,7 +112,7 @@ namespace Engine.Data
             return data;
         }
 
-        public void LoadFromData(EquipmentStoryObject data)
+        public void LoadFromData(EquipmentRepositoryObject data)
         {
             var inventory = Game.Instance.Character.Inventory;
             Head = (ICloth) inventory.GetByIndex(data.HeadIndex);

@@ -12,7 +12,7 @@ namespace Engine.Data
     /// Allows to store object data
     /// 
     /// </summary>
-    public interface IStoryObject : IDto
+    public interface IRepositoryObject : IDto
     {
 
     }

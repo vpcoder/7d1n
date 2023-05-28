@@ -4,7 +4,7 @@ namespace Engine.Data
 {
 
     [Serializable]
-    public class ExpDataStoryObject : IStoryObject
+    public class ExpDataRepositoryObject : IRepositoryObject
     {
         public long ID { get { return IDValue; } set { } }
         public long IDValue;
@@ -25,7 +25,7 @@ namespace Engine.Data
         Fight,
     };
     
-	public class Exps : ICharacterStoredObjectSerializable<ExpDataStoryObject>
+	public class Exps : ICharacterStoredObjectSerializable<ExpDataRepositoryObject>
     {
         public ExpField MainExperience   { get; set; } = new ExpField(0,  70, 0, 0); // Общий опыт выживания
 
@@ -50,9 +50,9 @@ namespace Engine.Data
         
         #region Serialization
 
-        public ExpDataStoryObject CreateData()
+        public ExpDataRepositoryObject CreateData()
         {
-            var data = new ExpDataStoryObject
+            var data = new ExpDataRepositoryObject
             {
                 IDValue = Game.Instance.Runtime.PlayerID,
                 MainExperience = MainExperience,
@@ -64,7 +64,7 @@ namespace Engine.Data
             return data;
         }
 
-        public void LoadFromData(ExpDataStoryObject data)
+        public void LoadFromData(ExpDataRepositoryObject data)
         {
             this.MainExperience  = data.MainExperience;
             this.LootExperience  = data.LootExperience;

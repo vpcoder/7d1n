@@ -1,14 +1,14 @@
 ﻿using System.Text;
 using UnityEngine;
 
-namespace Engine.Data.Stories
+namespace Engine.Data.Repositories
 {
 
     /// <summary>
     /// Прокси для хранилища на основе файлов
     /// </summary>
     /// <typeparam name="T">Тип объекта в хранилище</typeparam>
-    public abstract class FileStoryProxyBase<T> : StoryProxyBase<T> where T : class, IStoryObject
+    public abstract class FileRepositoryProxyBase<T> : RepositoryProxyBase<T> where T : class, IRepositoryObject
     {
 
         public abstract string DirName { get; }

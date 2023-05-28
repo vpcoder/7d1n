@@ -1,5 +1,5 @@
 ﻿using Engine.Data.Factories;
-using Engine.Data.Stories;
+using Engine.Data.Repositories;
 using Engine.DB;
 using Engine.EGUI;
 using System.Text;
@@ -46,7 +46,7 @@ namespace Engine.Logic
             if (Player == null)
                 return "";
 
-            var character = CharacterStory.Instance.ExpsStory.Get(Player.ID);
+            var character = CharacterRepository.Instance.ExpsRepository.Get(Player.ID);
             var builder = new StringBuilder();
             builder.Append(Localization.Instance.Get("msg_mainlevel"));
             builder.Append(": ");
@@ -60,7 +60,7 @@ namespace Engine.Logic
         public void OnDeleteClick()
         {
             Hide();
-            CharacterStory.Instance.Delete(Player.ID);
+            CharacterRepository.Instance.Delete(Player.ID);
             PlayerFactory.Instance.Delete(Player.ID);
             ObjectFinder.Find<SelectPlayerController>().Show();
         }

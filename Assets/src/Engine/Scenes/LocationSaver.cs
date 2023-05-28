@@ -1,5 +1,5 @@
 ﻿using Engine.Data;
-using Engine.Data.Stories;
+using Engine.Data.Repositories;
 using Engine.DB;
 using Engine.Logic.Locations;
 using System;
@@ -23,7 +23,7 @@ namespace Engine.Logic
             dataObject.Timestamp = DateTime.Now.Ticks.ToString();
             dataObject.ID = location.ID;
             dataObject.Data = JsonUtility.ToJson(locationDataSet);
-            BuildLocationStory.Instance.Save(dataObject);
+            BuildLocationRepository.Instance.Save(dataObject);
         }
 
         /// <summary>

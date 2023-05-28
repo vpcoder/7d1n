@@ -1,14 +1,14 @@
 ﻿
-namespace Engine.Data.Stories
+namespace Engine.Data.Repositories
 {
 
-    public class CharParametersProxy : FileStoryProxyBase<ParametersStoryData>
+    public class CharParametersProxy : FileRepositoryProxyBase<ParametersRepositoryData>
     {
 
         public override string DirName => "Chars";
         public override string FileName => "Parameters";
 
-        public override ParametersStoryData CreateDefault()
+        public override ParametersRepositoryData CreateDefault()
         {
             return new Parameters().CreateData();
         }

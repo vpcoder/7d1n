@@ -1,5 +1,4 @@
 ﻿using Engine.Logic.Locations.Generator;
-using Engine.Map;
 using Engine.Scenes;
 using System;
 using UnityEngine;
@@ -16,17 +15,17 @@ namespace Engine.Data
         public ActionMode ActionMode { get; set; } = ActionMode.Move;
 
         /// <summary>
-        /// Возвращает текущую сцену
+        ///     Возвращает текущую сцену
+        ///     ---
+        ///     Returns the current scene
         /// </summary>
         public SceneName Scene
         {
             get
             {
-                // Получаем сцену
                 var scene = UnityEngine.SceneManagement.SceneManager.GetActiveScene();
                 try
                 {
-                    // Преобразуем в наш enum
                     var value = Enums<SceneName>.Parse(scene.name);
                     return value;
                 }

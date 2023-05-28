@@ -1,14 +1,14 @@
 ﻿
-namespace Engine.Data.Stories
+namespace Engine.Data.Repositories
 {
 
-    public class CharExpsProxy : FileStoryProxyBase<ExpDataStoryObject>
+    public class CharExpsProxy : FileRepositoryProxyBase<ExpDataRepositoryObject>
     {
 
         public override string DirName => "Chars";
         public override string FileName => "Exps";
 
-        public override ExpDataStoryObject CreateDefault()
+        public override ExpDataRepositoryObject CreateDefault()
         {
             return new Exps().CreateData();
         }

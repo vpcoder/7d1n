@@ -16,7 +16,7 @@ namespace Engine.Data
     ///     ---
     ///     Type of character parameter to be stored
     /// </typeparam>
-    public interface ICharacterStoredObjectSerializable<T> where T : class, IStoryObject
+    public interface ICharacterStoredObjectSerializable<T> where T : class, IRepositoryObject
     {
 
         /// <summary>

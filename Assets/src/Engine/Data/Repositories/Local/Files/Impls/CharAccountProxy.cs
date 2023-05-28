@@ -1,14 +1,14 @@
 ﻿
-namespace Engine.Data.Stories
+namespace Engine.Data.Repositories
 {
 
-    public class CharAccountProxy : FileStoryProxyBase<AccountStoryObject>
+    public class CharAccountProxy : FileRepositoryProxyBase<AccountRepositoryObject>
     {
 
         public override string DirName => "Chars";
         public override string FileName => "Account";
 
-        public override AccountStoryObject CreateDefault()
+        public override AccountRepositoryObject CreateDefault()
         {
             return new Account().CreateData();
         }

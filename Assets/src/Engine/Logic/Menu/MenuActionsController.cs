@@ -1,5 +1,5 @@
 ﻿using Engine.Data;
-using Engine.Data.Stories;
+using Engine.Data.Repositories;
 using Engine.DB;
 using Engine.Logic.Load;
 using Engine.Scenes;
@@ -38,7 +38,7 @@ namespace Engine.Logic
             else
             {
                 Game.Instance.Runtime.PlayerID = playerID;
-                CharacterStory.Instance.LoadAll(Game.Instance.Character);
+                CharacterRepository.Instance.LoadAll(Game.Instance.Character);
             }
 
             txtMeta.text = DbConfigurator.CreateMeta();
@@ -52,7 +52,7 @@ namespace Engine.Logic
             buttonsPanel.SetActive(false);
 
             load.SetDescription(Localization.Instance.Get("ui_menu_load_playerdata"));
-            CharacterStory.Instance.LoadAll(Game.Instance.Character);
+            CharacterRepository.Instance.LoadAll(Game.Instance.Character);
 
             load.SetDescription(Localization.Instance.Get("ui_menu_load_mapscene"));
             SceneManager.Instance.Switch(SceneName.TutorialStart);
@@ -79,7 +79,7 @@ namespace Engine.Logic
         public void OnClearDBClick()
         {
             for (int i = 0; i < 10; i++)
-                CharacterStory.Instance.Delete(i);
+                CharacterRepository.Instance.Delete(i);
             DbConfigurator.DoResetDB();
         }
 

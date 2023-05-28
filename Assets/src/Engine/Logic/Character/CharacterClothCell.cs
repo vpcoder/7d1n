@@ -1,5 +1,5 @@
 ﻿using Engine.Data;
-using Engine.Data.Stories;
+using Engine.Data.Repositories;
 using Engine.Logic.Locations;
 using System;
 using UnityEngine;
@@ -298,7 +298,7 @@ namespace Engine.Logic
             }
 
             // Сбрасываем информацию на диск
-            CharacterStory.Instance.EquipmentStory.Save(Game.Instance.Character.Equipment.CreateData());
+            CharacterRepository.Instance.EquipmentRepository.Save(Game.Instance.Character.Equipment.CreateData());
 
             // Перерисовываем информацию ячейки
             UpdateInfo();

@@ -1,14 +1,14 @@
 ﻿
-namespace Engine.Data.Stories
+namespace Engine.Data.Repositories
 {
 
-    public class CharSkillsProxy : FileStoryProxyBase<SkillsStoryObject>
+    public class CharSkillsProxy : FileRepositoryProxyBase<SkillsRepositoryObject>
     {
 
         public override string DirName => "Chars";
         public override string FileName => "Skills";
 
-        public override SkillsStoryObject CreateDefault()
+        public override SkillsRepositoryObject CreateDefault()
         {
             return new Skills().CreateData();
         }

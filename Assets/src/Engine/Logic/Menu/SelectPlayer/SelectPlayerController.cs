@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 using Engine.Data;
-using Engine.Data.Stories;
+using Engine.Data.Repositories;
 using Engine.DB;
 using Engine.EGUI;
 using UnityEngine;
@@ -90,7 +90,7 @@ namespace Engine.Logic
             // Заводим информацию о новом персонаже в хранилище
             Game.Instance.Character.Account.SpriteID = player.BodyID;
             Game.Instance.Character.Account.Name     = player.Name;
-            CharacterStory.Instance.AccountStory.Save(Game.Instance.Character.Account.CreateData());
+            CharacterRepository.Instance.AccountRepository.Save(Game.Instance.Character.Account.CreateData());
 
             // Добавляем персонажа в БД
             PlayerFactory.Instance.Save(player);
@@ -113,7 +113,7 @@ namespace Engine.Logic
             GameSettings.Instance.SaveSettings();
 
             // Подтягиваем информацию о персонаже
-            CharacterStory.Instance.LoadAll(Game.Instance.Character);
+            CharacterRepository.Instance.LoadAll(Game.Instance.Character);
         }
 
         public void OnSelectClick()

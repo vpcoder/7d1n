@@ -16,17 +16,23 @@ namespace Engine.Data
         #endregion
 
         /// <summary>
-        /// Хранит информацию о сборке
+        ///     Хранит информацию о сборке
+        ///     ---
+        ///     Stores information about the assembly
         /// </summary>
         public Buildtime Buildtime = new Buildtime();
 
         /// <summary>
-        /// Хранит информацию о персонаже
+        ///     Хранит информацию о персонаже
+        ///     ---
+        ///     Stores information about the character
         /// </summary>
         public Character Character = new Character();
 
         /// <summary>
-        /// Контекст рантайма (хранит информацию исключительно для работы приложения)
+        ///     Контекст рантайма (хранит информацию исключительно для работы приложения)
+        ///     ---
+        ///     Runtime context (stores information solely for the operation of the application)
         /// </summary>
         public Runtime Runtime = new Runtime();
 

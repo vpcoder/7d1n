@@ -1,14 +1,14 @@
 ﻿
-namespace Engine.Data.Stories
+namespace Engine.Data.Repositories
 {
 
-    public class CharQuestProxy : FileStoryProxyBase<QuestStoryObject>
+    public class CharQuestProxy : FileRepositoryProxyBase<QuestRepositoryObject>
     {
 
         public override string DirName => "Chars";
         public override string FileName => "Quest";
 
-        public override QuestStoryObject CreateDefault()
+        public override QuestRepositoryObject CreateDefault()
         {
             return new Quest().CreateData();
         }

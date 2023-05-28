@@ -1,5 +1,5 @@
 ﻿using Engine.Data;
-using Engine.Data.Stories;
+using Engine.Data.Repositories;
 using Engine.EGUI;
 using Engine.Scenes;
 
@@ -11,7 +11,7 @@ namespace Engine.Logic
 
         public void OnExitClick()
         {
-            CharacterStory.Instance.SaveAll(Game.Instance.Character);
+            CharacterRepository.Instance.SaveAll(Game.Instance.Character);
             SceneManager.Instance.Switch(SceneName.Menu);
         }
 
