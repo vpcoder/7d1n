@@ -1,3 +1,4 @@
+using Engine.Logic.Locations;
 using Engine.Story.Actions;
 using UnityEngine;
 using UnityEngine.UI;
@@ -51,6 +52,20 @@ namespace Engine.Story
             var obj = Create<BackgroundFaderStoryAction>(image.gameObject);
             obj.Init(image, from, to, speed);
             return obj;
+        }
+
+        public static NpcLookAtStoryAction NpcLookAt(CharacterNpcBehaviour npc, Transform target, float speed = 1f)
+        {
+            var action = Create<NpcLookAtStoryAction>(npc.gameObject);
+            action.Init(npc, target, speed);
+            return action;
+        }
+        
+        public static NpcGoToStoryAction NpcGoTo(CharacterNpcBehaviour npc, Transform target, float speed = 1f)
+        {
+            var action = Create<NpcGoToStoryAction>(npc.gameObject);
+            action.Init(npc, target, speed);
+            return action;
         }
         
     }
