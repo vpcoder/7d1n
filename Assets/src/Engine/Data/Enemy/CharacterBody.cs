@@ -17,8 +17,12 @@ namespace Engine.Data
         [SerializeField] public OrderGroup orderGroup = OrderGroup.ZombieGroup;
         [SerializeField] public int Protection = 1;
         [SerializeField] public int Health = 100;
+
+        [SerializeField] public bool IsRandomItemsGeneration = true;
         [SerializeField] public string ItemsForGeneration = "";
         [SerializeField] public int ItemsMaxCountForGeneration = 0;
+        
+        [SerializeField] public bool IsRandomWeaponsGeneration = true;
         [SerializeField] public string WeaponsForGeneration = "";
         [SerializeField] public int WeaponsMaxCountForGeneration = 0;
     }
@@ -30,6 +34,7 @@ namespace Engine.Data
         [SerializeField] private Avatar avatar;
         [SerializeField] private Transform weaponPoint;
         [SerializeField] private CharData charData;
+        [SerializeField] private Transform root;
 
         public RuntimeAnimatorController Controller
         {
@@ -48,6 +53,12 @@ namespace Engine.Data
             set { weaponPoint = value; }
         }
 
+        public Transform Root
+        {
+            get { return root; }
+            set { root = value; }
+        }
+        
         private ICharacter cachedCharacter;
 
         public ICharacter Character
@@ -76,7 +87,8 @@ namespace Engine.Data
             character.OrderGroup = this.charData.orderGroup;
             character.Protection = this.charData.Protection;
             character.Health = this.charData.Health;
-
+            character.GenerationInfo = new CharacterLootGeneration();
+            
             var parts = new List<ResourcePair>();
             foreach (var itemData in this.charData.ItemsForGeneration.Split(';'))
             {
@@ -91,37 +103,94 @@ namespace Engine.Data
                 }
                 var id = long.Parse(item[0]);
                 var count = long.Parse(item[1]);
-                parts.Add(new ResourcePair() { ResourceID = long.Parse(item[0]), ResourceCount = long.Parse(item[1])});
+                parts.Add(new ResourcePair() { ResourceID = id, ResourceCount = count});
             }
-            character.ItemsForGeneration = parts;
 
+            var genInfo = character.GenerationInfo;
+            genInfo.ItemsForGeneration = parts;
+            genInfo.ItemsMaxCountForGeneration = this.charData.ItemsMaxCountForGeneration;
+            genInfo.IsRandomItemsGeneration = this.charData.IsRandomItemsGeneration;
+            if(genInfo.IsRandomItemsGeneration)
+                GenerateRandomItems(character);
+            else
+                GenerateItems(character);
+            
             var weapons = this.charData.WeaponsForGeneration.Split(';')
                 .Where(item => !string.IsNullOrWhiteSpace(item))
                 .Select(id => long.Parse(id))
                 .ToList();
-            character.WeaponsForGeneration = weapons;
-
-            character.ItemsMaxCountForGeneration = this.charData.ItemsMaxCountForGeneration;
-            character.WeaponsMaxCountForGeneration = this.charData.WeaponsMaxCountForGeneration;
-
-            GenerateItems(character);
+            genInfo.WeaponsForGeneration = weapons;
+            genInfo.WeaponsMaxCountForGeneration = this.charData.WeaponsMaxCountForGeneration;
+            genInfo.IsRandomWeaponsGeneration = this.charData.IsRandomWeaponsGeneration;
+            if(genInfo.IsRandomWeaponsGeneration)
+                GenerateRandomWeapons(character);
+            else
+                GenerateWeapons(character);
+            PostProcessWeapons(character);
+            
             return character;
         }
 
         private void GenerateItems(ICharacter character)
         {
-            character.Weapons = new List<IWeapon>();
+            var genInfo = character.GenerationInfo;
+            character.Items = new List<IItem>();
+            
+            foreach (var part in genInfo.ItemsForGeneration)
+            {
+                IItem item = ItemFactory.Instance.Create(part.ResourceID, part.ResourceCount);
+                character.Items.Add(item);
+            }
+        }
+        
+        private void GenerateRandomItems(ICharacter character)
+        {
+            var genInfo = character.GenerationInfo;
             character.Items = new List<IItem>();
 
-            var genWeaponsCount = Random.Range(1, character.WeaponsMaxCountForGeneration + 1);
-            var genItemsCount = Random.Range(1, character.ItemsMaxCountForGeneration + 1);
+            var genItemsCount = Random.Range(1, genInfo.ItemsMaxCountForGeneration + 1);
+            
+            if (genInfo.ItemsForGeneration != null && genInfo.ItemsForGeneration.Count > 0)
+            {
+                for (int i = 0; i < genItemsCount; i++)
+                {
+                    int index = Random.Range(0, genInfo.ItemsForGeneration.Count);
+                    var part = genInfo.ItemsForGeneration[index];
+                    IItem item = ItemFactory.Instance.Create(part.ResourceID, part.ResourceCount);
+                    character.Items.Add(item);
+                }
+            }
+        }
 
-            if (character.WeaponsForGeneration.Count > 0)
+        private void GenerateWeapons(ICharacter character)
+        {
+            var genInfo = character.GenerationInfo;
+            character.Weapons = new List<IWeapon>();
+
+            foreach (var weaponID in genInfo.WeaponsForGeneration)
+            {
+                IWeapon weapon = (IWeapon)ItemFactory.Instance.Create(weaponID, 1);
+                IFirearmsWeapon firearms = weapon.Type == GroupType.WeaponFirearms ? (IFirearmsWeapon)weapon : null;
+                if (firearms != null)
+                    firearms.AmmoCount = firearms.AmmoStackSize;
+
+                character.Weapons.Add(weapon);
+            }
+        }
+        
+        private void GenerateRandomWeapons(ICharacter character)
+        {
+            var genInfo = character.GenerationInfo;
+            character.Weapons = new List<IWeapon>();
+
+            var genWeaponsCount = Random.Range(1, genInfo.WeaponsMaxCountForGeneration + 1);
+
+            if (genInfo.WeaponsForGeneration.Count > 0)
             {
                 for (int i = 0; i < genWeaponsCount; i++)
                 {
-                    int index = Random.Range(0, character.WeaponsForGeneration.Count);
-                    IWeapon weapon = (IWeapon)ItemFactory.Instance.Create(character.WeaponsForGeneration[index], 1);
+                    int index = Random.Range(0, genInfo.WeaponsForGeneration.Count);
+                    IWeapon weapon = (IWeapon)ItemFactory.Instance.Create(genInfo.WeaponsForGeneration[index], 1);
                     IFirearmsWeapon firearms = weapon.Type == GroupType.WeaponFirearms ? (IFirearmsWeapon)weapon : null;
                     if (firearms != null)
                         firearms.AmmoCount = firearms.AmmoStackSize;
@@ -129,32 +198,29 @@ namespace Engine.Data
                     character.Weapons.Add(weapon);
                 }
             }
+        }
+
+        private void PostProcessWeapons(ICharacter character)
+        {
+            if (character.Weapons == null)
+                character.Weapons = new List<IWeapon>();
+            
             if (character.OrderGroup == OrderGroup.ZombieGroup)
             {
-                character.Weapons.Add((IWeapon)ItemFactory.Instance.Get(DataDictionary.Weapons.WEAPON_SYSTEM_ZOMBIE_HANDS)); // Руки зомби
-                character.Weapons.Add((IWeapon)ItemFactory.Instance.Get(DataDictionary.Weapons.WEAPON_SYSTEM_TOOTHS)); // Зубы зомби
+                character.Weapons.Add((IWeapon)ItemFactory.Instance.Get(DataDictionary.Weapons.WEAPON_SYSTEM_ZOMBIE_HANDS));
+                character.Weapons.Add((IWeapon)ItemFactory.Instance.Get(DataDictionary.Weapons.WEAPON_SYSTEM_TOOTHS));
             }
             else
             {
-                character.Weapons.Add((IWeapon)ItemFactory.Instance.Get(DataDictionary.Weapons.WEAPON_SYSTEM_HANDS)); // Руки
+                character.Weapons.Add((IWeapon)ItemFactory.Instance.Get(DataDictionary.Weapons.WEAPON_SYSTEM_HANDS));
             }
 
-            if (character.Weapons.Count > 0)
+            if (character.Weapons.Count > 1)
             {
                 character.Weapons.Sort((o1, o2) =>
                 {
                     return o1.Damage - o2.Damage;
                 });
-            }
-            if (character.ItemsForGeneration != null && character.ItemsForGeneration.Count > 0)
-            {
-                for (int i = 0; i < genItemsCount; i++)
-                {
-                    int index = Random.Range(0, character.ItemsForGeneration.Count);
-                    var part = character.ItemsForGeneration[index];
-                    IItem item = ItemFactory.Instance.Create(part.ResourceID, part.ResourceCount);
-                    character.Items.Add(item);
-                }
             }
         }
 

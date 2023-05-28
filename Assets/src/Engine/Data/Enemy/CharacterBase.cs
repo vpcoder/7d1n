@@ -68,34 +68,13 @@ namespace Engine.Data
         ///     Items in the bag
         /// </summary>
         public List<IItem> Items { get; set; }
-
+        
         /// <summary>
-        ///     Генерируемое оружие, которым враг будет пользоваться
+        ///     Генерируемые предметы у NPC
         ///     ---
-        ///     Generated weapons that the character will use
+        ///     Generated items from NPCs
         /// </summary>
-        public List<long> WeaponsForGeneration { get; set; }
-
-        /// <summary>
-        ///     Максимальное число генерируемого оружия
-        ///     ---
-        ///     Maximum number of weapons generated
-        /// </summary>
-        public int WeaponsMaxCountForGeneration { get; set; }
-
-        /// <summary>
-        ///     Генерируемые предметы находящиеся в сумках у врага
-        ///     ---
-        ///     Generated items found in character bags
-        /// </summary>
-        public List<ResourcePair> ItemsForGeneration { get; set; }
-
-        /// <summary>
-        ///     Максимальное число генерируемых предметов
-        ///     ---
-        ///     Maximum number of generated items
-        /// </summary>
-        public int ItemsMaxCountForGeneration { get; set; }
+        public CharacterLootGeneration GenerationInfo { get; set; }
 
         /// <summary>
         ///     Выполняет копирование текущего экземпляра врага

@@ -200,6 +200,10 @@ namespace Engine.Logic.Locations
                 var weaponBehaviour = weaponBody.GetComponent<IWeaponBehaviour>();
                 weaponBody.transform.localPosition = weaponBehaviour.PositionOffset;
                 weaponBody.transform.localRotation = Quaternion.Euler(weaponBehaviour.RotationOffset);
+                var rootScale = CharacterBody.Root.localScale;
+                weaponBody.transform.localScale = new Vector3(1f / rootScale.x,
+                                                              1f / rootScale.z,
+                                                              1f / rootScale.z);
                 Destroy(weaponBody.GetComponent<LocationDroppedItemBehaviour>());
                 this.WeaponObject = weaponBody;
             }

@@ -23,7 +23,7 @@ namespace Engine.Logic.Locations
             {
                 npc.Animator.SetCharacterEquipWeaponType(actionContext.Weapon.WeaponType);
             }
-            npc.Weapon = actionContext.Weapon;
+            npc.EquipWeapon(actionContext.Weapon);
             return true;
         }
 

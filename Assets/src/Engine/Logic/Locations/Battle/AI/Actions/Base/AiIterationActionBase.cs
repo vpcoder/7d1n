@@ -1,4 +1,6 @@
 ﻿
+using UnityEngine;
+
 namespace Engine.Logic.Locations
 {
 
@@ -122,6 +124,13 @@ namespace Engine.Logic.Locations
         /// </returns>
         public bool Iteration(CharacterNpcBehaviour npc, NpcBaseActionContext actionContext, float timestamp)
         {
+#if UNITY_EDITOR && DEBUG
+            if (!typeof(T).IsAssignableFrom(actionContext.GetType()))
+            {
+                Debug.LogError("iteration " + GetType().FullName + " incorrect for type " + typeof(T).FullName + ". ActionType: '" + ActionType.ToString() + "'");
+                return true;
+            }
+#endif
             return Iteration(npc, (T)actionContext, timestamp);
         }
 
@@ -142,6 +151,13 @@ namespace Engine.Logic.Locations
         /// </param>
         public void Start(CharacterNpcBehaviour npc, NpcBaseActionContext actionContext)
         {
+#if UNITY_EDITOR && DEBUG
+            if (!typeof(T).IsAssignableFrom(actionContext.GetType()))
+            {
+                Debug.LogError("iteration " + GetType().FullName + " incorrect for type " + typeof(T).FullName + ". ActionType: '" + ActionType.ToString() + "'");
+                return;
+            }
+#endif
             Start(npc, (T)actionContext);
         }
 
@@ -162,6 +178,13 @@ namespace Engine.Logic.Locations
         /// </param>
         public void End(CharacterNpcBehaviour npc, NpcBaseActionContext actionContext, float timestamp)
         {
+#if UNITY_EDITOR && DEBUG
+            if (!typeof(T).IsAssignableFrom(actionContext.GetType()))
+            {
+                Debug.LogError("iteration " + GetType().FullName + " incorrect for type " + typeof(T).FullName + ". ActionType: '" + ActionType.ToString() + "'");
+                return;
+            }
+#endif
             End(npc, (T)actionContext, timestamp);
         }
 

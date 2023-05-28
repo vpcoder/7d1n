@@ -21,6 +21,7 @@ namespace Engine.Data
         public List<ResourcePair> ItemsForGeneration { get { return null; } set { } }
         public int ItemsMaxCountForGeneration { get { return 0; } set { } }
         public long ID { get { return Game.Instance.Character.Account.SpriteID; } set { } }
+        public CharacterLootGeneration GenerationInfo { get { return null; } set { } }
 
         public IIdentity Copy()
         {

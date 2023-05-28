@@ -155,6 +155,7 @@ namespace UnityEditor.Menu
             switcher.Renderer = meshData.GetComponent<SkinnedMeshRenderer>();
             character.MeshSwitcher = switcher;
             character.CharacterBody = characterBody;
+            characterBody.Root = root;
             
 
             var weaponPoint = TryFindRoot(root, "WeaponPoint")?.gameObject;

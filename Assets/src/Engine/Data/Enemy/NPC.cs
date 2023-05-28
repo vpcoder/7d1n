@@ -16,10 +16,15 @@ namespace Engine.Data
                 OrderGroup = OrderGroup,
                 Protection = Protection,
                 Health = Health,
-                ItemsForGeneration = ItemsForGeneration?.ToList(),
-                ItemsMaxCountForGeneration = ItemsMaxCountForGeneration,
-                WeaponsForGeneration = WeaponsForGeneration?.ToList(),
-                WeaponsMaxCountForGeneration = WeaponsMaxCountForGeneration,
+                GenerationInfo = new CharacterLootGeneration()
+                {
+                    IsRandomItemsGeneration = GenerationInfo.IsRandomItemsGeneration,
+                    IsRandomWeaponsGeneration = GenerationInfo.IsRandomWeaponsGeneration,
+                    ItemsForGeneration = GenerationInfo.ItemsForGeneration?.ToList(),
+                    ItemsMaxCountForGeneration = GenerationInfo.ItemsMaxCountForGeneration,
+                    WeaponsForGeneration = GenerationInfo.WeaponsForGeneration?.ToList(),
+                    WeaponsMaxCountForGeneration = GenerationInfo.WeaponsMaxCountForGeneration,
+                },
                 Items = Items?.ToList(),
                 Weapons = Weapons?.ToList(),
             };
