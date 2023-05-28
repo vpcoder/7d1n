@@ -35,6 +35,7 @@ namespace Engine.Story.Actions
                 Path = path,
                 Speed = speed,
             });
+            npc.StartNPC();
             
             isStart = true;
         }

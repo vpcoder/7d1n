@@ -153,7 +153,8 @@ namespace Engine.Logic.Locations
             // Помечаем в менеджере что NPC завершил ход
             // Mark in the manager that the NPC has completed his turn
             var manager = ObjectFinder.Find<BattleManager>();
-            manager.EnemyStepCompleted(this);
+            if(manager != null)
+                manager.EnemyStepCompleted(this);
         }
 
         /// <summary>

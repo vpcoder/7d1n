@@ -46,6 +46,7 @@ namespace Engine.Logic.Locations
                 actionContext.Timestamp = Time.time;
                 if (actionContext.Path.Count == 0) // Достигли конца
                 {
+                    npc.Animator.SetCharacterMoveSpeedType(MoveSpeedType.Idle); // Останавливаемся
                     return true; // Конец этого действия
                 }
             }
