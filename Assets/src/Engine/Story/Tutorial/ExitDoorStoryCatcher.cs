@@ -1,3 +1,4 @@
+using Engine.Data;
 using Engine.Data.Factories;
 using Engine.Data.Quests;
 using Engine.Logic.Dialog;
@@ -27,11 +28,16 @@ namespace Engine.Story.Tutorial
             dlg.Text("Кажется, тут закрыто...");
             dlg.Text("- Эй! Откройте!");
             dlg.Run(() => StoryActionHelper.NpcGoTo(securityGuardNpc, goToPoint));
-            dlg.Text("...");
+            dlg.Delay(2f, true);
             dlg.Run(() =>
             {
                 door.transform.localRotation = Quaternion.Euler(openAngles);
                 StoryActionHelper.NpcLookAt(securityGuardNpc, PlayerCharacter.transform);
+            });
+            dlg.Delay(1f, true);
+            dlg.Run(() =>
+            {
+                StoryActionHelper.NpcSwitchWeapon(securityGuardNpc, 5007L);
             });
             dlg.Text("- Ёбанный в рот! Что у вас здесь происходит?");
             

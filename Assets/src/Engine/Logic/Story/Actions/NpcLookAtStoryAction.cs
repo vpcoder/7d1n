@@ -7,29 +7,37 @@ namespace Engine.Story.Actions
     public class NpcLookAtStoryAction : MonoBehaviour, IActionDestruct
     {
         
-        private Quaternion startRotation;
-        private Quaternion endRotation;
+        private Quaternion endRot;
         private float timestamp;
-        private float speed;
         private bool isStart;
 
         private CharacterNpcBehaviour npc;
         
-        public void Init(CharacterNpcBehaviour npc, Transform target, float speed)
+        public void Init(CharacterNpcBehaviour npc, Transform target, float speed = 1f)
         {
             this.npc = npc;
-            this.speed = speed;
-            startRotation = npc.transform.rotation;
-            npc.transform.LookAt(target);
-            endRotation = Quaternion.Euler(npc.transform.rotation.eulerAngles.x, 0f, 0f);
-            npc.transform.rotation = startRotation;
             timestamp = Time.time;
+
+            var direction = npc.LookDirectionTransform.rotation;
+            npc.LookDirectionTransform.LookAt(target);
+            this.endRot = npc.LookDirectionTransform.rotation;
+            npc.LookDirectionTransform.rotation = direction;
+            
+            npc.CharacterContext.Actions.Clear();
+            npc.CharacterContext.Actions.Add(new NpcLookActionContext()
+            {
+                Action = NpcActionType.Look,
+                LookPoint = target.position,
+                Speed = speed,
+            });
+            npc.StartNPC();
+            
             isStart = true;
         }
 
         public void Destruct()
         {
-            npc.transform.rotation = endRotation;
+            npc.transform.rotation = endRot;
             
             isStart = false;
             Destroy(this);
@@ -40,10 +48,12 @@ namespace Engine.Story.Actions
             if(!isStart)
                 return;
             
-            var progress = Mathf.Min(1f, (Time.time - timestamp) * speed);
-            npc.transform.rotation = Quaternion.Lerp(startRotation, endRotation, progress);
-
-            if (progress >= 1f)
+            // Все действия завершены?
+            // All actions completed?
+            if (Lists.IsEmpty(npc.CharacterContext.Actions)
+                // Таймаут на совершение действия
+                // Timeout for the action
+                || Time.time - timestamp > 10f)
                 Destruct();
         }
         

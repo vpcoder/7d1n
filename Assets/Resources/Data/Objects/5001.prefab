@@ -76,7 +76,7 @@ MonoBehaviour:
   itemInfo:
     ID: 5001
     Count: 1
-    Type: 32
+    Type: 12
     Firearms:
       AmmoCount: 0
     Craftable:

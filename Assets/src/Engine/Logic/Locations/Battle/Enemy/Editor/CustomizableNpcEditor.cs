@@ -12,12 +12,14 @@ namespace Engine.Logic.Locations.Char.Impls
 
         public override void OnAdditionEditor()
         {
-            var item = target.Target;
-            var group = item.CharacterBody?.Data.orderGroup ?? OrderGroup.ZombieGroup;
+            var npc = target.Target;
+            var group = npc.CharacterBody?.Data.orderGroup ?? OrderGroup.ZombieGroup;
             var fractionIcon = FractionFactory.Instance.Get(group);
             
             if(fractionIcon != null)
                 GUILayout.Label(fractionIcon.texture, GUIStyle.none);
+            
+            GUILayout.Label("Здоровье | Health: " + npc.Character.Health);
         }
 
     }

@@ -1,3 +1,4 @@
+using Engine.Data;
 using Engine.Logic.Locations;
 using Engine.Story.Actions;
 using UnityEngine;
@@ -54,6 +55,7 @@ namespace Engine.Story
             return obj;
         }
 
+        
         public static NpcLookAtStoryAction NpcLookAt(CharacterNpcBehaviour npc, Transform target, float speed = 1f)
         {
             var action = Create<NpcLookAtStoryAction>(npc.gameObject);
@@ -65,6 +67,20 @@ namespace Engine.Story
         {
             var action = Create<NpcGoToStoryAction>(npc.gameObject);
             action.Init(npc, target, speed);
+            return action;
+        }
+        
+        public static NpcSwitchWeaponStoryAction NpcSwitchWeapon(CharacterNpcBehaviour npc, long weaponID)
+        {
+            var action = Create<NpcSwitchWeaponStoryAction>(npc.gameObject);
+            action.Init(npc, weaponID);
+            return action;
+        }
+        
+        public static NpcSwitchWeaponStoryAction NpcSwitchWeapon(CharacterNpcBehaviour npc, IWeapon weapon)
+        {
+            var action = Create<NpcSwitchWeaponStoryAction>(npc.gameObject);
+            action.Init(npc, weapon);
             return action;
         }
         

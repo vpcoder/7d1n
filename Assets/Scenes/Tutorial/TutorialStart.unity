@@ -5606,6 +5606,12 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 556308671}
   m_PrefabAsset: {fileID: 0}
+--- !u!4 &557412986 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 1799289287914449856, guid: 0e5850c68bd45974c86646215f284a4c,
+    type: 3}
+  m_PrefabInstance: {fileID: 1576961843}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &558862832
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -7459,6 +7465,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4742713809896102525, guid: ed7f8633157064d47b771fa01c0394fa,
         type: 3}
+      propertyPath: root
+      value: 
+      objectReference: {fileID: 1595555810}
+    - target: {fileID: 4742713809896102525, guid: ed7f8633157064d47b771fa01c0394fa,
+        type: 3}
       propertyPath: controller
       value: 
       objectReference: {fileID: 9100000, guid: c065e0c40ba99b746bb3481df851b4e6, type: 2}
@@ -7466,6 +7477,21 @@ PrefabInstance:
         type: 3}
       propertyPath: charData.orderGroup
       value: 9
+      objectReference: {fileID: 0}
+    - target: {fileID: 4742713809896102525, guid: ed7f8633157064d47b771fa01c0394fa,
+        type: 3}
+      propertyPath: charData.WeaponsForGeneration
+      value: 5007
+      objectReference: {fileID: 0}
+    - target: {fileID: 4742713809896102525, guid: ed7f8633157064d47b771fa01c0394fa,
+        type: 3}
+      propertyPath: charData.IsRandomItemsGeneration
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4742713809896102525, guid: ed7f8633157064d47b771fa01c0394fa,
+        type: 3}
+      propertyPath: charData.IsRandomWeaponsGeneration
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6097412239019340097, guid: ed7f8633157064d47b771fa01c0394fa,
         type: 3}
@@ -8443,6 +8469,12 @@ Transform:
   m_Father: {fileID: 1265281160}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!4 &904079781 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 2873812368647381087, guid: 34ae51a1836ef834f898c861dc2319e9,
+    type: 3}
+  m_PrefabInstance: {fileID: 1167762776}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &907437306
 GameObject:
   m_ObjectHideFlags: 0
@@ -10962,6 +10994,21 @@ PrefabInstance:
         type: 3}
       propertyPath: m_IsActive
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5306660399653735326, guid: 34ae51a1836ef834f898c861dc2319e9,
+        type: 3}
+      propertyPath: root
+      value: 
+      objectReference: {fileID: 904079781}
+    - target: {fileID: 5306660399653735326, guid: 34ae51a1836ef834f898c861dc2319e9,
+        type: 3}
+      propertyPath: charData.IsRandomItemsGeneration
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5306660399653735326, guid: 34ae51a1836ef834f898c861dc2319e9,
+        type: 3}
+      propertyPath: charData.IsRandomWeaponsGeneration
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 34ae51a1836ef834f898c861dc2319e9, type: 3}
@@ -15087,6 +15134,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 17215717}
     m_Modifications:
+    - target: {fileID: 389704606714000840, guid: 0e5850c68bd45974c86646215f284a4c,
+        type: 3}
+      propertyPath: root
+      value: 
+      objectReference: {fileID: 557412986}
     - target: {fileID: 3821133424267481659, guid: 0e5850c68bd45974c86646215f284a4c,
         type: 3}
       propertyPath: m_RootOrder
@@ -15264,6 +15316,12 @@ MonoBehaviour:
   zombie: {fileID: 319410602}
   zombiePoint1: {fileID: 526572415}
   zombiePoint2: {fileID: 1372434299}
+--- !u!4 &1595555810 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 4312022637599232, guid: ed7f8633157064d47b771fa01c0394fa,
+    type: 3}
+  m_PrefabInstance: {fileID: 724689513}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1608837175 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 1699907618800476, guid: 6f5854054a76f384abb40feafb40e008,

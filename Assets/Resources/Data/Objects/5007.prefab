@@ -59,8 +59,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1cbc61529fde9454bbfe365cc92eb16f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  positionOffset: {x: 0, y: 0, z: 0}
-  rotationOffset: {x: 0, y: 0, z: 0}
+  positionOffset: {x: 0.054, y: 0.012, z: 0.001}
+  rotationOffset: {x: 8.66, y: 177.30998, z: -90}
 --- !u!114 &6028594316293040144
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -76,7 +76,7 @@ MonoBehaviour:
   itemInfo:
     ID: 5007
     Count: 1
-    Type: 33
+    Type: 12
     Firearms:
       AmmoCount: 0
     Craftable:

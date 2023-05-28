@@ -320,7 +320,7 @@ MonoBehaviour:
   itemInfo:
     ID: 1000
     Count: 1
-    Type: 32
+    Type: 11
     Firearms:
       AmmoCount: 0
     Craftable:
