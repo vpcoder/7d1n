@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using Engine.Data;
+using Engine.Data.Factories;
 using Engine.Logic.Dialog.Action;
 using Engine.Logic.Dialog.Action.Impls;
 using Engine.Story;
@@ -22,6 +24,16 @@ namespace Engine.Logic.Dialog
             };
             Queue.Add(action);
             return action;
+        }
+
+        public ActionText TextPlayer(string text)
+        {
+            return Text(text, AvatarFactory.Instance.PlayerAvatar);
+        }
+        
+        public ActionText TextAnother(string text, ICharacter character)
+        {
+            return Text(text, null, character.ID.ToString());
         }
         
         public ActionText Text(string text, string first = null, string second = null)
@@ -112,7 +124,7 @@ namespace Engine.Logic.Dialog
             return action;
         }
         
-        public ActionDelay Delay(float waitTime, bool hiddenMode = false)
+        public ActionDelay Delay(float waitTime, bool hiddenMode = true)
         {
             var action = new ActionDelay()
             {

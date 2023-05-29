@@ -416,7 +416,8 @@ namespace Engine.Logic.Locations
             CharacterContext.Status.IsEnabledAI = false;
             
             var manager = ObjectFinder.Find<BattleManager>();
-            manager.RemoveEnemiesFromBattle(this);
+            if(manager != null)
+                manager.RemoveEnemiesFromBattle(this);
 
             // Выкидываем предметы на карту
             // Throw items on the map

@@ -33,7 +33,6 @@ namespace Engine.Logic.Dialog.Action.Impls
         public List<SelectVariant> Variants { get; set; }
         public string Text { get; set; }
         public string FirstAvatar { get; set; } = null;
-        
         public string SecondAvatar { get; set; } = null;
 
         public override void DoRun(DialogRuntime runtime)
@@ -44,7 +43,8 @@ namespace Engine.Logic.Dialog.Action.Impls
                 variant.Text = runtime.ProcessText(variant.Text);
 
             dialogBox.SetVariants(Variants);
-            dialogBox.SetText(runtime.ProcessText(Text));
+            if(Text != null)
+                dialogBox.SetText(runtime.ProcessText(Text));
             dialogBox.SetFirstAvatar(AvatarFactory.Instance.Get(FirstAvatar));
             dialogBox.SetSecondAvatar(AvatarFactory.Instance.Get(SecondAvatar));
         }

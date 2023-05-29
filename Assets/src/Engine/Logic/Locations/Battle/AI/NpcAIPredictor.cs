@@ -94,7 +94,7 @@ namespace Engine.Logic.Locations
                 }
                 context.Npc = npc;
                 var predictor = npc.TryFindPredictor();
-                predictor.CreateStrategyForNpc(context);
+                predictor?.CreateStrategyForNpc(context);
             }
         }
         

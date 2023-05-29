@@ -1,4 +1,4 @@
-using System;
+using Engine.Data;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -19,6 +19,12 @@ namespace Engine.Story
 
         private void Update()
         {
+            if (Game.Instance.Runtime.Mode != Mode.Game)
+            {
+                textField.color = Color.clear;
+                return;
+            }
+            
             value = Mathf.Min(1f, value + (Time.time - timestamp) * 0.5f);
             timestamp = Time.time;
 

@@ -25,8 +25,23 @@ namespace Engine.Story
 
         private void Start()
         {
-            if(hintQuestPrefab != null && showQuestHint)
+            if(hintQuestPrefab != null && showQuestHint && activeFlag)
                 hintLink = UIHintMessageManager.ShowQuestHint(hintQuestPrefab, transform.position);
+        }
+        
+        public override bool IsActive
+        {
+            get { return base.IsActive; }
+            set
+            {
+                base.IsActive = value;
+                
+                if(value && hintQuestPrefab != null && showQuestHint)
+#if UNITY_EDITOR
+                    if(Application.isPlaying)
+#endif
+                    hintLink = UIHintMessageManager.ShowQuestHint(hintQuestPrefab, transform.position);
+            }
         }
 
         protected void Destruct()

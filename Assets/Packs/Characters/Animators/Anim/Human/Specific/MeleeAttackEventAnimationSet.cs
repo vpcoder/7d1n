@@ -24,8 +24,12 @@ namespace Engine.Logic.Animations
             var character = animator.gameObject.GetComponent<CharacterNpcBehaviour>();
             if (character == null)
                 return;
+
+            var controller = ObjectFinder.Find<BattleActionsController>();
+            if(controller == null)
+                return;
             
-            var context = ObjectFinder.Find<BattleActionsController>().AttackContext;
+            var context = controller.AttackContext;
             CharacterBattleActionFactory.Instance.InvokeProcess(CharacterBattleAction.EndMeleeAttack, context);
         }
 

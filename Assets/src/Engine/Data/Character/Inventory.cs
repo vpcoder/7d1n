@@ -257,33 +257,53 @@ namespace Engine.Data
         {
             return DoAndSaveToDatabase(() =>
             {
-                if (addItem.StackSize == 1) // Предмет без стека (поштучный)
+                // Предмет без стека (поштучный)
+                // Subject without a stack (piece)
+                if (addItem.StackSize == 1)
                 {
-                    Items.Add(addItem); // Сразу добавляем его новым элементом в сумку
+                    // Сразу добавляем его новым элементом в сумку
+                    // Immediately add it as a new item in the bag
+                    Items.Add(addItem);
                     return true;
                 }
 
-                long count = addItem.Count; // Сколько предметов нам нужно разложить в сумке?
+                // Сколько предметов нам нужно разложить в сумке?
+                // How many items do we need to put in the bag?
+                long count = addItem.Count;
                 foreach (var item in Items.ToList())
                 {
-                    if (item.ID == addItem.ID && item.Count < item.StackSize) // Нашли похожий предмет, у которого стек ещё не заполнен
+                    // Нашли похожий предмет, у которого стек ещё не заполнен
+                    // Found a similar item with the stack not yet full
+                    if (item.ID == addItem.ID && item.Count < item.StackSize)
                     {
-                        long freeCount = item.StackSize - item.Count; // Вычисляем сколько свободных элементов в стеке
-                        if (freeCount >= count) // Можно вместить все предметы?
+                        // Вычисляем сколько свободных элементов в стеке
+                        // Calculate how many free elements are in the stack
+                        long freeCount = item.StackSize - item.Count;
+                        
+                        // Можно вместить все предметы?
+                        // Is it possible to fit all the items?
+                        if (freeCount >= count)
                         {
                             item.Count += count;
                             return true;
                         }
                         
                         count -= freeCount;
-                        item.Count += freeCount; // Заполняем стек до конца
+                        
+                        // Заполняем стек до конца
+                        // Filling the stack to the end
+                        item.Count += freeCount;
 
-                        if (count == 0) // Разобрали все предметы?
+                        // Разобрали все предметы?
+                        // Have you sorted out all the items?
+                        if (count == 0)
                             return true;
                     }
                 }
 
-                addItem.Count = count; // Остались излишки, добавляем их отдельным предметом в сумке
+                // Остались излишки, добавляем их отдельным предметом в сумке
+                // Any surplus left over, add it as a separate item in the bag
+                addItem.Count = count;
                 Items.Add(addItem);
                 return true;
             });

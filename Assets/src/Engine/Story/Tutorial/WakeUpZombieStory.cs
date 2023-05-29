@@ -45,7 +45,7 @@ namespace Engine.Story.Tutorial
                 zombie.CharacterContext.Status.State = CharacterStateType.Fighting;
                 zombie.DeadEvent += () =>
                 {
-                    ObjectFinder.Find<ExitDoorStoryCatcher>().enabled = true;
+                    ObjectFinder.Find<ExitDoorStoryCatcher>().IsActive = true;
                 };
             });
             dlg.Delay(0.5f, "Что...");

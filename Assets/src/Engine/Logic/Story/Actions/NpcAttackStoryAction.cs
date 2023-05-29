@@ -1,37 +1,27 @@
-using System.Linq;
-using Engine.Data;
 using Engine.Logic.Locations;
 using UnityEngine;
 
 namespace Engine.Story.Actions
 {
     
-    public class NpcSwitchWeaponStoryAction : MonoBehaviour, IActionDestruct
+    public class NpcAttackStoryAction : MonoBehaviour, IActionDestruct
     {
         
-        private Quaternion endRot;
         private bool isStart;
 
         private CharacterNpcBehaviour npc;
         
-        public void Init(CharacterNpcBehaviour npc, long weaponID, bool needResetAnotherActions = true)
-        {
-            var weapon = npc.CharacterBody.Character?.Weapons?
-                .FirstOrDefault(o => o.ID == weaponID);
-            Init(npc, weapon, needResetAnotherActions);
-        }
-        
-        public void Init(CharacterNpcBehaviour npc, IWeapon weapon, bool needResetAnotherActions = true)
+        public void Init(CharacterNpcBehaviour npc, bool needResetAnotherActions = true)
         {
             this.npc = npc;
             
             if(needResetAnotherActions)
                 npc.CharacterContext.Actions.Clear();
             
-            npc.CharacterContext.Actions.Add(new NpcPickWeaponActionContext()
+            npc.CharacterContext.Actions.Add(new NpcAttackActionContext()
             {
-                Action = NpcActionType.PickWeapon,
-                Weapon = weapon,
+                Action = NpcActionType.Attack,
+                Weapon = npc.Weapon,
             });
             npc.StartNPC();
             

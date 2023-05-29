@@ -17,7 +17,7 @@ namespace Engine.Logic.Dialog.Action.Impls
                 dialogBox.SetText(ShowText);
             
             if (HiddenMode)
-                dialogBox.Hide();
+                dialogBox.Body.SetActive(false);
         }
 
         public override void DoDestruct()
@@ -25,7 +25,7 @@ namespace Engine.Logic.Dialog.Action.Impls
             base.DoDestruct();
             
             if (HiddenMode)
-                ObjectFinder.DialogBox.Show();
+                ObjectFinder.DialogBox.Body.SetActive(true);
         }
     }
 }

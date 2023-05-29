@@ -40,8 +40,8 @@ namespace Engine.Logic.Animations
         /// </param>
         private void Dead(Animator animator)
         {
-            GameObject.Destroy(animator.gameObject.GetComponent<NpcDamagedBehaviour>());
-            GameObject.Destroy(animator.gameObject.GetComponent<CharacterNpcBehaviour>());
+            //GameObject.Destroy(animator.gameObject.GetComponent<NpcDamagedBehaviour>());
+            //GameObject.Destroy(animator.gameObject.GetComponent<CharacterNpcBehaviour>());
             GameObject.Destroy(animator.gameObject.GetComponent<NavMeshAgent>());
             GameObject.Destroy(animator.gameObject.GetComponent<Collider>());
             GameObject.Destroy(animator);

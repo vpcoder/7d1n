@@ -43,7 +43,7 @@ namespace Engine.Story.Tutorial
             dlg.Delay(0.1f, "[..]");
             dlg.Delay(0.2f, "[...]");
 
-            dlg.Delay(1f, true);
+            dlg.Delay(1f);
             
             dlg.Music("memories");
             dlg.Text("Этот шум...");
@@ -53,7 +53,7 @@ namespace Engine.Story.Tutorial
             {
                 dlg.RuntimeObjectList.Add(StoryActionHelper.Fade(background, Color.white, half, 0.5f));
             });
-            dlg.Delay(2f, true);
+            dlg.Delay(2f);
             dlg.Text("Как давно я здесь?...");
             dlg.Run(() =>
             {
@@ -155,7 +155,7 @@ namespace Engine.Story.Tutorial
             });
             
             dlg.Sound("dialogs/tutorial/bed_3");
-            dlg.Delay(2f, true);
+            dlg.Delay(2f);
             dlg.Run(() =>
             {
                 PlayerCharacter.SetActive(true);

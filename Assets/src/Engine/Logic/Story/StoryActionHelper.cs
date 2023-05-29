@@ -56,31 +56,39 @@ namespace Engine.Story
         }
 
         
-        public static NpcLookAtStoryAction NpcLookAt(CharacterNpcBehaviour npc, Transform target, float speed = 1f)
+        public static NpcLookAtStoryAction NpcLookAt(CharacterNpcBehaviour npc, Transform target, bool needResetAnotherActions = true, float speed = 1f)
         {
             var action = Create<NpcLookAtStoryAction>(npc.gameObject);
-            action.Init(npc, target, speed);
+            action.Init(npc, target, needResetAnotherActions, speed);
             return action;
         }
         
-        public static NpcGoToStoryAction NpcGoTo(CharacterNpcBehaviour npc, Transform target, float speed = 1f)
+        public static NpcGoToStoryAction NpcGoTo(CharacterNpcBehaviour npc, Transform target, bool needResetAnotherActions = true, float speed = 1f)
         {
             var action = Create<NpcGoToStoryAction>(npc.gameObject);
-            action.Init(npc, target, speed);
+            action.Init(npc, target, needResetAnotherActions, speed);
             return action;
         }
         
-        public static NpcSwitchWeaponStoryAction NpcSwitchWeapon(CharacterNpcBehaviour npc, long weaponID)
+        public static NpcAttackStoryAction NpcAttack(CharacterNpcBehaviour npc, bool needResetAnotherActions = true)
+        {
+            var action = Create<NpcAttackStoryAction>(npc.gameObject);
+            action.Init(npc, needResetAnotherActions);
+            return action;
+        }
+
+        
+        public static NpcSwitchWeaponStoryAction NpcSwitchWeapon(CharacterNpcBehaviour npc, long weaponID, bool needResetAnotherActions = true)
         {
             var action = Create<NpcSwitchWeaponStoryAction>(npc.gameObject);
-            action.Init(npc, weaponID);
+            action.Init(npc, weaponID, needResetAnotherActions);
             return action;
         }
         
-        public static NpcSwitchWeaponStoryAction NpcSwitchWeapon(CharacterNpcBehaviour npc, IWeapon weapon)
+        public static NpcSwitchWeaponStoryAction NpcSwitchWeapon(CharacterNpcBehaviour npc, IWeapon weapon, bool needResetAnotherActions = true)
         {
             var action = Create<NpcSwitchWeaponStoryAction>(npc.gameObject);
-            action.Init(npc, weapon);
+            action.Init(npc, weapon, needResetAnotherActions);
             return action;
         }
         

@@ -39,7 +39,10 @@ namespace Engine.Logic.Locations
         {
             if(!CanTakeDamage)
                 return;
-            CurrentNPC.Animator.SetCharacterDamageType(TakeDamageType.Take1);
+            
+            if(CurrentNPC.Animator != null)
+                CurrentNPC.Animator.SetCharacterDamageType(TakeDamageType.Take1);
+            
             if (Health <= 0)
                 CurrentNPC.Died();
         }

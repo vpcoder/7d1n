@@ -16,9 +16,9 @@ namespace Engine.Logic.Locations
     {
 
         /// <summary>
-        /// Оружие, которым происходит атака
-        /// ---
-        /// Weapon used in the attack
+        ///     Оружие, которым происходит атака
+        ///     ---
+        ///     Weapon used in the attack
         /// </summary>
         public IWeapon Weapon { get; set; }
 

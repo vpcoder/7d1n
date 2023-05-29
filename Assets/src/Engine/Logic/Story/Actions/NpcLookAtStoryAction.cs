@@ -13,7 +13,7 @@ namespace Engine.Story.Actions
 
         private CharacterNpcBehaviour npc;
         
-        public void Init(CharacterNpcBehaviour npc, Transform target, float speed = 1f)
+        public void Init(CharacterNpcBehaviour npc, Transform target, bool needResetAnotherActions = true, float speed = 1f)
         {
             this.npc = npc;
             timestamp = Time.time;
@@ -23,7 +23,9 @@ namespace Engine.Story.Actions
             this.endRot = npc.LookDirectionTransform.rotation;
             npc.LookDirectionTransform.rotation = direction;
             
-            npc.CharacterContext.Actions.Clear();
+            if(needResetAnotherActions)
+                npc.CharacterContext.Actions.Clear();
+            
             npc.CharacterContext.Actions.Add(new NpcLookActionContext()
             {
                 Action = NpcActionType.Look,

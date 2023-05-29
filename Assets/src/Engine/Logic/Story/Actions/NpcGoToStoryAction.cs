@@ -14,7 +14,7 @@ namespace Engine.Story.Actions
 
         private CharacterNpcBehaviour npc;
         
-        public void Init(CharacterNpcBehaviour npc, Transform target, float speed = 1f)
+        public void Init(CharacterNpcBehaviour npc, Transform target, bool needResetAnotherActions = true, float speed = 1f)
         {
             this.npc = npc;
             this.endPos = target.position;
@@ -28,7 +28,9 @@ namespace Engine.Story.Actions
                 path = new List<Vector3> { endPos };
             }
             
-            npc.CharacterContext.Actions.Clear();
+            if(needResetAnotherActions)
+                npc.CharacterContext.Actions.Clear();
+            
             npc.CharacterContext.Actions.Add(new NpcMoveActionContext()
             {
                 Action = NpcActionType.Move,
