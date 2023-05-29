@@ -1983,6 +1983,7 @@ MonoBehaviour:
     ItemsMaxCountForGeneration: 0
     WeaponsForGeneration: 
     WeaponsMaxCountForGeneration: 0
+  root: {fileID: 0}
 --- !u!65 &8303382469736948419
 BoxCollider:
   m_ObjectHideFlags: 0

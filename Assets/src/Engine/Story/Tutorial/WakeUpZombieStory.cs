@@ -39,7 +39,7 @@ namespace Engine.Story.Tutorial
             dlg.Sound("quests/tutorial/zombie_wakeup", zombie.AttackAudioSource);
             dlg.Run(() =>
             {
-                Camera.main.SetState(playerEyePos, zombie.Eye);
+                Camera.main.SetState(playerEyePos, zombie.transform);
                 zombie.Animator.SetCharacterDeadType(DeatType.Alive);
                 zombie.Damaged.CanTakeDamage = true;
                 zombie.CharacterContext.Status.State = CharacterStateType.Fighting;
