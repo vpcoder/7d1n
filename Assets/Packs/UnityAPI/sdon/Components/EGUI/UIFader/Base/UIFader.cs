@@ -14,7 +14,7 @@ namespace Engine.EGUI {
 		#region Shared Fields
 
 		[Caption("Выключает компоненты")]
-		[Comments("Выключает дочерние tranfsorm компоненты когда UI панель считается скрытой (включает, когда панель считается видимой)")]
+		[Comments("Выключает дочерние transform компоненты когда UI панель считается скрытой (включает, когда панель считается видимой)")]
 		[SerializeField] protected bool disableChilds = true;
 
 		[Caption("Перерисовывать каскадно")]

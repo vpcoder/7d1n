@@ -6,14 +6,21 @@ namespace Engine.Data.Factories
     
     public class EffectFactory : PrefabFactory<GameObject>
     {
+        
+        #region Singleton
+        
         private static readonly Lazy<EffectFactory> instance = new Lazy<EffectFactory>(() => new EffectFactory());
 
         private EffectFactory()
         { }
 
         public static EffectFactory Instance => instance.Value;
+        
+        #endregion
 
-        public override string Directory => "Effects";
+        public const string DAMAGE_HINT = "damage_hint";
+        
+        public override string Directory => "Data/Effects";
 
         public GameObject AddEffect(string id)
         {

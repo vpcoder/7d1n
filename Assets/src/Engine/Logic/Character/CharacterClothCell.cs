@@ -2,24 +2,21 @@
 using Engine.Data.Repositories;
 using Engine.Logic.Locations;
 using System;
+using Engine.Data.Factories;
 using UnityEngine;
 using UnityEngine.UI;
 
 namespace Engine.Logic
 {
-
+    
     /// <summary>
-    /// Тип ячейки оружия (в какой руке?)
-    /// </summary>
-    public enum HandCellType : byte
-    {
-        LeftHand,
-        RightHand
-    };
-
-    /// <summary>
+    /// 
     /// Ячейка экипировки
     /// (сюда вешается одежда персонажа или оружие)
+    /// ---
+    /// The Equipment Box
+    /// (this is where the character's clothes or weapons are hung)
+    /// 
     /// </summary>
     public class CharacterClothCell : MonoBehaviour
     {
@@ -28,37 +25,51 @@ namespace Engine.Logic
         [SerializeField] private GameObject buttonDrop;
 
         /// <summary>
-        /// Ячейка для оружия?
+        ///     Ячейка для оружия?
+        ///     ---
+        ///     A gun cell?
         /// </summary>
         [SerializeField] private bool isWeapon = false;
 
         /// <summary>
-        /// Актуально если isWeapon == true
+        ///     Актуально если isWeapon == true
+        ///     ---
+        ///     Valid if isWeapon == true
         /// </summary>
         [SerializeField] private HandCellType hand;
 
         /// <summary>
-        /// Тип ячейки (что сюда можно одевать?)
+        ///     Тип ячейки (что сюда можно одевать?)
+        ///     ---
+        ///     Cell type (what can you put on here?)
         /// </summary>
         [SerializeField] private GroupType type;
 
         /// <summary>
-        /// Иконка для размещения предмета в ячейке
+        ///     Иконка для размещения предмета в ячейке
+        ///     ---
+        ///     Icon for placing an item in a cell
         /// </summary>
         [SerializeField] private Image image;
 
         /// <summary>
-        /// Первичная информация о предмете (защита или урон)
+        ///     Первичная информация о предмете (защита или урон)
+        ///     ---
+        ///     Primary information about the item (defense or damage)
         /// </summary>
         [SerializeField] private Text txtInfo;
 
         /// <summary>
-        /// Дополнительная информация о предмете (находится внутри ячейки, например, количество патронов в оружии)
+        ///     Дополнительная информация о предмете (находится внутри ячейки, например, количество патронов в оружии)
+        ///     ---
+        ///     Additional information about the item (located inside the cell, for example, the number of rounds in the weapon)
         /// </summary>
         [SerializeField] private Text txtAdditionInfo;
 
         /// <summary>
-        /// Пустой спрайт, на случай, если в ячейке экипировки ничего нет
+        ///     Пустой спрайт, на случай, если в ячейке экипировки ничего нет
+        ///     ---
+        ///     Empty sprite, in case there is nothing in the equipment box
         /// </summary>
         [SerializeField] private Sprite empty;
 
@@ -83,10 +94,20 @@ namespace Engine.Logic
         private string CreateWeaponInfo(IWeapon weapon)
         {
             if (weapon == null)
-                return "";
-            var damage = weapon.Damage; // Базовый урон
-            var minDamage = BattleCalculationService.GetMinDamage(damage); // Минимальный рассчитанный урон
-            var maxDamage = BattleCalculationService.GetMaxDamage(damage); // Максимальный рассчитанный урон
+                weapon = (IWeapon)ItemFactory.Instance.Get(DataDictionary.Weapons.WEAPON_SYSTEM_HANDS);
+            
+            // Базовый урон
+            // Basic damage
+            var damage = weapon.Damage;
+            // Минимальный рассчитанный урон
+            // Minimum calculated damage
+            var minDamage = BattleCalculationService.GetMinDamage(damage);
+            // Максимальный рассчитанный урон
+            // Maximum calculated damage
+            var maxDamage = BattleCalculationService.GetMaxDamage(damage);
+            
+            // Сообщение показывающее разброс реактивного урона
+            // Message showing the scatter of reactive damage
             return Mathf.RoundToInt(minDamage).ToString() + "-" + Mathf.RoundToInt(maxDamage).ToString() + " " + Localization.Instance.Get("msg_count");
         }
 
@@ -139,7 +160,9 @@ namespace Engine.Logic
         }
 
         /// <summary>
-        /// Выполняет обновление информации о текущей ячйке и отрисовывает информацию на UI
+        ///     Выполняет обновление информации о текущей ячйке и отрисовывает информацию на UI
+        ///     ---
+        ///     Updates information about the current cell and draws the information on the UI
         /// </summary>
         public void UpdateInfo()
         {
@@ -148,13 +171,13 @@ namespace Engine.Logic
                 var weapon = GetWeapon();
                 txtInfo.text = CreateWeaponInfo(weapon);
                 txtAdditionInfo.text = CreateWeaponAdditionInfo(weapon);
-                image.sprite = weapon?.Sprite ?? empty;
+                image.sprite = weapon == null || weapon.Sprite == null ? empty : weapon.Sprite;
             }
             else
             {
                 var cloth = GetCloth();
                 txtInfo.text = CreateClothInfo(cloth);
-                image.sprite = cloth?.Sprite ?? empty;
+                image.sprite =  cloth == null || cloth.Sprite == null ? empty : cloth.Sprite;
             }
         }
 
@@ -219,9 +242,15 @@ namespace Engine.Logic
         }
 
         /// <summary>
-        /// Экипирует одежду
+        ///     Экипирует одежду
+        ///     ---
+        ///     Outfits clothing
         /// </summary>
-        /// <param name="cloth">Одежда, которую надо надеть</param>
+        /// <param name="cloth">
+        ///     Одежда, которую надо надеть
+        ///     ---
+        ///     Clothes to wear
+        /// </param>
         private void DoEquip(ICloth cloth)
         {
             switch (Type)
@@ -245,9 +274,15 @@ namespace Engine.Logic
         }
 
         /// <summary>
-        /// Экипирует оружие
+        ///     Экипирует оружие
+        ///     ---
+        ///     Equips weapons
         /// </summary>
-        /// <param name="weapon">Оружие которое надо взять в руку</param>
+        /// <param name="weapon">
+        ///     Оружие которое надо взять в руку
+        ///     ---
+        ///     Weapon to take in hand
+        /// </param>
         private void DoEquip(IWeapon weapon)
         {
             switch (Hand)
@@ -257,7 +292,9 @@ namespace Engine.Logic
                     if (Game.Instance.Runtime.Scene != Scenes.SceneName.Map && Game.Instance.Runtime.Scene != Scenes.SceneName.Menu)
                         ObjectFinder.Find<HandsController>().GetCell(0).Weapon = weapon;
 
-                    if (Game.Instance.Character.Equipment.Use2 == weapon) // Нельзя брать одно и то же оружие дважды в обе руки
+                    // Нельзя брать одно и то же оружие дважды в обе руки
+                    // Cannot take the same weapon twice in both hands
+                    if (Game.Instance.Character.Equipment.Use2 == weapon)
                     {
                         Game.Instance.Character.Equipment.Use2 = null;
                         ObjectFinder.Find<HandsController>().GetCell(1).Weapon = null;
@@ -269,7 +306,9 @@ namespace Engine.Logic
                     if (Game.Instance.Runtime.Scene != Scenes.SceneName.Map && Game.Instance.Runtime.Scene != Scenes.SceneName.Menu)
                         ObjectFinder.Find<HandsController>().GetCell(1).Weapon = weapon;
 
-                    if (Game.Instance.Character.Equipment.Use1 == weapon) // Нельзя брать одно и то же оружие дважды в обе руки
+                    // Нельзя брать одно и то же оружие дважды в обе руки
+                    // Cannot take the same weapon twice in both hands
+                    if (Game.Instance.Character.Equipment.Use1 == weapon)
                     {
                         Game.Instance.Character.Equipment.Use1 = null;
                         ObjectFinder.Find<HandsController>().GetCell(0).Weapon = null;
@@ -282,7 +321,8 @@ namespace Engine.Logic
         public void DoEquip(IItem item)
         {
             // Обновляем картинку
-            image.sprite = item?.Sprite ?? empty;
+            // Updating the picture
+            image.sprite = item == null || item.Sprite == null ? empty : item.Sprite;
 
             if (IsWeapon)
             {
@@ -298,9 +338,11 @@ namespace Engine.Logic
             }
 
             // Сбрасываем информацию на диск
+            // Resetting the information to disk
             CharacterRepository.Instance.EquipmentRepository.Save(Game.Instance.Character.Equipment.CreateData());
 
             // Перерисовываем информацию ячейки
+            // Redraw the cell information
             UpdateInfo();
         }
 

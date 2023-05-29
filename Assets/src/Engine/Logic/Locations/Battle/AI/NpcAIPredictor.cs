@@ -79,7 +79,7 @@ namespace Engine.Logic.Locations
             var allAiItems = NpcAISceneManager.Instance.GroupToNpcList; // Все НПС в своих группах
             var currentNpcList = allAiItems[currentGroup]; // Группа, которая сейчас ходит
 
-            battle.EnemyGroupCounter = currentNpcList.Count;
+            battle.NpcGroupCounter = currentNpcList.Count;
 
             var context = new PredictorContext();
             context.OrderGroup = currentGroup;

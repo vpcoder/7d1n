@@ -1,5 +1,6 @@
 ﻿using Engine.Data;
 using Engine.Data.Factories;
+using Engine.EGUI;
 using Engine.Logic;
 using Engine.Logic.Locations;
 using Engine.Logic.Locations.Objects;
@@ -101,29 +102,29 @@ namespace Engine
         }
 
         /// <summary>
-        ///     Передача урона от снаряда
+        ///     Нанесение цели target реактивного урона снарядом bulletItem
         ///     ---
-        ///     
+        ///     Inflicting bulletItem projectile reactive damage on the target
         /// </summary>
         /// <param name="source">
-        ///     Кто атакует
+        ///     Кто выпустил снаряд?
         ///     ---
-        ///     Who is attacking
+        ///     Who fired the shell?
         /// </param>
         /// <param name="target">
-        ///     Кого атакует
+        ///     Цель атаки, по которой наносят реактивный урон
         ///     ---
-        ///     
+        ///     The target of the attack where reactive damage is inflicted
         /// </param>
         /// <param name="weapon">
-        ///     Оружие дальнего действия
+        ///     Оружие дальнего действия, из которого был выпущен снаряд
         ///     ---
-        ///     
+        ///     The long-range weapon from which the projectile was fired
         /// </param>
         /// <param name="bulletItem">
-        ///     Пуля, которая наносит урон
+        ///     Снаряд, который наносит реактивный урон цели target
         ///     ---
-        ///     
+        ///     A projectile that deals reactive damage to the target
         /// </param>
         public static void DoBulletDamage(IAttackObject source, IDamagedObject target, IFirearmsWeapon weapon, BulletItem bulletItem)
         {
@@ -155,27 +156,54 @@ namespace Engine
             target.Health -= damage;
             target.TakeDamage();
 
-            AudioController.Instance.CreateTimedFragment(target.ToObject.transform.position, MixerType.Sounds, "damage");
+            AudioController.Instance.CreateTimedFragment(target.ToObject.transform.position, MixerType.Sounds, SoundFactory.DAMAGE);
 
             if (target.Health <= 0 && !target.ExpGeted)
             {
                 target.ExpGeted = true;
                 source.AddBattleExp(target.Exp);
             }
-            ObjectFinder.Find<BattleManager>().ShowDamageHint("-" + damage.ToString(), target.ToObject.transform.position);
+
+            var text = "-" + damage.ToString();
+            var damageHintPrefab = EffectFactory.Instance.Get(EffectFactory.DAMAGE_HINT);
+            UIHintMessageManager.Show(damageHintPrefab, target.ToObject.transform.position, text);
         }
 
         /// <summary>
-        /// Реактивный урон при атаке
+        ///     Реактивный урон при атаке
+        ///     Это урон с поправкой на вероятности (вероятность нанесения урона, вероятность срабатывания защиты и т.д.)
+        ///     ---
+        ///     Reactive Attack Damage
+        ///     This is damage adjusted by probabilities (probability of taking damage, probability of defense triggering, etc.)
         /// </summary>
-        /// <param name="targetProtection">Защита цели</param>
-        /// <param name="attackerDamage">Атака атакующего</param>
-        /// <returns>Случайный реактивный урон</returns>
+        /// <param name="targetProtection">
+        ///     Защита цели (идеальная константа, без поправки на случайность)
+        ///     ---
+        ///     Target protection (ideal constant, no allowance for chance)
+        /// </param>
+        /// <param name="attackerDamage">
+        ///     Атака атакующего (идеальная константа, без поправки на случайность)
+        ///     ---
+        ///     Attacker's attack (ideal constant, no allowance for chance)
+        /// </param>
+        /// <returns>
+        ///     Рассчитанный реактивный урон с поправками на случайности
+        ///     ---
+        ///     Calculated Reactive Damage Adjusted for Accidents
+        /// </returns>
         public static int ReactiveDamageWithTargetDefence(int targetProtection, float attackerDamage)
         {
-            var defence        = ReactiveDefence(targetProtection); // Коэффициент прямого урона от 1f до 0f (обратное значение защиты)
-            var reactiveDamage = ReactiveDamage(attackerDamage); // активный урон будет случайным от 50% до 100% урона
-            return (int)(reactiveDamage * defence); // Наносимый урон
+            // Коэффициент прямого урона от 1f до 0f (обратное значение защиты)
+            // Direct damage factor from 1f to 0f (inverse defense value)
+            var defence = ReactiveDefence(targetProtection);
+            
+            // активный урон будет случайным от 50% до 100% урона
+            // active damage will be random from 50% to 100% damage
+            var reactiveDamage = ReactiveDamage(attackerDamage);
+            
+            // Вычисление фактического нанесённого урона
+            // Calculation of actual inflicted damage
+            return Mathf.RoundToInt(reactiveDamage * defence); 
         }
 
         public static float ReactiveDamage(float damage)
@@ -210,8 +238,15 @@ namespace Engine
 
         public static float GetProtectionPercent(int protection)
         {
-            if(protection < 0) // Отрицательная защита означает что объект не влияет на сраняды, он ничтожен, как лист бумаги на пути пули
-                return -100f; // -100% вероятность защиты
+            // Отрицательная защита означает что объект не влияет на снаряды, он ничтожен, как лист бумаги на пути пули
+            // Negative defense means that the object has no effect on the projectiles, it is as insignificant as a piece of paper in the path of a bullet
+            if(protection < 0)
+                // -100% вероятность защиты
+                // -100% probability of protection
+                return -100f;
+            
+            // Вычисляем процент защиты
+            // Calculate the percentage of protection
             return protection / 1000f;
         }
 

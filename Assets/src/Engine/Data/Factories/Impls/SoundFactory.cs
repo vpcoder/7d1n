@@ -15,11 +15,16 @@ namespace Engine.Data.Factories
     /// </summary>
     public class SoundFactory : PrefabFactory<AudioClip>
     {
-
+        #region Singleton
+        
         private static readonly Lazy<SoundFactory> instance = new Lazy<SoundFactory>(() => new SoundFactory());
         public static SoundFactory Instance { get { return instance.Value; } }
         private SoundFactory() { }
 
+        #endregion
+
+        public const string DAMAGE = "damage";
+        
         public override string Directory => "Sounds";
 
     }

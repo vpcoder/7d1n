@@ -1857,7 +1857,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 3436243838456209872}
         m_TargetAssemblyTypeName: Engine.Logic.Locations.EndStepController, Assembly-CSharp
-        m_MethodName: DoEndStepClick
+        m_MethodName: DoEndTurnClick
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}

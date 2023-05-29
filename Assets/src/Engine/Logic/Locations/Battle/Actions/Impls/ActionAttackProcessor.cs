@@ -170,7 +170,7 @@ namespace Engine.Logic.Locations.Battle.Actions
 
             context.Weapon = null;
             if (context.AttackMarker != null)
-                GameObject.Destroy(context.AttackMarker);
+                Object.Destroy(context.AttackMarker);
             context.AttackMarker = null;
 
             var handsActionsController = ObjectFinder.Find<HandsActionsController>();

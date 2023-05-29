@@ -7,8 +7,6 @@ namespace Engine.Data
 
     public class PlayerCharacter : ICharacter
     {
-        public string SpritePath => throw new NotImplementedException();
-
         public int AP { get { return Game.Instance.Runtime.BattleContext.CurrentCharacterAP; } set { } }
         public OrderGroup OrderGroup { get; set; } = OrderGroup.PlayerGroup;
         public long Exp { get { return 150; } set { } }

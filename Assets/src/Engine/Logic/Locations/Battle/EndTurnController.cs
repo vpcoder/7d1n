@@ -1,29 +1,21 @@
 ﻿using Engine.Data;
+using Engine.EGUI;
 using UnityEngine;
 
 namespace Engine.Logic.Locations
 {
 
     /// <summary>
+    /// 
     /// Обработчик конца хода игрока
+    /// ---
+    /// Player end of turn handler
+    /// 
     /// </summary>
-    public class EndStepController : MonoBehaviour
+    public class EndTurnController : Panel
     {
 
-        [SerializeField] private GameObject body;
-
-        public void Show()
-        {
-            body.SetActive(true);
-        }
-
-        public void Hide()
-        {
-            body.SetActive(false);
-        }
-
-
-        public void DoEndStepClick()
+        public void DoEndTurnClick()
         {
             if(Game.Instance.Runtime.BattleContext.OrderIndex != OrderGroup.PlayerGroup)
             {
@@ -32,7 +24,7 @@ namespace Engine.Logic.Locations
             }
 
             var manager = ObjectFinder.Find<BattleManager>();
-            manager.DoNextOrder();
+            manager.DoNextGroupTurn();
             Hide();
         }
 

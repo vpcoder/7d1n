@@ -16,28 +16,29 @@ namespace Engine.Logic.Locations
     public class BattleManager : MonoBehaviour
     {
 
-        [SerializeField] private GameObject damageHintPrefab;
+        /// <summary>
+        ///     Персонажи, которые учавствуют в битве
+        ///     ---
+        ///     Characters who participate in the battle
+        /// </summary>
         [SerializeField] private List<CharacterNpcBehaviour> characters;
 
-        [SerializeField] private BattleActionsController battleActionsController;
-
-        public int EnemyEndStepCounter = 0;
-        public int EnemyGroupCounter = 0;
+        public int NpcEndTurnCounter { get; set; } = 0;
+        public int NpcGroupCounter { get; set; } = 0;
         private object locker = new object();
-
-
-
+        
+        /// <summary>
+        ///     Контроллер совершения действий игроком в свой ход
+        ///     ---
+        ///     Controller of the player's actions in his turn
+        /// </summary>
+        [SerializeField] private BattleActionsController battleActionsController;
         public BattleActionsController BattleActions
         {
             get
             {
                 return battleActionsController;
             }
-        }
-
-        public void ShowDamageHint(string text, Vector3 pos)
-        {
-            UIHintMessageManager.Show(damageHintPrefab, pos, text);
         }
 
         /// <summary>
@@ -50,7 +51,7 @@ namespace Engine.Logic.Locations
         ///     ---
         ///     NPC who has completed his turn
         /// </param>
-        public void EnemyStepCompleted(CharacterNpcBehaviour npc)
+        public void NpcTurnCompleted(CharacterNpcBehaviour npc)
         {
             if (Game.Instance.Runtime.BattleContext.OrderIndex != npc.Character.OrderGroup)
                 return;
@@ -58,9 +59,9 @@ namespace Engine.Logic.Locations
             lock(locker)
             {
 #if UNITY_EDITOR && BATTLE_DEBUG
-                Debug.Log("character '" + npc.transform.name + "' completed step...");
+                Debug.Log("character '" + npc.transform.name + "' completed turn...");
 #endif
-                EnemyEndStepCounter++;
+                NpcEndTurnCounter++;
             }
         }
         
@@ -165,7 +166,7 @@ namespace Engine.Logic.Locations
             apController.Show();
 
             if (Game.Instance.Runtime.BattleContext.OrderIndex == OrderGroup.PlayerGroup)
-                StartPlayerStep();
+                StartPlayerTurn();
 
             Debug.Log("battle started");
         }
@@ -181,25 +182,25 @@ namespace Engine.Logic.Locations
         {
             Debug.Log("exit from battle");
 
-            var apController = ObjectFinder.Find<BattleApController>();
-            apController.Hide();
+            // Закрываем интерфейсы битвы
+            // Closing the battle interfaces
+            ObjectFinder.Find<BattleApController>().Hide();
+            ObjectFinder.Find<BattleActionsController>().Hide();
+            ObjectFinder.Find<EndTurnController>().Hide();
 
-            var controller = ObjectFinder.Find<BattleActionsController>();
-            controller.Hide();
-
-            var endStepController = ObjectFinder.Find<EndStepController>();
-            endStepController.Hide();
-
+            // Сброс режима битвы
+            // Resetting battle mode
             Game.Instance.Runtime.Mode = Mode.Game;
             Game.Instance.Runtime.BattleFlag = false;
-            
-            
+
+            // Всех уцелевших возвращаем в нормальное состояние
+            // All survivors return to normal
             foreach (var character in characters)
             {
-                // Всех уцелевших возвращаем в нормальное состояние
-                // All survivors return to normal
                 character.CharacterContext.Status.State = CharacterStateType.Normal;
             }
+            
+            // Сбрасываем список участников битвы
             characters.Clear();
         }
 
@@ -218,29 +219,36 @@ namespace Engine.Logic.Locations
 
             // Если ещё остались персонажи, которые не завершили свой ход
             // If there are still characters who have not completed their turn
-            if (EnemyEndStepCounter < EnemyGroupCounter)
+            if (NpcEndTurnCounter < NpcGroupCounter)
                 return;
             
             // Все персонажи в рамках текущей группы хода завершили свой ход, необходимо передать ход следующей группе
             // All characters within the current turn group have completed their turn, it is necessary to pass the turn to the next group
-            DoNextOrder();
+            DoNextGroupTurn();
         }
 
         /// <summary>
         ///     Начало хода игрока
+        ///     ---
+        ///     Beginning of a player's turn
         /// </summary>
-        public void StartPlayerStep()
+        public void StartPlayerTurn()
         {
-            Game.Instance.Runtime.BattleContext.CurrentCharacterAP = Game.Instance.Character.State.MaxAP; // Восстанавливаем ОД
-            var endStepController = ObjectFinder.Find<EndStepController>();
-            endStepController.Show();
+            // Восстанавливаем ОД, так как начинаем новый ход
+            // Restore the AP, as we begin a new turn
+            Game.Instance.Runtime.BattleContext.CurrentCharacterAP = Game.Instance.Character.State.MaxAP;
+            
+            // Отображаем интерфейс окончания хода
+            // Displaying the turn end interface
+            var endTurnController = ObjectFinder.Find<EndTurnController>();
+            endTurnController.Show();
         }
 
-        public void DoNextOrder()
+        public void DoNextGroupTurn()
         {
-            Debug.Log("next order");
+            Debug.Log("next group turn");
 
-            EnemyEndStepCounter = 0;
+            NpcEndTurnCounter = 0;
 
             var hands = ObjectFinder.Find<HandsController>();
             hands.DoResetSelectedCell(hands.Selected);
@@ -259,7 +267,7 @@ namespace Engine.Logic.Locations
 
             Game.Instance.Runtime.BattleContext.OrderIndex = order[index];
             if(Game.Instance.Runtime.BattleContext.OrderIndex == OrderGroup.PlayerGroup) // Ходит игрок
-                StartPlayerStep();
+                StartPlayerTurn();
 
             NpcAISceneManager.Instance.UpdateOrderList(); // Обновляем очереди ходов
             if(IsNeedExitBattle())
