@@ -28,7 +28,6 @@ namespace Engine.Logic.Locations
         [SerializeField] protected NavMeshAgent agent;
         [SerializeField] protected AudioSource attackAudioSource;
         [SerializeField] protected Transform lookDirectionTransform;
-        [SerializeField] protected long id;
         [SerializeField] private Transform eye;
         [SerializeField] private CharacterMeshSwitcher meshSwitcher;
         

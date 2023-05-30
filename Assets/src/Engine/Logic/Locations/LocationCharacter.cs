@@ -5,6 +5,7 @@ using System.Linq;
 using Engine.Scenes;
 using UnityEngine.AI;
 using Engine.Logic.Locations.Animation;
+using Engine.Logic.Locations.Char.Impls;
 using Engine.Logic.Map;
 
 namespace Engine.Logic.Locations
@@ -102,6 +103,7 @@ namespace Engine.Logic.Locations
         public override void AddBattleExp(long value)
         {
             // Рассчитываем полученный опыт
+            // Calculate the resulting experience
             ExpCalculationService.AddExp(value, Game.Instance.Character.Exps.FightExperience, Game.Instance.Character.Exps.MainExperience);
         }
 
@@ -137,27 +139,37 @@ namespace Engine.Logic.Locations
             if (Game.Instance.Runtime.Mode == Mode.Switch)
                 return;
 
+            // Путь пустой, значит персонаж стоит на месте
+            // The path is empty, so the character is standing still.
             if (Lists.IsEmpty(path))
-                return; // Путь пустой, значит персонаж стоит на месте
+                return;
             
             // Во время перемещения двигаем камеру за персонажем
+            // While moving, move the camera behind the character
             cameraController.UpdateCameraPos();
             
             // Рассчитываем прогресс движения и перемещаем персонажа
+            // Calculate movement progress and move the character
             float progress = (Time.time - moveContext.ChangePositionTimestamp) * speed / moveContext.Distance;
             transform.position = Vector3.Lerp(moveContext.StartPosition, moveContext.NextPosition, Mathf.Min(progress, 1f));
             transform.rotation = Quaternion.Lerp(moveContext.StartRotation, moveContext.NextRotation, Mathf.Min(progress * 4f, 1f));
 
             if (progress >= 1f)
             {
-                path.RemoveAt(0); // Забываем эту точку
+                // Забываем эту точку
+                // We forget this point
+                path.RemoveAt(0);
                 if (path.Count == 0)
                 {
-                    StopMove(); // Персонаж прошёл весь путь, останавливаемся
+                    // Персонаж прошёл весь путь, останавливаемся
+                    // The character has gone all the way, we stop
+                    StopMove();
                 }
                 else
                 {
-                    UpdatePoint(); // Рассчитыываем следующую точку относительно нового участка пути
+                    // Рассчитыываем следующую точку относительно нового участка пути
+                    // Calculate the next point relative to the new track section
+                    UpdatePoint();
                 }
             }
         }
@@ -172,13 +184,17 @@ namespace Engine.Logic.Locations
             if (Lists.IsEmpty(path))
                 return;
 
-            Animator.SetCharacterMoveSpeedType(MoveSpeedType.Run); // Меняем состояние на бег
+            Animator.SetCharacterMoveSpeedType(MoveSpeedType.Run);
 
-            lookDirectionTransform.LookAt(path[0]); // Выставляем параметры поворота персонажа в сторону точки куда он бежит
+            // Выставляем параметры поворота персонажа в сторону точки куда он бежит
+            // Set the parameters for turning the character in the direction of the point where he is running
+            lookDirectionTransform.LookAt(path[0]);
             moveContext.NextRotation = Quaternion.Euler(0, lookDirectionTransform.rotation.eulerAngles.y, 0);
             moveContext.StartRotation = transform.rotation;
 
-            moveContext.NextPosition = path[0]; // Выставляем параметры следующей точки куда нужно бежать
+            // Выставляем параметры следующей точки куда нужно бежать
+            // Set the parameters of the next point to run to
+            moveContext.NextPosition = path[0];
             moveContext.StartPosition = transform.position;
             moveContext.ChangePositionTimestamp = Time.time;
             moveContext.Distance = Vector3.Distance(StartPosition, NextPosition);
@@ -199,6 +215,7 @@ namespace Engine.Logic.Locations
 
         private void OnDrawGizmos()
         {
+            return;
             Gizmos.color = Color.green;
             Gizmos.DrawWireSphere(transform.position, pickUpDistance);
 

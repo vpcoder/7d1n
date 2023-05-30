@@ -1,7 +1,6 @@
 ﻿using Engine.Data;
 using System.Collections.Generic;
 using UnityEngine;
-using Engine.EGUI;
 
 namespace Engine.Logic.Locations
 {
@@ -23,6 +22,9 @@ namespace Engine.Logic.Locations
         /// </summary>
         [SerializeField] private List<CharacterNpcBehaviour> characters;
 
+        private const float EXCEPTION_WAIT_TIMEOUT = 60f;
+        private float timestamp;
+        
         public int NpcEndTurnCounter { get; set; } = 0;
         public int NpcGroupCounter { get; set; } = 0;
         private object locker = new object();
@@ -86,7 +88,9 @@ namespace Engine.Logic.Locations
         ///     ---
         ///     
         /// </summary>
-        /// <param name="enemies">Враги</param>
+        /// <param name="enemies">
+        ///     Враги
+        /// </param>
         public void RemoveEnemiesFromBattle(params CharacterNpcBehaviour[] enemies)
         {
             Debug.Log("remove enemies from battle...");
@@ -208,7 +212,7 @@ namespace Engine.Logic.Locations
         {
             // Если нет битвы, нет смысла что то анализировать
             // If there is no battle, there is no point in analyzing anything.
-            if (Game.Instance.Runtime.Mode != Mode.Battle) 
+            if (!Game.Instance.Runtime.BattleFlag) 
                 return;
 
             // Если сейчас ходит игрок или противник-человек, не нужно сюда лезть, люди сами разберутся когда они закончат свой ход
@@ -219,7 +223,8 @@ namespace Engine.Logic.Locations
 
             // Если ещё остались персонажи, которые не завершили свой ход
             // If there are still characters who have not completed their turn
-            if (NpcEndTurnCounter < NpcGroupCounter)
+            if (NpcEndTurnCounter < NpcGroupCounter
+                && (Time.time - timestamp < EXCEPTION_WAIT_TIMEOUT))
                 return;
             
             // Все персонажи в рамках текущей группы хода завершили свой ход, необходимо передать ход следующей группе
@@ -242,11 +247,15 @@ namespace Engine.Logic.Locations
             // Displaying the turn end interface
             var endTurnController = ObjectFinder.Find<EndTurnController>();
             endTurnController.Show();
+
+            timestamp = Time.time;
         }
 
         public void DoNextGroupTurn()
         {
             Debug.Log("next group turn");
+
+            timestamp = Time.time;
 
             NpcEndTurnCounter = 0;
 
@@ -255,7 +264,10 @@ namespace Engine.Logic.Locations
 
             var order = Game.Instance.Runtime.BattleContext.Order;
             if (order == null || order.Count == 1)
+            {
+                ExitFromBattle();
                 return;
+            }
 
             var current = Game.Instance.Runtime.BattleContext.OrderIndex;
             var index   = order.IndexOf(current);
@@ -279,7 +291,7 @@ namespace Engine.Logic.Locations
             if (Game.Instance.Runtime.BattleContext.OrderIndex != OrderGroup.PlayerGroup && Game.Instance.Runtime.BattleContext.OrderIndex != OrderGroup.AnotherPlayerGroup)
 			{
                 NpcAIPredictor.Instance.CreateStrategyForAllNpc();
-			}       
+			}
         }
 
     }
