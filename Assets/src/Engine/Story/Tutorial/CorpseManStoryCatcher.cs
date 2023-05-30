@@ -13,6 +13,7 @@ namespace Engine.Story.Tutorial
         [SerializeField] private CharacterNpcBehaviour zombie;
         [SerializeField] private Transform bloodPoint;
         [SerializeField] private Transform manPoint;
+        [SerializeField] private WTLedBlinker blinker;
         
         public override void CreateDialog(DialogQueue dlg)
         {
@@ -37,7 +38,7 @@ namespace Engine.Story.Tutorial
             dlg.Text("Может из него вылез чужой?");
             dlg.Text("...");
             
-            WakeUpZombieStory.CheckWakeUp(dlg, zombie, PlayerEyePos);
+            WakeUpZombieStory.CheckWakeUp(dlg, blinker, zombie, PlayerEyePos);
         }
         
         protected override void EndDialogEvent()

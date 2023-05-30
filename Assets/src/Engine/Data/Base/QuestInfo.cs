@@ -124,6 +124,11 @@ namespace Engine.Data
             return getDescription()[stage];
         }
 
+        public void NextStage()
+        {
+            Stage++;
+        }
+
         #region Serialization
 
         public QuestInfo()

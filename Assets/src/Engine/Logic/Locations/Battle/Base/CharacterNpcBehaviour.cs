@@ -139,6 +139,10 @@ namespace Engine.Logic.Locations
         /// </summary>
         public void StartNPC()
         {
+#if UNITY_EDITOR && BATTLE_DEBUG
+            Debug.Log("npc " + CharacterBody.Character.ID + " name: " + transform.name + " start actions");
+#endif
+            
             // Начинаем первое действие в очереди действий
             // Starting the first action in the action queue
             DoNextAction();
@@ -157,6 +161,10 @@ namespace Engine.Logic.Locations
         /// </summary>
         public void StopNPC()
         {
+#if UNITY_EDITOR && BATTLE_DEBUG
+            Debug.Log("npc " + CharacterBody.Character.ID + " name: " + transform.name + " stop actions");
+#endif
+            
             // Останавливаем логику разбора очереди действий
             // Stopping the logic of the parsing queue of actions
             IsEndTurn = true;
@@ -372,7 +380,7 @@ namespace Engine.Logic.Locations
                 return; // TODO: Обращение к предиктору за новой порцией действий!
 
             if (CurrentIterationAction.Iteration(this, CurrentAction, timestamp))
-                DoNextAction(); // Конец действия
+                DoNextAction();
         }
         
         private void DoDialogIteration()
@@ -381,11 +389,15 @@ namespace Engine.Logic.Locations
                 return;
 
             if (CurrentIterationAction.Iteration(this, CurrentAction, timestamp))
-                DoNextAction(); // Конец действия
+                DoNextAction();
         }
 
         private void DoNextAction()
         {
+#if UNITY_EDITOR && BATTLE_DEBUG
+            Debug.Log("npc " + CharacterBody.Character.ID + " name: " + transform.name + " next action [" + CharacterContext.Actions.Count + "]");
+#endif
+            
             if(CurrentIterationAction != null)
                 CurrentIterationAction.End(this, CurrentAction, timestamp);
 

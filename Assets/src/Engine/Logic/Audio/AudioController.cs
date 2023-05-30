@@ -110,16 +110,25 @@ namespace Engine
 
         public void PlayMusic()
         {
+            if(musics == null)
+                return;
+            
             musics.Play();
         }
 
         public void PauseMusic()
         {
+            if(musics == null)
+                return;
+            
             musics.Pause();
         }
 
         public void StopMusic()
         {
+            if(musics == null)
+                return;
+            
             musics.Stop();
         }
 

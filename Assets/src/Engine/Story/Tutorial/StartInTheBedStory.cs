@@ -93,16 +93,32 @@ namespace Engine.Story.Tutorial
             dlg.Point(point1);
             dlg.Text("Не могу, мне нужен сон...");
 
-            var pointNext = SelectVariant.Point;
+            var pointNext1 = SelectVariant.Point;
             list = new List<SelectVariant> {
-                SelectVariant.New("Сопротивляться сну", pointNext),
+                SelectVariant.New("Сопротивляться сну", pointNext1),
             };
             dlg.Select(list);
 
-            dlg.Point(pointNext);
+            dlg.Point(pointNext1);
             dlg.Text("...");
+            
+            var pointNext2 = SelectVariant.Point;
+            list = new List<SelectVariant> {
+                SelectVariant.New("Нужно встать", pointNext2),
+            };
+            dlg.Select(list);
+            dlg.Point(pointNext2);
+            
             dlg.Text("Хватит...");
-            dlg.Text("Кто нажимает на эти сраные кнопки?!");
+            
+            var pointNext3 = SelectVariant.Point;
+            list = new List<SelectVariant> {
+                SelectVariant.New("Вставай", pointNext3),
+            };
+            dlg.Select(list);
+            dlg.Point(pointNext3);
+            
+            dlg.Text("Блять. Кто нажимает на эти сраные кнопки, сколько можно?!");
             dlg.Run(() =>
             {
                 dlg.RuntimeObjectList.Add(StoryActionHelper.Fade(background, Color.white, Color.clear, 0.5f));

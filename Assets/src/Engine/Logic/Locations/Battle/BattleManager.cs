@@ -79,23 +79,29 @@ namespace Engine.Logic.Locations
         /// </param>
         public void AddEnemiesToBattle(params CharacterNpcBehaviour[] npcs)
         {
+#if UNITY_EDITOR && BATTLE_DEBUG
             Debug.Log("add enemies from battle...");
+#endif
             this.characters.AddRange(npcs);
         }
 
         /// <summary>
-        ///     Выводит врага из битвы
+        ///     Выводит НПС из битвы
         ///     ---
-        ///     
+        ///     Takes an NPC out of the battle
         /// </summary>
-        /// <param name="enemies">
-        ///     Враги
+        /// <param name="npcs">
+        ///     НПС, которых нужно вывести из битвы
+        ///     ---
+        ///     NPCs to be taken out of the battle
         /// </param>
-        public void RemoveEnemiesFromBattle(params CharacterNpcBehaviour[] enemies)
+        public void RemoveEnemiesFromBattle(params CharacterNpcBehaviour[] npcs)
         {
+#if UNITY_EDITOR && BATTLE_DEBUG
             Debug.Log("remove enemies from battle...");
-
-            foreach (var character in enemies)
+#endif
+            
+            foreach (var character in npcs)
             {
                 this.characters.Remove(character);
                 foreach(var another in this.characters)
@@ -152,19 +158,31 @@ namespace Engine.Logic.Locations
         /// </summary>
         public void EnterToBattle()
         {
+#if UNITY_EDITOR && BATTLE_DEBUG
             Debug.Log("starting battle...");
-
+#endif
+            
             Game.Instance.Runtime.Mode = Mode.Battle;
             Game.Instance.Runtime.BattleFlag = true;
 
+#if UNITY_EDITOR && BATTLE_DEBUG
             Debug.Log("finding enemies...");
-            foreach (var entry in NpcAISceneManager.Instance.GroupToNpcList)
-                characters.AddRange(entry.Value);
-            Debug.Log("founded " + characters.Count + " npc bodies");
+#endif
             
+            foreach (var entry in NpcAISceneManager.Instance.CreateGroupToNpcList())
+                characters.AddRange(entry.Value);
+            
+#if UNITY_EDITOR && BATTLE_DEBUG
+            Debug.Log("founded " + characters.Count + " npc bodies");
             Debug.Log("creating order...");
-            NpcAISceneManager.Instance.SetupOrder(); // Формируем очереди ходов
+#endif
+            
+            // Формируем очереди ходов
+            NpcAISceneManager.Instance.SetupOrder();
+            
+#if UNITY_EDITOR && BATTLE_DEBUG
             Debug.Log("created " + Game.Instance.Runtime.BattleContext.Order.Count + " order groups");
+#endif
             
             var apController = ObjectFinder.Find<BattleApController>();
             apController.Show();
@@ -172,7 +190,9 @@ namespace Engine.Logic.Locations
             if (Game.Instance.Runtime.BattleContext.OrderIndex == OrderGroup.PlayerGroup)
                 StartPlayerTurn();
 
+#if UNITY_EDITOR && BATTLE_DEBUG
             Debug.Log("battle started");
+#endif
         }
 
         /// <summary>
@@ -184,8 +204,11 @@ namespace Engine.Logic.Locations
         /// </summary>
         public void ExitFromBattle()
         {
+            
+#if UNITY_EDITOR && BATTLE_DEBUG
             Debug.Log("exit from battle");
-
+#endif
+            
             // Закрываем интерфейсы битвы
             // Closing the battle interfaces
             ObjectFinder.Find<BattleApController>().Hide();
@@ -200,11 +223,10 @@ namespace Engine.Logic.Locations
             // Всех уцелевших возвращаем в нормальное состояние
             // All survivors return to normal
             foreach (var character in characters)
-            {
                 character.CharacterContext.Status.State = CharacterStateType.Normal;
-            }
-            
+
             // Сбрасываем список участников битвы
+            // Resetting the list of participants in the battle
             characters.Clear();
         }
 
@@ -253,8 +275,12 @@ namespace Engine.Logic.Locations
 
         public void DoNextGroupTurn()
         {
+            
+#if UNITY_EDITOR && BATTLE_DEBUG
             Debug.Log("next group turn");
-
+#endif
+            
+            
             timestamp = Time.time;
 
             NpcEndTurnCounter = 0;
@@ -263,6 +289,9 @@ namespace Engine.Logic.Locations
             hands.DoResetSelectedCell(hands.Selected);
 
             var order = Game.Instance.Runtime.BattleContext.Order;
+            
+            // Если у нас только одна группа, с кем она воюет? Завершаем бой
+            // If we only have one group, who is it fighting? Ending the fight
             if (order == null || order.Count == 1)
             {
                 ExitFromBattle();
@@ -278,17 +307,24 @@ namespace Engine.Logic.Locations
             Debug.Log(index);
 
             Game.Instance.Runtime.BattleContext.OrderIndex = order[index];
-            if(Game.Instance.Runtime.BattleContext.OrderIndex == OrderGroup.PlayerGroup) // Ходит игрок
+            
+            // Если ход игрока, восстанавливаем ОД и отдаём ему управление
+            // If it's a player's turn, restore the AP and give him control
+            if(Game.Instance.Runtime.BattleContext.OrderIndex == OrderGroup.PlayerGroup)
                 StartPlayerTurn();
 
-            NpcAISceneManager.Instance.UpdateOrderList(); // Обновляем очереди ходов
+            // Обновляем очереди ходов
+            // Updating turn queues
+            NpcAISceneManager.Instance.UpdateOrderList();
+            
             if(IsNeedExitBattle())
             {
                 ExitFromBattle();
                 return;
             }
 
-            if (Game.Instance.Runtime.BattleContext.OrderIndex != OrderGroup.PlayerGroup && Game.Instance.Runtime.BattleContext.OrderIndex != OrderGroup.AnotherPlayerGroup)
+            if (Game.Instance.Runtime.BattleContext.OrderIndex != OrderGroup.PlayerGroup
+                && Game.Instance.Runtime.BattleContext.OrderIndex != OrderGroup.AnotherPlayerGroup)
 			{
                 NpcAIPredictor.Instance.CreateStrategyForAllNpc();
 			}

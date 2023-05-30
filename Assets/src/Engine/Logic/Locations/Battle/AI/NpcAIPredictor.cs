@@ -76,8 +76,14 @@ namespace Engine.Logic.Locations
             Debug.Log("create strategy...");
 
             var currentGroup = Game.Instance.Runtime.BattleContext.OrderIndex;
-            var allAiItems = NpcAISceneManager.Instance.GroupToNpcList; // Все НПС в своих группах
-            var currentNpcList = allAiItems[currentGroup]; // Группа, которая сейчас ходит
+            
+            // Все НПС в своих группах
+            // All NPCs in their groups
+            var allAiItems = NpcAISceneManager.Instance.CreateGroupToNpcList();
+            
+            // Группа, которая сейчас ходит
+            // The group that's turn now
+            var currentNpcList = allAiItems[currentGroup];
 
             battle.NpcGroupCounter = currentNpcList.Count;
 
@@ -87,7 +93,9 @@ namespace Engine.Logic.Locations
             
             foreach (var npc in currentNpcList)
             {
-                if (!npc.CharacterContext.Status.IsEnabledAI) // Не работаем с NPC, ИИ которых выключен
+                // Не работаем с NPC, ИИ которых выключен
+                // Do not work with NPCs whose AI is turned off
+                if (!npc.CharacterContext.Status.IsEnabledAI)
                 {
                     npc.StopNPC();
                     continue;
@@ -95,6 +103,8 @@ namespace Engine.Logic.Locations
                 context.Npc = npc;
                 var predictor = npc.TryFindPredictor();
 
+                // Не нашли предиктора? Что то странное... Говорим что НПС не ходит, чтобы никто его не ждал
+                // You couldn't find a predictor? Something strange... We say that the NPS does not walk, so that no one waits for him
                 if (predictor == null)
                 {
                     npc.StopNPC();

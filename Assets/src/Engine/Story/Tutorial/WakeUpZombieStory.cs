@@ -29,7 +29,7 @@ namespace Engine.Story.Tutorial
             ObjectFinder.BattleManager.EnterToBattle();
         }
         
-        public static void CheckWakeUp(DialogQueue dlg, CharacterNpcBehaviour zombie, Vector3 playerEyePos)
+        public static void CheckWakeUp(DialogQueue dlg, WTLedBlinker blinker, CharacterNpcBehaviour zombie, Vector3 playerEyePos)
         {
             var pointExit = SelectVariant.Point;
             var pointWakeUp = SelectVariant.Point;
@@ -39,17 +39,21 @@ namespace Engine.Story.Tutorial
             dlg.Sound("quests/tutorial/zombie_wakeup", zombie.AttackAudioSource);
             dlg.Run(() =>
             {
+                blinker.Blink = true;
+                
                 Camera.main.SetState(playerEyePos, zombie.transform);
                 zombie.Animator.SetCharacterDeadType(DeatType.Alive);
                 zombie.Damaged.CanTakeDamage = true;
                 zombie.CharacterContext.Status.State = CharacterStateType.Fighting;
                 zombie.DeadEvent += () =>
                 {
-                    var story = ObjectFinder.Find<ExitDoorStoryCatcher>();
+                    QuestFactory.Instance.Get<TutorialQuest>().Stage = 1;
+                    var story = ObjectFinder.Find<WTOffStoryCatcher>();
                     if(story != null)
                         story.IsActive = true;
                 };
             });
+            dlg.Music("mortal_kombat");
             dlg.Delay(0.5f, "Что...");
             dlg.Delay(0.5f, "Что это...");
             dlg.Run(() =>

@@ -1,3 +1,4 @@
+using Engine.Data.Factories;
 using Engine.EGUI;
 using Engine.Logic.Dialog;
 using Engine.Logic.Locations;
@@ -10,11 +11,8 @@ namespace Engine.Story
     {
 
         [SerializeField] private bool destroyOnFirstSelect = false;
-
         [SerializeField] private bool showQuestHint = true;
-        [SerializeField] private GameObject hintQuestPrefab;
-        [SerializeField] private GameObject hintMessagePrefab;
-        
+
         private UIHintMessage hintLink;
 
         public bool RewriteSaveState
@@ -25,8 +23,11 @@ namespace Engine.Story
 
         private void Start()
         {
-            if(hintQuestPrefab != null && showQuestHint && activeFlag)
-                hintLink = UIHintMessageManager.ShowQuestHint(hintQuestPrefab, transform.position);
+            if (showQuestHint && activeFlag && hintLink == null)
+            {
+                var questHintPrefab = EffectFactory.Instance.Get(EffectFactory.QUEST_HINT);
+                hintLink = UIHintMessageManager.ShowQuestHint(questHintPrefab, transform.position);
+            }
         }
         
         public override bool IsActive
@@ -35,12 +36,19 @@ namespace Engine.Story
             set
             {
                 base.IsActive = value;
-                
-                if(value && hintQuestPrefab != null && showQuestHint)
+
+                if (value && showQuestHint && hintLink == null)
+                {
 #if UNITY_EDITOR
-                    if(Application.isPlaying)
+                    if (Application.isPlaying)
+                    {
 #endif
-                    hintLink = UIHintMessageManager.ShowQuestHint(hintQuestPrefab, transform.position);
+                        var questHintPrefab = EffectFactory.Instance.Get(EffectFactory.QUEST_HINT);
+                        hintLink = UIHintMessageManager.ShowQuestHint(questHintPrefab, transform.position);
+#if UNITY_EDITOR
+                    }
+#endif
+                }
             }
         }
 
@@ -64,7 +72,8 @@ namespace Engine.Story
         
         public virtual void SelectOutDistance()
         {
-            UIHintMessageManager.Show(hintMessagePrefab, PlayerEyePos, "Слишком далеко. Нужно подойти ближе.");
+            var messageHintPrefab = EffectFactory.Instance.Get(EffectFactory.QUEST_HINT);
+            UIHintMessageManager.Show(messageHintPrefab, PlayerEyePos, Localization.Instance.Get("msg_error_cant_use_story"));
         }
 
         protected override void StartDialogProcessing(DialogQueue dlg)

@@ -6,13 +6,13 @@ namespace Engine.Logic.Base
     {
         public virtual void Show()
         {
-#if UNITY_EDITOR && DEBUG
+#if UNITY_EDITOR && DEBUG && DIALOG_DEBUG
             Debug.Log("construct for '" + GetType().Name + "'...");
 #endif
 
             ShowConstruct();
 
-#if UNITY_EDITOR && DEBUG
+#if UNITY_EDITOR && DEBUG && DIALOG_DEBUG
             Debug.Log("show...");
 #endif
 
@@ -21,13 +21,13 @@ namespace Engine.Logic.Base
 
         public virtual void Hide()
         {
-#if UNITY_EDITOR && DEBUG
+#if UNITY_EDITOR && DEBUG && DIALOG_DEBUG
             Debug.Log("destruct for '" + GetType().Name + "'...");
 #endif
 
             HideDestruct();
 
-#if UNITY_EDITOR && DEBUG
+#if UNITY_EDITOR && DEBUG && DIALOG_DEBUG
             Debug.Log("hide...");
 #endif
 

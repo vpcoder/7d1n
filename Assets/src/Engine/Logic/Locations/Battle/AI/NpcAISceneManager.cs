@@ -19,21 +19,20 @@ namespace Engine.Logic.Locations
 
         #endregion
 
-        public IDictionary<OrderGroup, List<CharacterNpcBehaviour>> GroupToNpcList
+        public IDictionary<OrderGroup, List<CharacterNpcBehaviour>> CreateGroupToNpcList()
         {
-            get
+            var data = new Dictionary<OrderGroup, List<CharacterNpcBehaviour>>();
+            foreach (var character in Object.FindObjectsOfType<CharacterNpcBehaviour>())
             {
-                var data = new Dictionary<OrderGroup, List<CharacterNpcBehaviour>>();
-                foreach (var character in Object.FindObjectsOfType<CharacterNpcBehaviour>())
-                {
-                    if (character.CharacterContext.Status.IsDead) // Не берём в расчёт мёртвых
-                        continue;
-                    
-                    var group = character.Character.OrderGroup;
-                    data.AddInToList(group, character);
-                }
-                return data;
+                // Не берём в расчёт мёртвых npc
+                // Don't take dead npc into account
+                if (character.CharacterContext.Status.IsDead)
+                    continue;
+                
+                var group = character.Character.OrderGroup;
+                data.AddInToList(group, character);
             }
+            return data;
         }
 
         /// <summary>
@@ -85,9 +84,13 @@ namespace Engine.Logic.Locations
             var current = Game.Instance.Runtime.BattleContext.OrderIndex;
             for (; ; )
             {
-                if (order.Contains(current)) // Всё впорядке?
+                // Всё впорядке?
+                // Is everything all right?
+                if (order.Contains(current))
                     break;
+                
                 // Текущая группа хода уже не существует, меняем её
+                // The current move group no longer exists, change it
                 var index = order.IndexOf(current);
                 if (index++ >= order.Count)
                     index = 0;

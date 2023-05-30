@@ -19,6 +19,8 @@ namespace Engine.Data.Factories
         #endregion
 
         public const string DAMAGE_HINT = "damage_hint";
+        public const string QUEST_HINT = "quest_hint";
+        public const string MESSAGE_HINT = "message_hint";
         
         public override string Directory => "Data/Effects";
 

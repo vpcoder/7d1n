@@ -37,28 +37,39 @@ namespace Engine.Logic.Locations.Impls
         public override void CreateStrategyForNpcInner(PredictorContext context)
         {
             var npc = context.Npc;
-            var allAiItems = NpcAISceneManager.Instance.GroupToNpcList;
+            var allAiItems = NpcAISceneManager.Instance.CreateGroupToNpcList();
             
             Debug.Log("create strategy for '" + npc.transform.name + "'...");
 
             var isNeedLook = npc.Target == null;
-            var target = npc.Target ?? FindTargetByDistancePriority(npc, allAiItems)?.DamagedObject; // Пытаемся найти цель
+            
+            // Пытаемся найти цель
+            // Trying to find a target
+            var target = npc.Target ?? FindTargetByDistancePriority(npc, allAiItems)?.DamagedObject;
             if(target == null)
             {
-                npc.StopNPC(); // Не можем ходить, некого атаковать, бой есть, врагов нет, чертовщина какая то...
+                // Не можем ходить, некого атаковать, бой есть, врагов нет, чертовщина какая то...
+                // We can't walk, there's no one to attack, there's combat, no enemies, it's like hell...
+                npc.StopNPC();
                 return;
             }
 
             npc.Target = target;
             npc.CurrentAction = null;
             npc.CharacterContext.Actions.Clear();
-            npc.CharacterContext.Actions.Add(CreateWait(0.1f, 1f)); // Начинаем ход со случайной задержкой от 0.1 до 1 секунды, чтобы казалось что нпс более живые
+            
+            // Начинаем ход со случайной задержкой от 0.1 до 1 секунды, чтобы казалось что нпс более живые
+            // Start the turn with a random delay of 0.1 to 1 second to make the nps seem more alive
+            npc.CharacterContext.Actions.Add(CreateWait(0.1f, 1f));
 
             if (isNeedLook)
                 npc.CharacterContext.Actions.Add(CreateLook(target, 1f));
 
             var ap = npc.Character.AP;
-            var moveResult = DoMoveIfNeeded(npc, target, ref ap); // Движемся к цели, если нужно
+            
+            // Движемся к цели, если нужно
+            // Moving toward the goal, if necessary
+            var moveResult = DoMoveIfNeeded(npc, target, ref ap);
             for(;;)
             {
                 if (ap == 0)
@@ -66,12 +77,16 @@ namespace Engine.Logic.Locations.Impls
 
                 if (moveResult.Weapon != null)
                 {
-                    if (!DoAttackOnlyRanged(npc, target, moveResult.Weapon, ref ap)) // Атакуем дальнобойным пока есть ОД
+                    // Атакуем дальнобойным пока есть ОД
+                    // Attack with a long-range attack while there is APs
+                    if (!DoAttackOnlyRanged(npc, target, moveResult.Weapon, ref ap))
                         break;
                 }
                 else
                 {
-                    if (!DoAttackIfNeeded(npc, target, ref ap)) // Атакуем пока есть ОД
+                    // Атакуем пока есть ОД
+                    // Attack while there is APs
+                    if (!DoAttackIfNeeded(npc, target, ref ap))
                         break;
                 }
                 npc.CharacterContext.Actions.Add(CreateWait(0.3f, 0.6f)); // 300mls-600mls
@@ -137,7 +152,9 @@ namespace Engine.Logic.Locations.Impls
         	if(ap <= 0)
         		return false;
         	
-            var weapon = TryFindWeaponByPredicate(ap, character.Character.Weapons, character.Character.Items); // Оружия которые можно использовать (хватает ОД)
+            // Оружия которые можно использовать (хватает ОД)
+            // Weapons that can be used (enough APs)
+            var weapon = TryFindWeaponByPredicate(ap, character.Character.Weapons, character.Character.Items);
             if (weapon == null)
                 return false;
 

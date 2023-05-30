@@ -13,6 +13,7 @@ namespace Engine.Story.Tutorial
         [SerializeField] private CharacterNpcBehaviour zombie;
         [SerializeField] private Transform windowLeftPoint;
         [SerializeField] private Transform windowsRightPoint;
+        [SerializeField] private WTLedBlinker blinker;
 
         public override void CreateDialog(DialogQueue dlg)
         {
@@ -29,7 +30,7 @@ namespace Engine.Story.Tutorial
             dlg.Text("Сюда задувает ветер, а за окном какая то разруха...");
             dlg.Text("Я в... городе?");
 
-            WakeUpZombieStory.CheckWakeUp(dlg, zombie, PlayerEyePos);
+            WakeUpZombieStory.CheckWakeUp(dlg, blinker, zombie, PlayerEyePos);
         }
         
         protected override void EndDialogEvent()

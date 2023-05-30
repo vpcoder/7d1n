@@ -70,6 +70,9 @@ namespace Engine.Story.Tutorial
                 camera.SetState(startPoint, characterEyes.transform);
                 background.color = Color.white;
             });
+
+            return;
+            
             dlg.Music("dead_lain");
             
             dlg.Text("[Нажми здесь, чтобы продолжить]");
@@ -144,7 +147,7 @@ namespace Engine.Story.Tutorial
                 dlg.RuntimeObjectList.Add(StoryActionHelper.Fade(background, Color.white, Color.clear, 0.8f));
             });
             dlg.Text("[Ладно-ладно, это была шутка]");
-            dlg.Text("[Полюбому ты поверил]");
+            dlg.Text("[Полюбому ты поверил, лошара]");
             dlg.Text("[Всё, теперь серьёзно]");
             dlg.Text("[Кхм...]");
             dlg.Text("[Приготовились...]");

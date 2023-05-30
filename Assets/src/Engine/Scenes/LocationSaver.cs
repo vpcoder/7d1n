@@ -40,7 +40,7 @@ namespace Engine.Logic
         public List<EnemyDataSet> ReadEnemies()
         {
             var data = new List<EnemyDataSet>();
-            foreach(var entry in NpcAISceneManager.Instance.GroupToNpcList)
+            foreach(var entry in NpcAISceneManager.Instance.CreateGroupToNpcList())
             {
                 if (entry.Key == OrderGroup.PlayerGroup || entry.Key == OrderGroup.AnotherPlayerGroup) // Не сохраняем персонажей реальных игроков
                     continue;
