@@ -28,12 +28,13 @@ namespace Engine.Logic.Dialog
 
         public ActionText TextPlayer(string text)
         {
-            return Text(text, AvatarFactory.Instance.PlayerAvatar);
+            return Text(text, Game.Instance.Character.Account.SpriteID.ToString());
         }
         
         public ActionText TextAnother(string text, ICharacter character)
         {
-            return Text(text, null, character.ID.ToString());
+            var spriteID = NpcFactory.Instance.GetSprite(character.ID);
+            return Text(text, null,spriteID);
         }
         
         public ActionText Text(string text, string first = null, string second = null)

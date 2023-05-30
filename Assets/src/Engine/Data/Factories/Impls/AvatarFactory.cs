@@ -18,8 +18,6 @@ namespace Engine.Data.Factories
         
         #endregion
 
-        public string PlayerAvatar => Game.Instance.Character.Account.SpriteID.ToString();
-
         public override string Directory => "Avatars";
         
     }

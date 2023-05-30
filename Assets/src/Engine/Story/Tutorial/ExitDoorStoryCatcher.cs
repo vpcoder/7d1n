@@ -92,7 +92,7 @@ namespace Engine.Story.Tutorial
             dlg.TextPlayer("- Это была случайность!");
             dlg.TextAnother("- Нихуя себе случайность...", guard);
             dlg.Sound("quests/tutorial/zombie_talk", zombie.AttackAudioSource);
-            dlg.TextPlayer("- Дед, оно двинулось! Ебошь!");
+            dlg.TextPlayer("- Дед, смотри, оно двинулось! Ебошь!");
             dlg.Run(() =>
             {
                 StoryActionHelper.NpcSwitchWeapon(securityGuardNpc, 5007L);

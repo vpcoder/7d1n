@@ -82,7 +82,11 @@ namespace Engine.Logic.Locations.Impls
                 Debug.Log("+ " + npc.transform.name + " action: " + action.Action.ToString());
             }
 
-            npc.StartNPC(); // Ходим
+            
+            if(Lists.IsEmpty(npc.CharacterContext.Actions))
+                npc.StopNPC();
+            else
+                npc.StartNPC();
         }
 
         private PredictorMoveResult DoMoveIfNeeded(CharacterNpcBehaviour character, IDamagedObject target, ref int ap)

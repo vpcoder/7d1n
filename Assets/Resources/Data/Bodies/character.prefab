@@ -2334,10 +2334,13 @@ MonoBehaviour:
     orderGroup: 0
     Protection: 1
     Health: 100
+    IsRandomItemsGeneration: 1
     ItemsForGeneration: 
     ItemsMaxCountForGeneration: 0
+    IsRandomWeaponsGeneration: 1
     WeaponsForGeneration: 
     WeaponsMaxCountForGeneration: 0
+  root: {fileID: 0}
 --- !u!1 &8119771778530213129
 GameObject:
   m_ObjectHideFlags: 0

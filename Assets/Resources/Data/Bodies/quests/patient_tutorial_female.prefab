@@ -167,7 +167,6 @@ MonoBehaviour:
   agent: {fileID: 3821133424267481660}
   attackAudioSource: {fileID: 3821133424267481656}
   lookDirectionTransform: {fileID: 3821133423849591643}
-  id: -1
   eye: {fileID: 2025889179}
   meshSwitcher: {fileID: 582693679215469763}
   unsuspectingPredictorID: basic.human.
@@ -1979,8 +1978,10 @@ MonoBehaviour:
     orderGroup: 3
     Protection: 1
     Health: 1
+    IsRandomItemsGeneration: 1
     ItemsForGeneration: 
     ItemsMaxCountForGeneration: 0
+    IsRandomWeaponsGeneration: 1
     WeaponsForGeneration: 
     WeaponsMaxCountForGeneration: 0
   root: {fileID: 0}

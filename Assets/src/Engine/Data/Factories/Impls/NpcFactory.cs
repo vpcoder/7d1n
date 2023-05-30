@@ -10,7 +10,7 @@ namespace Engine.Data.Factories
     {
 
         private IDictionary<long, GameObject> behaviourByID = new Dictionary<long, GameObject>();
-        private IDictionary<long, Sprite>     spriteByID    = new Dictionary<long, Sprite>();
+        private IDictionary<long, string>     spriteByID    = new Dictionary<long, string>();
 
         #region Singleton
 
@@ -40,24 +40,22 @@ namespace Engine.Data.Factories
             return characterBody;
         }
 
-        public Sprite GetSprite(long id)
+        public string GetSprite(long id)
         {
-            Sprite sprite = null;
-            if (!spriteByID.TryGetValue(id, out sprite))
+            if (!spriteByID.TryGetValue(id, out var spriteID))
             {
                 var character = Get(id);
-                var path = "Data/Sprites/" + character.SpriteName;
-                sprite = Resources.Load<Sprite>(path);
 #if UNITY_EDITOR
-                if (sprite == null)
+                if (character == null)
                 {
-                    Debug.LogError("sprite '" + path + "' not founded!");
+                    Debug.LogError("sprite for npc '" + id + "' not founded!");
                     return null;
                 }
 #endif
-                spriteByID.Add(id, sprite);
+                spriteByID.Add(id, character.SpriteName);
+                spriteID = character.SpriteName;
             }
-            return sprite;
+            return spriteID;
         }
 
     }

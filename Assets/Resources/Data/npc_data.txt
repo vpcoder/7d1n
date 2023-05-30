@@ -7,12 +7,19 @@
         	Sprite="patient_tutorial_female" />
         	
         <Item ID="0"
-        	Body="character"
-        	Sprite="character" />
+        	Body="character" />
            
     <!--/Quests-->
 
-	<Item ID="1"
+    <!-- People -->
+    
+        <Item ID="1"
+        	Body="people/tes"
+        	Sprite="tes" />
+    
+    <!-- /People -->
+
+	<Item ID="200"
 		  Body="surviver"
 		  Sprite="surviver" />
 	
