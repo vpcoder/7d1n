@@ -13,6 +13,7 @@ namespace Engine.Story.Tutorial
 
         [SerializeField] private WTLedBlinker blinker;
         [SerializeField] private Transform cameraPoint;
+        [SerializeField] private Transform door;
         
         public override void CreateDialog(DialogQueue dlg)
         {
@@ -61,15 +62,29 @@ namespace Engine.Story.Tutorial
             dlg.Text("[Шипение]");
 
             dlg.Point(nextPoint);
+            dlg.Text("...");
             dlg.Text("Я не знаю что это было, но эта вещица может пригодиться");
             dlg.Run(() => blinker.gameObject.Destroy());
             dlg.Text("Может по этому звонить можно...");
+            dlg.Text("Ну или орехи колоть...");
             dlg.Run(() =>
             {
                 QuestFactory.Instance.Get<TutorialQuest>().Stage = 2;
                 var story = ObjectFinder.Find<ExitDoorStoryCatcher>();
                 if (story != null)
                     story.IsActive = true;
+            });
+            
+            dlg.Run(() =>
+            {
+                PlayerCharacter.SetActive(false);
+                Camera.main.SetState(PlayerEyePos, door);
+            });
+            dlg.Text("Хм...");
+            dlg.Text("Дверь значит...");
+            dlg.Run(() =>
+            {
+                PlayerCharacter.SetActive(true);
             });
         }
 

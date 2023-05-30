@@ -25,7 +25,7 @@ namespace Engine.Story.Tutorial
             if(!blink)
                 return;
             
-            float emission = Mathf.PingPong(Time.time, 1.0f);
+            float emission = Mathf.PingPong(Time.time * 1.5f, 1.0f);
             renderer.material.SetColor ("_EmissionColor", Color.white * Mathf.LinearToGammaSpace(emission));
         }
     }

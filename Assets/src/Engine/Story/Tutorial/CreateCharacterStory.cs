@@ -71,8 +71,6 @@ namespace Engine.Story.Tutorial
                 background.color = Color.white;
             });
 
-            return;
-            
             dlg.Music("dead_lain");
             
             dlg.Text("[Нажми здесь, чтобы продолжить]");
