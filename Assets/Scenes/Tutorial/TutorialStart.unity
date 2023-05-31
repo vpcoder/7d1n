@@ -233,7 +233,7 @@ GameObject:
   m_Component:
   - component: {fileID: 17215717}
   m_Layer: 0
-  m_Name: QuestPoints
+  m_Name: BuildingQuestPoints
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -254,7 +254,6 @@ Transform:
   - {fileID: 262707608}
   - {fileID: 1581021440}
   - {fileID: 1745885611}
-  - {fileID: 319410600}
   - {fileID: 971172372}
   m_Father: {fileID: 1422813443}
   m_RootOrder: 2
@@ -2147,11 +2146,11 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1618145172511886, guid: 13165112f0df8904496986a7e5fc9361, type: 3}
       propertyPath: m_Name
-      value: DeadMan
+      value: CorpseManStory
       objectReference: {fileID: 0}
     - target: {fileID: 1618145172511886, guid: 13165112f0df8904496986a7e5fc9361, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4974258214150686, guid: 13165112f0df8904496986a7e5fc9361, type: 3}
       propertyPath: m_RootOrder
@@ -9976,12 +9975,12 @@ GameObject:
   - component: {fileID: 971172374}
   - component: {fileID: 971172375}
   m_Layer: 0
-  m_Name: WtOff
+  m_Name: WTOffStory
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &971172372
 Transform:
   m_ObjectHideFlags: 0
@@ -9996,7 +9995,7 @@ Transform:
   - {fileID: 1680041781}
   - {fileID: 1322013817}
   m_Father: {fileID: 17215717}
-  m_RootOrder: 5
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &971172373
 MonoBehaviour:
@@ -13803,12 +13802,12 @@ GameObject:
   - component: {fileID: 1265281160}
   - component: {fileID: 1265281161}
   m_Layer: 0
-  m_Name: StartInTheBed
+  m_Name: StartInTheBedStory
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1265281160
 Transform:
   m_ObjectHideFlags: 0
@@ -15313,6 +15312,8 @@ Transform:
   - {fileID: 1739672495}
   - {fileID: 1265281160}
   - {fileID: 17215717}
+  - {fileID: 2087635219}
+  - {fileID: 319410600}
   m_Father: {fileID: 0}
   m_RootOrder: 11
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -17397,7 +17398,7 @@ PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Modification:
-    m_TransformParent: {fileID: 17215717}
+    m_TransformParent: {fileID: 1422813443}
     m_Modifications:
     - target: {fileID: 389704606714000840, guid: 0e5850c68bd45974c86646215f284a4c,
         type: 3}
@@ -17515,12 +17516,12 @@ GameObject:
   - component: {fileID: 1581021442}
   - component: {fileID: 1581021441}
   m_Layer: 0
-  m_Name: Women
+  m_Name: CorpseWomenStory
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1581021440
 Transform:
   m_ObjectHideFlags: 0
@@ -18808,12 +18809,12 @@ GameObject:
   - component: {fileID: 1739672495}
   - component: {fileID: 1739672496}
   m_Layer: 0
-  m_Name: CreateCharacter
+  m_Name: CreateCharacterStory
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1739672495
 Transform:
   m_ObjectHideFlags: 0
@@ -18905,12 +18906,12 @@ GameObject:
   - component: {fileID: 1745885613}
   - component: {fileID: 1745885612}
   m_Layer: 0
-  m_Name: ExitDoor
+  m_Name: ExitDoorStory
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1745885611
 Transform:
   m_ObjectHideFlags: 0
@@ -19605,7 +19606,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e829d89671ce09d4f9ac9dff5292e670, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  renderer: {fileID: 1786004640}
+  rendererComponent: {fileID: 1786004640}
   blink: 0
 --- !u!1 &1794002749
 GameObject:
@@ -19620,12 +19621,12 @@ GameObject:
   - component: {fileID: 1794002751}
   - component: {fileID: 1794002753}
   m_Layer: 0
-  m_Name: Window
+  m_Name: WindowStory
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1794002750
 Transform:
   m_ObjectHideFlags: 0
@@ -22284,6 +22285,36 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 2084996837}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &2087635218
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2087635219}
+  m_Layer: 0
+  m_Name: MeetingStory
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2087635219
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2087635218}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 1422813443}
+  m_RootOrder: 3
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &2093985689
 GameObject:
   m_ObjectHideFlags: 0

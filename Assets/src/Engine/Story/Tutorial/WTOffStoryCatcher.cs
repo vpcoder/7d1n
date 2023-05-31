@@ -63,10 +63,10 @@ namespace Engine.Story.Tutorial
 
             dlg.Point(nextPoint);
             dlg.Text("...");
-            dlg.Text("Я не знаю что это было, но эта вещица может пригодиться");
+            dlg.Text("Я не знаю что это было, но эта вещица может пригодиться.");
             dlg.Run(() => blinker.gameObject.Destroy());
-            dlg.Text("Может по этому звонить можно...");
-            dlg.Text("Ну или орехи колоть...");
+            dlg.Text("Может по этому говну звонить можно.");
+            dlg.Text("Ну или орехи колоть.");
             dlg.Run(() =>
             {
                 QuestFactory.Instance.Get<TutorialQuest>().Stage = 2;
@@ -82,6 +82,7 @@ namespace Engine.Story.Tutorial
             });
             dlg.Text("Хм...");
             dlg.Text("Дверь значит...");
+            dlg.Music("memories");
             dlg.Run(() =>
             {
                 PlayerCharacter.SetActive(true);

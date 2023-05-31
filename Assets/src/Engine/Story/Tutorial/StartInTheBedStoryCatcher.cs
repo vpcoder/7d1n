@@ -8,7 +8,7 @@ using UnityEngine;
 namespace Engine.Story.Tutorial
 {
     
-    public class StartInTheBedStory : StorySelectCatcherBase
+    public class StartInTheBedStoryCatcher : StorySelectCatcherBase
     {
         [SerializeField] private Transform characterEyes;
         [SerializeField] private Transform leftWindow;
@@ -121,6 +121,7 @@ namespace Engine.Story.Tutorial
             dlg.Text("Блять. Кто нажимает на эти сраные кнопки, сколько можно?!");
             dlg.Run(() =>
             {
+                
                 dlg.RuntimeObjectList.Add(StoryActionHelper.Fade(background, Color.white, Color.clear, 0.5f));
             });
             dlg.Text("Сколько времени прошло?");

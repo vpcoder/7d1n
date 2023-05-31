@@ -13,7 +13,9 @@ namespace Engine.Logic
         private readonly IDictionary<IItem, LocationDroppedItemBehaviour> groundspace = new Dictionary<IItem, LocationDroppedItemBehaviour>();
 
         /// <summary>
-        /// Сканирует область вокруг персонажа игрока и находит предметы, лежащие "на земле"
+        ///     Сканирует область вокруг персонажа игрока и находит предметы, лежащие "на земле"
+        ///     ---
+        ///     Scans the area around the player's character and finds items lying "on the ground
         /// </summary>
         public void ScanGround()
         {
@@ -24,9 +26,10 @@ namespace Engine.Logic
 
             this.groundspace.Clear();
             this.Items.Clear();
-            foreach(var hit in Physics.SphereCastAll(character.transform.position, character.PickUpDistance, Vector3.right))
+
+            foreach(var collider in Physics.OverlapSphere(character.transform.position, character.PickUpDistance))
             {
-                var dropped = hit.collider.gameObject.GetComponent<LocationDroppedItemBehaviour>();
+                var dropped = collider.gameObject.GetComponent<LocationDroppedItemBehaviour>();
                 if (dropped == null)
                     continue;
 

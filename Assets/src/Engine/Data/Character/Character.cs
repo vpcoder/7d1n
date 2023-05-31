@@ -22,7 +22,6 @@ namespace Engine.Data
         
         public Quest Quest           { get; set; } = new Quest();
         
-        public bool IsHe => Account.Gender == GenderType.Male;
     }
 	
 }

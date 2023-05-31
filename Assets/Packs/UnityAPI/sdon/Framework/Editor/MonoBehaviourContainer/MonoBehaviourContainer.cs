@@ -96,6 +96,9 @@ namespace UnityEditor {
 		public MonoBehaviourContainer(T target, SerializedObject serialized) : base() {
 		
 			this.target = target;
+			if(target == null)
+				return;
+			
 			this.fieldsData = target.GetType().GetFields(BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance);
 			this.fieldsMap = new Dictionary<string, FieldInfo>();
 			

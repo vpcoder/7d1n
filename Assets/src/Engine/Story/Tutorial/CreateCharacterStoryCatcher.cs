@@ -11,7 +11,7 @@ using UnityEngine;
 namespace Engine.Story.Tutorial
 {
     
-    public class CreateCharacterStory : StoryOnStart
+    public class CreateCharacterStoryCatcher : StoryOnStart
     {
 
         [SerializeField] private CharacterMeshSwitcher meshSwitch;
@@ -58,7 +58,7 @@ namespace Engine.Story.Tutorial
             
             dlg.Run(() =>
             {
-                var story = ObjectFinder.Find<StartInTheBedStory>();
+                var story = ObjectFinder.Find<StartInTheBedStoryCatcher>();
                 story.SaveState();
                 story.RewriteSaveState = false;
                 story.SetupDialogState();
@@ -163,7 +163,7 @@ namespace Engine.Story.Tutorial
         protected override void EndDialogEvent()
         {
             base.EndDialogEvent();
-            ObjectFinder.Find<StartInTheBedStory>().RunDialog();
+            ObjectFinder.Find<StartInTheBedStoryCatcher>().RunDialog();
         }
     }
     

@@ -28,7 +28,7 @@ namespace Engine.Data
     /// 
     /// Информация о квестах и историях
     /// ---
-    /// 
+    /// Information about quests and stories
     /// 
     /// </summary>
     public class Quest : ICharacterStoredObjectSerializable<QuestRepositoryObject>
