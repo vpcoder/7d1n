@@ -13,12 +13,12 @@ namespace Engine.Story.Chagegrad
     public class WakeUpZombieStory
     {
 
-        private static bool Condition()
+        public static bool Condition()
         {
-            var quest = QuestFactory.Instance.Get<TutorialQuest>();
-            return quest.ContainsAllTags(TutorialQuest.CheckPointMan,
-                TutorialQuest.CheckPointWindow,
-                TutorialQuest.CheckPointWomen);
+            var quest = QuestFactory.Instance.Get<ChagegradStartQuest>();
+            return quest.ContainsAllTags(ChagegradStartQuest.CheckPointMan,
+                ChagegradStartQuest.CheckPointWindow,
+                ChagegradStartQuest.CheckPointWomen);
         }
 
         public static void EndProcessing()
@@ -48,10 +48,13 @@ namespace Engine.Story.Chagegrad
                 zombie.CharacterContext.Status.State = CharacterStateType.Fighting;
                 zombie.DeadEvent += () =>
                 {
-                    QuestFactory.Instance.Get<TutorialQuest>().Stage = 1;
+                    var quest = QuestFactory.Instance.Get<ChagegradStartQuest>();
+                    quest.AddTag(ChagegradStartQuest.CheckPointKillZombie);
+                    quest.Stage = 1;
+                    
                     var story = ObjectFinder.Find<WTOffStoryCatcher>();
-                    if(story != null)
-                        story.IsActive = true;
+                    if (story != null)
+                        story.SetActiveAndSave();
                 };
             });
             dlg.Delay(0.5f, "Что...");

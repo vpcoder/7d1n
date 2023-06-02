@@ -1,4 +1,7 @@
 using System.Collections.Generic;
+using Engine.Data;
+using Engine.Data.Factories;
+using Engine.Data.Repositories;
 using UnityEditor;
 using UnityEngine;
 
@@ -47,6 +50,10 @@ namespace Engine.Story.Editor
             GUILayout.Label("В сцене | In scene: " + stories.Count);
             GUILayout.Space(10f);
             
+            if (GUILayout.Button("Save"))
+            {
+                CharacterRepository.Instance.SaveAll(Game.Instance.Character);
+            }
             GUILayout.BeginHorizontal();
             if (GUILayout.Button("Refresh"))
             {

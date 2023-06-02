@@ -1,5 +1,7 @@
 using System.Collections.Generic;
 using Engine.Data;
+using Engine.Data.Factories;
+using Engine.Data.Quests;
 using Engine.Logic.Dialog;
 using Engine.Logic.Dialog.Action.Impls;
 using Engine.Logic.Locations;
@@ -188,9 +190,16 @@ namespace Engine.Story.Chagegrad
                 // Do not add RuntimeObjectList, so that the script is guaranteed to finish
                 StoryActionHelper.Fade(background, Color.white, Color.clear, 0.8f);
                 
-                EndDialogEvent();
+                QuestFactory.Instance.Get<ChagegradStartQuest>().AddTag(ChagegradStartQuest.CheckPointCharacterWakeup);
             });
         }
+        
+        /// <summary>
+        ///     Если история выполнялась, никогда не выполняем её более 1 раза
+        ///     ---
+        ///     If story has been run, never run it more than once
+        /// </summary>
+        public override bool SecondInit() { return false; }
 
     }
     

@@ -15,8 +15,8 @@ namespace src.Engine.Scenes.Loader.Impls
         
         protected override void OnLoad(LoadContext context)
         {
-            Debug.Log("save character data...");
-            CharacterRepository.Instance.SaveAll(Game.Instance.Character);
+            //Debug.Log("save character data...");
+            //CharacterRepository.Instance.SaveAll(Game.Instance.Character);
             
             Debug.Log("load location ui...");
             var canvas = ObjectFinder.Get<Canvas>("Canvas");

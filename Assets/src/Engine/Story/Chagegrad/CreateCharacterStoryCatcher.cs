@@ -1,5 +1,7 @@
 using System.Collections.Generic;
 using Engine.Data;
+using Engine.Data.Factories;
+using Engine.Data.Quests;
 using Engine.Logic;
 using Engine.Logic.Dialog;
 using Engine.Logic.Dialog.Action.Impls;
@@ -58,6 +60,11 @@ namespace Engine.Story.Chagegrad
             
             dlg.Run(() =>
             {
+                // Начинаем первый квест
+                // Beginning the first quest
+                var quest = QuestFactory.Instance.Get<ChagegradStartQuest>();
+                quest.Start();
+                
                 var story = ObjectFinder.Find<StartInTheBedStoryCatcher>();
                 story.SaveState();
                 story.RewriteSaveState = false;
@@ -154,8 +161,50 @@ namespace Engine.Story.Chagegrad
         /// </summary>
         public override bool SecondInit()
         {
-            if(zombie != null)
-                zombie.gameObject.Destroy();
+            var quest = QuestFactory.Instance.Get<ChagegradStartQuest>();
+            if (zombie != null && quest.ContainsTag(ChagegradStartQuest.CheckPointKillZombie))
+            {
+                zombie.Animator.SetCharacterDeadType(DeatType.Dead);
+                zombie.Agent.enabled = true;
+            }
+            else
+            {
+                if (WakeUpZombieStory.Condition())
+                {
+                    AudioController.Instance.PlayMusic("mortal_kombat");
+                    
+                    var blinker = ObjectFinder.Find<WTLedBlinker>();
+                    if(blinker != null)
+                        blinker.Blink = true;
+                    zombie.Animator.SetCharacterDeadType(DeatType.Alive);
+                    zombie.Damaged.CanTakeDamage = true;
+                    zombie.CharacterContext.Status.State = CharacterStateType.Fighting;
+                    zombie.DeadEvent += () =>
+                    {
+                        var quest = QuestFactory.Instance.Get<ChagegradStartQuest>();
+                        quest.AddTag(ChagegradStartQuest.CheckPointKillZombie);
+                        quest.Stage = 1;
+                    
+                        var story = ObjectFinder.Find<WTOffStoryCatcher>();
+                        if (story != null)
+                            story.SetActiveAndSave();
+                    };
+                    zombie.Agent.enabled = true;
+
+                    ObjectFinder.BattleManager.EnterToBattle();
+                }
+                else
+                {
+                    // Фейково "убиваем" зомби-девушку, чтобы лежала на кровати, "как будто умерла"
+                    // Fake "kill" a zombie girl to lie on the bed "as if dead"
+                    zombie.Animator.SetCharacterDeadType(DeatType.FakeDead);
+                    zombie.Damaged.CanTakeDamage = false;
+                }
+            }
+            
+            if(quest.NotContainsTag(ChagegradStartQuest.CheckPointCharacterWakeup))
+                ObjectFinder.Find<StartInTheBedStoryCatcher>().RunDialog();
+            
             return false;
         }
         

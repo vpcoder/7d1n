@@ -22,7 +22,7 @@ namespace Engine.Story.Chagegrad
             dlg.Run(() =>
             {
                 Camera.main.SetState(PlayerEyePos, windowLeftPoint);
-                QuestFactory.Instance.Get<TutorialQuest>().AddTag(TutorialQuest.CheckPointWindow);
+                QuestFactory.Instance.Get<ChagegradStartQuest>().AddTag(ChagegradStartQuest.CheckPointWindow);
             });
             dlg.Text("Окна разбиты и закрыты всяким мусором");
             dlg.Run(() =>

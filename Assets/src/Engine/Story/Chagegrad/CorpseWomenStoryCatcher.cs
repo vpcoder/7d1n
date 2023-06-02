@@ -21,7 +21,7 @@ namespace Engine.Story.Chagegrad
             dlg.Run(() =>
             {
                 Camera.main.SetState(PlayerEyePos, zombiePoint2);
-                QuestFactory.Instance.Get<TutorialQuest>().AddTag(TutorialQuest.CheckPointWomen);
+                QuestFactory.Instance.Get<ChagegradStartQuest>().AddTag(ChagegradStartQuest.CheckPointWomen);
             });
             dlg.Text("Женщина, на вид молодая...");
             dlg.Run(() =>

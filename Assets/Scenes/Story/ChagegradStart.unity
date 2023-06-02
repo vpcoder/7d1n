@@ -255,6 +255,7 @@ Transform:
   - {fileID: 1581021440}
   - {fileID: 1745885611}
   - {fileID: 971172372}
+  - {fileID: 2087635219}
   m_Father: {fileID: 1422813443}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -6378,6 +6379,7 @@ MonoBehaviour:
   destroyStoryObject: 0
   showQuestHint: 1
   zombie: {fileID: 6371604719449072290}
+  man: {fileID: 1959287474}
   bloodPoint: {fileID: 1980902790}
   manPoint: {fileID: 1137330342}
   blinker: {fileID: 1786004641}
@@ -11178,7 +11180,7 @@ MonoBehaviour:
   hideTopPanel: 1
   destroyGameObject: 1
   nextStories:
-  - {fileID: 0}
+  - {fileID: 1794002753}
   - {fileID: 807591707}
   - {fileID: 1581021443}
   destroyStoryObject: 0
@@ -12566,7 +12568,6 @@ Transform:
   - {fileID: 1739672495}
   - {fileID: 1265281160}
   - {fileID: 17215717}
-  - {fileID: 2087635219}
   m_Father: {fileID: 0}
   m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -15746,7 +15747,8 @@ MonoBehaviour:
   hidePlayer: 1
   hideTopPanel: 1
   destroyGameObject: 1
-  nextStories: []
+  nextStories:
+  - {fileID: 2087635220}
   destroyStoryObject: 0
   showQuestHint: 1
   door: {fileID: 8167764226090879394}
@@ -17627,6 +17629,12 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 1958150600}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1959287474 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 5931446512095154439, guid: 83d1b25af7931f14c9164ab951a0d934,
+    type: 3}
+  m_PrefabInstance: {fileID: 5855811310128678321}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1960477875
 GameObject:
   m_ObjectHideFlags: 0
@@ -18878,13 +18886,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2087635218}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: -10.27, y: 0, z: -33.63}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 2111553539}
-  m_Father: {fileID: 1422813443}
-  m_RootOrder: 3
+  m_Father: {fileID: 17215717}
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &2087635220
 MonoBehaviour:
@@ -18900,13 +18908,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   activeFlag: 0
   needRunOnStartFlag: 0
-  useShowFade: 1
+  useShowFade: 0
   hidePlayer: 0
   hideTopPanel: 1
   destroyGameObject: 1
   nextStories: []
-  destroyStoryObject: 0
-  showQuestHint: 1
   cameraPoint: {fileID: 2111553539}
   britt: {fileID: 249379865542730340}
   laberius: {fileID: 6097412238298845992}

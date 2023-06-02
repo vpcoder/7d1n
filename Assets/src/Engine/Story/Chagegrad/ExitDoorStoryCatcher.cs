@@ -38,7 +38,7 @@ namespace Engine.Story.Chagegrad
             dlg.Run(() =>
             {
                 Camera.main.SetState(PlayerEyePos, lookTo);
-                QuestFactory.Instance.Get<TutorialQuest>().Stage++;
+                QuestFactory.Instance.Get<ChagegradStartQuest>().Stage++;
             });
             dlg.Text("Кажется, тут закрыто...");
             dlg.TextPlayer("- Эй! Откройте!");
@@ -115,40 +115,41 @@ namespace Engine.Story.Chagegrad
             
             dlg.Point(selfdefensePoint);
             dlg.TextPlayer("- Это была самооборона!");
-            dlg.TextAnother("- Ты по что девчонке череп проломил?", laberius);
             dlg.TextAnother("- Какая самооборона?!", laberius);
             dlg.TextPlayer("- Дед, она сама на меня набросилась!");
-            dlg.TextPlayer("- Ты посмотри на неё, у неё вид как у девочки из колодца.");
-            dlg.TextPlayer("- А рожа? Да она как будто летучих мышей сожрала!");
+            dlg.TextPlayer("- Ты посмотри на неё, она как будто летучих мышей сожрала!");
             dlg.TextPlayer("- У этого вообще дыра в груди!");
             dlg.TextPlayer("- Дед, тут два варианта, либо этот мужик из уэко мунде сбежал, либо его эта девица оприходовала.");
             dlg.TextPlayer("- И знаешь, когда я проснулся, никаких шинигами рядом не было, так что вариант, по факту, один...");
             dlg.TextAnother("- Так, молчать.", laberius);
-            dlg.TextAnother("- Чё то у вас тут какая то хуйня происходит, позову остальных...", laberius);
+            dlg.TextAnother("- Чё то у вас тут какая то фигня происходит, позову остальных...", laberius);
             dlg.TextAnother("- Развели тут... хуякомунды, понимаешь...", laberius);
 
             dlg.Point(nextPoint);
-            dlg.Run(() =>
-            {
-                dlg.RuntimeObjectList.Add(StoryActionHelper.Fade(background, Color.clear, Color.white, 0.5f));
-            });
-            dlg.Delay(0.6f);
-            
-            
-            dlg.Text("конец...");
-            dlg.Run(() =>
-            {
-                dlg.RuntimeObjectList.Add(StoryActionHelper.Fade(background, Color.white, Color.clear, 0.5f));
-            });
-            dlg.End();
         }
-        
+
+        public override void FirstComplete()
+        {
+            base.FirstComplete();
+            ObjectFinder.Find<MeetingStoryCatcher>().RunDialog();
+        }
+
         /// <summary>
         ///     Если история выполнялась, никогда не выполняем её более 1 раза
         ///     ---
         ///     If story has been run, never run it more than once
         /// </summary>
-        public override bool SecondInit() { return false; }
+        public override bool SecondInit()
+        {
+            var quest = QuestFactory.Instance.Get<ChagegradStartQuest>();
+            if (quest.NotContainsTag(ChagegradStartQuest.CheckPointMeeting))
+            {
+                ObjectFinder.Find<MeetingStoryCatcher>().RunDialog();
+            }
+            
+            door.transform.localRotation = Quaternion.Euler(openAngles);
+            return false;
+        }
 
     }
     

@@ -62,6 +62,7 @@ namespace Engine.Data.Repositories
             character.Skills.LoadFromData(SkillsRepository.Get(id));
             character.State.LoadFromData(StateRepository.Get(id));
             character.Equipment.LoadFromData(EquipmentRepository.Get(id));
+            character.Quest.LoadFromData(QuestRepository.Get(id));
         }
 
     }

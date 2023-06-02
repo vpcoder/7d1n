@@ -12,6 +12,7 @@ namespace Engine.Story.Chagegrad
         public override string StoryID => "main.chagedrad.start_corpse_man";
 
         [SerializeField] private CharacterNpcBehaviour zombie;
+        [SerializeField] private GameObject man;
         [SerializeField] private Transform bloodPoint;
         [SerializeField] private Transform manPoint;
         [SerializeField] private WTLedBlinker blinker;
@@ -21,7 +22,7 @@ namespace Engine.Story.Chagegrad
             dlg.Run(() =>
             {
                 Camera.main.SetState(PlayerEyePos, manPoint);
-                QuestFactory.Instance.Get<TutorialQuest>().AddTag(TutorialQuest.CheckPointMan);
+                QuestFactory.Instance.Get<ChagegradStartQuest>().AddTag(ChagegradStartQuest.CheckPointMan);
             });
             
             dlg.Text("Мужчина... Он мёртв.");
@@ -48,13 +49,18 @@ namespace Engine.Story.Chagegrad
             base.FirstComplete();
             WakeUpZombieStory.EndProcessing();
         }
-        
+
         /// <summary>
         ///     Если история выполнялась, никогда не выполняем её более 1 раза
         ///     ---
         ///     If story has been run, never run it more than once
         /// </summary>
-        public override bool SecondInit() { return false; }
+        public override bool SecondInit()
+        {
+            if(man != null)
+                man.Destroy();
+            return false;
+        }
         
     }
     

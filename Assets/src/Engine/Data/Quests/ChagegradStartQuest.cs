@@ -4,12 +4,15 @@ using System.Runtime.Serialization;
 namespace Engine.Data.Quests
 {
     
-    public class TutorialQuest : QuestInfo
+    public class ChagegradStartQuest : QuestInfo
     {
 
         public const string CheckPointMan = "Man";
         public const string CheckPointWindow = "Window";
         public const string CheckPointWomen = "Women";
+        public const string CheckPointKillZombie = "KillZombie";
+        public const string CheckPointCharacterWakeup = "Wakeup";
+        public const string CheckPointMeeting = "Meeting";
         
         private static readonly List<string> descriptionList = new List<string>()
         {
@@ -19,8 +22,8 @@ namespace Engine.Data.Quests
             "",
         };
 
-        public TutorialQuest() : base() { }
-        public TutorialQuest(SerializationInfo info, StreamingContext context) : base(info, context) { }
+        public ChagegradStartQuest() : base() { }
+        public ChagegradStartQuest(SerializationInfo info, StreamingContext context) : base(info, context) { }
 
         public override string Name => "Этот новый мир";
         

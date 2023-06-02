@@ -129,6 +129,11 @@ namespace Engine.Data
             Stage++;
         }
 
+        public void Start()
+        {
+            State = QuestState.Started;
+        }
+
         #region Serialization
 
         public QuestInfo()

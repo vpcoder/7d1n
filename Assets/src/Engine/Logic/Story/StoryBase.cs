@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using Engine.Data;
 using Engine.Data.Factories;
 using Engine.Logic.Dialog;
 using src.Engine.Scenes.Loader;
@@ -23,7 +24,7 @@ namespace Engine.Story
         private Vector3 playerEyePos;
         private GameObject topPanel;
         private GameObject playerCharacter;
-        private int runCounter;
+        private StoryDataRepoObject storyInfo;
 
         public abstract string StoryID { get; }
 
@@ -31,6 +32,12 @@ namespace Engine.Story
         {
             get { return activeFlag; }
             set { activeFlag = value; }
+        }
+
+        public void SetActiveAndSave()
+        {
+            IsActive = true;
+            QuestFactory.Instance.UpdateStoryInfo();
         }
         
         public virtual bool IsNeedRunOnStart
@@ -64,13 +71,13 @@ namespace Engine.Story
         private void Start()
         {
             LoadFactory.Instance.Complete += Init;
+            storyInfo = QuestFactory.Instance.GetStoryInfo(this);
+            IsActive = storyInfo.IsActive;
         }
 
         public virtual void Init()
         {
-            runCounter = QuestFactory.Instance.GetStoryCount(this);
-
-            var canRun = (runCounter > 0) ? SecondInit() : FirstInit();
+            var canRun = storyInfo.IsComplete ? SecondInit() : FirstInit();
             if(canRun && IsNeedRunOnStart)
                 RunDialog();
             
@@ -80,12 +87,13 @@ namespace Engine.Story
 
         public virtual void Complete()
         {
-            if(runCounter > 0)
+            if(storyInfo.IsComplete)
                 SecondComplete();
             else
                 FirstComplete();
-            
-            QuestFactory.Instance.IncStoryCount(this);
+
+            storyInfo.IsComplete = true;
+            QuestFactory.Instance.UpdateStoryInfo();
             
             Destruct();
         }
@@ -103,10 +111,16 @@ namespace Engine.Story
 
         protected virtual void EndDialogEvent()
         {
-            if(Lists.IsNotEmpty(nextStories))
+            if (Lists.IsNotEmpty(nextStories))
+            {
                 foreach (var story in nextStories)
+                {
+                    var info = QuestFactory.Instance.GetStoryInfo(story.StoryID);
                     story.IsActive = true;
-            
+                    info.IsActive = true;
+                }
+            }
+
             if(hidePlayer)
                 PlayerCharacter.SetActive(true);
             
@@ -166,6 +180,9 @@ namespace Engine.Story
             EndDialogProcessing(endDialog);
             
             dialogBox.SetDialogQueueAndRun(mainDialog.Queue, endDialog.Queue, 0, this);
+            
+            storyInfo.Count++;
+            QuestFactory.Instance.UpdateStoryInfo();
         }
         
     }

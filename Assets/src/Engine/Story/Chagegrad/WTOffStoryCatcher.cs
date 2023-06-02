@@ -73,7 +73,7 @@ namespace Engine.Story.Chagegrad
             dlg.Text("Ну или орехи им колоть.");
             dlg.Run(() =>
             {
-                QuestFactory.Instance.Get<TutorialQuest>().Stage = 2;
+                QuestFactory.Instance.Get<ChagegradStartQuest>().Stage = 2;
             });
             
             dlg.Run(() =>

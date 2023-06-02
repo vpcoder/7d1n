@@ -11,12 +11,14 @@ namespace Engine.Data
     {
         public string StoryID;
         public int Count;
+        public bool IsActive;
+        public bool IsComplete;
     }
     
     [Serializable]
     public class QuestDataRepoObject
     {
-        public Type Type;
+        public string QuestID;
         public int Stage;
         public int State;
         public List<string> HashData;

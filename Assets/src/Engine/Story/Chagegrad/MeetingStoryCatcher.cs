@@ -1,3 +1,5 @@
+using Engine.Data.Factories;
+using Engine.Data.Quests;
 using Engine.Logic.Dialog;
 using Engine.Logic.Locations;
 using UnityEngine;
@@ -5,7 +7,7 @@ using UnityEngine;
 namespace Engine.Story.Chagegrad
 {
     
-    public class MeetingStoryCatcher : StorySelectCatcherBase
+    public class MeetingStoryCatcher : StoryBase
     {
         
         public override string StoryID => "main.chagedrad.start_meeting";
@@ -18,9 +20,12 @@ namespace Engine.Story.Chagegrad
         
         public override void CreateDialog(DialogQueue dlg)
         {
-            
-            
-            
+            dlg.Text("test");
+
+            dlg.Run(() =>
+            {
+                QuestFactory.Instance.Get<ChagegradStartQuest>().AddTag(ChagegradStartQuest.CheckPointMeeting);
+            });
         }
         
         /// <summary>

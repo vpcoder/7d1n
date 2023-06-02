@@ -1,8 +1,8 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using Engine.Data.Repositories;
 using Engine.Story;
-using Engine.Story.Chagegrad;
 using UnityEngine;
 
 namespace Engine.Data.Factories
@@ -32,52 +32,86 @@ namespace Engine.Data.Factories
         ///     ---
         ///     Cache quests by their type
         /// </summary>
-        private readonly IDictionary<Type, IQuestInfo> dataByType = new Dictionary<Type, IQuestInfo>();
+        private readonly IDictionary<string, IQuestInfo> dataByType = new Dictionary<string, IQuestInfo>();
 
         /// <summary>
         ///     Кеш историй
-        ///     Содержит мапу [История] -> [Число раз выполнения истории]
+        ///     Содержит мапу [История] -> [Информация о истории]
         ///     ---
         ///     Story cache
-        ///     Contains the [Story] -> [Number of times story is executed]
+        ///     Contains the [Story] -> [Story Information]
         /// </summary>
-        private readonly IDictionary<string, int> storyToCompleteCount = new Dictionary<string, int>(); 
+        private readonly IDictionary<string, StoryDataRepoObject> storyToInfo = new Dictionary<string, StoryDataRepoObject>();
+
+        /// <summary>
+        ///     Все истории в текущей сцене
+        ///     ---
+        ///     
+        /// </summary>
+        private readonly List<IStory> stories = new List<IStory>();
 
         #region Ctor
 
         private QuestFactory()
         {
             foreach (var quest in AssembliesHandler.CreateImplementations<IQuestInfo>())
-                dataByType.Add(quest.GetType(), quest);
+                dataByType.Add(quest.GetType().FullName, quest);
         }
         
         #endregion
-        
-        public IQuestInfo Get(Type type)
+
+        public void RegisterStory(IStory story)
         {
-            return dataByType[type];
+            stories.Add(story);
+        }
+
+        public IEnumerable<IStory> GetStories()
+        {
+            if (Lists.IsEmpty(stories))
+                yield break;
+            
+            for (int i = stories.Count - 1; i >= 0; i--)
+            {
+                if (stories[i] == null)
+                {
+                    stories.RemoveAt(i);
+                    continue;
+                }
+                yield return stories[i];
+            }
+        }
+        
+        public IQuestInfo Get(string questID)
+        {
+            return dataByType[questID];
         }
 
         public T Get<T>()
         {
-            return (T)Get(typeof(T));
+            return (T)Get(typeof(T).FullName);
         }
 
-        public int GetStoryCount(string storyID)
+        public StoryDataRepoObject GetStoryInfo(string storyID)
         {
-            if (!storyToCompleteCount.TryGetValue(storyID, out var count))
-                return 0;
-            return count;
+            if (!storyToInfo.TryGetValue(storyID, out var info))
+            {
+                info = new StoryDataRepoObject();
+                info.StoryID = storyID;
+                info.Count = 0;
+                info.IsActive = false;
+                storyToInfo.Add(storyID, info);
+            }
+            return info;
         }
 
-        public int GetStoryCount<T>(T story) where T : IStory
+        public StoryDataRepoObject GetStoryInfo<T>(T story) where T : IStory
         {
-            return GetStoryCount(story.StoryID);
+            return GetStoryInfo(story.StoryID);
         }
 
-        public void IncStoryCount<T>(T story) where T : IStory
+        public void UpdateStoryInfo()
         {
-            storyToCompleteCount[story.StoryID] = GetStoryCount(story) + 1;
+            CharacterRepository.Instance.QuestRepository.Save(Game.Instance.Character.Quest.CreateData());
         }
 
         public IEnumerable<QuestDataRepoObject> GetActiveQuests()
@@ -86,7 +120,7 @@ namespace Engine.Data.Factories
                 if (quest.State != QuestState.None)
                     yield return new QuestDataRepoObject()
                     {
-                        Type = quest.GetType(),
+                        QuestID = quest.GetType().FullName,
                         State = (int)quest.State,
                         Stage = quest.Stage,
                         HashData = quest.HashData.ToList(),
@@ -95,12 +129,8 @@ namespace Engine.Data.Factories
         
         public IEnumerable<StoryDataRepoObject> GetActiveStories()
         {
-            foreach (var story in storyToCompleteCount)
-                yield return new StoryDataRepoObject()
-                {
-                    StoryID = story.Key,
-                    Count = story.Value,
-                };
+            foreach (var story in storyToInfo)
+                yield return story.Value;
         }
 
         public void SetQuests(ICollection<QuestDataRepoObject> quests)
@@ -110,7 +140,7 @@ namespace Engine.Data.Factories
             
             foreach (var serializedQuestData in quests)
             {
-                var factoryQuestInfo = Get(serializedQuestData.Type);
+                var factoryQuestInfo = Get(serializedQuestData.QuestID);
                 Set(factoryQuestInfo, serializedQuestData);
             }
         }
@@ -120,10 +150,10 @@ namespace Engine.Data.Factories
             if(Lists.IsEmpty(stories))
                 return;
             
-            storyToCompleteCount.Clear();
+            storyToInfo.Clear();
             
             foreach (var story in stories)
-                storyToCompleteCount.Add(story.StoryID, story.Count);
+                storyToInfo.Add(story.StoryID, story);
         }
 
         private void Set(IQuestInfo factoryQuestInfo, QuestDataRepoObject serializedQuestData)
