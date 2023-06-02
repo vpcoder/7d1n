@@ -9,6 +9,7 @@ namespace Engine.Story.Tutorial
     
     public class CorpseManStoryCatcher : StorySelectCatcherBase
     {
+        public override string StoryID => "main.chagedrad.start_corpse_man";
 
         [SerializeField] private CharacterNpcBehaviour zombie;
         [SerializeField] private Transform bloodPoint;
@@ -36,16 +37,24 @@ namespace Engine.Story.Tutorial
                 dlg.RuntimeObjectList.Add(StoryActionHelper.LookAt(Camera.main, manPoint));
             });
             dlg.Text("Может из него вылез чужой?");
+            dlg.Delay(1f);
             dlg.Text("...");
             
             WakeUpZombieStory.CheckWakeUp(dlg, blinker, zombie, PlayerEyePos);
         }
         
-        protected override void EndDialogEvent()
+        public override void FirstComplete()
         {
-            base.EndDialogEvent();
+            base.FirstComplete();
             WakeUpZombieStory.EndProcessing();
         }
+        
+        /// <summary>
+        ///     Если история выполнялась, никогда не выполняем её более 1 раза
+        ///     ---
+        ///     If story has been run, never run it more than once
+        /// </summary>
+        public override bool SecondInit() { return false; }
         
     }
     

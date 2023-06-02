@@ -10,6 +10,8 @@ namespace Engine.Story.Tutorial
     
     public class WTOffStoryCatcher : StorySelectCatcherBase
     {
+        
+        public override string StoryID => "main.chagedrad.start_wt_off";
 
         [SerializeField] private WTLedBlinker blinker;
         [SerializeField] private Transform cameraPoint;
@@ -17,7 +19,6 @@ namespace Engine.Story.Tutorial
         
         public override void CreateDialog(DialogQueue dlg)
         {
-            
             dlg.Run(() =>
             {
                 Camera.main.SetState(cameraPoint, blinker.transform);
@@ -41,12 +42,13 @@ namespace Engine.Story.Tutorial
                 AudioController.Instance.StopMusic();
                 blinker.Blink = false;
             });
-            dlg.TextPlayer("- Алло...");
+            dlg.TextPlayer("- Ну, допустим, ало?...");
+            dlg.Sound("tw/tw_01");
             dlg.Text("- Это Геннадий?");
             dlg.TextPlayer("- Нет...");
+            dlg.Sound("tw/tw_02");
             dlg.Text("- А где Геннадий?");
             dlg.TextPlayer("- В душе не ебу где ваш Геннадий...");
-            dlg.Text("[Шипение]");
             dlg.GoTo(nextPoint);
             
             dlg.Point(resetPoint);
@@ -55,24 +57,23 @@ namespace Engine.Story.Tutorial
                 AudioController.Instance.StopMusic();
                 blinker.Blink = false;
             });
+            dlg.Sound("tw/tw_01");
             dlg.Text("- Это Геннадий?");
             dlg.TextPlayer("- Так, я же сброс нажимал...");
+            dlg.Sound("tw/tw_02");
             dlg.Text("- Какой сброс? Можно Геннадия пожалуйста?");
             dlg.TextPlayer("- В душе не ебу где ваш Геннадий...");
-            dlg.Text("[Шипение]");
-
+            
             dlg.Point(nextPoint);
+            dlg.Sound("tw/tw_03");
             dlg.Text("...");
             dlg.Text("Я не знаю что это было, но эта вещица может пригодиться.");
             dlg.Run(() => blinker.gameObject.Destroy());
             dlg.Text("Может по этому говну звонить можно.");
-            dlg.Text("Ну или орехи колоть.");
+            dlg.Text("Ну или орехи им колоть.");
             dlg.Run(() =>
             {
                 QuestFactory.Instance.Get<TutorialQuest>().Stage = 2;
-                var story = ObjectFinder.Find<ExitDoorStoryCatcher>();
-                if (story != null)
-                    story.IsActive = true;
             });
             
             dlg.Run(() =>
@@ -89,6 +90,18 @@ namespace Engine.Story.Tutorial
             });
         }
 
+        /// <summary>
+        ///     Если история выполнялась, никогда не выполняем её более 1 раза
+        ///     ---
+        ///     If story has been run, never run it more than once
+        /// </summary>
+        public override bool SecondInit()
+        {
+            if(blinker != null)
+                blinker.gameObject.Destroy();
+            return false;
+        }
+        
     }
     
 }

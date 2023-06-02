@@ -4,7 +4,7 @@ using UnityEngine;
 namespace Engine.Logic.Load.Tutorial
 {
     
-    public class TutorialStartLoadProcessor : SceneLoadProcessorBase
+    public class ChagegradStartLoadProcessor : SceneLoadProcessorBase
     {
         
         public override IEnumerator LoadProcess()

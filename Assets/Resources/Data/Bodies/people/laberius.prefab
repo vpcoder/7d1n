@@ -689,7 +689,7 @@ GameObject:
   - component: {fileID: 3486193472465117511}
   - component: {fileID: 2007904149533377608}
   m_Layer: 0
-  m_Name: tes
+  m_Name: laberius
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -748,7 +748,6 @@ MonoBehaviour:
   agent: {fileID: 3486193472465117511}
   attackAudioSource: {fileID: 810839641327431530}
   lookDirectionTransform: {fileID: 5482345209977194367}
-  id: 0
   eye: {fileID: 3951149610474475753}
   meshSwitcher: {fileID: 3449707232479550239}
   unsuspectingPredictorID: basic.human.

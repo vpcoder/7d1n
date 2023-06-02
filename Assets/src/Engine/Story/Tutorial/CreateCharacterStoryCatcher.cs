@@ -11,8 +11,9 @@ using UnityEngine;
 namespace Engine.Story.Tutorial
 {
     
-    public class CreateCharacterStoryCatcher : StoryOnStart
+    public class CreateCharacterStoryCatcher : StoryBase
     {
+        public override string StoryID => "main.chagedrad.create_character";
 
         [SerializeField] private CharacterMeshSwitcher meshSwitch;
         [SerializeField] private CharacterNpcBehaviour zombie;
@@ -54,7 +55,6 @@ namespace Engine.Story.Tutorial
                 SelectVariant.New("Ещё нет", startChangeNamePoint),
                 SelectVariant.New("Написал", completeChangeNamePoint),
             };
-            
             
             dlg.Run(() =>
             {
@@ -125,28 +125,8 @@ namespace Engine.Story.Tutorial
 
             dlg.Text("[Так, определились с внешностью]");
             dlg.Text("[Выбрали имя <color=\"green\">${characterName}</color>]");
-            dlg.Text("[Пора начинать...]");
-
-            dlg.Run(() =>
-            {
-                dlg.RuntimeObjectList.Add(StoryActionHelper.Fade(background, Color.clear, Color.white, 0.8f));
-            });
-            dlg.Music("star_wars");
-            dlg.Delay(2, "[.]");
-            dlg.Delay(2, "[..]");
-            dlg.Delay(2, "[...]");
-            dlg.Delay(3, "[Давным-давно...]");
-            dlg.Delay(3, "[В далёкой-далёкой галактике...]");
-            dlg.Delay(4, "[Бушевали...]");
+            dlg.Text("[Пора начинать]");
             dlg.Run(() => AudioController.Instance.StopMusic());
-            dlg.Sound("scratch");
-            dlg.Run(() =>
-            {
-                dlg.RuntimeObjectList.Add(StoryActionHelper.Fade(background, Color.white, Color.clear, 0.8f));
-            });
-            dlg.Text("[Ладно-ладно, это была шутка]");
-            dlg.Text("[Полюбому ты поверил, лошара]");
-            dlg.Text("[Всё, теперь серьёзно]");
             dlg.Text("[Кхм...]");
             dlg.Text("[Приготовились...]");
             
@@ -157,14 +137,28 @@ namespace Engine.Story.Tutorial
                 // Do not add RuntimeObjectList, so that the script is guaranteed to finish
                 dlg.RuntimeObjectList.Add(StoryActionHelper.Fade(background, Color.clear, Color.white, 0.8f));
             });
-            dlg.Delay(2f, true);
+            
+            dlg.Delay(2f);
         }
 
-        protected override void EndDialogEvent()
+        public override void FirstComplete()
         {
-            base.EndDialogEvent();
+            base.FirstComplete();
             ObjectFinder.Find<StartInTheBedStoryCatcher>().RunDialog();
         }
+
+        /// <summary>
+        ///     Если история выполнялась, никогда не выполняем её более 1 раза
+        ///     ---
+        ///     If story has been run, never run it more than once
+        /// </summary>
+        public override bool SecondInit()
+        {
+            if(zombie != null)
+                zombie.gameObject.Destroy();
+            return false;
+        }
+        
     }
     
 }

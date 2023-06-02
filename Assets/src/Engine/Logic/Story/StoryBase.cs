@@ -1,3 +1,5 @@
+using System.Collections.Generic;
+using Engine.Data.Factories;
 using Engine.Logic.Dialog;
 using src.Engine.Scenes.Loader;
 using UnityEngine;
@@ -9,20 +11,32 @@ namespace Engine.Story
     {
 
         [SerializeField] protected bool activeFlag = true;
+        [SerializeField] protected bool needRunOnStartFlag = false;
         
         [SerializeField] private bool useShowFade = true;
         [SerializeField] private bool hidePlayer;
         [SerializeField] private bool hideTopPanel = true;
-        [SerializeField] private bool destroyStoryObjectOnEnd = true;
+        [SerializeField] private bool destroyGameObject = true;
 
+        [SerializeField] private List<StoryBase> nextStories;
+        
         private Vector3 playerEyePos;
         private GameObject topPanel;
         private GameObject playerCharacter;
+        private int runCounter;
+
+        public abstract string StoryID { get; }
 
         public virtual bool IsActive
         {
             get { return activeFlag; }
             set { activeFlag = value; }
+        }
+        
+        public virtual bool IsNeedRunOnStart
+        {
+            get { return needRunOnStartFlag; }
+            set { needRunOnStartFlag = value; }
         }
         
         public GameObject TopPanel
@@ -52,9 +66,36 @@ namespace Engine.Story
             LoadFactory.Instance.Complete += Init;
         }
 
-        public virtual void Init() { }
+        public virtual void Init()
+        {
+            runCounter = QuestFactory.Instance.GetStoryCount(this);
+
+            var canRun = (runCounter > 0) ? SecondInit() : FirstInit();
+            if(canRun && IsNeedRunOnStart)
+                RunDialog();
+            
+            if(!canRun)
+                Complete();
+        }
+
+        public virtual void Complete()
+        {
+            if(runCounter > 0)
+                SecondComplete();
+            else
+                FirstComplete();
+            
+            QuestFactory.Instance.IncStoryCount(this);
+            
+            Destruct();
+        }
         
         public abstract void CreateDialog(DialogQueue dlg);
+
+        public virtual bool FirstInit() { return true; }
+        public virtual bool SecondInit() { return true; }
+        public virtual void FirstComplete() { }
+        public virtual void SecondComplete() { }
 
         protected virtual void StartDialogProcessing(DialogQueue dlg) { }
         
@@ -62,16 +103,25 @@ namespace Engine.Story
 
         protected virtual void EndDialogEvent()
         {
+            if(Lists.IsNotEmpty(nextStories))
+                foreach (var story in nextStories)
+                    story.IsActive = true;
+            
             if(hidePlayer)
                 PlayerCharacter.SetActive(true);
             
             if(hideTopPanel)
                 TopPanel.SetActive(true);
             
-            if (destroyStoryObjectOnEnd)
-                Destroy(gameObject);
+            Complete();
         }
 
+        public virtual void Destruct()
+        {
+            if (destroyGameObject)
+                Destroy(gameObject);
+        }
+        
         protected virtual void StartDialogEvent()
         {
             if (hidePlayer)

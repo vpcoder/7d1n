@@ -1,10 +1,6 @@
 ﻿<Data>
 
     <!--Quests-->
-        
-        <Item ID="-1"
-        	Body="quests/patient_tutorial_female"
-        	Sprite="patient_tutorial_female" />
         	
         <Item ID="0"
         	Body="character" />
@@ -14,8 +10,16 @@
     <!-- People -->
     
         <Item ID="1"
-        	Body="people/tes"
-        	Sprite="tes" />
+        	Body="people/laberius"
+        	Sprite="laberius" />
+        	
+        <Item ID="2"
+        	Body="people/britt"
+        	Sprite="britt" />
+        	
+        <Item ID="3"
+        	Body="people/immeral"
+        	Sprite="immeral" />
     
     <!-- /People -->
 

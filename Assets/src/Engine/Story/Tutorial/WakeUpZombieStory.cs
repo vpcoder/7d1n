@@ -37,6 +37,7 @@ namespace Engine.Story.Tutorial
 
             dlg.Point(pointWakeUp);
             dlg.Sound("quests/tutorial/zombie_wakeup", zombie.AttackAudioSource);
+            dlg.Delay(2f);
             dlg.Run(() =>
             {
                 blinker.Blink = true;
@@ -53,7 +54,6 @@ namespace Engine.Story.Tutorial
                         story.IsActive = true;
                 };
             });
-            dlg.Music("mortal_kombat");
             dlg.Delay(0.5f, "Что...");
             dlg.Delay(0.5f, "Что это...");
             dlg.Run(() =>
@@ -63,6 +63,9 @@ namespace Engine.Story.Tutorial
             });
             dlg.Delay(0.5f, "Что это за...");
             dlg.Delay(1f, "Что это за хуйня?!");
+            dlg.Sound("tw/tw_01");
+            dlg.Delay(1f);
+            dlg.Music("mortal_kombat");
 
             dlg.Point(pointExit);
         }

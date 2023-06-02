@@ -11,6 +11,7 @@ namespace Engine.Story.Tutorial
     
     public class ExitDoorStoryCatcher : StorySelectCatcherBase
     {
+        public override string StoryID => "main.chagedrad.start_exit_door";
 
         [SerializeField] private Transform door;
         [SerializeField] private Vector3 openAngles;
@@ -19,7 +20,7 @@ namespace Engine.Story.Tutorial
         [SerializeField] private Transform extCameraPoint;
         [SerializeField] private Transform extCameraLookAtPoint;
         
-        [SerializeField] private CharacterNpcBehaviour securityGuardNpc;
+        [SerializeField] private CharacterNpcBehaviour laberiusNpc;
         [SerializeField] private Transform goToPoint;
 
         [SerializeField] private Transform playerSetPos;
@@ -32,7 +33,7 @@ namespace Engine.Story.Tutorial
         public override void CreateDialog(DialogQueue dlg)
         {
             var background = ObjectFinder.SceneViewImage;
-            var guard = securityGuardNpc.Character;
+            var laberius = laberiusNpc.Character;
             
             dlg.Run(() =>
             {
@@ -44,16 +45,18 @@ namespace Engine.Story.Tutorial
             dlg.Run(() =>
             {
                 Camera.main.SetState(extCameraPoint, extCameraLookAtPoint);
-                StoryActionHelper.NpcGoTo(securityGuardNpc, goToPoint);
+                StoryActionHelper.NpcGoTo(laberiusNpc, goToPoint);
             });
-            dlg.Delay(1.8f);
+            dlg.Delay(1.5f);
+            dlg.Sound("quests/tutorial/door_open");
+            dlg.Delay(1f);
             dlg.Run(() =>
             {
                 door.transform.localRotation = Quaternion.Euler(openAngles);
-                StoryActionHelper.NpcLookAt(securityGuardNpc, PlayerCharacter.transform);
+                StoryActionHelper.NpcLookAt(laberiusNpc, PlayerCharacter.transform);
             });
             dlg.Delay(1f);
-            dlg.TextAnother("- Ёшкин кот, что у вас здесь происходит?!", guard);
+            dlg.TextAnother("- Ёшкин кот, что у вас здесь происходит?!", laberius);
             dlg.Run(() =>
             {
                 Camera.main.SetState(PlayerEyePos, lookTo);
@@ -68,15 +71,15 @@ namespace Engine.Story.Tutorial
             {
                 PlayerCharacter.gameObject.SetActive(true);
                 PlayerCharacter.transform.SetState(playerSetPos);
-                securityGuardNpc.transform.SetState(securityGuardSetPos);
+                laberiusNpc.transform.SetState(securityGuardSetPos);
                 zombie.transform.SetState(zombieSetPos);
 
                 Camera.main.SetState(insideCameraPos, zombie.transform);
                 
-                StoryActionHelper.NpcLookAt(securityGuardNpc, zombie.transform);
+                StoryActionHelper.NpcLookAt(laberiusNpc, zombie.transform);
                 dlg.RuntimeObjectList.Add(StoryActionHelper.Fade(background, Color.white, Color.clear, 0.5f));
             });
-            dlg.TextAnother("- Ебучий случай...", guard);
+            dlg.TextAnother("- Ебучий случай...", laberius);
             
             var accidentPoint = SelectVariant.Point;
             var selfdefensePoint = SelectVariant.Point;
@@ -90,39 +93,39 @@ namespace Engine.Story.Tutorial
 
             dlg.Point(accidentPoint);
             dlg.TextPlayer("- Это была случайность!");
-            dlg.TextAnother("- Нихуя себе случайность...", guard);
+            dlg.TextAnother("- Ничего себе случайность...", laberius);
             dlg.Sound("quests/tutorial/zombie_talk", zombie.AttackAudioSource);
             dlg.TextPlayer("- Дед, смотри, оно двинулось! Ебошь!");
             dlg.Run(() =>
             {
-                StoryActionHelper.NpcSwitchWeapon(securityGuardNpc, 5007L);
+                StoryActionHelper.NpcSwitchWeapon(laberiusNpc, 5007L);
             });
-            dlg.TextAnother("- Тваю мать!", guard);
+            dlg.TextAnother("- Тваю мать!", laberius);
             dlg.Run(() =>
             {
-                securityGuardNpc.Target = zombie.Damaged;
-                StoryActionHelper.NpcAttack(securityGuardNpc);
+                laberiusNpc.Target = zombie.Damaged;
+                StoryActionHelper.NpcAttack(laberiusNpc);
             });
             dlg.Delay(2f);
-            dlg.TextAnother("- Ты это видел?! Видел?!!", guard);
+            dlg.TextAnother("- Ты это видел?! Видел?!!", laberius);
             dlg.TextPlayer("- Дед, а я тебе про что говорил!");
-            dlg.TextAnother("- Так, стоять на месте! А я позову остальных, с вами со всеми надо что то делать...", guard);
-            dlg.TextAnother("- Развели тут... ходячих мертвецов, понимаешь...", guard);
+            dlg.TextAnother("- Так, стоять на месте! А я позову остальных, с вами со всеми надо что то делать...", laberius);
+            dlg.TextAnother("- Развели тут... ходячих мертвецов, понимаешь...", laberius);
             dlg.GoTo(nextPoint);
             
             dlg.Point(selfdefensePoint);
             dlg.TextPlayer("- Это была самооборона!");
-            dlg.TextAnother("- Ты по что девчонке череп проломил?", guard);
-            dlg.TextAnother("- Какая самооборона?!", guard);
+            dlg.TextAnother("- Ты по что девчонке череп проломил?", laberius);
+            dlg.TextAnother("- Какая самооборона?!", laberius);
             dlg.TextPlayer("- Дед, она сама на меня набросилась!");
             dlg.TextPlayer("- Ты посмотри на неё, у неё вид как у девочки из колодца.");
             dlg.TextPlayer("- А рожа? Да она как будто летучих мышей сожрала!");
             dlg.TextPlayer("- У этого вообще дыра в груди!");
             dlg.TextPlayer("- Дед, тут два варианта, либо этот мужик из уэко мунде сбежал, либо его эта девица оприходовала.");
             dlg.TextPlayer("- И знаешь, когда я проснулся, никаких шинигами рядом не было, так что вариант, по факту, один...");
-            dlg.TextAnother("- Так, молчать.", guard);
-            dlg.TextAnother("- Чё то у вас тут какая то хуйня происходит, позову остальных...", guard);
-            dlg.TextAnother("- Развели тут... хуякомунды, понимаешь...", guard);
+            dlg.TextAnother("- Так, молчать.", laberius);
+            dlg.TextAnother("- Чё то у вас тут какая то хуйня происходит, позову остальных...", laberius);
+            dlg.TextAnother("- Развели тут... хуякомунды, понимаешь...", laberius);
 
             dlg.Point(nextPoint);
             dlg.Run(() =>
@@ -139,6 +142,13 @@ namespace Engine.Story.Tutorial
             });
             dlg.End();
         }
+        
+        /// <summary>
+        ///     Если история выполнялась, никогда не выполняем её более 1 раза
+        ///     ---
+        ///     If story has been run, never run it more than once
+        /// </summary>
+        public override bool SecondInit() { return false; }
 
     }
     

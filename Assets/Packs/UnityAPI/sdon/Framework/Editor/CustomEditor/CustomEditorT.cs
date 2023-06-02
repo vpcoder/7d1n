@@ -132,7 +132,10 @@ namespace UnityEditor {
 		#region Unity Events
 
 		private void OnEnable() {
-
+			
+			if(base.target == null)
+				return;
+			
 			this.target = new MonoBehaviourContainer<T>(base.target as T, serializedObject);
 
 			foreach (FieldInfo field in target.Fields) {

@@ -10,7 +10,7 @@ namespace Engine.Story
     public abstract class StorySelectCatcherBase : StoryBase, IStorySelectCatcher
     {
 
-        [SerializeField] private bool destroyOnFirstSelect = false;
+        [SerializeField] private bool destroyStoryObject = false;
         [SerializeField] private bool showQuestHint = true;
 
         private UIHintMessage hintLink;
@@ -21,13 +21,18 @@ namespace Engine.Story
             set;
         } = true;
 
-        private void Start()
+        public override bool FirstInit()
         {
+            if (!base.FirstInit())
+                return false;
+            
             if (showQuestHint && activeFlag && hintLink == null)
             {
                 var questHintPrefab = EffectFactory.Instance.Get(EffectFactory.QUEST_HINT);
                 hintLink = UIHintMessageManager.ShowQuestHint(questHintPrefab, transform.position);
             }
+
+            return true;
         }
         
         public override bool IsActive
@@ -52,21 +57,23 @@ namespace Engine.Story
             }
         }
 
-        protected void Destruct()
+        public override void Destruct()
         {
             if (hintLink != null)
                 Destroy(hintLink.gameObject);
-            
+
             Destroy(GetComponent<Collider>());
             Destroy(GetComponent<StoryObjectSelector>());
             Destroy(this);
+
+            base.Destruct();
         }
 
         public virtual void SelectInDistance()
         {
             RunDialog();
             
-            if(destroyOnFirstSelect)
+            if(destroyStoryObject)
                 Destruct();
         }
         

@@ -61,7 +61,7 @@ namespace src.Engine.Scenes.Loader
                 typeof(SceneGuiLoader)
             );
             
-            tmp.AddInToList(SceneName.TutorialStart,
+            tmp.AddInToList(SceneName.ChagegradStart,
                 typeof(SceneGuiLoader),
                 typeof(TutorialSceneLoader)
             );

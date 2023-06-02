@@ -10,13 +10,15 @@ namespace Engine.Story.Tutorial
     
     public class StartInTheBedStoryCatcher : StorySelectCatcherBase
     {
+        
+        public override string StoryID => "main.chagedrad.start_in_the_bed";
+        
         [SerializeField] private Transform characterEyes;
         [SerializeField] private Transform leftWindow;
         [SerializeField] private Transform forwardWindow;
         [SerializeField] private Transform forwardWindow2;
         [SerializeField] private Transform rightSide;
 
-        [SerializeField] private List<StoryBase> stories;
         [SerializeField] private CharacterNpcBehaviour zombie;
         
         private Color half = new Color(0.5f, 0.5f, 0.5f, 0.5f);
@@ -65,13 +67,14 @@ namespace Engine.Story.Tutorial
                 dlg.RuntimeObjectList.Add(StoryActionHelper.Fade(background, half, Color.white, 0.5f));
             });
             dlg.Text("Мне лишь хочется закрыть глаза и забыться...");
+            dlg.Delay(1f);
             dlg.Text("...");
             dlg.Text("Я всё ещё здесь?");
             dlg.Run(() =>
             {
                 dlg.RuntimeObjectList.Add(StoryActionHelper.Fade(background, Color.white, half, 0.5f));
             });
-            dlg.Delay(2f, true);
+            dlg.Delay(2f);
             dlg.Run(() =>
             {
                 dlg.RuntimeObjectList.Add(StoryActionHelper.Fade(background, half, Color.white, 0.5f));
@@ -82,7 +85,7 @@ namespace Engine.Story.Tutorial
 
             var point1 = SelectVariant.Point;
             var point2 = SelectVariant.Point;
-            var point3 = SelectVariant.Point;
+            var nextPoint = SelectVariant.Point;
             var list = new List<SelectVariant> {
                 SelectVariant.New("Сопротивляться сну", point1),
                 SelectVariant.New("Лежать и пытаться набраться сил", point2)
@@ -121,7 +124,7 @@ namespace Engine.Story.Tutorial
             dlg.Text("Блять. Кто нажимает на эти сраные кнопки, сколько можно?!");
             dlg.Run(() =>
             {
-                
+                Game.Instance.Character.Account.AddPlayerRating(-1);
                 dlg.RuntimeObjectList.Add(StoryActionHelper.Fade(background, Color.white, Color.clear, 0.5f));
             });
             dlg.Text("Сколько времени прошло?");
@@ -142,19 +145,23 @@ namespace Engine.Story.Tutorial
             {
                 dlg.RuntimeObjectList.Add(StoryActionHelper.LookAt(camera, rightSide));
             });
-            dlg.GoTo(point3);
+            dlg.Sound("quests/tutorial/zombie_talk", zombie.AttackAudioSource);
+            dlg.GoTo(nextPoint);
             
             
             dlg.Point(point2);
             dlg.Text("Не хочется думать...");
-            dlg.Text("...");
-            dlg.Sound("dialogs/tutorial/dead");
+            dlg.Delay(1f);
+            dlg.Sound("dialogs/tutorial/dead", zombie.AttackAudioSource);
             
+            dlg.Text("...");
             dlg.Run(() =>
             {
+                Game.Instance.Character.Account.AddPlayerRating(1);
                 dlg.RuntimeObjectList.Add(StoryActionHelper.Fade(background, Color.white, half, 0.5f));
             });
-            dlg.Text("???");
+            dlg.Delay(1f);
+            dlg.Text("?!");
             dlg.Sound("dialogs/tutorial/bed_1");
             dlg.Run(() =>
             {
@@ -162,9 +169,8 @@ namespace Engine.Story.Tutorial
                 dlg.RuntimeObjectList.Add(StoryActionHelper.Fade(background, half, Color.clear, 0.5f));
             });
             
-            
-            dlg.Point(point3);
-            dlg.Sound("quests/tutorial/zombie_talk", zombie.AttackAudioSource);
+            dlg.Point(nextPoint);
+            dlg.Delay(1f);
             dlg.Text("Что за...");
             dlg.Run(() =>
             {
@@ -177,9 +183,6 @@ namespace Engine.Story.Tutorial
             {
                 PlayerCharacter.SetActive(true);
                 PlayerCharacter.GetComponent<LocationCharacter>().MeshSwitcher.MeshIndex = Game.Instance.Character.Account.SpriteID;
-                
-                foreach (var story in stories)
-                    story.IsActive = true;
                 
                 // Не добавляем RuntimeObjectList, чтобы скрипт доиграл до конца гарантированно
                 // Do not add RuntimeObjectList, so that the script is guaranteed to finish

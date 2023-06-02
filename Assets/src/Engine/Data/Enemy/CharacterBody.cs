@@ -47,6 +47,7 @@ namespace Engine.Data
             get { return avatar; }
             set { avatar = value; }
         }
+        
         public Transform WeaponPoint
         {
             get { return weaponPoint; }

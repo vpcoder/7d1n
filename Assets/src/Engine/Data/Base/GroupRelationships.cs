@@ -1,6 +1,4 @@
 using System.Collections.Generic;
-using Engine.Logic.Locations;
-using JetBrains.Annotations;
 
 namespace Engine.Data
 {
@@ -136,8 +134,11 @@ namespace Engine.Data
         {
             return IsEnemies(GetRelation(first, second));
         }
-        public bool IsEnemies([NotNull] IGroupRelationPair relationPair)
+        public bool IsEnemies(IGroupRelationPair relationPair)
         {
+            if (relationPair == null)
+                return false;
+            
             return IsEnemies(relationPair.Hostility);
         }
         public bool IsEnemies(int hostility)
@@ -149,8 +150,11 @@ namespace Engine.Data
         {
             return IsFriends(GetRelation(first, second));
         }
-        public bool IsFriends([NotNull] IGroupRelationPair relationPair)
+        public bool IsFriends(IGroupRelationPair relationPair)
         {
+            if (relationPair == null)
+                return true;
+            
             return IsFriends(relationPair.Hostility);
         }
         public bool IsFriends(int hostility)
@@ -162,8 +166,11 @@ namespace Engine.Data
         {
             return IsNeutral(GetRelation(first, second));
         }
-        public bool IsNeutral([NotNull] IGroupRelationPair relationPair)
+        public bool IsNeutral(IGroupRelationPair relationPair)
         {
+            if (relationPair == null)
+                return false;
+            
             return IsNeutral(relationPair.Hostility);
         }
         public bool IsNeutral(int hostility)

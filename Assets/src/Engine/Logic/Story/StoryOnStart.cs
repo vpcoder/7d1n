@@ -9,7 +9,6 @@ namespace Engine.Story
         {
             activeFlag = true;
             base.Init();
-            RunDialog();
         }
         
     }

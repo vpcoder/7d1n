@@ -33,14 +33,9 @@ namespace Engine.Story.Editor
             Handles.Label(story.transform.position, story.GetType().Name + ((gizmoType & GizmoType.Selected) != 0 ? "*" : ""));
         }
 
-        private static bool IsStoryStart(IStory story)
-        {
-            return typeof(StoryOnStart).IsAssignableFrom(story.GetType());
-        }
-        
         private static bool IsStoryActive(IStory story)
         {
-            return story.IsActive || IsStoryStart(story);
+            return story.IsActive || story.IsNeedRunOnStart;
         }
         
         private void OnGUI()
@@ -102,8 +97,6 @@ namespace Engine.Story.Editor
 
         private void DrawStoryRow(StoryBase story)
         {
-            var isStart = IsStoryStart(story);
-
             var activeWidth = position.width - 170f;
 
             GUI.enabled = Application.isPlaying;
@@ -113,14 +106,14 @@ namespace Engine.Story.Editor
             }
             GUI.enabled = true;
             
-                if (GUILayout.Button(story.GetType().Name, GUILayout.Width(activeWidth)))
+            if (GUILayout.Button(story.StoryID, GUILayout.Width(activeWidth)))
             {
                 Selection.activeTransform = story.transform;
             }
             
             story.gameObject.SetActive(GUILayout.Toggle(story.gameObject.activeInHierarchy, "Active", GUILayout.Width(60f)));
             
-            if (isStart)
+            if (story.IsNeedRunOnStart)
             {
                 GUI.color = Color.yellow;
                 GUILayout.Toggle(story.gameObject.activeInHierarchy, story.gameObject.activeInHierarchy ? "ON" : "OFF", GUILayout.Width(40f));

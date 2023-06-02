@@ -7,21 +7,29 @@ namespace Engine.Data
 {
     
     [Serializable]
-    public class QuestData
+    public class StoryDataRepoObject
     {
-        public long QuestID;
-        public QuestState State = QuestState.None;
-        public int Stage;
-        public List<string> HashData;
+        public string StoryID;
+        public int Count;
     }
     
+    [Serializable]
+    public class QuestDataRepoObject
+    {
+        public Type Type;
+        public int Stage;
+        public int State;
+        public List<string> HashData;
+    }
+
     [Serializable]
     public class QuestRepositoryObject : IRepositoryObject
     {
         public long   ID { get { return IDValue; } set { } }
         public long   IDValue;
         
-        public List<IQuestInfo> Quests;
+        public List<QuestDataRepoObject> Quests;
+        public List<StoryDataRepoObject> Stories;
     }
 
     /// <summary>
@@ -42,6 +50,7 @@ namespace Engine.Data
             {
                 IDValue  = Game.Instance.Runtime.PlayerID,
                 Quests   = QuestFactory.Instance.GetActiveQuests().ToList(),
+                Stories  = QuestFactory.Instance.GetActiveStories().ToList(),
             };
             return data;
         }
@@ -49,6 +58,7 @@ namespace Engine.Data
         public void LoadFromData(QuestRepositoryObject data)
         {
             QuestFactory.Instance.SetQuests(data.Quests);
+            QuestFactory.Instance.SetStories(data.Stories);
         }
 
         #endregion
