@@ -7,7 +7,7 @@ using Engine.Logic.Locations;
 using Engine.Logic.Locations.Animation;
 using UnityEngine;
 
-namespace Engine.Story.Tutorial
+namespace Engine.Story.Chagegrad
 {
     
     public class WakeUpZombieStory

@@ -6,7 +6,7 @@ using Engine.Logic.Dialog.Action.Impls;
 using Engine.Logic.Locations;
 using UnityEngine;
 
-namespace Engine.Story.Tutorial
+namespace Engine.Story.Chagegrad
 {
     
     public class ExitDoorStoryCatcher : StorySelectCatcherBase

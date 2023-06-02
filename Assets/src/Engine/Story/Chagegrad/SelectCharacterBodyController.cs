@@ -3,7 +3,7 @@ using Engine.Data;
 using Engine.Logic;
 using UnityEngine;
 
-namespace Engine.Story.Tutorial
+namespace Engine.Story.Chagegrad
 {
     
     public class SelectCharacterBodyController : MonoBehaviour

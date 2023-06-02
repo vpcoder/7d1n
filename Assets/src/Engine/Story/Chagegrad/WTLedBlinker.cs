@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace Engine.Story.Tutorial
+namespace Engine.Story.Chagegrad
 {
 
     public class WTLedBlinker : MonoBehaviour

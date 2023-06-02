@@ -8,7 +8,7 @@ using Engine.Logic.Locations.Animation;
 using Engine.Logic.Map;
 using UnityEngine;
 
-namespace Engine.Story.Tutorial
+namespace Engine.Story.Chagegrad
 {
     
     public class CreateCharacterStoryCatcher : StoryBase

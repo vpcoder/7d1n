@@ -2,7 +2,7 @@ using Engine.Data;
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace Engine.Story.Tutorial
+namespace Engine.Story.Chagegrad
 {
     
     public class SelectCharacterNameController : MonoBehaviour

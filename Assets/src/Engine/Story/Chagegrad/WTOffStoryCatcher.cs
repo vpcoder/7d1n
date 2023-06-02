@@ -5,7 +5,7 @@ using Engine.Logic.Dialog;
 using Engine.Logic.Dialog.Action.Impls;
 using UnityEngine;
 
-namespace Engine.Story.Tutorial
+namespace Engine.Story.Chagegrad
 {
     
     public class WTOffStoryCatcher : StorySelectCatcherBase

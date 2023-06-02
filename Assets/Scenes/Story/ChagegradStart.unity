@@ -11178,7 +11178,7 @@ MonoBehaviour:
   hideTopPanel: 1
   destroyGameObject: 1
   nextStories:
-  - {fileID: 1794002753}
+  - {fileID: 0}
   - {fileID: 807591707}
   - {fileID: 1581021443}
   destroyStoryObject: 0
@@ -18908,6 +18908,9 @@ MonoBehaviour:
   destroyStoryObject: 0
   showQuestHint: 1
   cameraPoint: {fileID: 2111553539}
+  britt: {fileID: 249379865542730340}
+  laberius: {fileID: 6097412238298845992}
+  immeral: {fileID: 2782791642071279459}
 --- !u!1 &2093985689
 GameObject:
   m_ObjectHideFlags: 0
@@ -19996,6 +19999,18 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 7431968205543499717}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &2782791642071279459 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 8792277592631806923, guid: 8e371e0f202273d47aa40c77ebde7bd3,
+    type: 3}
+  m_PrefabInstance: {fileID: 7431968205543499717}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 607cb42d69d644c5826ebfc8b647bfba, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &3045021892202425798
 PrefabInstance:
   m_ObjectHideFlags: 0
