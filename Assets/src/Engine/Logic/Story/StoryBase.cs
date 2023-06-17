@@ -1,22 +1,13 @@
-using System;
 using System.Collections.Generic;
-using Engine.Data;
 using Engine.Data.Factories;
 using Engine.Logic.Dialog;
+using Engine.Logic.Locations;
 using src.Engine.Scenes.Loader;
 using UnityEngine;
 
 namespace Engine.Story
 {
 
-    [Serializable]
-    public class NextStory
-    {
-        [SerializeField] public StoryBase Story;
-        [SerializeField] public bool SwitchActive;
-        [SerializeField] public bool NeedRun;
-    }
-    
     public abstract class StoryBase : MonoBehaviour, IStory
     {
 
@@ -27,17 +18,20 @@ namespace Engine.Story
         [SerializeField] private bool hidePlayer;
         [SerializeField] private bool hideTopPanel = true;
         [SerializeField] private bool destroyGameObject = true;
+        [SerializeField] private bool rewriteSaveState = true;
 
         [SerializeField] private List<NextStory> nextStories;
-        
-        private Vector3 playerEyePos;
-        private GameObject topPanel;
-        private GameObject playerCharacter;
-        private StoryDataRepoObject storyInfo;
+        [SerializeField] private RunStoryContext context;
 
         public abstract string StoryID { get; }
 
         public virtual List<NextStory> NextStories => nextStories;
+        
+        public bool RewriteSaveState
+        {
+            get { return rewriteSaveState; }
+            set { rewriteSaveState = value; }
+        }
         
         public virtual bool IsActive
         {
@@ -92,9 +86,9 @@ namespace Engine.Story
         {
             get
             {
-                if (topPanel == null)
-                    topPanel = ObjectFinder.TopPanel;
-                return topPanel;
+                if (context.TopPanel == null)
+                    context.TopPanel = ObjectFinder.TopPanel;
+                return context.TopPanel;
             }
         }
 
@@ -102,13 +96,13 @@ namespace Engine.Story
         {
             get
             {
-                if (playerCharacter == null)
-                    playerCharacter = ObjectFinder.Character.MeshSwitcher.gameObject;
-                return playerCharacter;
+                if (context.PlayerCharacter == null)
+                    context.PlayerCharacter = ObjectFinder.Character.MeshSwitcher.gameObject;
+                return context.PlayerCharacter;
             }
         }
 
-        public Vector3 PlayerEyePos => playerEyePos;
+        public Vector3 PlayerEyePos => context.PlayerEyePos;
 
         private void Start()
         {
@@ -116,10 +110,10 @@ namespace Engine.Story
             Debug.Log("start story '" + StoryID + "'");
 #endif
             
-            storyInfo = QuestFactory.Instance.GetStoryInfo(this);
+            context.StoryInfo = QuestFactory.Instance.GetStoryInfo(this);
             
             LoadFactory.Instance.Complete += Init;
-            IsActive = storyInfo.IsActive;
+            IsActive = context.StoryInfo.IsActive;
         }
 
         public virtual void Init()
@@ -129,7 +123,7 @@ namespace Engine.Story
 #endif
 
             bool canRun;
-            if (storyInfo.IsComplete)
+            if (context.StoryInfo.IsComplete)
             {
                 canRun = SecondInit();
 #if UNITY_EDITOR && DEBUG && STORY_DEBUG
@@ -161,7 +155,7 @@ namespace Engine.Story
             dialogBox.Runtime.StartEvent -= StartDialogEvent;
             dialogBox.Runtime.EndEvent   -= EndDialogEvent;
 
-            if (storyInfo.IsComplete)
+            if (context.StoryInfo.IsComplete)
             {
 #if UNITY_EDITOR && DEBUG && STORY_DEBUG
                 Debug.Log("second complete story '" + StoryID + "'");
@@ -176,7 +170,7 @@ namespace Engine.Story
                 FirstComplete();
             }
 
-            storyInfo.IsComplete = true;
+            context.StoryInfo.IsComplete = true;
             IsActive = false;
             QuestFactory.Instance.UpdateStoryInfo();
             
@@ -210,9 +204,25 @@ namespace Engine.Story
         public virtual void FirstComplete() { }
         public virtual void SecondComplete() { NextStories.Clear(); }
 
-        protected virtual void StartDialogProcessing(DialogQueue dlg) { }
-        
-        protected virtual void EndDialogProcessing(DialogQueue dlg) { }
+        protected virtual void StartDialogProcessing(DialogQueue dlg)
+        {
+            if (RewriteSaveState)
+            {
+                dlg.Run(() =>
+                {
+                    SaveState();
+                    SetupDialogState();
+                });
+            }
+        }
+
+        protected virtual void EndDialogProcessing(DialogQueue dlg)
+        {
+            dlg.Run(() =>
+            {
+                ResetState();
+            });
+        }
 
         protected virtual void EndDialogEvent()
         {
@@ -254,7 +264,7 @@ namespace Engine.Story
 #if UNITY_EDITOR && DEBUG && STORY_DEBUG
             Debug.Log("run story '" + StoryID + "'");
 #endif
-            playerEyePos = ObjectFinder.Character.Eye.position;
+            context.PlayerEyePos = ObjectFinder.Character.Eye.position;
             
             var dialogBox = ObjectFinder.DialogBox;
             dialogBox.Runtime.StartEvent += StartDialogEvent;
@@ -291,10 +301,33 @@ namespace Engine.Story
             
             dialogBox.SetDialogQueueAndRun(mainDialog.Queue, endDialog.Queue, 0, this);
             
-            storyInfo.Count++;
+            context.StoryInfo.Count++;
             QuestFactory.Instance.UpdateStoryInfo();
         }
-        
+
+        public virtual void SaveState()
+        {
+            var cameraLink = Camera.main;
+            context.StartFov = cameraLink.fieldOfView;
+            context.StartTransformPair = cameraLink.GetState();
+            context.StartFloor = ObjectFinder.Find<GlobalFloorSwitchController>().CurrentFloor;
+        }
+
+        public virtual void SetupDialogState()
+        {
+            var cameraLink = Camera.main;
+            cameraLink.fieldOfView = 60f;
+            ObjectFinder.Find<GlobalFloorSwitchController>().SetMaxFloor();
+        }
+
+        public void ResetState()
+        {
+            var cameraLink = Camera.main;
+            cameraLink.fieldOfView = context.StartFov;
+            cameraLink.transform.SetState(context.StartTransformPair);
+            ObjectFinder.Find<GlobalFloorSwitchController>().SetFloor(context.StartFloor);
+        }
+
     }
     
 }

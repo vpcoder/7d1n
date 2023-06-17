@@ -6339,10 +6339,25 @@ MonoBehaviour:
   hidePlayer: 1
   hideTopPanel: 1
   destroyGameObject: 1
+  rewriteSaveState: 1
   nextStories:
   - Story: {fileID: 960782806}
     SwitchActive: 1
     NeedRun: 1
+  context:
+    PlayerEyePos: {x: 0, y: 0, z: 0}
+    TopPanel: {fileID: 0}
+    PlayerCharacter: {fileID: 0}
+    StoryInfo:
+      StoryID: 
+      Count: 0
+      IsActive: 0
+      IsComplete: 0
+    StartFloor: 0
+    StartFov: 0
+    StartTransformPair:
+      position: {x: 0, y: 0, z: 0}
+      rotation: {x: 0, y: 0, z: 0, w: 0}
   showQuestHint: 1
   bloodPoint: {fileID: 1980902790}
   manPoint: {fileID: 1137330342}
@@ -7564,10 +7579,25 @@ MonoBehaviour:
   hidePlayer: 1
   hideTopPanel: 1
   destroyGameObject: 1
+  rewriteSaveState: 1
   nextStories:
   - Story: {fileID: 1748060896}
     SwitchActive: 1
     NeedRun: 0
+  context:
+    PlayerEyePos: {x: 0, y: 0, z: 0}
+    TopPanel: {fileID: 0}
+    PlayerCharacter: {fileID: 0}
+    StoryInfo:
+      StoryID: 
+      Count: 0
+      IsActive: 0
+      IsComplete: 0
+    StartFloor: 0
+    StartFov: 0
+    StartTransformPair:
+      position: {x: 0, y: 0, z: 0}
+      rotation: {x: 0, y: 0, z: 0, w: 0}
   zombie: {fileID: 6371604719449072290}
   blinker: {fileID: 1786004641}
 --- !u!1001 &962285443
@@ -7695,10 +7725,25 @@ MonoBehaviour:
   hidePlayer: 0
   hideTopPanel: 1
   destroyGameObject: 1
+  rewriteSaveState: 1
   nextStories:
   - Story: {fileID: 1745885614}
     SwitchActive: 1
     NeedRun: 0
+  context:
+    PlayerEyePos: {x: 0, y: 0, z: 0}
+    TopPanel: {fileID: 0}
+    PlayerCharacter: {fileID: 0}
+    StoryInfo:
+      StoryID: 
+      Count: 0
+      IsActive: 0
+      IsComplete: 0
+    StartFloor: 0
+    StartFov: 0
+    StartTransformPair:
+      position: {x: 0, y: 0, z: 0}
+      rotation: {x: 0, y: 0, z: 0, w: 0}
   showQuestHint: 1
   blinker: {fileID: 1786004641}
   cameraPoint: {fileID: 1680041781}
@@ -11203,6 +11248,7 @@ MonoBehaviour:
   hidePlayer: 1
   hideTopPanel: 1
   destroyGameObject: 1
+  rewriteSaveState: 1
   nextStories:
   - Story: {fileID: 1794002753}
     SwitchActive: 1
@@ -11213,6 +11259,20 @@ MonoBehaviour:
   - Story: {fileID: 1581021443}
     SwitchActive: 1
     NeedRun: 0
+  context:
+    PlayerEyePos: {x: 0, y: 0, z: 0}
+    TopPanel: {fileID: 0}
+    PlayerCharacter: {fileID: 0}
+    StoryInfo:
+      StoryID: 
+      Count: 0
+      IsActive: 0
+      IsComplete: 0
+    StartFloor: 0
+    StartFov: 0
+    StartTransformPair:
+      position: {x: 0, y: 0, z: 0}
+      rotation: {x: 0, y: 0, z: 0, w: 0}
   showQuestHint: 0
   characterEyes: {fileID: 2112646113}
   leftWindow: {fileID: 889035420}
@@ -13202,18 +13262,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a798622ef4494e77b439078893628981, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  floor2:
-  - {fileID: 8723506655262724326}
-  - {fileID: 1897259496088851983}
-  - {fileID: 5874716042726513102}
-  - {fileID: 1361879731050389558}
-  - {fileID: 1585636871898032829}
-  - {fileID: 86733363989518414}
-  floor3: []
-  floor4: []
-  floor5: []
+  floorDatas:
+  - FloorIndex: 2
+    ObjectList:
+    - {fileID: 8723506655262724326}
+    - {fileID: 1897259496088851983}
+    - {fileID: 1361879731050389558}
+    - {fileID: 5874716042726513102}
+    - {fileID: 1585636871898032829}
+    - {fileID: 86733363989518414}
   currentFloor: 1
-  maxFloor: 2
 --- !u!1001 &1482230783
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -14549,10 +14607,25 @@ MonoBehaviour:
   hidePlayer: 1
   hideTopPanel: 1
   destroyGameObject: 1
+  rewriteSaveState: 1
   nextStories:
   - Story: {fileID: 960782806}
     SwitchActive: 1
     NeedRun: 1
+  context:
+    PlayerEyePos: {x: 0, y: 0, z: 0}
+    TopPanel: {fileID: 0}
+    PlayerCharacter: {fileID: 0}
+    StoryInfo:
+      StoryID: 
+      Count: 0
+      IsActive: 0
+      IsComplete: 0
+    StartFloor: 0
+    StartFov: 0
+    StartTransformPair:
+      position: {x: 0, y: 0, z: 0}
+      rotation: {x: 0, y: 0, z: 0, w: 0}
   showQuestHint: 1
   zombiePoint1: {fileID: 1117543500}
   zombiePoint2: {fileID: 204679240}
@@ -15691,10 +15764,25 @@ MonoBehaviour:
   hidePlayer: 1
   hideTopPanel: 1
   destroyGameObject: 1
+  rewriteSaveState: 1
   nextStories:
   - Story: {fileID: 1265281161}
     SwitchActive: 1
     NeedRun: 1
+  context:
+    PlayerEyePos: {x: 0, y: 0, z: 0}
+    TopPanel: {fileID: 0}
+    PlayerCharacter: {fileID: 0}
+    StoryInfo:
+      StoryID: 
+      Count: 0
+      IsActive: 0
+      IsComplete: 0
+    StartFloor: 0
+    StartFov: 0
+    StartTransformPair:
+      position: {x: 0, y: 0, z: 0}
+      rotation: {x: 0, y: 0, z: 0, w: 0}
   meshSwitch: {fileID: 1519796913}
   zombie: {fileID: 6371604719449072290}
   startPoint: {fileID: 1696121472}
@@ -15786,10 +15874,25 @@ MonoBehaviour:
   hidePlayer: 1
   hideTopPanel: 1
   destroyGameObject: 1
+  rewriteSaveState: 1
   nextStories:
   - Story: {fileID: 2087635220}
     SwitchActive: 1
     NeedRun: 1
+  context:
+    PlayerEyePos: {x: 0, y: 0, z: 0}
+    TopPanel: {fileID: 0}
+    PlayerCharacter: {fileID: 0}
+    StoryInfo:
+      StoryID: 
+      Count: 0
+      IsActive: 0
+      IsComplete: 0
+    StartFloor: 0
+    StartFov: 0
+    StartTransformPair:
+      position: {x: 0, y: 0, z: 0}
+      rotation: {x: 0, y: 0, z: 0, w: 0}
   showQuestHint: 1
   door: {fileID: 8167764226090879394}
   openAngles: {x: 0, y: 75, z: 0}
@@ -15919,10 +16022,25 @@ MonoBehaviour:
   hidePlayer: 1
   hideTopPanel: 1
   destroyGameObject: 1
+  rewriteSaveState: 1
   nextStories:
   - Story: {fileID: 971172373}
     SwitchActive: 1
     NeedRun: 0
+  context:
+    PlayerEyePos: {x: 0, y: 0, z: 0}
+    TopPanel: {fileID: 0}
+    PlayerCharacter: {fileID: 0}
+    StoryInfo:
+      StoryID: 
+      Count: 0
+      IsActive: 0
+      IsComplete: 0
+    StartFloor: 0
+    StartFov: 0
+    StartTransformPair:
+      position: {x: 0, y: 0, z: 0}
+      rotation: {x: 0, y: 0, z: 0, w: 0}
   woomen: {fileID: 3821133425548154120}
   wt: {fileID: 1785928781}
 --- !u!1001 &1748434893
@@ -16447,10 +16565,25 @@ MonoBehaviour:
   hidePlayer: 0
   hideTopPanel: 0
   destroyGameObject: 1
+  rewriteSaveState: 1
   nextStories:
   - Story: {fileID: 960782806}
     SwitchActive: 1
     NeedRun: 1
+  context:
+    PlayerEyePos: {x: 0, y: 0, z: 0}
+    TopPanel: {fileID: 0}
+    PlayerCharacter: {fileID: 0}
+    StoryInfo:
+      StoryID: 
+      Count: 0
+      IsActive: 0
+      IsComplete: 0
+    StartFloor: 0
+    StartFov: 0
+    StartTransformPair:
+      position: {x: 0, y: 0, z: 0}
+      rotation: {x: 0, y: 0, z: 0, w: 0}
   showQuestHint: 1
   windowLeftPoint: {fileID: 1362496533}
   windowsRightPoint: {fileID: 389106255}
@@ -19001,7 +19134,22 @@ MonoBehaviour:
   hidePlayer: 0
   hideTopPanel: 1
   destroyGameObject: 1
+  rewriteSaveState: 1
   nextStories: []
+  context:
+    PlayerEyePos: {x: 0, y: 0, z: 0}
+    TopPanel: {fileID: 0}
+    PlayerCharacter: {fileID: 0}
+    StoryInfo:
+      StoryID: 
+      Count: 0
+      IsActive: 0
+      IsComplete: 0
+    StartFloor: 0
+    StartFov: 0
+    StartTransformPair:
+      position: {x: 0, y: 0, z: 0}
+      rotation: {x: 0, y: 0, z: 0, w: 0}
   cameraPoint: {fileID: 2111553539}
   britt: {fileID: 249379865542730340}
   laberius: {fileID: 6097412238298845992}

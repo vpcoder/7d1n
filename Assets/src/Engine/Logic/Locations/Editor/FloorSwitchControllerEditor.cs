@@ -4,8 +4,8 @@ using UnityEngine;
 namespace Engine.Logic.Locations
 {
     
-    [CustomEditor(typeof(FloorSwitchController), true)]
-    public class FloorSwitchControllerEditor : CustomEditorT<FloorSwitchController>
+    [CustomEditor(typeof(GlobalFloorSwitchController), true)]
+    public class FloorSwitchControllerEditor : CustomEditorT<GlobalFloorSwitchController>
     {
         
         public override void OnAdditionEditor()
