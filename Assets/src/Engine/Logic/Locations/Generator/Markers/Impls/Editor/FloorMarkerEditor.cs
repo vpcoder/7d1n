@@ -1,7 +1,7 @@
 using UnityEditor;
 using UnityEngine;
 
-namespace Engine.Logic.Locations.Generator.Markers.Editor
+namespace Engine.Logic.Locations.Generator.Markers
 {
     
     [CustomEditor(typeof(FloorMarker), true)]

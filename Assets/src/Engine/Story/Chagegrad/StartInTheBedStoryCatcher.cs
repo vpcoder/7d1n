@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using Engine.Data;
 using Engine.Data.Factories;
 using Engine.Data.Quests;
+using Engine.Logic;
 using Engine.Logic.Dialog;
 using Engine.Logic.Dialog.Action.Impls;
 using Engine.Logic.Locations;
@@ -13,7 +14,7 @@ namespace Engine.Story.Chagegrad
     public class StartInTheBedStoryCatcher : StorySelectCatcherBase
     {
         
-        public override string StoryID => "main.chagedrad.start_in_the_bed";
+        public override string StoryID => "main.chagegrad.start_in_the_bed";
         
         [SerializeField] private Transform characterEyes;
         [SerializeField] private Transform leftWindow;
@@ -184,7 +185,7 @@ namespace Engine.Story.Chagegrad
             dlg.Run(() =>
             {
                 PlayerCharacter.SetActive(true);
-                PlayerCharacter.GetComponent<LocationCharacter>().MeshSwitcher.MeshIndex = Game.Instance.Character.Account.SpriteID;
+                PlayerCharacter.GetComponent<CharacterMeshSwitcher>().MeshIndex = Game.Instance.Character.Account.SpriteID;
                 
                 // Не добавляем RuntimeObjectList, чтобы скрипт доиграл до конца гарантированно
                 // Do not add RuntimeObjectList, so that the script is guaranteed to finish
@@ -193,13 +194,6 @@ namespace Engine.Story.Chagegrad
                 QuestFactory.Instance.Get<ChagegradStartQuest>().AddTag(ChagegradStartQuest.CheckPointCharacterWakeup);
             });
         }
-        
-        /// <summary>
-        ///     Если история выполнялась, никогда не выполняем её более 1 раза
-        ///     ---
-        ///     If story has been run, never run it more than once
-        /// </summary>
-        public override bool SecondInit() { return false; }
 
     }
     

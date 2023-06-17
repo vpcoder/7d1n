@@ -1,7 +1,7 @@
 using UnityEditor;
 using UnityEngine;
 
-namespace Engine.Logic.Editor
+namespace Engine.Logic
 {
     
     [CustomEditor(typeof(CharacterMeshSwitcher), true)]

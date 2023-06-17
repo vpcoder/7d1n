@@ -10,9 +10,14 @@ using UnityEngine;
 namespace Engine.Story.Chagegrad
 {
     
-    public class WakeUpZombieStory
+    public class WakeUpZombieStoryCatcher : StoryBase
     {
 
+        public override string StoryID => "main.chagegrad.start_wakeup_zombie";
+
+        [SerializeField] private CharacterNpcBehaviour zombie;
+        [SerializeField] private WTLedBlinker blinker;
+        
         public static bool Condition()
         {
             var quest = QuestFactory.Instance.Get<ChagegradStartQuest>();
@@ -21,15 +26,7 @@ namespace Engine.Story.Chagegrad
                 ChagegradStartQuest.CheckPointWomen);
         }
 
-        public static void EndProcessing()
-        {
-            if(!Condition())
-                return;
-            
-            ObjectFinder.BattleManager.EnterToBattle();
-        }
-        
-        public static void CheckWakeUp(DialogQueue dlg, WTLedBlinker blinker, CharacterNpcBehaviour zombie, Vector3 playerEyePos)
+        public override void CreateDialog(DialogQueue dlg)
         {
             var pointExit = SelectVariant.Point;
             var pointWakeUp = SelectVariant.Point;
@@ -42,7 +39,7 @@ namespace Engine.Story.Chagegrad
             {
                 blinker.Blink = true;
                 
-                Camera.main.SetState(playerEyePos, zombie.transform);
+                Camera.main.SetState(PlayerEyePos, zombie.transform);
                 zombie.Animator.SetCharacterDeadType(DeatType.Alive);
                 zombie.Damaged.CanTakeDamage = true;
                 zombie.CharacterContext.Status.State = CharacterStateType.Fighting;
@@ -51,10 +48,7 @@ namespace Engine.Story.Chagegrad
                     var quest = QuestFactory.Instance.Get<ChagegradStartQuest>();
                     quest.AddTag(ChagegradStartQuest.CheckPointKillZombie);
                     quest.Stage = 1;
-                    
-                    var story = ObjectFinder.Find<WTOffStoryCatcher>();
-                    if (story != null)
-                        story.SetActiveAndSave();
+                    ObjectFinder.Find<WomenDeadStoryCatcher>().RunDialog();
                 };
             });
             dlg.Delay(0.5f, "Что...");
@@ -69,10 +63,34 @@ namespace Engine.Story.Chagegrad
             dlg.Sound("tw/tw_01");
             dlg.Delay(1f);
             dlg.Music("mortal_kombat");
-
+            dlg.Run(() =>
+            {
+                var quest = QuestFactory.Instance.Get<ChagegradStartQuest>();
+                quest.AddTag(ChagegradStartQuest.CheckPointZombieWakeup);
+            });
             dlg.Point(pointExit);
         }
 
+        public override void FirstComplete()
+        {
+            base.FirstComplete();
+            CheckBattle();
+        }
+        
+        public override void SecondComplete()
+        {
+            base.SecondComplete();
+            CheckBattle();
+        }
+
+        private void CheckBattle()
+        {
+            var quest = QuestFactory.Instance.Get<ChagegradStartQuest>();
+            if (!Condition() || quest.ContainsTag(ChagegradStartQuest.CheckPointZombieWakeup))
+                return;
+            ObjectFinder.BattleManager.EnterToBattle();
+        }
+        
     }
     
 }

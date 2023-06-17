@@ -1,11 +1,10 @@
 using System.Collections.Generic;
 using Engine.Data;
-using Engine.Data.Factories;
 using Engine.Data.Repositories;
 using UnityEditor;
 using UnityEngine;
 
-namespace Engine.Story.Editor
+namespace Engine.Story
 {
 
     public class StorySelectEditor : EditorWindow
@@ -18,7 +17,7 @@ namespace Engine.Story.Editor
         private void OnEnable()
         {
             stories.Clear();
-            foreach(StoryBase item in Object.FindObjectsOfTypeAll(typeof(StoryBase)))
+            foreach(StoryBase item in Resources.FindObjectsOfTypeAll(typeof(StoryBase)))
                 stories.Add(item);
         }
 

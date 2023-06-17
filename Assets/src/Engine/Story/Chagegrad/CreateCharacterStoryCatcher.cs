@@ -15,7 +15,7 @@ namespace Engine.Story.Chagegrad
     
     public class CreateCharacterStoryCatcher : StoryBase
     {
-        public override string StoryID => "main.chagedrad.create_character";
+        public override string StoryID => "main.chagegrad.create_character";
 
         [SerializeField] private CharacterMeshSwitcher meshSwitch;
         [SerializeField] private CharacterNpcBehaviour zombie;
@@ -148,12 +148,6 @@ namespace Engine.Story.Chagegrad
             dlg.Delay(2f);
         }
 
-        public override void FirstComplete()
-        {
-            base.FirstComplete();
-            ObjectFinder.Find<StartInTheBedStoryCatcher>().RunDialog();
-        }
-
         /// <summary>
         ///     Если история выполнялась, никогда не выполняем её более 1 раза
         ///     ---
@@ -169,7 +163,7 @@ namespace Engine.Story.Chagegrad
             }
             else
             {
-                if (WakeUpZombieStory.Condition())
+                if (WakeUpZombieStoryCatcher.Condition())
                 {
                     AudioController.Instance.PlayMusic("mortal_kombat");
                     

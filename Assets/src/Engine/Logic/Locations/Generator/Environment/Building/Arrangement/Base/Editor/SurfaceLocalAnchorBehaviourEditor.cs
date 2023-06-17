@@ -1,7 +1,7 @@
 using UnityEditor;
 using UnityEngine;
 
-namespace Engine.Logic.Locations.Generator.Environment.Building.Arrangement.Editor
+namespace Engine.Logic.Locations.Generator.Environment.Building.Arrangement
 {
     
     [CustomEditor(typeof(SurfaceLocalAnchorBehaviour), true)]

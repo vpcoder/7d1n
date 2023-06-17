@@ -4,7 +4,7 @@ using GitIntegration.Items;
 using UnityEditor;
 using UnityEngine;
 
-namespace Engine.Logic.Locations.Editor
+namespace Engine.Logic.Locations
 {
     
     [CustomEditor(typeof(LocationDroppedItemBehaviour), true)]

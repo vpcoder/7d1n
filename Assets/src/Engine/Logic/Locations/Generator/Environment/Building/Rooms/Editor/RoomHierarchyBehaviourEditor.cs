@@ -2,7 +2,7 @@ using Engine.Logic.Locations.Generator.Markers;
 using UnityEditor;
 using UnityEngine;
 
-namespace Engine.Logic.Locations.Generator.Environment.Building.Editor
+namespace Engine.Logic.Locations.Generator.Environment.Building
 {
 
     [CustomEditor(typeof(RoomHierarchyBehaviour), true)]

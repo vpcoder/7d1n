@@ -3,7 +3,7 @@ using GluonGui.WorkspaceWindow.Views.WorkspaceExplorer.Explorer;
 using UnityEditor;
 using UnityEngine;
 
-namespace Engine.Logic.Locations.Editor
+namespace Engine.Logic.Locations
 {
     
     [CustomEditor(typeof(LocationObjectItemBehaviour), true)]

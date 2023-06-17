@@ -11,6 +11,7 @@ namespace Engine.Data.Quests
         public const string CheckPointWindow = "Window";
         public const string CheckPointWomen = "Women";
         public const string CheckPointKillZombie = "KillZombie";
+        public const string CheckPointZombieWakeup = "WakeupZombie";
         public const string CheckPointCharacterWakeup = "Wakeup";
         public const string CheckPointMeeting = "Meeting";
         

@@ -1,4 +1,7 @@
-﻿namespace Engine.Logic.Dialog.Action.Impls
+﻿using System;
+using UnityEngine;
+
+namespace Engine.Logic.Dialog.Action.Impls
 {
     public class ActionRun : ActionCommand
     {
@@ -7,7 +10,14 @@
 
         public override void DoRun(DialogRuntime runtime)
         {
-            Executable?.Invoke();
+            try
+            {
+                Executable?.Invoke();
+            }
+            catch (Exception ex)
+            {
+                Debug.LogError(ex);
+            }
         }
     }
 }

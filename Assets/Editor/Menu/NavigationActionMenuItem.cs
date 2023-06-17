@@ -14,14 +14,14 @@ namespace UnityEditor.Menu
         [MenuItem("7d1n/Navigation/Hide Nav Mesh Obstacle objects")]
         public static void ReloadDbAction()
         {
-            foreach(NavMeshObstacle item in Object.FindObjectsOfTypeAll(typeof(NavMeshObstacle)))
+            foreach(NavMeshObstacle item in Resources.FindObjectsOfTypeAll(typeof(NavMeshObstacle)))
                 item.gameObject.SetActive(false);
         }
         
         [MenuItem("7d1n/Navigation/Show Nav Mesh Obstacle objects")]
         public static void ReloadItemsAction()
         {
-            foreach(NavMeshObstacle item in Object.FindObjectsOfTypeAll(typeof(NavMeshObstacle)))
+            foreach(NavMeshObstacle item in Resources.FindObjectsOfTypeAll(typeof(NavMeshObstacle)))
                 item.gameObject.SetActive(true);
         }
         

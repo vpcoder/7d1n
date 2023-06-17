@@ -10,7 +10,6 @@ namespace Engine.Story
     public abstract class StorySelectCatcherBase : StoryBase, IStorySelectCatcher
     {
 
-        [SerializeField] private bool destroyStoryObject = false;
         [SerializeField] private bool showQuestHint = true;
 
         private UIHintMessage hintLink;
@@ -72,9 +71,6 @@ namespace Engine.Story
         public virtual void SelectInDistance()
         {
             RunDialog();
-            
-            if(destroyStoryObject)
-                Destruct();
         }
         
         public virtual void SelectOutDistance()
@@ -97,7 +93,7 @@ namespace Engine.Story
             }
         }
 
-        public void SaveState()
+        public virtual void SaveState()
         {
             var camera = Camera.main;
             startFov = camera.fieldOfView;
@@ -105,7 +101,7 @@ namespace Engine.Story
             startFloor = ObjectFinder.Find<FloorSwitchController>().CurrentFloor;
         }
 
-        public void SetupDialogState()
+        public virtual void SetupDialogState()
         {
             var camera = Camera.main;
             camera.fieldOfView = 60f;

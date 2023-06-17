@@ -11,7 +11,7 @@ namespace Engine.Story.Chagegrad
     
     public class ExitDoorStoryCatcher : StorySelectCatcherBase
     {
-        public override string StoryID => "main.chagedrad.start_exit_door";
+        public override string StoryID => "main.chagegrad.start_exit_door";
 
         [SerializeField] private Transform door;
         [SerializeField] private Vector3 openAngles;
@@ -20,7 +20,7 @@ namespace Engine.Story.Chagegrad
         [SerializeField] private Transform extCameraPoint;
         [SerializeField] private Transform extCameraLookAtPoint;
         
-        [SerializeField] private CharacterNpcBehaviour laberiusNpc;
+        [SerializeField] private CharacterNpcBehaviour laberius;
         [SerializeField] private Transform goToPoint;
 
         [SerializeField] private Transform playerSetPos;
@@ -33,7 +33,6 @@ namespace Engine.Story.Chagegrad
         public override void CreateDialog(DialogQueue dlg)
         {
             var background = ObjectFinder.SceneViewImage;
-            var laberius = laberiusNpc.Character;
             
             dlg.Run(() =>
             {
@@ -45,7 +44,7 @@ namespace Engine.Story.Chagegrad
             dlg.Run(() =>
             {
                 Camera.main.SetState(extCameraPoint, extCameraLookAtPoint);
-                StoryActionHelper.NpcGoTo(laberiusNpc, goToPoint);
+                StoryActionHelper.NpcGoTo(this.laberius, goToPoint);
             });
             dlg.Delay(1.5f);
             dlg.Sound("quests/tutorial/door_open");
@@ -53,7 +52,7 @@ namespace Engine.Story.Chagegrad
             dlg.Run(() =>
             {
                 door.transform.localRotation = Quaternion.Euler(openAngles);
-                StoryActionHelper.NpcLookAt(laberiusNpc, PlayerCharacter.transform);
+                StoryActionHelper.NpcLookAt(this.laberius, PlayerCharacter.transform);
             });
             dlg.Delay(1f);
             dlg.TextAnother("- Ёшкин кот, что у вас здесь происходит?!", laberius);
@@ -71,12 +70,12 @@ namespace Engine.Story.Chagegrad
             {
                 PlayerCharacter.gameObject.SetActive(true);
                 PlayerCharacter.transform.SetState(playerSetPos);
-                laberiusNpc.transform.SetState(securityGuardSetPos);
+                this.laberius.transform.SetState(securityGuardSetPos);
                 zombie.transform.SetState(zombieSetPos);
 
                 Camera.main.SetState(insideCameraPos, zombie.transform);
                 
-                StoryActionHelper.NpcLookAt(laberiusNpc, zombie.transform);
+                StoryActionHelper.NpcLookAt(this.laberius, zombie.transform);
                 dlg.RuntimeObjectList.Add(StoryActionHelper.Fade(background, Color.white, Color.clear, 0.5f));
             });
             dlg.TextAnother("- Ебучий случай...", laberius);
@@ -98,13 +97,13 @@ namespace Engine.Story.Chagegrad
             dlg.TextPlayer("- Дед, смотри, оно двинулось! Ебошь!");
             dlg.Run(() =>
             {
-                StoryActionHelper.NpcSwitchWeapon(laberiusNpc, 5007L);
+                StoryActionHelper.NpcSwitchWeapon(this.laberius, 5007L);
             });
             dlg.TextAnother("- Тваю мать!", laberius);
             dlg.Run(() =>
             {
-                laberiusNpc.Target = zombie.Damaged;
-                StoryActionHelper.NpcAttack(laberiusNpc);
+                this.laberius.Target = zombie.Damaged;
+                StoryActionHelper.NpcAttack(this.laberius);
             });
             dlg.Delay(2f);
             dlg.TextAnother("- Ты это видел?! Видел?!!", laberius);

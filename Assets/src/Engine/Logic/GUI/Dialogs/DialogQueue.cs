@@ -4,6 +4,7 @@ using Engine.Data;
 using Engine.Data.Factories;
 using Engine.Logic.Dialog.Action;
 using Engine.Logic.Dialog.Action.Impls;
+using Engine.Logic.Locations;
 using Engine.Story;
 using UnityEngine;
 
@@ -29,6 +30,11 @@ namespace Engine.Logic.Dialog
         public ActionText TextPlayer(string text)
         {
             return Text(text, Game.Instance.Character.Account.SpriteID.ToString());
+        }
+
+        public ActionText TextAnother(string text, CharacterNpcBehaviour npc)
+        {
+            return TextAnother(text, npc.Character);
         }
         
         public ActionText TextAnother(string text, ICharacter character)

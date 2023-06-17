@@ -1,4 +1,4 @@
-using Engine.Story.Editor;
+using Engine.Story;
 using UnityEngine;
 
 namespace UnityEditor.Menu

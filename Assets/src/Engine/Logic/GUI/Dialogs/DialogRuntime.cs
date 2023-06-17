@@ -90,16 +90,14 @@ namespace Engine.Logic.Dialog
                                          IEnumerable<IActionCommand> endDialogQueue,
                                          int startIndex = 0)
         {
-            if (StartEvent != null)
-            {
-                StartEvent.Invoke();
-                foreach (var link in StartEvent.GetInvocationList())
-                    StartEvent -= (System.Action)link;
-            }
-
 #if UNITY_EDITOR && DEBUG && DIALOG_DEBUG
             Debug.Log("setup dialog queue in runtime...");
 #endif
+            
+#if UNITY_EDITOR && DEBUG && STORY_DEBUG
+            Debug.Log("invoke start dialog event...");
+#endif
+            StartEvent?.Invoke();
 
             variables = new Dictionary<string, string>();
             DialogBox = dialogBox;
@@ -247,12 +245,10 @@ namespace Engine.Logic.Dialog
             if (DialogBox != null)
                 DialogBox.Hide();
             
-            if (EndEvent != null)
-            {
-                EndEvent.Invoke();
-                foreach (var link in EndEvent.GetInvocationList())
-                    EndEvent -= (System.Action)link;
-            }
+#if UNITY_EDITOR && DEBUG && STORY_DEBUG
+            Debug.Log("invoke end dialog event...");
+#endif
+            EndEvent?.Invoke();
         }
     }
 }

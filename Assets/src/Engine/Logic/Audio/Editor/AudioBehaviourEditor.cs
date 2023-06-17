@@ -1,7 +1,7 @@
 using UnityEditor;
 using UnityEngine;
 
-namespace Engine.Editor
+namespace Engine
 {
     
     [CustomEditor(typeof(AudioBehaviour), true)]
