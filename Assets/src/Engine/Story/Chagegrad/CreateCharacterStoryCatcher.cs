@@ -15,7 +15,7 @@ namespace Engine.Story.Chagegrad
     
     public class CreateCharacterStoryCatcher : StoryBase
     {
-        public override string StoryID => "main.chagegrad.create_character";
+        public override string StoryID => "main.chagegrad1.create_character";
 
         [SerializeField] private CharacterMeshSwitcher meshSwitch;
         [SerializeField] private CharacterNpcBehaviour zombie;
@@ -65,11 +65,6 @@ namespace Engine.Story.Chagegrad
                 var quest = QuestFactory.Instance.Get<ChagegradStartQuest>();
                 quest.Start();
                 
-                var story = ObjectFinder.Find<StartInTheBedStoryCatcher>();
-                story.SaveState();
-                story.RewriteSaveState = false;
-                story.SetupDialogState();
-
                 // Фейково "убиваем" зомби-девушку, чтобы лежала на кровати, "как будто умерла"
                 // Fake "kill" a zombie girl to lie on the bed "as if dead"
                 zombie.Animator.SetCharacterDeadType(DeatType.FakeDead);

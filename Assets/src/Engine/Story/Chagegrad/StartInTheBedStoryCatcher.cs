@@ -11,10 +11,10 @@ using UnityEngine;
 namespace Engine.Story.Chagegrad
 {
     
-    public class StartInTheBedStoryCatcher : StorySelectCatcherBase
+    public class StartInTheBedStoryCatcher : StoryBase
     {
         
-        public override string StoryID => "main.chagegrad.start_in_the_bed";
+        public override string StoryID => "main.chagegrad1.start_in_the_bed";
         
         [SerializeField] private Transform characterEyes;
         [SerializeField] private Transform leftWindow;
@@ -37,6 +37,7 @@ namespace Engine.Story.Chagegrad
                 background.color = Color.white;
             });
 
+            dlg.GlobalText("Начало...");
             dlg.Delay(0.1f, "[.]");
             dlg.Delay(0.1f, "[..]");
             dlg.Delay(0.2f, "[...]");
@@ -44,9 +45,7 @@ namespace Engine.Story.Chagegrad
             dlg.Delay(0.4f, "[Восстанавливаю нейронные связи] - Ok!");
             dlg.Delay(0.6f, "[Возобновляю работу мозга]");
             dlg.Delay(0.4f, "[Возобновляю работу мозга] - Ok!");
-            dlg.Delay(0.1f, "[.]");
-            dlg.Delay(0.1f, "[..]");
-            dlg.Delay(0.2f, "[...]");
+            dlg.GlobalText(null);
 
             dlg.Delay(1f);
             

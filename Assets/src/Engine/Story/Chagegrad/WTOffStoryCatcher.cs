@@ -11,7 +11,7 @@ namespace Engine.Story.Chagegrad
     public class WTOffStoryCatcher : StorySelectCatcherBase
     {
         
-        public override string StoryID => "main.chagegrad.start_wt_off";
+        public override string StoryID => "main.chagegrad1.start_wt_off";
 
         [SerializeField] private WTLedBlinker blinker;
         [SerializeField] private Transform cameraPoint;

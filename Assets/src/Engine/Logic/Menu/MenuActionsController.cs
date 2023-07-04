@@ -47,7 +47,7 @@ namespace Engine.Logic
         public void OnStartClick()
         {
             var load = ObjectFinder.Find<SceneToNextSceneLoadProcessor>();
-            load.ShowLoad(SceneName.ChagegradStart);
+            load.ShowLoad(SceneName.Chagegrad1);
 
             buttonsPanel.SetActive(false);
 
@@ -55,7 +55,7 @@ namespace Engine.Logic
             CharacterRepository.Instance.LoadAll(Game.Instance.Character);
 
             load.SetDescription(Localization.Instance.Get("ui_menu_load_mapscene"));
-            SceneManager.Instance.Switch(SceneName.ChagegradStart);
+            SceneManager.Instance.Switch(SceneName.Chagegrad1);
         }
 
         public void OnSettingsClick()

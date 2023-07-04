@@ -8,7 +8,7 @@ namespace Engine.Story.Chagegrad
     
     public class CorpseManStoryCatcher : StorySelectCatcherBase
     {
-        public override string StoryID => "main.chagegrad.start_corpse_man";
+        public override string StoryID => "main.chagegrad1.start_corpse_man";
 
         [SerializeField] private Transform bloodPoint;
         [SerializeField] private Transform manPoint;

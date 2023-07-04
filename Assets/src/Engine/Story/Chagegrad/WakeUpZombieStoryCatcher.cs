@@ -13,7 +13,7 @@ namespace Engine.Story.Chagegrad
     public class WakeUpZombieStoryCatcher : StoryBase
     {
 
-        public override string StoryID => "main.chagegrad.start_wakeup_zombie";
+        public override string StoryID => "main.chagegrad1.start_wakeup_zombie";
 
         [SerializeField] private CharacterNpcBehaviour zombie;
         [SerializeField] private WTLedBlinker blinker;

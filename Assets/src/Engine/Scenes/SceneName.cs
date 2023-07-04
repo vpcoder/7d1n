@@ -9,9 +9,10 @@ namespace Engine.Scenes
         
         Build,
         
-        // Tutorial
-        ChagegradStart,
+        Reborn,
         
+        Chagegrad1,
+
     };
     
 }

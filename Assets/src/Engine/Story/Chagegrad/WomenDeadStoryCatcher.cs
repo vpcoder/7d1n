@@ -7,7 +7,7 @@ namespace Engine.Story.Chagegrad
     public class WomenDeadStoryCatcher : StoryBase
     {
         
-        public override string StoryID => "main.chagegrad.start_women_dead";
+        public override string StoryID => "main.chagegrad1.start_women_dead";
 
         [SerializeField] private Transform woomen;
         [SerializeField] private Transform wt;

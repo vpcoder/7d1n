@@ -8,7 +8,7 @@ namespace Engine.Story.Chagegrad
     
     public class CorpseWomenStoryCatcher : StorySelectCatcherBase
     {
-        public override string StoryID => "main.chagegrad.start_corpse_women";
+        public override string StoryID => "main.chagegrad1.start_corpse_women";
 
         [SerializeField] private Transform zombiePoint1;
         [SerializeField] private Transform zombiePoint2;

@@ -9,7 +9,7 @@ namespace Engine.Story.Chagegrad
     public class WindowStoryCatcher : StorySelectCatcherBase
     {
 
-        public override string StoryID => "main.chagegrad.start_window";
+        public override string StoryID => "main.chagegrad1.start_window";
         
         [SerializeField] private Transform windowLeftPoint;
         [SerializeField] private Transform windowsRightPoint;

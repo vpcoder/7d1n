@@ -14,6 +14,7 @@ namespace Engine.Logic.Dialog
         [SerializeField] private AnswerBox answerBoxPrefab;
 
         [SerializeField] private Text textField;
+        [SerializeField] private Text globalTextField;
 
         [SerializeField] private Image firstAvatar;
 
@@ -54,6 +55,13 @@ namespace Engine.Logic.Dialog
             if (text == null)
                 text = string.Empty;
             textField.text = text;
+        }
+        
+        public void SetGlobalText(string text)
+        {
+            if (text == null)
+                text = string.Empty;
+            globalTextField.text = text;
         }
 
         public void SetFirstAvatar(Sprite avatar)

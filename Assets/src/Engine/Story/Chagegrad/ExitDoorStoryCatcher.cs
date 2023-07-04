@@ -11,7 +11,7 @@ namespace Engine.Story.Chagegrad
     
     public class ExitDoorStoryCatcher : StorySelectCatcherBase
     {
-        public override string StoryID => "main.chagegrad.start_exit_door";
+        public override string StoryID => "main.chagegrad1.start_exit_door";
 
         [SerializeField] private Transform door;
         [SerializeField] private Vector3 openAngles;

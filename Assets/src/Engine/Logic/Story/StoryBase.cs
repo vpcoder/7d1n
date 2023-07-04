@@ -206,11 +206,11 @@ namespace Engine.Story
 
         protected virtual void StartDialogProcessing(DialogQueue dlg)
         {
+            SaveState();
             if (RewriteSaveState)
             {
                 dlg.Run(() =>
                 {
-                    SaveState();
                     SetupDialogState();
                 });
             }
@@ -307,6 +307,9 @@ namespace Engine.Story
 
         public virtual void SaveState()
         {
+#if UNITY_EDITOR && DEBUG && STORY_DEBUG
+            Debug.Log("save camera state for story '" + StoryID + "'");
+#endif
             var cameraLink = Camera.main;
             context.StartFov = cameraLink.fieldOfView;
             context.StartTransformPair = cameraLink.GetState();
@@ -315,6 +318,9 @@ namespace Engine.Story
 
         public virtual void SetupDialogState()
         {
+#if UNITY_EDITOR && DEBUG && STORY_DEBUG
+            Debug.Log("setup camera state for story '" + StoryID + "'");
+#endif
             var cameraLink = Camera.main;
             cameraLink.fieldOfView = 60f;
             ObjectFinder.Find<GlobalFloorSwitchController>().SetMaxFloor();
@@ -322,6 +328,9 @@ namespace Engine.Story
 
         public void ResetState()
         {
+#if UNITY_EDITOR && DEBUG && STORY_DEBUG
+            Debug.Log("restore camera state for story '" + StoryID + "'");
+#endif
             var cameraLink = Camera.main;
             cameraLink.fieldOfView = context.StartFov;
             cameraLink.transform.SetState(context.StartTransformPair);

@@ -55,6 +55,16 @@ namespace Engine.Logic.Dialog
             return action;
         }
         
+        public ActionGlobalText GlobalText(string text)
+        {
+            var action = new ActionGlobalText
+            {
+                Text = text
+            };
+            Queue.Add(action);
+            return action;
+        }
+        
         public ActionSet Set(string name, string value)
         {
             var action = new ActionSet

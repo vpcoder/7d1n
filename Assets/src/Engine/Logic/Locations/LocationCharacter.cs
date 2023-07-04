@@ -5,7 +5,6 @@ using System.Linq;
 using Engine.Scenes;
 using UnityEngine.AI;
 using Engine.Logic.Locations.Animation;
-using Engine.Logic.Locations.Char.Impls;
 using Engine.Logic.Map;
 
 namespace Engine.Logic.Locations
@@ -25,11 +24,15 @@ namespace Engine.Logic.Locations
 
         [SerializeField] private float pickUpDistance = 1f;
         [SerializeField] private float speed = 3f;
+        [SerializeField] private float floorScanInterval = 0.2f;
         [SerializeField] private MoveContext moveContext;
         
         private NavMeshPath navMeshPath;
         private List<Vector3> path;
         private LocationCameraController cameraController;
+        private GlobalFloorSwitchController globalFloorSwitch;
+
+        private float lastFloorScanerTimestamp;
         
         #endregion
         
@@ -114,7 +117,9 @@ namespace Engine.Logic.Locations
         /// </summary>
         public override void Died()
         {
-            SceneManager.Instance.Switch(SceneName.Map);
+            // Персонаж умер, запускаем сцену оживления
+            // 
+            SceneManager.Instance.Switch(SceneName.Reborn);
         }
 
         public void SetPath(List<Vector3> path)
@@ -129,6 +134,7 @@ namespace Engine.Logic.Locations
             Character = new PlayerCharacter();
             cameraController = ObjectFinder.Find<LocationCameraController>();
             MeshSwitcher.MeshIndex = Game.Instance.Character.Account.SpriteID;
+            globalFloorSwitch = ObjectFinder.Find<GlobalFloorSwitchController>();
         }
 
         public override void OnUpdate()
@@ -143,6 +149,14 @@ namespace Engine.Logic.Locations
             // The path is empty, so the character is standing still.
             if (Lists.IsEmpty(path))
                 return;
+
+            if (Time.time - lastFloorScanerTimestamp >= floorScanInterval && (Game.Instance.Runtime.Mode == Mode.Game || Game.Instance.Runtime.Mode == Mode.Battle))
+            {
+                // Выполняем сканирование зон уровней этажей раз в фиксированный интервал времени
+                // Perform scanning of floor level zones once in a fixed time interval
+                globalFloorSwitch.UpdateFloor(this);
+                lastFloorScanerTimestamp = Time.time;
+            }
             
             // Во время перемещения двигаем камеру за персонажем
             // While moving, move the camera behind the character
@@ -215,7 +229,6 @@ namespace Engine.Logic.Locations
 
         private void OnDrawGizmos()
         {
-            return;
             Gizmos.color = Color.green;
             Gizmos.DrawWireSphere(transform.position, pickUpDistance);
 

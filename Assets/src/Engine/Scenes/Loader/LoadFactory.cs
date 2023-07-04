@@ -61,15 +61,22 @@ namespace src.Engine.Scenes.Loader
                 typeof(SceneGuiLoader)
             );
             
-            tmp.AddInToList(SceneName.ChagegradStart,
+            tmp.AddInToList(SceneName.Chagegrad1,
                 typeof(SceneGuiLoader),
                 typeof(ChagegradSceneLoader)
             );
         }
-
         
-        #endregion
+        private List<Type> InitDefaultList()
+        {
+            return new List<Type>()
+            {
+                typeof(SceneGuiLoader)
+            };
+        } 
 
+        #endregion
+        
         public event Action Complete;
         
         #region Hidden Fields
@@ -80,6 +87,7 @@ namespace src.Engine.Scenes.Loader
         ///     All known loaders
         /// </summary>
         private IDictionary<Type, ISceneLoader> loaders = new Dictionary<Type, ISceneLoader>();
+        private IList<ISceneLoader> defaultLoaders;
 
         /// <summary>
         ///     Словарь загрузчиков.
@@ -105,14 +113,31 @@ namespace src.Engine.Scenes.Loader
         ///     Name of the scene for which you want to perform a specific load
         /// </param>
         /// <returns>
-        ///     Если по сцене не нашлось загрузчика, вернёт null
+        ///     Если по сцене не нашлось загрузчика, вернёт дефолтный список загрузчиков
         ///     ---
-        ///     If no loader is found for the scene, it returns null
+        ///     If no loader is found for the scene, it will return the default list of loaders
         /// </returns>
         public ICollection<ISceneLoader> Get(SceneName scene)
         {
-            sceneLoaders.TryGetValue(scene, out var loaders);
-            return loaders;
+            sceneLoaders.TryGetValue(scene, out var currentLoaders);
+            if (currentLoaders == null)
+                return CreateDefaultSceneLoaders();
+            return currentLoaders;
+        }
+
+        private ICollection<ISceneLoader> CreateDefaultSceneLoaders()
+        {
+            List<ISceneLoader> list = new List<ISceneLoader>();
+            foreach (var type in InitDefaultList())
+            {
+                if(type == null)
+                    continue;
+                var loader = loaders[type];
+                if(loader == null)
+                    continue;
+                list.Add(loader);
+            }
+            return list;
         }
 
         public void Load(SceneName scene, LoadContext context)
