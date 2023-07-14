@@ -1,5 +1,6 @@
 ﻿using Engine.Data;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 namespace Engine.Logic.Locations
@@ -20,7 +21,7 @@ namespace Engine.Logic.Locations
         ///     ---
         ///     Characters who participate in the battle
         /// </summary>
-        [SerializeField] private List<CharacterNpcBehaviour> characters;
+        private ISet<CharacterNpcBehaviour> characters = new HashSet<CharacterNpcBehaviour>();
 
         private const float EXCEPTION_WAIT_TIMEOUT = 60f;
         private float timestamp;
@@ -103,10 +104,11 @@ namespace Engine.Logic.Locations
             
             foreach (var character in npcs)
             {
+                var damaged = character.GetComponent<IDamagedObject>();
                 this.characters.Remove(character);
                 foreach(var another in this.characters)
                 {
-                	if(another.Target == character.GetComponent<IDamagedObject>())
+                	if(another.Target == damaged)
                 		another.Target = null; // TODO: Подумать о том как пересчитать стратегию для тех кто еще не потратил ОД, у них свой ход, а цель уже вышла из боя
                 }
             }
@@ -169,6 +171,7 @@ namespace Engine.Logic.Locations
             Debug.Log("finding enemies...");
 #endif
             
+            characters.Clear();
             foreach (var entry in NpcAISceneManager.Instance.CreateGroupToNpcList())
                 characters.AddRange(entry.Value);
             
@@ -327,7 +330,7 @@ namespace Engine.Logic.Locations
                 && Game.Instance.Runtime.BattleContext.OrderIndex != OrderGroup.AnotherPlayerGroup)
 			{
                 NpcAIPredictor.Instance.CreateStrategyForAllNpc();
-			}
+            }
         }
 
     }

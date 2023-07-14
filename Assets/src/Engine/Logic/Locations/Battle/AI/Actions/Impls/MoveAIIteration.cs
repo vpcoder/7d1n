@@ -21,7 +21,7 @@ namespace Engine.Logic.Locations
         public override bool Iteration(CharacterNpcBehaviour npc, NpcMoveActionContext actionContext, float timestamp)
         {
 
-            npc.Animator.SetCharacterMoveSpeedType(MoveSpeedType.Run);
+            npc.Animator.SetCharacterMoveSpeedType(actionContext.MoveSpeedType);
 
             var nextPoint = actionContext.Path[0];
             var nextRotation = GetLookAtRotation(npc, nextPoint);
@@ -65,13 +65,16 @@ namespace Engine.Logic.Locations
 
         public override void Start(CharacterNpcBehaviour npc, NpcMoveActionContext actionContext)
         {
-            actionContext.StartPosition = npc.transform.position;
-            actionContext.StartRotation = npc.transform.rotation;
+            var npcTransform = npc.transform;
+            actionContext.StartPosition = npcTransform.position;
+            actionContext.StartRotation = npcTransform.rotation;
             actionContext.Timestamp     = Time.time;
         }
 
         public override void End(CharacterNpcBehaviour npc, NpcMoveActionContext actionContext, float timestamp)
-        { }
+        {
+            npc.Animator.SetCharacterMoveSpeedType(MoveSpeedType.Idle); // Останавливаемся
+        }
 
     }
 

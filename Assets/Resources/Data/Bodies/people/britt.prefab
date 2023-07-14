@@ -1684,7 +1684,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 607cb42d69d644c5826ebfc8b647bfba, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  damaged: {fileID: 0}
+  damaged: {fileID: 35739055061861396}
   characterBody: {fileID: 6750621070363556869}
   animator: {fileID: 154363730522395975}
   agent: {fileID: 4703200268859548686}

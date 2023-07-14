@@ -35,14 +35,12 @@ namespace UnityEngine {
 
 		public static void SetState(this Transform transform, TransformPair state)
 		{
-			transform.position = state.position;
-			transform.rotation = state.rotation;
+			transform.SetPositionAndRotation(state.position, state.rotation);
 		}
 		
 		public static void SetState(this Transform transform, Transform another)
 		{
-			transform.position = another.position;
-			transform.rotation = another.rotation;
+			transform.SetPositionAndRotation(another.position, another.rotation);
 		}
 		
 		public static void SetState(this Transform transform, Vector3 pos)

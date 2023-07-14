@@ -1,5 +1,6 @@
 using Engine.Data;
 using Engine.Logic.Locations;
+using Engine.Logic.Locations.Animation;
 using Engine.Story.Actions;
 using UnityEngine;
 using UnityEngine.UI;
@@ -63,10 +64,15 @@ namespace Engine.Story
             return action;
         }
         
-        public static NpcGoToStoryAction NpcGoTo(CharacterNpcBehaviour npc, Transform target, bool needResetAnotherActions = true, float speed = 1f)
+        public static NpcGoToStoryAction NpcGoTo(CharacterNpcBehaviour npc, Transform target, bool needResetAnotherActions = true, MoveSpeedType moveSpeedType = MoveSpeedType.Run, float speed = 1f)
+        {
+            return NpcGoTo(npc, target.position, needResetAnotherActions, moveSpeedType, speed);
+        }
+        
+        public static NpcGoToStoryAction NpcGoTo(CharacterNpcBehaviour npc, Vector3 targetPos, bool needResetAnotherActions = true, MoveSpeedType moveSpeedType = MoveSpeedType.Run, float speed = 1f)
         {
             var action = Create<NpcGoToStoryAction>(npc.gameObject);
-            action.Init(npc, target, needResetAnotherActions, speed);
+            action.Init(npc, targetPos, needResetAnotherActions, moveSpeedType, speed);
             return action;
         }
         

@@ -11,7 +11,7 @@ namespace Engine.Scenes
         
         Reborn,
         
-        Chagegrad1,
+        Nyasevsk1,
 
     };
     

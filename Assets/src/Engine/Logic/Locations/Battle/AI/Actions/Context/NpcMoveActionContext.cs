@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using Engine.Logic.Locations.Animation;
 using UnityEngine;
 
 namespace Engine.Logic.Locations
@@ -19,37 +20,44 @@ namespace Engine.Logic.Locations
     {
 
         /// <summary>
-        /// Начальная позиция на текущем отрезке пути
-        /// ---
-        /// Starting position on the current track segment
+        ///     Начальная позиция на текущем отрезке пути
+        ///     ---
+        ///     Starting position on the current track segment
         /// </summary>
         public Vector3 StartPosition { get; set; }
 
         /// <summary>
-        /// Начальный поворот на текущем отрезке пути
-        /// ---
-        /// Initial turn on the current track segment
+        ///     Начальный поворот на текущем отрезке пути
+        ///     ---
+        ///     Initial turn on the current track segment
         /// </summary>
         public Quaternion StartRotation { get; set; }
 
         /// <summary>
-        /// Время начала движения по отрезку пути
-        /// ---
-        /// Start time of the track segment
+        ///     Время начала движения по отрезку пути
+        ///     ---
+        ///     Start time of the track segment
         /// </summary>
         public float Timestamp { get; set; } = 0f;
 
         /// <summary>
-        /// Траектория перемещения
-        /// ---
-        /// Trajectory of movement
+        ///     Траектория перемещения
+        ///     ---
+        ///     Trajectory of movement
         /// </summary>
         public List<Vector3> Path { get; set; }
 
         /// <summary>
-        /// Скорость совершения операций перемещения и поворотов
-        /// ---
-        /// The speed at which movement and turning operations are performed
+        ///     Тип скорости перемещения (шагом, бегом, спринт)
+        ///     ---
+        ///     Type of travel speed (walking, jogging, sprinting)
+        /// </summary>
+        public MoveSpeedType MoveSpeedType { get; set; } = MoveSpeedType.Run;
+
+        /// <summary>
+        ///     Скорость совершения операций перемещения и поворотов
+        ///     ---
+        ///     The speed at which movement and turning operations are performed
         /// </summary>
         public float Speed { get; set; } = 1f;
 

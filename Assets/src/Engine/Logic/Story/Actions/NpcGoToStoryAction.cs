@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using Engine.Logic.Locations;
+using Engine.Logic.Locations.Animation;
 using UnityEngine;
 
 namespace Engine.Story.Actions
@@ -14,10 +15,10 @@ namespace Engine.Story.Actions
 
         private CharacterNpcBehaviour npc;
         
-        public void Init(CharacterNpcBehaviour npc, Transform target, bool needResetAnotherActions = true, float speed = 1f)
+        public void Init(CharacterNpcBehaviour npc, Vector3 targetPos, bool needResetAnotherActions = true, MoveSpeedType moveSpeedType = MoveSpeedType.Run, float speed = 1f)
         {
             this.npc = npc;
-            this.endPos = target.position;
+            this.endPos = targetPos;
             timestamp = Time.time;
 
             var path = npc.CalculatePath(endPos);
@@ -36,6 +37,7 @@ namespace Engine.Story.Actions
                 Action = NpcActionType.Move,
                 Path = path,
                 Speed = speed,
+                MoveSpeedType = moveSpeedType,
             });
             npc.StartNPC();
             

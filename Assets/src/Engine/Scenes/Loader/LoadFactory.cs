@@ -61,9 +61,9 @@ namespace src.Engine.Scenes.Loader
                 typeof(SceneGuiLoader)
             );
             
-            tmp.AddInToList(SceneName.Chagegrad1,
+            tmp.AddInToList(SceneName.Nyasevsk1,
                 typeof(SceneGuiLoader),
-                typeof(ChagegradSceneLoader)
+                typeof(NyasevskSceneLoader)
             );
         }
         

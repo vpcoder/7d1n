@@ -60,7 +60,9 @@ namespace Engine.Logic.Locations
             if (predictorsByName.TryGetValue(name, out var predictor))
                 return predictor;
             
+#if UNITY_EDITOR && BATTLE_DEBUG
             Debug.LogWarning("predictor '" + name + "' is empty");
+#endif
             return null;
         }
         
@@ -72,25 +74,38 @@ namespace Engine.Logic.Locations
         public void CreateStrategyForAllNpc()
         {
             BattleManager battle = ObjectFinder.Find<BattleManager>();
-
-            Debug.Log("create strategy...");
-
+            
+            // Группа, которая сейчас ходит
+            // The group that's turn now
             var currentGroup = Game.Instance.Runtime.BattleContext.OrderIndex;
+            
+#if UNITY_EDITOR && BATTLE_DEBUG
+            Debug.Log("create strategy for group '" + currentGroup + "'...");
+#endif
             
             // Все НПС в своих группах
             // All NPCs in their groups
             var allAiItems = NpcAISceneManager.Instance.CreateGroupToNpcList();
-            
-            // Группа, которая сейчас ходит
-            // The group that's turn now
-            var currentNpcList = allAiItems[currentGroup];
 
+            if (allAiItems.Count == 0 || !allAiItems.ContainsKey(currentGroup))
+            {
+#if UNITY_EDITOR && BATTLE_DEBUG
+                Debug.LogWarning("group '" + currentGroup + "' is missing from the battle...");
+#endif
+                // По какой-то причине группа отсутствует в сцене/в бою, при этом нас просят построить стратегию для неё
+                // В этом случае ничего не делаем
+                // For some reason the group is absent from the scene/battle and we are asked to build a strategy for it
+                // In this case we do nothing
+                return;
+            }
+
+            var currentNpcList = allAiItems[currentGroup];
             battle.NpcGroupCounter = currentNpcList.Count;
 
             var context = new PredictorContext();
             context.OrderGroup = currentGroup;
             context.CurrentGroupNpc = currentNpcList;
-            
+
             foreach (var npc in currentNpcList)
             {
                 // Не работаем с NPC, ИИ которых выключен
@@ -110,7 +125,6 @@ namespace Engine.Logic.Locations
                     npc.StopNPC();
                     continue;
                 }
-                
                 predictor.CreateStrategyForNpc(context);
             }
         }
