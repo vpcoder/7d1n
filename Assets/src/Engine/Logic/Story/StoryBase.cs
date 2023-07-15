@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using Engine.Data;
 using Engine.Data.Factories;
 using Engine.Logic.Dialog;
 using Engine.Logic.Locations;
