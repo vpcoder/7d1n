@@ -219,7 +219,7 @@ namespace Engine.Logic.Locations
         ///     ---
         ///     Triggers when move stops
         /// </summary>
-        private void StopMove()
+        public void StopMove()
         {
             Animator.SetCharacterMoveSpeedType(MoveSpeedType.Idle);
             path = null;

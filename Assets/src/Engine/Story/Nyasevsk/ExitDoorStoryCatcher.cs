@@ -53,7 +53,7 @@ namespace Engine.Story.Nyasevsk
             dlg.Run(() =>
             {
                 door.transform.localRotation = Quaternion.Euler(openAngles);
-                StoryActionHelper.NpcLookAt(this.laberius, PlayerCharacter.transform);
+                StoryActionHelper.NpcLookAt(this.laberius, ObjectFinder.Character.Eye);
             });
             dlg.Delay(1f);
             dlg.TextAnother("- Ёшкин кот, что у вас здесь происходит?!", laberius);
@@ -70,7 +70,7 @@ namespace Engine.Story.Nyasevsk
             dlg.Run(() =>
             {
                 PlayerCharacter.gameObject.SetActive(true);
-                PlayerCharacter.transform.SetState(playerSetPos);
+                ObjectFinder.Character.transform.SetState(playerSetPos);
                 this.laberius.transform.SetState(securityGuardSetPos);
                 zombie.transform.SetState(zombieSetPos);
 
@@ -139,12 +139,6 @@ namespace Engine.Story.Nyasevsk
             dlg.Point(nextPoint);
         }
 
-        public override void FirstComplete()
-        {
-            base.FirstComplete();
-            ObjectFinder.Find<MeetingStoryCatcher>().RunDialog();
-        }
-
         /// <summary>
         ///     Если история выполнялась, никогда не выполняем её более 1 раза
         ///     ---
@@ -152,12 +146,6 @@ namespace Engine.Story.Nyasevsk
         /// </summary>
         public override bool SecondInit()
         {
-            var quest = QuestFactory.Instance.Get<NyasevskStartQuest>();
-            if (quest.NotContainsTag(NyasevskStartQuest.CheckPointMeeting))
-            {
-                ObjectFinder.Find<MeetingStoryCatcher>().RunDialog();
-            }
-            
             door.transform.localRotation = Quaternion.Euler(openAngles);
             return false;
         }

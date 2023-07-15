@@ -1,5 +1,4 @@
 using System.Collections.Generic;
-using Engine.Data;
 using Engine.Data.Factories;
 using Engine.Logic.Dialog;
 using Engine.Logic.Locations;
@@ -296,7 +295,9 @@ namespace Engine.Story
 #if UNITY_EDITOR && DEBUG && STORY_DEBUG
             Debug.Log("run story '" + StoryID + "'");
 #endif
-            context.PlayerEyePos = ObjectFinder.Character.Eye.position;
+            var playerCharacter = ObjectFinder.Character;
+            context.PlayerEyePos = playerCharacter.Eye.position;
+            playerCharacter.StopMove();
             
             var dialogBox = ObjectFinder.DialogBox;
             dialogBox.Runtime.StartEvent += StartDialogEvent;

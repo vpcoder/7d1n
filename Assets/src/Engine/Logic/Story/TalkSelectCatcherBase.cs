@@ -69,7 +69,8 @@ namespace Engine.Story
                 
                 // Поворачиваем NPC в сторону персонажа
                 // Turn the NPC towards the character
-                StoryActionHelper.NpcLookAt(talker, PlayerCharacter.transform);
+                StoryActionHelper.NpcLookAt(talker, ObjectFinder.Character.transform);
+                ObjectFinder.Character.transform.LookAt(talker.transform);
             });
         }
 
@@ -82,6 +83,11 @@ namespace Engine.Story
                 talker.CharacterContext.Status.IsEnabledAI = true;
             });
             base.EndDialogProcessing(dlg);
+
+            dlg.Run(() =>
+            {
+                OnChangeState();
+            });
         }
 
         public override void Init()
@@ -105,7 +111,6 @@ namespace Engine.Story
             // may return to normal communication. This is where you need to subscribe to NPC state change.
             var status = talker.CharacterContext.Status;
             status.ChangeDead += OnChangeState;
-            status.ChangeEnabledAI += OnChangeState;
             status.ChangeState += OnChangeState;
 
             // На старте делаем расчёт возможности ведения диалога

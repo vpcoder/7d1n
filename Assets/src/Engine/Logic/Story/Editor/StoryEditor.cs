@@ -23,7 +23,9 @@ namespace Engine.Story
             else
             {
                 GUI.color = story.IsActive ? Color.green : Color.red;
-                story.IsActive = GUILayout.Toggle(story.IsActive, story.IsActive ? "ON" : "OFF", GUILayout.Width(40f));
+                bool active = GUILayout.Toggle(story.IsActive, story.IsActive ? "ON" : "OFF", GUILayout.Width(40f));
+                if (active != story.IsActive)
+                    story.IsActive = active;
             }
             GUI.color = Color.white;
             

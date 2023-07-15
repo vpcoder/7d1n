@@ -3319,7 +3319,7 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 0.50498676, y: 1.7280229, z: 0.3901825}
+  m_Size: {x: 0.6, y: 1.8, z: 0.6}
   m_Center: {x: 0.03240919, y: 0.84330636, z: -0.007938385}
 --- !u!114 &396042712
 MonoBehaviour:
@@ -3348,7 +3348,7 @@ MonoBehaviour:
   activeFlag: 1
   needRunOnStartFlag: 0
   useShowFade: 1
-  hidePlayer: 0
+  hidePlayer: 1
   hideTopPanel: 1
   destroyGameObject: 0
   destroyStoreAfterComplete: 0
@@ -3864,7 +3864,7 @@ MonoBehaviour:
   activeFlag: 1
   needRunOnStartFlag: 0
   useShowFade: 1
-  hidePlayer: 0
+  hidePlayer: 1
   hideTopPanel: 1
   destroyGameObject: 0
   destroyStoreAfterComplete: 0
@@ -3897,7 +3897,7 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 0.50498676, y: 1.7280229, z: 0.3901825}
+  m_Size: {x: 0.6, y: 1.8, z: 0.6}
   m_Center: {x: 0.03240919, y: 0.84330636, z: -0.007938385}
 --- !u!114 &430550319
 MonoBehaviour:
@@ -9642,7 +9642,7 @@ MonoBehaviour:
   activeFlag: 1
   needRunOnStartFlag: 0
   useShowFade: 1
-  hidePlayer: 0
+  hidePlayer: 1
   hideTopPanel: 1
   destroyGameObject: 0
   destroyStoreAfterComplete: 0
@@ -9675,7 +9675,7 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 0.50498676, y: 1.7280229, z: 0.3901825}
+  m_Size: {x: 0.6, y: 1.8, z: 0.6}
   m_Center: {x: 0.03240919, y: 0.84330636, z: -0.007938385}
 --- !u!114 &906378779
 MonoBehaviour:
@@ -20549,7 +20549,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   activeFlag: 0
   needRunOnStartFlag: 0
-  useShowFade: 1
+  useShowFade: 0
   hidePlayer: 1
   hideTopPanel: 1
   destroyGameObject: 1
@@ -23649,7 +23649,7 @@ MonoBehaviour:
   activeFlag: 1
   needRunOnStartFlag: 0
   useShowFade: 1
-  hidePlayer: 0
+  hidePlayer: 1
   hideTopPanel: 1
   destroyGameObject: 0
   destroyStoreAfterComplete: 0
@@ -23682,7 +23682,7 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 0.50498676, y: 1.7280229, z: 0.3901825}
+  m_Size: {x: 0.6, y: 1.8, z: 0.6}
   m_Center: {x: 0.03240919, y: 0.84330636, z: -0.007938385}
 --- !u!114 &2008424976
 MonoBehaviour:
@@ -24501,7 +24501,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   activeFlag: 0
   needRunOnStartFlag: 0
-  useShowFade: 1
+  useShowFade: 0
   hidePlayer: 0
   hideTopPanel: 1
   destroyGameObject: 1
@@ -24698,7 +24698,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 54f9ad4c44bc74c4b9d24dcaa6b02c6c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  battleActionsController: {fileID: 0}
 --- !u!114 &2093985695
 MonoBehaviour:
   m_ObjectHideFlags: 0

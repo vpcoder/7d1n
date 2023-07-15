@@ -37,6 +37,12 @@ namespace Engine.Story.Nyasevsk
             var camera = Camera.main;
             dlg.Run(() =>
             {
+                background.color = Color.white;
+            });
+            dlg.GlobalText("В помещении собираются люди...");
+            dlg.Delay(0.5f);
+            dlg.Run(() =>
+            {
                 brittBackupPos = britt.transform.GetState();
                 laberiusBackupPos = laberius.transform.GetState();
                 immeralBackupPos = immeral.transform.GetState();
@@ -53,14 +59,12 @@ namespace Engine.Story.Nyasevsk
                 immeral.transform.SetState(immeralPos);
                 immeral.Agent.enabled = true;
                 
-                PlayerCharacter.transform.SetState(playerPos);
+                ObjectFinder.Character.transform.SetState(playerPos);
+                ObjectFinder.Character.transform.LookAt(immeral.transform);
                 
                 camera.SetState(cameraPoint, immeral.transform);
-
-                background.color = Color.white;
             });
 
-            dlg.GlobalText("В помещении собираются люди...");
             dlg.Text("...");
             dlg.GlobalText(null);
             dlg.Run(() =>
@@ -109,7 +113,7 @@ namespace Engine.Story.Nyasevsk
                 StoryActionHelper.NpcGoTo(this.immeral, immeralBackupPos.position, true, MoveSpeedType.Walk);
                 StoryActionHelper.NpcGoTo(this.laberius, laberiusBackupPos.position, true, MoveSpeedType.Walk);
                 
-                StoryActionHelper.NpcLookAt(this.britt, PlayerCharacter.transform);
+                StoryActionHelper.NpcLookAt(this.britt, ObjectFinder.Character.Eye);
             });
 
             dlg.TextAnother("Иммераль вводит карантин на территории Нясевска. В город больше никто не войдёт, и не выйдет.", britt);
