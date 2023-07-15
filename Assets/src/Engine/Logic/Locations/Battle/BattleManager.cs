@@ -29,20 +29,6 @@ namespace Engine.Logic.Locations
         public int NpcEndTurnCounter { get; set; } = 0;
         public int NpcGroupCounter { get; set; } = 0;
         private object locker = new object();
-        
-        /// <summary>
-        ///     Контроллер совершения действий игроком в свой ход
-        ///     ---
-        ///     Controller of the player's actions in his turn
-        /// </summary>
-        [SerializeField] private BattleActionsController battleActionsController;
-        public BattleActionsController BattleActions
-        {
-            get
-            {
-                return battleActionsController;
-            }
-        }
 
         /// <summary>
         ///     Вызывается когда NPC заканчивает свой ход
@@ -214,13 +200,14 @@ namespace Engine.Logic.Locations
             
             // Закрываем интерфейсы битвы
             // Closing the battle interfaces
-            ObjectFinder.Find<BattleApController>().Hide();
-            ObjectFinder.Find<BattleActionsController>().Hide();
-            ObjectFinder.Find<EndTurnController>().Hide();
+            ObjectFinder.Find<BattleApController>()?.Hide();
+            ObjectFinder.Find<BattleActionsController>()?.Hide();
+            ObjectFinder.Find<EndTurnController>()?.Hide();
 
             // Сброс режима битвы
             // Resetting battle mode
-            Game.Instance.Runtime.Mode = Mode.Game;
+            if(Game.Instance.Runtime.Mode != Mode.Dialog)
+                Game.Instance.Runtime.Mode = Mode.Game;
             Game.Instance.Runtime.BattleFlag = false;
 
             // Всех уцелевших возвращаем в нормальное состояние
@@ -231,6 +218,8 @@ namespace Engine.Logic.Locations
             // Сбрасываем список участников битвы
             // Resetting the list of participants in the battle
             characters.Clear();
+
+            Game.Instance.Runtime.BattleContext.OrderIndex = OrderGroup.PlayerGroup;
         }
 
         private void Update()
@@ -282,8 +271,7 @@ namespace Engine.Logic.Locations
 #if UNITY_EDITOR && BATTLE_DEBUG
             Debug.Log("next group turn");
 #endif
-            
-            
+
             timestamp = Time.time;
 
             NpcEndTurnCounter = 0;

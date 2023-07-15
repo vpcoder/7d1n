@@ -21,7 +21,7 @@ namespace Engine.Story
     {
 
         [SerializeField] private CharacterNpcBehaviour talker;
-        protected override string HintID { get; } = EffectFactory.TALK_HINT;
+        protected override string HintID { get; } = null;
         public override bool IsDestroyStoreAfterComplete => false;
         
         public override bool IsActive

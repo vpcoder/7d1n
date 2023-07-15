@@ -1,6 +1,3 @@
-using System;
-using Engine.Logic.Locations;
-using UnityEditor.U2D;
 using UnityEngine;
 
 namespace src.Engine.Logic.Locations.Floor

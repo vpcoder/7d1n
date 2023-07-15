@@ -23,8 +23,6 @@ namespace src.Engine.Scenes.Loader.Impls
             var panel = Object.Instantiate(context.TopPanel, canvas.transform);
             panel.transform.name = "TopPanel";
             panel.transform.SetAsFirstSibling();
-            
-            Object.Destroy(ObjectFinder.Find<BattleManager>().gameObject);
 
             var game = Game.Instance;
             var runtime = game.Runtime;

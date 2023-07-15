@@ -108,7 +108,6 @@ namespace src.Engine.Scenes.Loader.Impls
             character.Equipment.Use1 = pm;
             ObjectFinder.Find<HandsController>().GetCell(0).Weapon = pm;
 
-            var battleManager = ObjectFinder.Find<BattleManager>();
             var enemies = new List<CharacterNpcBehaviour>();
             
             for (int i = 0; i < 5; i++)
@@ -132,7 +131,7 @@ namespace src.Engine.Scenes.Loader.Impls
                 enemies.Add(npcBehaviour);
             }
             
-            battleManager.EnterToBattle();
+            ObjectFinder.BattleManager.EnterToBattle();
             Game.Instance.Runtime.BattleContext.Order.Add(OrderGroup.PlayerGroup);
         }
     }

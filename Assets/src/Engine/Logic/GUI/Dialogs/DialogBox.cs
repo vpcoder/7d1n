@@ -83,7 +83,8 @@ namespace Engine.Logic.Dialog
             firstAvatar.sprite = emptyAvatar;
             secondAvatar.sprite = emptyAvatar;
             Locker = null;
-            Game.Instance.Runtime.Mode = Mode.Game;
+            
+            Game.Instance.Runtime.Mode = Game.Instance.Runtime.BattleFlag ? Mode.Battle : Mode.Game;
         }
 
         public void SetDialogQueueAndRun([NotNull] IEnumerable<IActionCommand> dialogQueue, IEnumerable<IActionCommand> endDialogQueue, int startIndex, object locker)

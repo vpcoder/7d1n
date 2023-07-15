@@ -107,6 +107,11 @@ MonoBehaviour:
   lookDirectionTransform: {fileID: 3075978994020391102}
   eye: {fileID: 2285425095399429758}
   meshSwitcher: {fileID: 1702733204178054950}
+  characterContext:
+    Status:
+      isEnabledAI: 1
+      state: 1
+      isDead: 0
   unsuspectingPredictorID: basic.human.
   normalPredictorID: basic.human.
   nervousPredictorID: basic.human.

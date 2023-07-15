@@ -127,8 +127,7 @@ namespace Engine.Logic.Locations
         {
             var needAp = Game.Instance.Runtime.BattleFlag ? pathInfo.ActivePathAP : 0;
 
-            var battleManager = ObjectFinder.Find<BattleManager>();
-            var battleActions = battleManager.BattleActions;
+            var battleActions = ObjectFinder.Find<BattleActionsController>();
 
             if (battleActions.AttackContext.AttackMarker != null)
                 return;
@@ -152,7 +151,7 @@ namespace Engine.Logic.Locations
 
         private void CheckEvents()
         {
-            if (Game.Instance.Runtime.BattleContext.OrderIndex != OrderGroup.PlayerGroup) // Не ход игрока?
+            if (Game.Instance.Runtime.BattleFlag && Game.Instance.Runtime.BattleContext.OrderIndex != OrderGroup.PlayerGroup) // Не ход игрока?
                 return;
 
             if (Game.Instance.Runtime.ActionMode != ActionMode.Move)
@@ -161,11 +160,7 @@ namespace Engine.Logic.Locations
             if (DeviceInput.TouchCount != 1)
                 return;
 
-            var battleManager = ObjectFinder.Find<BattleManager>();
-            if(battleManager == null)
-                return;
-
-            var battleActions = battleManager.BattleActions;
+            var battleActions = ObjectFinder.Find<BattleActionsController>();
             if (battleActions.AttackContext.AttackMarker != null)
                 return;
 

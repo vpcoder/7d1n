@@ -186,9 +186,7 @@ namespace Engine.Logic.Locations
             
             // Помечаем в менеджере что NPC завершил ход
             // Mark in the manager that the NPC has completed his turn
-            var manager = ObjectFinder.Find<BattleManager>();
-            if(manager != null)
-                manager.NpcTurnCompleted(this);
+            ObjectFinder.BattleManager.NpcTurnCompleted(this);
 
             // Сбрасываем все запланированные задачи
             // Resetting all scheduled tasks
@@ -441,9 +439,7 @@ namespace Engine.Logic.Locations
             CharacterContext.Status.IsDead = true;
             CharacterContext.Status.IsEnabledAI = false;
             
-            var manager = ObjectFinder.Find<BattleManager>();
-            if(manager != null)
-                manager.RemoveEnemiesFromBattle(this);
+            ObjectFinder.BattleManager.RemoveEnemiesFromBattle(this);
 
             // Выкидываем предметы на карту
             // Throw items on the map

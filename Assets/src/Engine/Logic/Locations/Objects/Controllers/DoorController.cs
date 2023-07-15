@@ -104,7 +104,7 @@ namespace Engine.Logic.Locations
             
             if(Game.Instance.Runtime.Mode == Mode.Battle)
             {
-                var battleManager = ObjectFinder.Find<BattleManager>();
+                var battleManager = ObjectFinder.BattleManager;
                 if(State == DoorState.OPENED)
                 {
 

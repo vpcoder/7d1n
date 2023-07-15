@@ -17,14 +17,13 @@ namespace Engine.Logic.Locations
 
         public void DoEndTurnClick()
         {
-            if(Game.Instance.Runtime.BattleContext.OrderIndex != OrderGroup.PlayerGroup)
+            if(!Game.Instance.Runtime.BattleFlag || Game.Instance.Runtime.BattleContext.OrderIndex != OrderGroup.PlayerGroup)
             {
                 Hide();
                 return;
             }
 
-            var manager = ObjectFinder.Find<BattleManager>();
-            manager.DoNextGroupTurn();
+            ObjectFinder.BattleManager.DoNextGroupTurn();
             Hide();
         }
 

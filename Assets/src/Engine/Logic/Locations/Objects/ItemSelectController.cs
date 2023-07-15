@@ -75,8 +75,7 @@ namespace Engine.Logic.Locations
             var useItem = item.GetComponent<LocationObjectBattleUseController>();
             if(useItem != null)
             {
-                var battleManager = ObjectFinder.Find<BattleManager>();
-                var battleActions = battleManager.BattleActions;
+                var battleActions = ObjectFinder.Find<BattleActionsController>();
 
                 battleActions.Show(); // Отображаем панель действия, чтобы пользователь сказал - совершать его или нет
                 battleActions.NeedAP = useItem.AP;

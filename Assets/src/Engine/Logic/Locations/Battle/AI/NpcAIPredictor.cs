@@ -73,8 +73,6 @@ namespace Engine.Logic.Locations
         /// </summary>
         public void CreateStrategyForAllNpc()
         {
-            BattleManager battle = ObjectFinder.Find<BattleManager>();
-            
             // Группа, которая сейчас ходит
             // The group that's turn now
             var currentGroup = Game.Instance.Runtime.BattleContext.OrderIndex;
@@ -100,7 +98,7 @@ namespace Engine.Logic.Locations
             }
 
             var currentNpcList = allAiItems[currentGroup];
-            battle.NpcGroupCounter = currentNpcList.Count;
+            ObjectFinder.BattleManager.NpcGroupCounter = currentNpcList.Count;
 
             var context = new PredictorContext();
             context.OrderGroup = currentGroup;
