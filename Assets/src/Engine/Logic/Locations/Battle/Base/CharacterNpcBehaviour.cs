@@ -30,6 +30,7 @@ namespace Engine.Logic.Locations
         [SerializeField] protected Transform lookDirectionTransform;
         [SerializeField] private Transform eye;
         [SerializeField] private CharacterMeshSwitcher meshSwitcher;
+        [SerializeField] private CharacterContext characterContext;
         
         private float timestamp;
 
@@ -63,7 +64,11 @@ namespace Engine.Logic.Locations
             get { return lookDirectionTransform; }
             set { lookDirectionTransform = value; }
         }
-        public CharacterContext CharacterContext { get; set; } = new CharacterContext();
+        public CharacterContext CharacterContext 
+        {
+            get { return characterContext; }
+            set { characterContext = value; }
+        }
         public IAiIterationAction CurrentIterationAction { get; set; }
         public NpcBaseActionContext CurrentAction { get; set; }
 
@@ -132,6 +137,16 @@ namespace Engine.Logic.Locations
 
         #endregion
 
+        public void ContinueNPC()
+        {
+#if UNITY_EDITOR && BATTLE_DEBUG
+            Debug.Log("npc " + CharacterBody.Character.ID + " name: " + transform.name + " continue actions");
+#endif
+            // Стартуем логику разбора очереди действий
+            // Let's start the logic of the action queue parsing
+            IsEndTurn = false;
+        }
+        
         /// <summary>
         ///     Запускает алгоритм разбора запланированных действий у данного НПС
         ///     ---
@@ -464,6 +479,7 @@ namespace Engine.Logic.Locations
             CharacterContext.Actions.Clear();
             CurrentAction = null;
             CurrentIterationAction = null;
+            Animator.SetCharacterMoveSpeedType(MoveSpeedType.Idle);
         }
 
     }

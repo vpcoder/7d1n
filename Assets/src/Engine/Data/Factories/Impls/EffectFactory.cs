@@ -20,6 +20,7 @@ namespace Engine.Data.Factories
 
         public const string DAMAGE_HINT = "damage_hint";
         public const string QUEST_HINT = "quest_hint";
+        public const string TALK_HINT = "talk_hint";
         public const string MESSAGE_HINT = "message_hint";
         
         public override string Directory => "Data/Effects";

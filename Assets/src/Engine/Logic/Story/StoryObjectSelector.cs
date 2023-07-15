@@ -5,6 +5,17 @@ using UnityEngine;
 namespace Engine.Story
 {
     
+    /// <summary>
+    ///
+    /// Селектор истории.
+    /// Выполняет отлавливание нажатия на данный селектор, после чего выполняет
+    /// вызов связанной с селектором истории, находящейся на этом же GameObject.
+    /// ---
+    /// Story selector.
+    /// Catches a click on the given selector, and then performs a
+    /// call the story associated with the selector, located on the same GameObject.
+    /// 
+    /// </summary>
     [RequireComponent(typeof(IStorySelectCatcher))]
     public class StoryObjectSelector : MonoBehaviour
     {
@@ -41,6 +52,9 @@ namespace Engine.Story
                     return;
                 
                 var component = GetComponent<IStorySelectCatcher>();
+                
+                // Истории может не быть на объекте, что странно, а так же история может быть выключена, в таких случаях ничего не запускаем
+                // Story may not be on the object, which is strange, and also history may be turned off, in such cases do not launch anything
                 if(component == null || !component.IsActive)
                     return;
                 
@@ -50,6 +64,8 @@ namespace Engine.Story
                     return;
                 }
                 
+                // История есть, она включена, но персонаж находится слишком далеко чтобы с ней взаимодействовать
+                // The story is there, it's on, but the character is too far away to interact with it
                 component.SelectOutDistance();
             }
         }

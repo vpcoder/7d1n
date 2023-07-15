@@ -64,6 +64,13 @@ namespace Engine.Story
             return action;
         }
         
+        public static NpcWaitStoryAction NpcWait(CharacterNpcBehaviour npc, bool needResetAnotherActions = true, float waitTime = 1f)
+        {
+            var action = Create<NpcWaitStoryAction>(npc.gameObject);
+            action.Init(npc, needResetAnotherActions, waitTime);
+            return action;
+        }
+        
         public static NpcGoToStoryAction NpcGoTo(CharacterNpcBehaviour npc, Transform target, bool needResetAnotherActions = true, MoveSpeedType moveSpeedType = MoveSpeedType.Run, float speed = 1f)
         {
             return NpcGoTo(npc, target.position, needResetAnotherActions, moveSpeedType, speed);

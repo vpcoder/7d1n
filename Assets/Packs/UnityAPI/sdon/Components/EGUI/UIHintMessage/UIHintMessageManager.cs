@@ -34,7 +34,6 @@ namespace Engine.EGUI
             }
 
             message.Position = pos;
-            message.Text = "*";
             message.Delay = -1;
 
             return message;

@@ -29,8 +29,8 @@ namespace Engine.Story.Actions
                 path = new List<Vector3> { endPos };
             }
             
-            if(needResetAnotherActions)
-                npc.CharacterContext.Actions.Clear();
+            if (needResetAnotherActions)
+                npc.StopNPC();
             
             npc.CharacterContext.Actions.Add(new NpcMoveActionContext()
             {

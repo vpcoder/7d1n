@@ -15,8 +15,8 @@ namespace Engine.Story.Actions
         {
             this.npc = npc;
             
-            if(needResetAnotherActions)
-                npc.CharacterContext.Actions.Clear();
+            if (needResetAnotherActions)
+                npc.StopNPC();
             
             npc.CharacterContext.Actions.Add(new NpcAttackActionContext()
             {

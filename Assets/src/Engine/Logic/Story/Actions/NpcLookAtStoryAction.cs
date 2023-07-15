@@ -23,8 +23,8 @@ namespace Engine.Story.Actions
             this.endRot = npc.LookDirectionTransform.rotation;
             npc.LookDirectionTransform.rotation = direction;
             
-            if(needResetAnotherActions)
-                npc.CharacterContext.Actions.Clear();
+            if (needResetAnotherActions)
+                npc.StopNPC();
             
             npc.CharacterContext.Actions.Add(new NpcLookActionContext()
             {

@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Diagnostics;
 using Engine.Data;
 using Engine.Data.Repositories;
 using UnityEditor;
@@ -12,13 +13,27 @@ namespace Engine.Story
 
         private static bool showHandlers = true;
         private Vector2 scrollOffset;
+        private bool showTalks = false;
+        private bool showRegions = true;
+        
         private static readonly List<StoryBase> stories = new List<StoryBase>();
+        
+        private static readonly List<StoryBase> talks = new List<StoryBase>();
+        private static readonly List<StoryBase> regions = new List<StoryBase>();
         
         private void OnEnable()
         {
             stories.Clear();
-            foreach(StoryBase item in Resources.FindObjectsOfTypeAll(typeof(StoryBase)))
+            talks.Clear();
+            regions.Clear();
+            foreach (StoryBase item in Resources.FindObjectsOfTypeAll(typeof(StoryBase)))
+            {
                 stories.Add(item);
+                if (typeof(TalkSelectCatcherBase).IsAssignableFrom(item.GetType()))
+                    talks.Add(item);
+                else
+                    regions.Add(item);
+            }
         }
 
         [DrawGizmo(GizmoType.NotInSelectionHierarchy | GizmoType.InSelectionHierarchy)]
@@ -71,21 +86,45 @@ namespace Engine.Story
             GUILayout.EndHorizontal();
             
             GUILayout.Space(10f);
-            
-            foreach (var story in stories)
+
+            showTalks = EditorGUILayout.Foldout(showTalks, "Talks");
+            if (showTalks)
             {
-                // Ссылка может протухнуть, например кто-то работает с редактором в рантайме, и персонаж выполняет квесты
-                if (story == null)
+                foreach (var story in talks)
                 {
-                    needRefresh = true;
-                    break;
+                    // Ссылка может протухнуть, например кто-то работает с редактором в рантайме, и персонаж выполняет квесты
+                    if (story == null)
+                    {
+                        needRefresh = true;
+                        break;
+                    }
+
+                    GUILayout.BeginHorizontal();
+                    GUI.color = Color.white;
+                    DrawStoryRow(story);
+                    GUI.color = Color.white;
+                    GUILayout.EndHorizontal();
                 }
-                
-                GUILayout.BeginHorizontal();
-                GUI.color = Color.white;
-                DrawStoryRow(story);
-                GUI.color = Color.white;
-                GUILayout.EndHorizontal();
+            }
+            
+            showRegions = EditorGUILayout.Foldout(showRegions, "Regions");
+            if (showRegions)
+            {
+                foreach (var story in regions)
+                {
+                    // Ссылка может протухнуть, например кто-то работает с редактором в рантайме, и персонаж выполняет квесты
+                    if (story == null)
+                    {
+                        needRefresh = true;
+                        break;
+                    }
+
+                    GUILayout.BeginHorizontal();
+                    GUI.color = Color.white;
+                    DrawStoryRow(story);
+                    GUI.color = Color.white;
+                    GUILayout.EndHorizontal();
+                }
             }
 
             GUILayout.Space(10f);

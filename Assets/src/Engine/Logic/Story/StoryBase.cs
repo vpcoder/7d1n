@@ -18,6 +18,7 @@ namespace Engine.Story
         [SerializeField] private bool hidePlayer;
         [SerializeField] private bool hideTopPanel = true;
         [SerializeField] private bool destroyGameObject = true;
+        [SerializeField] private bool destroyStoreAfterComplete = true;
         [SerializeField] private bool rewriteSaveState = true;
 
         [SerializeField] private List<NextStory> nextStories;
@@ -31,6 +32,12 @@ namespace Engine.Story
         {
             get { return rewriteSaveState; }
             set { rewriteSaveState = value; }
+        }
+        
+        public virtual bool IsDestroyStoreAfterComplete
+        {
+            get { return destroyStoreAfterComplete; }
+            set { destroyStoreAfterComplete = value; }
         }
         
         public virtual bool IsActive
@@ -109,11 +116,14 @@ namespace Engine.Story
 #if UNITY_EDITOR && DEBUG && STORY_DEBUG
             Debug.Log("start story '" + StoryID + "'");
 #endif
-            
-            context.StoryInfo = QuestFactory.Instance.GetStoryInfo(this);
-            
+
+            if (IsDestroyStoreAfterComplete)
+            {
+                context.StoryInfo = QuestFactory.Instance.GetStoryInfo(this);
+                IsActive = context.StoryInfo.IsActive;
+            }
+
             LoadFactory.Instance.Complete += Init;
-            IsActive = context.StoryInfo.IsActive;
         }
 
         public virtual void Init()
@@ -123,12 +133,23 @@ namespace Engine.Story
 #endif
 
             bool canRun;
-            if (context.StoryInfo.IsComplete)
+
+            if (IsDestroyStoreAfterComplete)
             {
-                canRun = SecondInit();
+                if (context.StoryInfo.IsComplete)
+                {
+                    canRun = SecondInit();
 #if UNITY_EDITOR && DEBUG && STORY_DEBUG
-                Debug.Log("second init story '" + StoryID + "'");
+                    Debug.Log("second init story '" + StoryID + "'");
 #endif
+                }
+                else
+                {
+                    canRun = FirstInit();
+#if UNITY_EDITOR && DEBUG && STORY_DEBUG
+                    Debug.Log("first init story '" + StoryID + "'");
+#endif
+                }
             }
             else
             {
@@ -137,7 +158,7 @@ namespace Engine.Story
                 Debug.Log("first init story '" + StoryID + "'");
 #endif
             }
-            
+
             if(canRun && IsNeedRunOnStart)
                 RunDialog();
             
@@ -155,12 +176,25 @@ namespace Engine.Story
             dialogBox.Runtime.StartEvent -= StartDialogEvent;
             dialogBox.Runtime.EndEvent   -= EndDialogEvent;
 
-            if (context.StoryInfo.IsComplete)
+            if (IsDestroyStoreAfterComplete)
             {
+                if (context.StoryInfo.IsComplete)
+                {
 #if UNITY_EDITOR && DEBUG && STORY_DEBUG
-                Debug.Log("second complete story '" + StoryID + "'");
+                    Debug.Log("second complete story '" + StoryID + "'");
 #endif
-                SecondComplete();
+                    SecondComplete();
+                }
+                else
+                {
+#if UNITY_EDITOR && DEBUG && STORY_DEBUG
+                    Debug.Log("first complete story '" + StoryID + "'");
+#endif
+                    FirstComplete();
+                }
+                context.StoryInfo.IsComplete = true;
+                IsActive = false;
+                QuestFactory.Instance.UpdateStoryInfo();
             }
             else
             {
@@ -170,10 +204,6 @@ namespace Engine.Story
                 FirstComplete();
             }
 
-            context.StoryInfo.IsComplete = true;
-            IsActive = false;
-            QuestFactory.Instance.UpdateStoryInfo();
-            
             if (Lists.IsNotEmpty(NextStories))
             {
                 foreach (var storyData in NextStories)
@@ -194,7 +224,8 @@ namespace Engine.Story
                 }
             }
             
-            Destruct();
+            if(IsDestroyStoreAfterComplete)
+                Destruct();
         }
         
         public abstract void CreateDialog(DialogQueue dlg);
