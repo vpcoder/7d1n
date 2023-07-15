@@ -5,7 +5,6 @@ using System.Linq;
 using UnityEngine;
 using UnityEngine.AI;
 using UnityEngine.EventSystems;
-using UnityEngine.UI;
 using Engine.Logic.Locations.Battle.Actions;
 
 namespace Engine.Logic.Locations
@@ -44,14 +43,14 @@ namespace Engine.Logic.Locations
         ///     ---
         ///     Total cost of path in APs
         /// </summary>
-        [SerializeField] private Text txtPathCost;
+        [SerializeField] private PathCostBehaviour allPath;
 
         /// <summary>
         ///     Стоимость достижимой части пути за доступные ОД
         ///     ---
         ///     The cost of the achievable part of the path for the available APs
         /// </summary>
-        [SerializeField] private Text txtActivePathCost;
+        [SerializeField] private PathCostBehaviour activePath;
 
         #endregion
 
@@ -77,10 +76,8 @@ namespace Engine.Logic.Locations
             var result = PathHelper.GetSmartPath(path, ap);
             if (result.EdgePoint.IsFullPath)
             {
-                txtPathCost.enabled = false;
-                txtActivePathCost.enabled = true;
-                txtActivePathCost.text = result.ActivePathAP.ToString();
-                txtActivePathCost.transform.position = path[path.Count - 1];
+                allPath.Hide();
+                activePath.Setup(result.ActivePathAP.ToString(), path[path.Count - 1]);
 
                 activeLine.positionCount = path.Count;
                 activeLine.SetPositions(path.ToArray());
@@ -90,14 +87,9 @@ namespace Engine.Logic.Locations
             }
             else
             {
-                txtPathCost.enabled = true;
-                txtActivePathCost.enabled = true;
-
-                txtActivePathCost.transform.position = result.ErrorPath[0];
-                txtPathCost.transform.position = result.ErrorPath[result.ErrorPath.Count - 1];
-                txtActivePathCost.text = result.ActivePathAP.ToString();
-                txtPathCost.text = result.FullPathAP.ToString();
-
+                activePath.Setup(result.ActivePathAP.ToString(), result.ErrorPath[0]);
+                allPath.Setup(result.FullPathAP.ToString(), result.ErrorPath[result.ErrorPath.Count - 1]);
+                
                 activeLine.positionCount = result.ActivePath.Count;
                 activeLine.SetPositions(result.ActivePath.ToArray());
                 errorLine.positionCount = result.ErrorPath.Count;
@@ -113,8 +105,8 @@ namespace Engine.Logic.Locations
         /// </summary>
         public void HidePath()
         {
-            txtPathCost.enabled = false;
-            txtActivePathCost.enabled = false;
+            allPath.Hide();
+            activePath.Hide();
             activeLine.positionCount = 0;
             activeLine.SetPositions(Arrays<Vector3>.Empty);
             errorLine.positionCount = 0;
